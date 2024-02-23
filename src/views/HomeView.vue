@@ -1,9 +1,10 @@
 <script setup>
+import TemplateContainer from '@/components/TemplateContainer.vue';
 import TheWelcome from '../components/TheWelcome.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <TemplateContainer>
+    
+  </TemplateContainer>
 </template>

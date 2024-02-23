@@ -1,5 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import ObjectiveViewsVue from '@/views/ObjectiveViews.vue'
+import CharterViewsVue from '@/views/CharterViews.vue'
+import StructureViewsVue from '@/views/StructureViews.vue'
+import ViceGovernorViewsVue from '@/views/ViceGovernorViews.vue'
+import BoardMemberViewsVue from '@/views/BoardMemberViews.vue'
+import PanlungsodMembersViewsVue from '@/views/PanlungsodMembersViews.vue'
+import CalendarOfActivitiesViewsVue from '@/views/CalendarOfActivitiesViews.vue'
+import ElisViewsVue from '@/views/ElisViews.vue'
+import OnlineTrackingViewsVue from '@/views/OnlineTrackingViews.vue'
+import ResolutionOrdinanceViewsVue from '@/views/ResolutionOrdinanceViews.vue'
+import OrdersBusinessViewsVue from '@/views/OrdersBusinessViews.vue'
+import MunicipalitiesViewsVue from '@/views/MunicipalitiesViews.vue'
+import ContactViewsVue from '@/views/ContactViews.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,11 +25,77 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
+      children: [
+        {
+          path: 'objectives',
+          component: ObjectiveViewsVue,
+        },
+        {
+          path: 'citizen\'s-charter',
+          component: CharterViewsVue,
+        },
+        {
+          path: 'organizational-structure',
+          component: StructureViewsVue,
+        }
+      ],
+    },
+    {
+      path: '/officials',
+      name: 'officials',
+      children: [
+        {
+          path: 'vice-governors',
+          component: ViceGovernorViewsVue,
+        },
+        {
+          path: 'board-members',
+          component: BoardMemberViewsVue,
+        },
+        {
+          path: 'panlungsod-members',
+          component: PanlungsodMembersViewsVue,
+        }
+      ],
+    },
+    {
+      path: '/calendar-of-activities',
+      name: 'calendar-of-activities',
+      component: CalendarOfActivitiesViewsVue
+    },
+    {
+      path: '/legislative',
+      name: 'legislative',
+      children: [
+        {
+          path: 'elis',
+          component: ElisViewsVue,
+        },
+        {
+          path: 'online-tracking',
+          component: OnlineTrackingViewsVue,
+        },
+        {
+          path: 'resolution/ordinance-esubmission',
+          component: ResolutionOrdinanceViewsVue,
+        }
+      ],
+    },
+    {
+      path: '/order-of-business',
+      name: 'order-of-business',
+      component: OrdersBusinessViewsVue
+    },
+    {
+      path: '/municipalities',
+      name: 'municipalities',
+      component: MunicipalitiesViewsVue
+    },
+    {
+      path: '/contact-us',
+      name: 'contact-us',
+      component: ContactViewsVue
+    },
   ]
 })
 

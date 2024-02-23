@@ -1,10 +1,10 @@
 <template>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary position-fixed w-100 p-0">
-        <div class="nav-container container-fluid primary-bg border">
-          	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-xl bg-body-tertiary position-fixed w-100 p-0 " data-bs-theme="dark">
+        <div class="nav-container container-fluid primary-bg py-4">
+          	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navItems" aria-controls="navItems" aria-expanded="false" aria-label="Toggle navigation">
             	<span class="navbar-toggler-icon"></span>
           	</button>
-          	<div class="collapse navbar-collapse py-4" id="navbarSupportedContent">
+          	<div class="collapse navbar-collapse py-2" id="navItems">
 				<ul class="navbar-nav me-auto mb-2 text-white mb-lg-0 justify-content-center w-100">
 					<li class="nav-item mx-1">
 						<router-link  class="nav-link text-white" to="/">Home</router-link>

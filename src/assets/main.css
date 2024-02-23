@@ -17,12 +17,24 @@
   background: var(--secondary-color);
 }
 
+.tertiary-bg{
+  background-color: var(--container-lb);
+}
+
+.dark-grey-bg{
+  background-color: var(--gray-divider);
+}
+
 .primary-font{
   color: var(--primary-font);
 }
 
 .secondary-font{
   color: var(--secondary-color);
+}
+
+.tertiary-font{
+  color: var(--primary-color);
 }
 
 .primary-divider{
@@ -42,7 +54,5 @@
   color: var(--placeholder);
 }
 
-.container-bg{
-  background-color: var(--container-lb);
-}
+
 

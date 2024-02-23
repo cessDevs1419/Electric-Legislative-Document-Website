@@ -9,26 +9,13 @@ import FooterComponent from './components/footer/FooterComponent.vue'
 
 
 <template>
-  <PageHeaderComponent v-if="isHomeRoute" ></PageHeaderComponent>
-  <NavbarComponent v-if="isHomeRoute" ></NavbarComponent>
+
 
   <RouterView />
   <FooterComponent/>
 </template>
 
-<script>
-export default {
-  setup() {
-    const route = useRoute();
 
-    const isHomeRoute = route.path === '/';
-    
-    return {
-      isHomeRoute
-    };
-  }
-}
-</script>
 
 <style scoped>
 

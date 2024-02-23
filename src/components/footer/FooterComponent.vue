@@ -10,7 +10,7 @@
             Lorem ipsum dolor sit amet consectetur. Ornare id orci id eget sollicitudin in. Penatibus pellentesque interdum sed ut ultrices vel sit quis. Mi nunc bibendum cursus pharetra ut. 
           </p>
           <div class="socials">
-            <i class="icon bi bi-facebook mr-2" style="font-size: 34px;"></i><i class="icon bi bi-instagram" style="font-size: 34px;"></i><i class="icon bi bi-facebook mr-2" style="font-size: 34px;"></i>
+            <i class="icon bi bi-facebook mr-2" style="font-size: 34px;"></i><i class="icon bi bi-instagram" style="font-size: 34px;"></i><i class="icon bi bi-twitter-x mr-2" style="font-size: 34px;"></i>
           </div>
         </div>
         <div class="col">
@@ -66,9 +66,6 @@
 </template>
 
 <script>
-export default {
-  
-}
 </script>
 
 <style scoped>

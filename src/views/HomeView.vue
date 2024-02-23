@@ -81,26 +81,62 @@ import TemplateContainer from '@/components/TemplateContainer.vue';
   
   <div class="hero w-100">
     
-        <div class="nav-container container-fluid d-flex align-items-center text-center">
-        <div class="row">
-            <!-- <i class="bi bi-4-circle" style="font-size: 15rem; vertical-align: middle; max-height: 20rem;"></i> -->
-            <img class="company-logo mx-auto mb-2" src="../assets/images/circle.png" alt="" srcset="">
-            <h1 class="company-header text-white fw-bold">
-              THE SANGGUNIANG PANLUNGSOD OF QUEZON
-            </h1>
-            <h3 class="info text-white">
-              Regular Session Livestreaming at 9:00am every Tuesday
-            </h3>
-          <div class="view-more-scroller">
-            <h5 class="text-white">
-              View More
-            </h5>
-            <i class="bi bi-arrow-down text-white" style="font-size: 4rem;"></i>
+        <div class="nav-container container-fluid d-flex align-items-center justify-content-center text-center">
+          <div class="row">
+              <!-- <i class="bi bi-4-circle" style="font-size: 15rem; vertical-align: middle; max-height: 20rem;"></i> -->
+              <img class="company-logo mx-auto mb-2" src="../assets/images/circle.png" alt="" srcset="">
+              <h1 class="company-header text-white fw-bold">
+                THE SANGGUNIANG PANLUNGSOD OF QUEZON
+              </h1>
+              <h3 class="info text-white">
+                Regular Session Livestreaming at 9:00am every Tuesday
+              </h3>
+            <div class="view-more-scroller">
+              <h5 class="text-white">
+                View More
+              </h5>
+              <i class="bi bi-arrow-down text-white" style="font-size: 4rem;"></i>
+            </div>
           </div>
-        </div>
         </div>
         <div class="overlay"></div>
   </div>
+
+  <TemplateContainer class="">
+
+  <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
+
+    <ol class="carousel-indicators">
+      <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active"></li>
+      <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
+      <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
+    </ol>
+    
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+      </div>
+
+      <div class="carousel-item">
+        <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 2">
+      </div>
+
+      <div class="carousel-item">
+        <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 3">
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#CardCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#CardCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+
+  </div>
+
+  </TemplateContainer>
  
 </template>
 
@@ -110,40 +146,74 @@ import TemplateContainer from '@/components/TemplateContainer.vue';
     backdrop-filter: blur(40px);
   }
 
-.hero {
-  position: relative;
-  padding-top: 7.5rem;
-  background-image: linear-gradient(rgba(66, 103, 178, 0.8), rgba(66, 103, 178, 0.8)), url('../assets/images/Hero-Bg.png');
-  background-size: cover;
-  background-position: center;
-}
+  .hero {
+    position: relative;
+    padding-top: 7.5rem;
+    background-image: linear-gradient(rgba(66, 103, 178, 0.8), rgba(66, 103, 178, 0.8)), url('../assets/images/Hero-Bg.png');
+    background-size: cover;
+    background-position: center;
+  }
 
-.navbar{
-  z-index: 2;
-}
+  .navbar{
+    z-index: 2;
+  }
 
-.company-logo,
-.company-header,
-.info,
-.view-more-scroller {
-  position: relative;
-  z-index: 1; /* Ensure the text is above the background image */
-}
-.info{
-  padding-bottom: 10rem;
-}
+  .company-logo,
+  .company-header,
+  .info,
+  .view-more-scroller {
+    position: relative;
+    z-index: 1; /* Ensure the text is above the background image */
+  }
+  .info{
+    padding-bottom: 10rem;
+  }
 
-.company-logo {
-  max-width: 15rem;
-}
+  .company-logo {
+    max-width: 15rem;
+  }
 
   .nav-container{
-		min-height: 100px;
-    z-index: 99;
-	}
-  
-	.router-link-active{
-		color: var(--secondary-color) !important;
-		font-weight: 700;
-	}
+      min-height: 100px;
+      z-index: 99;
+  }
+    
+  .router-link-active{
+      color: var(--secondary-color) !important;
+      font-weight: 700;
+  }
+
+  .carousel {
+    margin-top: 8rem;
+    margin-bottom: 5rem;
+  }
+
+  .carousel .carousel-inner img{
+    max-height: 22rem;
+  }
+
+  .carousel-indicators {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.carousel-indicators li {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--white-font);
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.carousel-indicators .active {
+  background-color: var(--secondary-color); /* Active indicator color */
+}
+
 </style>

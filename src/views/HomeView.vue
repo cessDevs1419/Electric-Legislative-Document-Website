@@ -138,23 +138,24 @@ import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
   <TemplateContainer>
     <div class="row g-3 my-3">
       <div class="col-lg-6">
-        <!-- for video src :videoSrc="" -->
         <LiveVideoComponent
-          :pageLink="'https://www.facebook.com/QCOSSP'"
+          :pageLink="'https://www.facebook.com/QuezonGovPh'"
+          :videoSrc="'src/assets/images/sample_vid.mp4'"
           >
           <template #heading>The 20th Sangguniang Panlungsod Members</template>
         </LiveVideoComponent>
       </div>
       <div class="col-lg-6">
         <LiveVideoComponent
-          :pageLink="'https://www.facebook.com/QCOSSP'"
+          :pageLink="'https://www.facebook.com/QuezonGovPh'"
+          :videoSrc="'src/assets/images/sample_vid.mp4'"
           >
           <template #heading>Facebook Livestream Link</template>
         </LiveVideoComponent>
       </div>
     </div>
   </TemplateContainer>
- 
+
 </template>
 
 <style scoped>

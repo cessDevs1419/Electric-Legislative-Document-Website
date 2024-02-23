@@ -1,8 +1,17 @@
-<script setup>
+<script>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import NavbarComponent from './components/NavbarComponent.vue';
 import PageHeaderComponent from './components/PageHeaderComponent.vue';
+import FooterComponent from './components/footer/FooterComponent.vue'
+
+export default {
+  name: 'App',
+    components: {
+      FooterComponent,
+    },
+}
+
 </script>
 
 <template>
@@ -10,6 +19,7 @@ import PageHeaderComponent from './components/PageHeaderComponent.vue';
   <NavbarComponent></NavbarComponent>
 
   <RouterView />
+  <FooterComponent/>
 </template>
 
 <style scoped>

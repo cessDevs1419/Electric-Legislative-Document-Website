@@ -5,7 +5,7 @@ import TheWelcome from '../components/TheWelcome.vue'
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-xl bg-body-tertiary position-fixed w-100 p-0 " data-bs-theme="dark">
+  <nav class="navbar navbar-expand-xl bg-body-tertiary position-fixed w-100 p-0" data-bs-theme="dark">
     <div class="nav-container container-fluid primary-bg py-4">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navItems" aria-controls="navItems" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -79,11 +79,59 @@ import TheWelcome from '../components/TheWelcome.vue'
       </div>
     </div>
   </nav>
-  <TemplateContainer>
-      <div class="hero"></div>
-  </TemplateContainer>
+  
+  <div class="hero w-100">
+    
+        <div class="nav-container container-fluid d-flex align-items-center text-center">
+        <div class="row">
+            <!-- <i class="bi bi-4-circle" style="font-size: 15rem; vertical-align: middle; max-height: 20rem;"></i> -->
+            <img class="company-logo mx-auto mb-2" src="../assets/images/circle.png" alt="" srcset="">
+            <h1 class="company-header text-white fw-bold">
+              THE SANGGUNIANG PANLUNGSOD OF QUEZON
+            </h1>
+            <h3 class="info text-white">
+              Regular Session Livestreaming at 9:00am every Tuesday
+            </h3>
+          <div class="view-more-scroller">
+            <h5 class="text-white">
+              View More
+            </h5>
+            <i class="bi bi-arrow-down text-white" style="font-size: 4rem;"></i>
+          </div>
+        </div>
+        </div>
+        <div class="overlay"></div>
+  </div>
+ 
 </template>
 
 <style scoped>
+
+.hero {
+  position: relative;
+  padding-top: 7.5rem;
+  background-image: linear-gradient(rgba(66, 103, 178, 0.8), rgba(66, 103, 178, 0.8)), url('../assets/images/Hero-Bg.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.navbar{
+  z-index: 2;
+}
+
+.company-logo,
+.company-header,
+.info,
+.view-more-scroller {
+  position: relative;
+  z-index: 1; /* Ensure the text is above the background image */
+}
+.info{
+  padding-bottom: 10rem;
+}
+
+.company-logo {
+  max-width: 15rem;
+}
 
 </style>

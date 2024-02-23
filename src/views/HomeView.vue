@@ -1,6 +1,6 @@
 <script setup>
 import TemplateContainer from '@/components/TemplateContainer.vue';
-
+import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
 </script>
 
 <template>
@@ -78,11 +78,10 @@ import TemplateContainer from '@/components/TemplateContainer.vue';
         </div>
     </div>
   </nav>
-  
   <div class="hero w-100">
     
-        <div class="nav-container container-fluid d-flex align-items-center justify-content-center text-center">
-          <div class="row">
+        <div class="nav-container  container-fluid d-flex align-items-center text-center justify-content-center">
+          <div class="row justify-content-center">
               <!-- <i class="bi bi-4-circle" style="font-size: 15rem; vertical-align: middle; max-height: 20rem;"></i> -->
               <img class="company-logo mx-auto mb-2" src="../assets/images/circle.png" alt="" srcset="">
               <h1 class="company-header text-white fw-bold">
@@ -103,39 +102,57 @@ import TemplateContainer from '@/components/TemplateContainer.vue';
   </div>
 
   <TemplateContainer class="">
+    <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
 
-  <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
+      </ol>
+      
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+        </div>
 
-    <ol class="carousel-indicators">
-      <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active"></li>
-      <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
-      <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
-    </ol>
-    
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+        <div class="carousel-item">
+          <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 2">
+        </div>
+
+        <div class="carousel-item">
+          <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 3">
+        </div>
       </div>
 
-      <div class="carousel-item">
-        <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 2">
-      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#CardCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
 
-      <div class="carousel-item">
-        <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 3">
+      <button class="carousel-control-next" type="button" data-bs-target="#CardCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
+
+    </div>
+  </TemplateContainer>
+  
+  <TemplateContainer>
+    <div class="row g-3 my-3">
+      <div class="col-lg-6">
+        <!-- for video src :videoSrc="" -->
+        <LiveVideoComponent
+          :pageLink="'https://www.facebook.com/QCOSSP'"
+          >
+          <template #heading>The 20th Sangguniang Panlungsod Members</template>
+        </LiveVideoComponent>
+      </div>
+      <div class="col-lg-6">
+        <LiveVideoComponent
+          :pageLink="'https://www.facebook.com/QCOSSP'"
+          >
+          <template #heading>Facebook Livestream Link</template>
+        </LiveVideoComponent>
       </div>
     </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#CardCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#CardCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    </button>
-
-  </div>
-
   </TemplateContainer>
  
 </template>
@@ -155,7 +172,7 @@ import TemplateContainer from '@/components/TemplateContainer.vue';
   }
 
   .navbar{
-    z-index: 2;
+    z-index: 3;
   }
 
   .company-logo,

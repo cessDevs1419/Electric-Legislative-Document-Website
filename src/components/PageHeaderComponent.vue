@@ -6,7 +6,7 @@ import TemplateContainer from './TemplateContainer.vue';
 
 </script>
 <template>
-    <header class="py-2">
+    <header class="py-2 ">
         <TemplateContainer>
             <div class="d-flex align-items-center flex-wrap border">  
                 <MainIconComponent class="icon-container mx-2"></MainIconComponent>

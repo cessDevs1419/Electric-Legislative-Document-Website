@@ -1,9 +1,13 @@
 <script setup>
 import TemplateContainer from '@/components/TemplateContainer.vue';
 import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
+import SidebarComponent from '@/components/SidebarComponent.vue';
+import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
+import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
 </script>
 
 <template>
+  <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-xl bg-body-tertiary position-fixed  w-100  p-0 " data-bs-theme="dark">
     <div class="nav-container container-fluid glow py-4">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navItems" aria-controls="navItems" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,6 +82,8 @@ import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
         </div>
     </div>
   </nav>
+
+  <!-- Hero Section -->
   <div class="hero w-100">
     
         <div class="nav-container  container-fluid d-flex align-items-center text-center justify-content-center">
@@ -101,40 +107,96 @@ import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
         <div class="overlay"></div>
   </div>
 
-  <TemplateContainer class="">
+  <!-- Carousel -->
+  <TemplateContainer>
     <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
 
-      <ol class="carousel-indicators">
-        <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active"></li>
-        <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
-        <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
-      </ol>
+      <div class="slide-indicator">
+        <ol class="carousel-indicators">
+          <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active"></li>
+          <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
+          <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
+        </ol>
+      </div>
       
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+      <div class="carousel-inner" >
+        <div class="carousel-item active" data-bs-interval="5000">
+          <div class="row">
+            <div class="col">
+              <h6>
+                What's Happening
+              </h6>
+              <h4>
+                Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
+              </h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
+              </p>
+
+              <div class="card-footer px-0 bg-transparent">
+                <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
+                <div class="underline"></div>
+              </div>
+            </div>
+            <div class="col">
+              <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+            </div>
+          </div>
         </div>
 
-        <div class="carousel-item">
-          <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 2">
+        <div class="carousel-item active" data-bs-interval="2000">
+          <div class="row">
+            <div class="col">
+              <h6>
+                What's Happening
+              </h6>
+              <h4>
+                Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
+              </h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
+              </p>
+
+              <div class="card-footer px-0 bg-transparent">
+                <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
+                <div class="underline"></div>
+              </div>
+            </div>
+            <div class="col">
+              <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+            </div>
+          </div>
         </div>
 
-        <div class="carousel-item">
-          <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 3">
+        <div class="carousel-item active" data-bs-interval="2000">
+          <div class="row">
+            <div class="col">
+              <h6>
+                What's Happening
+              </h6>
+              <h4>
+                Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
+              </h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
+              </p>
+
+              <div class="card-footer px-0 bg-transparent">
+                <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
+                <div class="underline"></div>
+              </div>
+            </div>
+            <div class="col">
+              <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+            </div>
+          </div>
         </div>
       </div>
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#CardCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button" data-bs-target="#CardCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      </button>
 
     </div>
   </TemplateContainer>
   
+  <!-- Videos / Link -->
   <TemplateContainer>
     <div class="row g-3 my-3">
       <div class="col-lg-6">
@@ -156,10 +218,143 @@ import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
     </div>
   </TemplateContainer>
 
+  <!-- News -->
+  <TemplateContainer>
+	<div class="row g-3 my-3">
+		<div class="col-lg-7">
+			<PaginationListComponentVue 
+				
+				:items="items" 
+				:itemsPerPage="4"
+				:listType="'orderList'"
+			>
+				<template #heading>Recent Order of Business</template>
+			</PaginationListComponentVue>
+			<div class="my-5"></div>
+			<PaginationListComponentVue 
+				
+				:items="items" 
+				:itemsPerPage="4"
+				:listType="'newsList'"
+			>
+				<template #heading>Latest News</template>
+			</PaginationListComponentVue>
+		</div>
+		<div class="col-lg-5">
+        <!-- Sidebar -->
+        <SidebarListComponentVue
+          :items="names"
+          :listType="'calendar'"
+        >
+            <template #heading>Calendar of Events</template>
+        </SidebarListComponentVue>
+        
+        <SidebarListComponentVue
+          :items="names"
+          :listType="'membersList'"
+        >
+            <template #heading>The 20th SP Members Facebook Page</template>
+    
+        </SidebarListComponentVue>
+
+        <SidebarListComponentVue
+          :items="names"
+          :listType="'hotlineList'"
+        >
+            <template #heading>Quezon Province Hotlines</template>
+    
+        </SidebarListComponentVue>
+		</div>
+	</div>
+  </TemplateContainer>
+
 </template>
 
+<script>
+
+export default {
+  components: {
+    PaginationListComponentVue
+  },
+  data() {
+    return {
+		items: [
+                {
+                title: 'Order Business – 69th Regular Session of the 20th Sangguniang Panlungsod of Quezon Province',
+                description: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 15, 2024',
+                link: 'http://example.com',
+                linkTitle: 'Sample 1'
+                },
+                {
+                title: 'Another Dynamic Item2',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                },
+                {
+                title: 'Another Dynamic Item3',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                },
+                {
+                title: 'Another Dynamic Item4',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                },
+                {
+                title: 'Another Dynamic Item5',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                },
+                {
+                title: 'Another Dynamic Item6',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                },
+                {
+                title: 'Another Dynamic Item8',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                }
+                // Add more items as needed
+            ],
+    names: [
+      {
+        memberName: 'Jerome',
+        link: 'http://example.com/another'
+      },
+      {
+        memberName: 'Jerome1',
+        link: 'http://example.com/another'
+      },
+      {
+        memberName: 'Jerome2',
+        link: 'http://example.com/another'
+      },
+      {
+        memberName: 'Jerome3',
+        link: 'http://example.com/another'
+      }
+    ]
+    };
+  }
+};
+</script>
+
 <style scoped>
-  .glow{
+.glow{
     background-color: rgb(40, 107, 174, 50);
     backdrop-filter: blur(40px);
   }
@@ -183,6 +378,7 @@ import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
     position: relative;
     z-index: 1; /* Ensure the text is above the background image */
   }
+
   .info{
     padding-bottom: 10rem;
   }
@@ -195,7 +391,7 @@ import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
       min-height: 100px;
       z-index: 99;
   }
-    
+
   .router-link-active{
       color: var(--secondary-color) !important;
       font-weight: 700;
@@ -211,27 +407,30 @@ import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
   }
 
   .carousel-indicators {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  list-style: none;
-}
+    position: absolute;
+    left: 40%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    list-style: none;
+  }
 
 .carousel-indicators li {
-  width: 10px;
-  height: 10px;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
-  background-color: var(--white-font);
+  background-color: var(--gray-divider);
   margin: 0 5px;
   cursor: pointer;
 }
 
 .carousel-indicators .active {
   background-color: var(--secondary-color); /* Active indicator color */
+}
+
+.underline{
+        max-width: 5.8em;
+        border-bottom: 2px solid var(--primary-color);
 }
 
 </style>

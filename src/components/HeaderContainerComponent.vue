@@ -16,5 +16,6 @@
 <style scoped>
     div{
         min-height: auto;
+        z-index: 99;
     }
 </style>

@@ -1,37 +1,45 @@
 <script>
     import TitleContainerComponent from './TitleContainerComponent.vue';
     import PaginationNavComponentVue from './PaginationNavComponent.vue';
+    import OrderListTemplateComponent from './OrderListTemplateComponent.vue';
+    import NewsListTemplateComponent from './NewsListTemplateComponent.vue';
 
     export default {
         components: {
             TitleContainerComponent,
-            PaginationNavComponentVue
+            PaginationNavComponentVue,
+            OrderListTemplateComponent,
+            NewsListTemplateComponent
         },
         props: {
             items: {
-            type: Array,
-            required: true
+                type: Array,
+                required: true
             },
             itemsPerPage: {
-            type: Number,
-            required: true
+                type: Number,
+                required: true
             },
+            listType: {
+                type: String,
+                required: true
+            }
         },
         data() {
             return {
-            currentPage: 1
+                currentPage: 1
             };
         },
         computed: {
             paginatedItems() {
-            const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-            const endIndex = startIndex + this.itemsPerPage;
-            return this.items.slice(startIndex, endIndex);
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const endIndex = startIndex + this.itemsPerPage;
+                return this.items.slice(startIndex, endIndex);
             }
         },
         methods: {
             handlePageChange(page) {
-            this.currentPage = page;
+                this.currentPage = page;
             }
         }
         };
@@ -40,23 +48,23 @@
 <template>
     <TitleContainerComponent>
         <template #heading>
-            Recent Order Of Business
+            <slot name="heading" ></slot>
         </template>
     </TitleContainerComponent>
     <ul class="list-unstyled">
         <li class="text-decoration-none mt-5" v-for="(item, index) in paginatedItems" :key="index">
-            <h4 class="fw-semibold">
-                {{ item.title }}
-            </h4>
-            <p>
-                {{ item.description }}
-            </p>
-            <div class="details d-flex align-items-center mb-5">
-                <p class="m-0 grey-font" >{{ item.date }}</p>
-                <div class="vertical-border-line mx-4"></div>
-                <a :href="item.link" class="m-0 tertiary-font">{{item.linkTitle}}</a>
-            </div>  
-            <hr class="divider">
+            <OrderListTemplateComponent v-if="this.listType === 'orderList'" :link="item.link">
+                <template #title>{{item.title}}</template>
+                <template #description>{{item.description}}</template>
+                <template #date>{{item.date}}</template>
+                <template #linkTitle>{{item.linkTitle}}</template>
+            </OrderListTemplateComponent>
+            <NewsListTemplateComponent v-if="this.listType === 'newsList'" :link="item.link">
+                <template #title>{{item.title}}</template>
+                <template #description>{{item.description}}</template>
+                <template #date>{{item.date}}</template>
+                <template #linkTitle>{{item.linkTitle}}</template>
+            </NewsListTemplateComponent>
         </li>
     </ul>
     <div class="d-flex justify-content-end">
@@ -64,10 +72,3 @@
     </div>
 </template>
 
-<style scoped>
-    .vertical-border-line{
-        width: 1px;
-        height: 20px;
-        border: 1px solid gray;
-    }
-</style>

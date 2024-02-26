@@ -5,7 +5,7 @@ import SidebarComponent from './SidebarComponent.vue';
 <template>
     <div class="card-body tertiary-bg my-3 p-4 position-relative">
             <p class="m-0 tertiary-font fs-5">
-                <slot name="memberName"></slot>
+                <slot name="1st-MemberName"></slot>
             </p>
             <p class="m-0 tertiary-font fs-5">
                 <slot name="2nd-MemberName"></slot>

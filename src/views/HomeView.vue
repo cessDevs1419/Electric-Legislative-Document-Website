@@ -120,7 +120,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
       </div>
       
       <div class="carousel-inner" >
-        <div class="carousel-item active" data-bs-interval="10000">
+        <div class="carousel-item active" data-bs-interval="5000">
           <div class="row">
             <div class="col">
               <h6>
@@ -133,7 +133,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
               </p>
 
-              <div class="card-footer px-0 border-0 bg-transparent">
+              <div class="card-footer px-0 bg-transparent">
                 <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
                 <div class="underline"></div>
               </div>
@@ -157,7 +157,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
               </p>
 
-              <div class="card-footer px-0 border-0 bg-transparent">
+              <div class="card-footer px-0 bg-transparent">
                 <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
                 <div class="underline"></div>
               </div>
@@ -181,7 +181,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
               </p>
 
-              <div class="card-footer px-0 border-0 bg-transparent">
+              <div class="card-footer px-0 bg-transparent">
                 <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
                 <div class="underline"></div>
               </div>
@@ -242,17 +242,27 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 		</div>
 		<div class="col-lg-5">
         <!-- Sidebar -->
-        <SidebarComponent>
-                  <template #heading>The 20th SP Members Facebook Page</template>
-        </SidebarComponent>
+        <SidebarListComponentVue
+          :items="names"
+          :listType="'calendar'"
+        >
+            <template #heading>Calendar of Events</template>
+        </SidebarListComponentVue>
         
         <SidebarListComponentVue
-        
           :items="names"
-          :itemsOnPage="5"
           :listType="'membersList'"
         >
-         <template #heading>The 999 SP Members Facebook Page</template>
+            <template #heading>The 20th SP Members Facebook Page</template>
+    
+        </SidebarListComponentVue>
+
+        <SidebarListComponentVue
+          :items="names"
+          :listType="'hotlineList'"
+        >
+            <template #heading>Quezon Province Hotlines</template>
+    
         </SidebarListComponentVue>
 		</div>
 	</div>

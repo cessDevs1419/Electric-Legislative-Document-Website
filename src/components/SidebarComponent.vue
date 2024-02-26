@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <div class="card border-0">
+    <div class="card">
         <TitleContainerComponent>
             <template #heading>
                 <slot name="heading"></slot>

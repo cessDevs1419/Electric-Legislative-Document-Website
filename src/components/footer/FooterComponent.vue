@@ -4,7 +4,7 @@
       <div class="footer-info row py-5">
         <div class="col">
           <p class="company-header">
-            SANGGUNIANG PANLUNGSOD NG <span>GENERAL SANTOS CITY</span>
+            SANGGUNIANG PANLUNGSOD NG <span>QUEZON PROVINCE</span>
           </p>
           <p class="info">
             Lorem ipsum dolor sit amet consectetur. Ornare id orci id eget sollicitudin in. Penatibus pellentesque interdum sed ut ultrices vel sit quis. Mi nunc bibendum cursus pharetra ut. 

@@ -2,9 +2,11 @@
 import TemplateContainer from '@/components/TemplateContainer.vue';
 import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
 
+import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
 </script>
 
 <template>
+  <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-xl bg-body-tertiary position-fixed  w-100  p-0 " data-bs-theme="dark">
     <div class="nav-container container-fluid glow py-4">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navItems" aria-controls="navItems" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,6 +81,8 @@ import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
         </div>
     </div>
   </nav>
+
+  <!-- Hero Section -->
   <div class="hero w-100">
     
         <div class="nav-container  container-fluid d-flex align-items-center text-center justify-content-center">
@@ -102,7 +106,8 @@ import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
         <div class="overlay"></div>
   </div>
 
-  <TemplateContainer class="">
+  <!-- Carousel -->
+  <TemplateContainer>
     <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
 
       <div class="slide-indicator">
@@ -190,27 +195,108 @@ import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
     </div>
   </TemplateContainer>
   
+  <!-- Videos / Link -->
   <TemplateContainer>
     <div class="row g-3 my-3">
       <div class="col-lg-6">
-        <!-- for video src :videoSrc="" -->
         <LiveVideoComponent
-          :pageLink="'https://www.facebook.com/QCOSSP'"
+          :pageLink="'https://www.facebook.com/QuezonGovPh'"
+          :videoSrc="'src/assets/images/sample_vid.mp4'"
           >
           <template #heading>The 20th Sangguniang Panlungsod Members</template>
         </LiveVideoComponent>
       </div>
       <div class="col-lg-6">
         <LiveVideoComponent
-          :pageLink="'https://www.facebook.com/QCOSSP'"
+          :pageLink="'https://www.facebook.com/QuezonGovPh'"
+          :videoSrc="'src/assets/images/sample_vid.mp4'"
           >
           <template #heading>Facebook Livestream Link</template>
         </LiveVideoComponent>
       </div>
     </div>
   </TemplateContainer>
- 
+
+  <TemplateContainer>
+	<div class="row g-3 my-3">
+		<div class="col-lg-7">
+			<PaginationListComponentVue 
+				:items="items" 
+				:itemsPerPage="4"
+			>
+			</PaginationListComponentVue>
+		</div>
+		<div class="col-lg-5">
+
+		</div>
+	  </div>
+  </TemplateContainer>
 </template>
+
+<script>
+
+export default {
+  components: {
+    PaginationListComponentVue
+  },
+  data() {
+    return {
+		items: [
+                {
+                title: 'Order Business – 69th Regular Session of the 20th Sangguniang Panlungsod of Quezon Province',
+                description: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 15, 2024',
+                link: 'http://example.com',
+                linkTitle: 'Sample 1'
+                },
+                {
+                title: 'Another Dynamic Item2',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                },
+                {
+                title: 'Another Dynamic Item3',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                },
+                {
+                title: 'Another Dynamic Item4',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                },
+                {
+                title: 'Another Dynamic Item5',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                },
+                {
+                title: 'Another Dynamic Item6',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                },
+                {
+                title: 'Another Dynamic Item8',
+                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                date: 'February 20, 2024',
+                link: 'http://example.com/another',
+                linkTitle: 'Sample 2'
+                }
+                // Add more items as needed
+            ],
+    };
+  }
+};
+</script>
 
 <style scoped>
   .glow{

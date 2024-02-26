@@ -1,4 +1,10 @@
+<script setup>
+    import TitleContainerComponent from './TitleContainerComponent.vue';
+</script>
+
 <script>
+
+
 export default {
     props: {
         videoSrc: {
@@ -36,12 +42,12 @@ export default {
 
 <template>
     <div class="card border-0">
-        <div class="card-head border py-3 px-4 primary-bg d-flex align-items-center">
-            <h6 class="text-white m-0" >
+        <TitleContainerComponent>
+            <template #heading>
                 <slot name="heading"></slot>
-            </h6>
-        </div>
-        <div class="card-body dark-grey-bg border my-3 p-0 position-relative">
+            </template>
+        </TitleContainerComponent>
+        <div class="card-body dark-grey-bg my-3 p-0 position-relative">
             <video class="w-100 h-100" ref="videoPlayer" @play="handlePlay" @pause="handlePause" >
                 <source :src="videoSrc" type="video/mp4">
             </video>

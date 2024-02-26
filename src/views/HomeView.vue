@@ -2,8 +2,8 @@
 import TemplateContainer from '@/components/TemplateContainer.vue';
 import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
 import SidebarComponent from '@/components/SidebarComponent.vue';
-import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
 import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
+import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
 </script>
 
 <template>
@@ -344,7 +344,7 @@ export default {
 </script>
 
 <style scoped>
-  .glow{
+.glow{
     background-color: rgb(40, 107, 174, 50);
     backdrop-filter: blur(40px);
   }
@@ -368,7 +368,7 @@ export default {
     position: relative;
     z-index: 1; /* Ensure the text is above the background image */
   }
-  
+
   .info{
     padding-bottom: 10rem;
   }
@@ -381,7 +381,7 @@ export default {
       min-height: 100px;
       z-index: 99;
   }
-    
+
   .router-link-active{
       color: var(--secondary-color) !important;
       font-weight: 700;
@@ -421,6 +421,6 @@ export default {
 .underline{
         max-width: 5.8em;
         border-bottom: 2px solid var(--primary-color);
-    }
+}
 
 </style>

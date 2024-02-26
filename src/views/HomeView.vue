@@ -1,7 +1,11 @@
 <script setup>
 import TemplateContainer from '@/components/TemplateContainer.vue';
 import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
+<<<<<<< HEAD
 import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
+=======
+
+>>>>>>> levvv-dev
 </script>
 
 <template>
@@ -105,33 +109,87 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
   <TemplateContainer class="">
     <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
 
-      <ol class="carousel-indicators">
-        <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active"></li>
-        <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
-        <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
-      </ol>
+      <div class="slide-indicator">
+        <ol class="carousel-indicators">
+          <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active"></li>
+          <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
+          <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
+        </ol>
+      </div>
       
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+      <div class="carousel-inner" >
+        <div class="carousel-item active" data-bs-interval="10000">
+          <div class="row">
+            <div class="col">
+              <h6>
+                What's Happening
+              </h6>
+              <h4>
+                Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
+              </h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
+              </p>
+
+              <div class="card-footer px-0 border-0 bg-transparent">
+                <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
+                <div class="underline"></div>
+              </div>
+            </div>
+            <div class="col">
+              <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+            </div>
+          </div>
         </div>
 
-        <div class="carousel-item">
-          <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 2">
+        <div class="carousel-item active" data-bs-interval="2000">
+          <div class="row">
+            <div class="col">
+              <h6>
+                What's Happening
+              </h6>
+              <h4>
+                Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
+              </h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
+              </p>
+
+              <div class="card-footer px-0 border-0 bg-transparent">
+                <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
+                <div class="underline"></div>
+              </div>
+            </div>
+            <div class="col">
+              <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+            </div>
+          </div>
         </div>
 
-        <div class="carousel-item">
-          <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 3">
+        <div class="carousel-item active" data-bs-interval="2000">
+          <div class="row">
+            <div class="col">
+              <h6>
+                What's Happening
+              </h6>
+              <h4>
+                Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
+              </h4>
+              <p>
+                Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
+              </p>
+
+              <div class="card-footer px-0 border-0 bg-transparent">
+                <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
+                <div class="underline"></div>
+              </div>
+            </div>
+            <div class="col">
+              <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+            </div>
+          </div>
         </div>
       </div>
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#CardCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button" data-bs-target="#CardCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      </button>
 
     </div>
   </TemplateContainer>
@@ -275,6 +333,7 @@ export default {
     position: relative;
     z-index: 1; /* Ensure the text is above the background image */
   }
+  
   .info{
     padding-bottom: 10rem;
   }
@@ -303,21 +362,19 @@ export default {
   }
 
   .carousel-indicators {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  list-style: none;
-}
+    position: absolute;
+    left: 40%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    list-style: none;
+  }
 
 .carousel-indicators li {
-  width: 10px;
-  height: 10px;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
-  background-color: var(--white-font);
+  background-color: var(--gray-divider);
   margin: 0 5px;
   cursor: pointer;
 }
@@ -325,5 +382,10 @@ export default {
 .carousel-indicators .active {
   background-color: var(--secondary-color); /* Active indicator color */
 }
+
+.underline{
+        max-width: 5.8em;
+        border-bottom: 2px solid var(--primary-color);
+    }
 
 </style>

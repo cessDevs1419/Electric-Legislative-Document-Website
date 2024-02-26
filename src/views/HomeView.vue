@@ -1,8 +1,9 @@
 <script setup>
 import TemplateContainer from '@/components/TemplateContainer.vue';
 import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
-
+import SidebarComponent from '@/components/SidebarComponent.vue';
 import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
+import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
 </script>
 
 <template>
@@ -217,6 +218,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
     </div>
   </TemplateContainer>
 
+  <!-- News -->
   <TemplateContainer>
 	<div class="row g-3 my-3">
 		<div class="col-lg-7">
@@ -239,10 +241,23 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 			</PaginationListComponentVue>
 		</div>
 		<div class="col-lg-5">
-
+        <!-- Sidebar -->
+        <SidebarComponent>
+                  <template #heading>The 20th SP Members Facebook Page</template>
+        </SidebarComponent>
+        
+        <SidebarListComponentVue
+        
+          :items="names"
+          :itemsOnPage="5"
+          :listType="'membersList'"
+        >
+         <template #heading>The 999 SP Members Facebook Page</template>
+        </SidebarListComponentVue>
 		</div>
-	  </div>
+	</div>
   </TemplateContainer>
+
 </template>
 
 <script>
@@ -305,6 +320,24 @@ export default {
                 }
                 // Add more items as needed
             ],
+    names: [
+      {
+        memberName: 'Jerome',
+        link: 'http://example.com/another'
+      },
+      {
+        memberName: 'Jerome1',
+        link: 'http://example.com/another'
+      },
+      {
+        memberName: 'Jerome2',
+        link: 'http://example.com/another'
+      },
+      {
+        memberName: 'Jerome3',
+        link: 'http://example.com/another'
+      }
+    ]
     };
   }
 };

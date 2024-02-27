@@ -58,5 +58,7 @@
         height: 24rem;
         margin-top: 5rem;
     }
-
+    .card-container{
+        max-width: 320px;
+    }
 </style>

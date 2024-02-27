@@ -8,13 +8,13 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer>
-        <SectionHeaderComponent>
-            <template #fistWord >Vice Governor's</template>
+    <TemplateContainer class="mt-5 mb-5">
+        <SectionHeaderComponent class="mt-5" type="inside">
+            <template #firstWord >Vice Governor's</template>
             <template #secondWord >Wall</template>
         </SectionHeaderComponent>
-        <div class="row mb-5">
-            <div class="col-3 m-auto mb-3">
+        <div class="row mb-5 mt-5">
+            <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
                     images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
@@ -25,7 +25,7 @@
 
                 </CardsComponent>
             </div>
-            <div class="col-3 m-auto mb-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
                     images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
@@ -36,7 +36,7 @@
 
                 </CardsComponent>
             </div>
-            <div class="col-3 m-auto mb-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
                     images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
@@ -47,7 +47,7 @@
 
                 </CardsComponent>
             </div>
-            <div class="col-3 m-auto mb-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
                     images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
@@ -58,7 +58,7 @@
 
                 </CardsComponent>
             </div>
-            <div class="col-3 m-auto mb-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
                     images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
@@ -69,7 +69,7 @@
 
                 </CardsComponent>
             </div>
-            <div class="col-3 m-auto mb-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
                     images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
@@ -80,7 +80,7 @@
 
                 </CardsComponent>
             </div>
-            <div class="col-3 m-auto mb-3">
+            <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
                     images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
@@ -91,6 +91,7 @@
 
                 </CardsComponent>
             </div>
+            
         </div>
     </TemplateContainer>
 </template>

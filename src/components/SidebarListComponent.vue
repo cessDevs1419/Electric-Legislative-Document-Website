@@ -4,6 +4,8 @@
   import MembersListTemplateComponent from './MembersListTemplateComponent.vue';
   import TitleContainerComponent from './TitleContainerComponent.vue';
   import MiniCalendarTemplateComponent from './MiniCalendarTemplateComponent.vue'
+  import MunicipalitiesTemplateComponent from './MunicipalitiesTemplateComponent.vue';
+  import EventsTemplateComponent from './EventsTemplateComponent.vue';
 </script>
 
 <script>
@@ -20,10 +22,7 @@ export default {
   },
   mounted() {
     // Log the items prop when the component is mounted
-    console.log('Member Names:');
-    this.items.forEach(item => {
-      console.log(item.memberName);
-    });
+  
   }
 }
 </script>
@@ -65,8 +64,26 @@ export default {
             <template #4HotlineNumber>Landline: 887-6018</template>
       </HotlinesTemplateComponent>
       <MiniCalendarTemplateComponent v-if="listType === 'calendar'" :list="items">
-      
       </MiniCalendarTemplateComponent>
+      <MunicipalitiesTemplateComponent v-if="listType === 'municipalityList'" :list="items">
+        <template #1st-Municipality>Agdangan</template>
+        <template #2nd-Municipality>Burdeos</template>
+        <template #3rd-Municipality>Calauag</template>
+        <template #4th-Municipality>Dolores</template>
+        <template #5th-Municipality>General Luna</template>
+        <template #6th-Municipality>Guinayangan</template>
+        <template #7th-Municipality>Jomalig</template>
+        <template #8th-Municipality>Pagbilao</template>
+        <template #9th-Municipality>Plaridel</template>
+        <template #10th-Municipality>Sampaloc</template>
+      </MunicipalitiesTemplateComponent>
+      <EventsTemplateComponent v-if="listType === 'eventList'" :list="items">
+        <template #1st-event>Paru-Paro Festival</template>
+        <template #2nd-event>10th Anniversary Party</template>
+        <template #3rd-event>Tapat mo, Linis mo</template>
+        <template #4th-event>Blood Letting with Red Cross</template>
+        <template #5th-event>Free anti-rabies for furbabies</template>
+      </EventsTemplateComponent>
     </li>
   </ul>
   

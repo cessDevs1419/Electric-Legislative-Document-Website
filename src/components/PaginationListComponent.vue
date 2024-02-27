@@ -12,6 +12,10 @@
             NewsListTemplateComponent
         },
         props: {
+            title: {
+                type: String,
+                required: true
+            },
             items: {
                 type: Array,
                 required: true
@@ -43,16 +47,15 @@
             }
         },
         mounted() {
-    // Log the items prop when the component is mounted
-    console.log('Items prop:', this.items);
-  }
+
+}
         };
 </script>
 
 <template>
-    <TitleContainerComponent>
+    <TitleContainerComponent v-if="title">
         <template #heading>
-            <slot name="heading" ></slot>
+            {{ title }}
         </template>
     </TitleContainerComponent>
     <ul class="list-unstyled">

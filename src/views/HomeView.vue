@@ -223,21 +223,21 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 	<div class="row g-3 my-3">
 		<div class="col-lg-7">
 			<PaginationListComponentVue 
-				
+				title="Recent Order of Business"
 				:items="items" 
 				:itemsPerPage="4"
 				:listType="'orderList'"
 			>
-				<template #heading>Recent Order of Business</template>
+
 			</PaginationListComponentVue>
 			<div class="my-5"></div>
 			<PaginationListComponentVue 
-				
+				title="Latest News"
 				:items="items" 
 				:itemsPerPage="4"
 				:listType="'newsList'"
 			>
-				<template #heading>Latest News</template>
+
 			</PaginationListComponentVue>
 		</div>
 		<div class="col-lg-5">

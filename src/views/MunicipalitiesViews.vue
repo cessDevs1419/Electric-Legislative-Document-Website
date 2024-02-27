@@ -30,8 +30,8 @@
     <TemplateContainer>
         <div class="row g-3 my-3">
             <div class="col-lg-7">
-                <SectionHeaderComponent>
-                    <template #fistWord>MUNICIPALITIES</template>
+                <SectionHeaderComponent class="mt-5" type="inside">
+                    <template #firstWord >MUNICIPALITIES</template>
                 </SectionHeaderComponent>
                 <div class="qp-info pt-4">
                     <p>

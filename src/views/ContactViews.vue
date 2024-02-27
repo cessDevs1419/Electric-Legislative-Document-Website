@@ -18,7 +18,7 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="d-flex align-item-center jutify-content-center py-5 my-5">
+    <TemplateContainer class="d-flex align-item-center jutify-content-center mb-5">
         <div class="contact-container w-100 box-shadow my-5 m-auto">
             <div class="row w-100 h-100 m-auto ">
                 <div class="col-lg-7 p-5 dirty-white-bg">

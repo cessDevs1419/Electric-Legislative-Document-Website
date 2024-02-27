@@ -9,8 +9,8 @@
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
     <TemplateContainer class="mt-5 mb-5">
-        <SectionHeaderComponent class="mt-5">
-            <template #fistWord >Vice Governor's</template>
+        <SectionHeaderComponent class="mt-5" type="inside">
+            <template #firstWord >Vice Governor's</template>
             <template #secondWord >Wall</template>
         </SectionHeaderComponent>
         <div class="row mb-5 mt-5">

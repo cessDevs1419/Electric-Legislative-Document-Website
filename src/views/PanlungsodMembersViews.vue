@@ -8,8 +8,8 @@
     <div class="spacer"></div>
     <TemplateContainerComponent class="mb-5 mt-5">
         <div class="d-flex justify-content-center mb-5 mt-5">
-            <SectionHeaderComponent class="m-auto  mt-5 mb-5">
-                <template #fistWord >The 20th</template>
+            <SectionHeaderComponent class="m-auto  mt-5 mb-5" type="inside">
+                <template #firstWord >The 20th</template>
                 <template #secondWord >Sangguniang Panlungsod Members</template>
             </SectionHeaderComponent>
         </div>

@@ -13,6 +13,7 @@ import ResolutionOrdinanceViewsVue from '@/views/ResolutionOrdinanceViews.vue'
 import OrdersBusinessViewsVue from '@/views/OrdersBusinessViews.vue'
 import MunicipalitiesViewsVue from '@/views/MunicipalitiesViews.vue'
 import ContactViewsVue from '@/views/ContactViews.vue'
+import SpecifiedMunicipalViewsVue from '@/views/SpecifiedMunicipalViews.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -95,6 +96,11 @@ const router = createRouter({
       path: '/contact-us',
       name: 'contact-us',
       component: ContactViewsVue
+    },
+    {
+      path: '/view-municipality',
+      name: 'view-municipality',
+      component: SpecifiedMunicipalViewsVue
     },
   ]
 })

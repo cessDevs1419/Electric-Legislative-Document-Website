@@ -47,7 +47,9 @@ export default {
                 <slot name="heading"></slot>
             </template>
         </TitleContainerComponent>
-        <div class="card-body dark-grey-bg my-3 p-0 position-relative">
+   
+        <div class="card-body dark-grey-bg border my-3 p-0 position-relative">
+
             <video class="w-100 h-100" ref="videoPlayer" @play="handlePlay" @pause="handlePause" >
                 <source :src="videoSrc" type="video/mp4">
             </video>

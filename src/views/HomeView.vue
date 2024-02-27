@@ -1,10 +1,13 @@
 <script setup>
 import TemplateContainer from '@/components/TemplateContainer.vue';
 import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
+import SidebarComponent from '@/components/SidebarComponent.vue';
+import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
 import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
 </script>
 
 <template>
+  <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-xl bg-body-tertiary position-fixed  w-100  p-0 " data-bs-theme="dark">
     <div class="nav-container container-fluid glow py-4">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navItems" aria-controls="navItems" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,6 +82,8 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         </div>
     </div>
   </nav>
+
+  <!-- Hero Section -->
   <div class="hero w-100">
     
         <div class="nav-container  container-fluid d-flex align-items-center text-center justify-content-center">
@@ -102,7 +107,8 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         <div class="overlay"></div>
   </div>
 
-  <TemplateContainer class="">
+  <!-- Carousel -->
+  <TemplateContainer>
     <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
 
       <div class="slide-indicator">
@@ -114,7 +120,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
       </div>
       
       <div class="carousel-inner" >
-        <div class="carousel-item active" data-bs-interval="10000">
+        <div class="carousel-item active" data-bs-interval="5000">
           <div class="row">
             <div class="col">
               <h6>
@@ -127,7 +133,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
               </p>
 
-              <div class="card-footer px-0 border-0 bg-transparent">
+              <div class="card-footer px-0 bg-transparent">
                 <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
                 <div class="underline"></div>
               </div>
@@ -151,7 +157,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
               </p>
 
-              <div class="card-footer px-0 border-0 bg-transparent">
+              <div class="card-footer px-0 bg-transparent">
                 <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
                 <div class="underline"></div>
               </div>
@@ -175,7 +181,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
               </p>
 
-              <div class="card-footer px-0 border-0 bg-transparent">
+              <div class="card-footer px-0 bg-transparent">
                 <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
                 <div class="underline"></div>
               </div>
@@ -190,6 +196,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
     </div>
   </TemplateContainer>
   
+  <!-- Videos / Link -->
   <TemplateContainer>
     <div class="row g-3 my-3">
       <div class="col-lg-6">
@@ -211,6 +218,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
     </div>
   </TemplateContainer>
 
+  <!-- News -->
   <TemplateContainer>
 	<div class="row g-3 my-3">
 		<div class="col-lg-7">
@@ -233,10 +241,33 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 			</PaginationListComponentVue>
 		</div>
 		<div class="col-lg-5">
+        <!-- Sidebar -->
+        <SidebarListComponentVue
+          :items="names"
+          :listType="'calendar'"
+        >
+            <template #heading>Calendar of Events</template>
+        </SidebarListComponentVue>
+        
+        <SidebarListComponentVue
+          :items="names"
+          :listType="'membersList'"
+        >
+            <template #heading>The 20th SP Members Facebook Page</template>
+    
+        </SidebarListComponentVue>
 
+        <SidebarListComponentVue
+          :items="names"
+          :listType="'hotlineList'"
+        >
+            <template #heading>Quezon Province Hotlines</template>
+    
+        </SidebarListComponentVue>
 		</div>
-	  </div>
+	</div>
   </TemplateContainer>
+
 </template>
 
 <script>
@@ -299,6 +330,24 @@ export default {
                 }
                 // Add more items as needed
             ],
+    names: [
+      {
+        memberName: 'Jerome',
+        link: 'http://example.com/another'
+      },
+      {
+        memberName: 'Jerome1',
+        link: 'http://example.com/another'
+      },
+      {
+        memberName: 'Jerome2',
+        link: 'http://example.com/another'
+      },
+      {
+        memberName: 'Jerome3',
+        link: 'http://example.com/another'
+      }
+    ]
     };
   }
 };

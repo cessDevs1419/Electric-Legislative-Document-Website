@@ -41,7 +41,11 @@
             handlePageChange(page) {
                 this.currentPage = page;
             }
-        }
+        },
+        mounted() {
+    // Log the items prop when the component is mounted
+    console.log('Items prop:', this.items);
+  }
         };
 </script>
 

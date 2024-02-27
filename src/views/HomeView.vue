@@ -6,10 +6,11 @@ import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
 import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
 </script>
 
+
 <template>
   <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-xl bg-body-tertiary position-fixed  w-100  p-0 " data-bs-theme="dark">
-    <div class="nav-container container-fluid glow py-4">
+  <nav class="navbar navbar-expand-xl position-fixed  w-100  p-0 " data-bs-theme="dark">
+    <div class="navbar-container container-fluid py-4 " :class="{ 'primary-bg': isScrolled }">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navItems" aria-controls="navItems" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -279,88 +280,106 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 
 <script>
 
-export default {
-  components: {
-    PaginationListComponentVue
-  },
-  data() {
-    return {
-		items: [
-                {
-                title: 'Order Business – 69th Regular Session of the 20th Sangguniang Panlungsod of Quezon Province',
-                description: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                date: 'February 15, 2024',
-                link: 'http://example.com',
-                linkTitle: 'Sample 1'
-                },
-                {
-                title: 'Another Dynamic Item2',
-                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                date: 'February 20, 2024',
-                link: 'http://example.com/another',
-                linkTitle: 'Sample 2'
-                },
-                {
-                title: 'Another Dynamic Item3',
-                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                date: 'February 20, 2024',
-                link: 'http://example.com/another',
-                linkTitle: 'Sample 2'
-                },
-                {
-                title: 'Another Dynamic Item4',
-                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                date: 'February 20, 2024',
-                link: 'http://example.com/another',
-                linkTitle: 'Sample 2'
-                },
-                {
-                title: 'Another Dynamic Item5',
-                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                date: 'February 20, 2024',
-                link: 'http://example.com/another',
-                linkTitle: 'Sample 2'
-                },
-                {
-                title: 'Another Dynamic Item6',
-                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                date: 'February 20, 2024',
-                link: 'http://example.com/another',
-                linkTitle: 'Sample 2'
-                },
-                {
-                title: 'Another Dynamic Item8',
-                description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                date: 'February 20, 2024',
-                link: 'http://example.com/another',
-                linkTitle: 'Sample 2'
-                }
-                // Add more items as needed
-            ],
-    names: [
-      {
-        memberName: 'Jerome',
-        link: 'http://example.com/another'
-      },
-      {
-        memberName: 'Jerome1',
-        link: 'http://example.com/another'
-      },
-      {
-        memberName: 'Jerome2',
-        link: 'http://example.com/another'
-      },
-      {
-        memberName: 'Jerome3',
-        link: 'http://example.com/another'
+  export default {
+    components: {
+      PaginationListComponentVue
+    },
+    data() {
+      return {
+      isScrolled: false,
+      items: [
+                  {
+                  title: 'Order Business – 69th Regular Session of the 20th Sangguniang Panlungsod of Quezon Province',
+                  description: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                  date: 'February 15, 2024',
+                  link: 'http://example.com',
+                  linkTitle: 'Sample 1'
+                  },
+                  {
+                  title: 'Another Dynamic Item2',
+                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                  date: 'February 20, 2024',
+                  link: 'http://example.com/another',
+                  linkTitle: 'Sample 2'
+                  },
+                  {
+                  title: 'Another Dynamic Item3',
+                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                  date: 'February 20, 2024',
+                  link: 'http://example.com/another',
+                  linkTitle: 'Sample 2'
+                  },
+                  {
+                  title: 'Another Dynamic Item4',
+                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                  date: 'February 20, 2024',
+                  link: 'http://example.com/another',
+                  linkTitle: 'Sample 2'
+                  },
+                  {
+                  title: 'Another Dynamic Item5',
+                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                  date: 'February 20, 2024',
+                  link: 'http://example.com/another',
+                  linkTitle: 'Sample 2'
+                  },
+                  {
+                  title: 'Another Dynamic Item6',
+                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                  date: 'February 20, 2024',
+                  link: 'http://example.com/another',
+                  linkTitle: 'Sample 2'
+                  },
+                  {
+                  title: 'Another Dynamic Item8',
+                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
+                  date: 'February 20, 2024',
+                  link: 'http://example.com/another',
+                  linkTitle: 'Sample 2'
+                  }
+                  // Add more items as needed
+              ],
+      names: [
+        {
+          memberName: 'Jerome',
+          link: 'http://example.com/another'
+        },
+        {
+          memberName: 'Jerome1',
+          link: 'http://example.com/another'
+        },
+        {
+          memberName: 'Jerome2',
+          link: 'http://example.com/another'
+        },
+        {
+          memberName: 'Jerome3',
+          link: 'http://example.com/another'
+        }
+      ],
+      
+      };
+    },
+    mounted() {
+      window.addEventListener('scroll', this.handleScroll);
+    },
+    destroyed() {
+      window.removeEventListener('scroll', this.handleScroll);
+    },
+    methods: {
+      handleScroll() {
+
+        this.isScrolled = window.scrollY > 10; 
       }
-    ]
-    };
-  }
-};
+    }
+  };
 </script>
 
 <style scoped>
+
+.navbar-container {
+  transition: .3s ease-in-out;
+}
 .glow{
     background-color: rgb(40, 107, 174, 50);
     backdrop-filter: blur(40px);
@@ -397,6 +416,7 @@ export default {
   .nav-container{
       min-height: 100px;
       z-index: 99;
+
   }
 
   .router-link-active{
@@ -440,4 +460,9 @@ export default {
         border-bottom: 2px solid var(--primary-color);
 }
 
+@media screen and (max-width: 1199px){
+  .navbar-container{
+    background-color: var(--primary-color);
+  }
+}
 </style>

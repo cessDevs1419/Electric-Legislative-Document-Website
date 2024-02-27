@@ -56,7 +56,7 @@
 								<router-link  class="dropdown-item my-2" to="/legislative/online-tracking">Online Tracking</router-link>
 							</li>
 							<li>
-								<router-link  class="dropdown-item my-2" to="/legislative/resolution/ordinance-esubmission">Resolution/Ordinance e-Submission</router-link>
+								<router-link  class="dropdown-item my-2" to="/legislative/resolution/ordinance-esubmission/sign-in">Resolution/Ordinance e-Submission</router-link>
 							</li>
 						</ul>	
 					</li>

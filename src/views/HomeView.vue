@@ -66,7 +66,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                   <router-link  class="dropdown-item my-2" to="/legislative/online-tracking">Online Tracking</router-link>
                 </li>
                 <li>
-                  <router-link  class="dropdown-item my-2" to="/legislative/resolution/ordinance-esubmission">Resolution/Ordinance e-Submission</router-link>
+                  <router-link  class="dropdown-item my-2" to="/legislative/resolution/ordinance-esubmission/sign-in">Resolution/Ordinance e-Submission</router-link>
                 </li>
               </ul>	
             </li>
@@ -97,19 +97,19 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
               <h3 class="info text-white">
                 Regular Session Livestreaming at 9:00am every Tuesday
               </h3>
-            <div class="view-more-scroller">
+            <a class="view-more-scroller" href="#carousel">
               <h5 class="text-white">
                 View More
               </h5>
               <i class="bi bi-arrow-down text-white" style="font-size: 4rem;"></i>
-            </div>
+            </a>
           </div>
         </div>
         <div class="overlay"></div>
   </div>
 
   <!-- Carousel -->
-  <TemplateContainer>
+  <TemplateContainer id="carousel">
     <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
 
       <div class="slide-indicator">
@@ -267,6 +267,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         </SidebarListComponentVue>
 
         <SidebarListComponentVue
+        
             :listType="'municipalityList'"
         >
               <template #heading> Municipalities of Quezon</template>

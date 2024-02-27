@@ -9,10 +9,11 @@ import PanlungsodMembersViewsVue from '@/views/PanlungsodMembersViews.vue'
 import CalendarOfActivitiesViewsVue from '@/views/CalendarOfActivitiesViews.vue'
 import ElisViewsVue from '@/views/ElisViews.vue'
 import OnlineTrackingViewsVue from '@/views/OnlineTrackingViews.vue'
-import ResolutionOrdinanceViewsVue from '@/views/ResolutionOrdinanceViews.vue'
+import ResolutionOrdinanceSignInViews from '@/views/ResolutionOrdinanceSignInViews.vue'
 import OrdersBusinessViewsVue from '@/views/OrdersBusinessViews.vue'
 import MunicipalitiesViewsVue from '@/views/MunicipalitiesViews.vue'
 import ContactViewsVue from '@/views/ContactViews.vue'
+import ResolutionOrdinanceSignUpViews from '@/views/ResolutionOrdinanceSignUpViews.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -76,9 +77,19 @@ const router = createRouter({
           component: OnlineTrackingViewsVue,
         },
         {
-          path: 'resolution/ordinance-esubmission',
-          component: ResolutionOrdinanceViewsVue,
+          path: 'resolution/ordinance-esubmission/',
+          children: [
+            {
+              path: 'sign-in',
+              component: ResolutionOrdinanceSignInViews
+            },
+            {
+              path: 'sign-up',
+              component: ResolutionOrdinanceSignUpViews
+            }
+          ]
         }
+        
       ],
     },
     {

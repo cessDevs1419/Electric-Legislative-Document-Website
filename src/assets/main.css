@@ -9,6 +9,9 @@
   font-weight: normal;
 }
 
+.linear-primary-bg{
+  background: linear-gradient(180deg, #286BAE 0%, #5BADFF 100%);
+}
 .primary-bg{
   background: var(--primary-color) ;
 }

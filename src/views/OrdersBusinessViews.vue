@@ -92,7 +92,7 @@
     <div class="spacer"></div>
     <TemplateContainer class="my-5">
         <div class="row g-5 my-5">
-            <div class="col-lg-7 p-0">
+            <div class="col-lg-7 p-md-0 p-5">
                 <SectionHeaderComponent type="outside" class="mb-5" >
                     <template #firstWord >Order of </template>
                     <template #secondWord >Business</template>

@@ -10,8 +10,13 @@
     };
 
     const handleSubmit = () => {
-        console.log('Form submitted:', formData);
-    };
+        if (!isValid) {
+            console.error('Please fill in all fields');
+            return;
+        }else {
+            console.log('Form submitted:', formData);
+        }
+        };
 </script>
 
 
@@ -32,15 +37,15 @@
                             <input type="text" class="form-control border-0 bg-transparent"  v-model="formData.name" placeholder="">
                         </div>
                         <div class="mb-4">
-                            <label class="form-label">Email address</label>
+                            <label class="form-label">Email address</label> <span class="text-danger">*</span>
                             <input type="email" class="form-control border-0 bg-transparent" v-model="formData.email" placeholder="">
                         </div>
                         <div class="mb-4">
-                            <label class="form-label">Subject</label>
+                            <label class="form-label">Subject</label> <span class="text-danger">*</span>
                             <input type="text" class="form-control border-0 bg-transparent" v-model="formData.subject" placeholder="">
                         </div>
                         <div class="mb-4">
-                            <label class="form-label">Message</label>
+                            <label class="form-label">Message</label> <span class="text-danger">*</span>
                             <textarea class="form-control border-0 bg-transparent" v-model="formData.message" rows="3"></textarea>
                         </div>
 

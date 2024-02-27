@@ -10,7 +10,7 @@
 }
 
 .primary-bg{
-  background: var(--primary-color) ;
+  background-color: var(--primary-color) ;
 }
 
 .secondary-bg{

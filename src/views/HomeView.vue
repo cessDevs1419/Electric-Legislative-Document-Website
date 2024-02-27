@@ -85,7 +85,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
   </nav>
 
   <!-- Hero Section -->
-  <div class="hero w-100">
+  <div class="hero w-100 vh-100">
     
         <div class="nav-container  container-fluid d-flex align-items-center text-center justify-content-center">
           <div class="row justify-content-center">

@@ -264,6 +264,13 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
             <template #heading>Quezon Province Hotlines</template>
     
         </SidebarListComponentVue>
+
+        <SidebarListComponentVue
+            :listType="'municipalityList'"
+        >
+              <template #heading> Municipalities of Quezon</template>
+
+        </SidebarListComponentVue>
 		</div>
 	</div>
   </TemplateContainer>

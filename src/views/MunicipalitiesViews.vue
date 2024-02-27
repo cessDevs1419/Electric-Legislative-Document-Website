@@ -50,7 +50,7 @@
                 <div class="municipality-table py-4 mt-5 text-center tertiary-font">
                     <div class="row">
                         <div class="col-4 p-2">
-                            <a class="tertiary-font" href="">Agdangan</a>
+                            <router-link  class="table-item my-2" to="/view-municipality">Agdangan</router-link>
                         </div>
                         <div class="col-4 py-2">
                             <a class="tertiary-font" href="">Burdeos</a>
@@ -105,7 +105,7 @@
     padding-top: 15rem;
 }
 
-.municipality-table a{
+.municipality-table a,.table-item{
     font-weight: 600;
 }
 

@@ -13,6 +13,7 @@ import ResolutionOrdinanceSignInViews from '@/views/ResolutionOrdinanceSignInVie
 import OrdersBusinessViewsVue from '@/views/OrdersBusinessViews.vue'
 import MunicipalitiesViewsVue from '@/views/MunicipalitiesViews.vue'
 import ContactViewsVue from '@/views/ContactViews.vue'
+import SpecifiedMunicipalViewsVue from '@/views/SpecifiedMunicipalViews.vue'
 import ResolutionOrdinanceSignUpViews from '@/views/ResolutionOrdinanceSignUpViews.vue'
 
 const router = createRouter({
@@ -106,6 +107,11 @@ const router = createRouter({
       path: '/contact-us',
       name: 'contact-us',
       component: ContactViewsVue
+    },
+    {
+      path: '/view-municipality',
+      name: 'view-municipality',
+      component: SpecifiedMunicipalViewsVue
     },
   ]
 })

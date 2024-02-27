@@ -1,7 +1,9 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
-import PDFReviewerComponent from '@/components/PDFReviewerComponent.vue';
+    import PDFReviewerComponent from '@/components/PDFReviewerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
+    import SidebarListComponent from '@/components/SidebarListComponent.vue';
+    import SectionHeaderComponent from '@/components/SectionHeaderComponent.vue';
 </script>
 
 <template>
@@ -10,12 +12,25 @@ import PDFReviewerComponent from '@/components/PDFReviewerComponent.vue';
     <TemplateContainer>
         <div class="row">
             <div class="col-lg-7">
-                <PDFReviewerComponent class="pdf-reviewer mb-5"
+                <SectionHeaderComponent class="mt-5" type="inside">
+                    <template #firstWord >Citizens Charter</template>
+                    <template #secondWord >- 2022 Edition</template>
+                </SectionHeaderComponent>
+                <PDFReviewerComponent class="pdf-reviewer my-4"
                     src="https://ws-platform.s3.ap-southeast-1.amazonaws.com/328/file-example_PDF_500_kB.pdf" 
                 ></PDFReviewerComponent>
             </div>
             <div class="col-lg-5">
+                <SidebarListComponent
+                    :listType="'membersList'">
 
+                    <template #heading>The 20th Members Facebook Page</template>
+                </SidebarListComponent>
+                <SidebarListComponent
+                    :listType="'hotlineList'">
+                    
+                    <template #heading>Quezon Province Hotlines</template>
+                </SidebarListComponent>
             </div>
         </div>
     </TemplateContainer>

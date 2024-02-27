@@ -68,5 +68,8 @@
   color: var(--placeholder);
 }
 
+.cursor-pointer{
+  cursor: pointer;
+}
 
 

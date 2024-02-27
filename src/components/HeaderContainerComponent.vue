@@ -4,12 +4,12 @@
     import NavbarComponent from '@/components/NavbarComponent.vue';
 </script>
 <template>
-    <div class="position-fixed w-100 bg-white">
+    <div class="position-fixed w-100 bg-white m-0 p-0 top-0">
         <PageHeaderComponent></PageHeaderComponent>
-        <NavbarComponent ></NavbarComponent>    
+        <NavbarComponent ></NavbarComponent>   
+        
     </div>
 
-  
     <RouterView />
 </template>
 
@@ -18,4 +18,6 @@
         min-height: auto;
         z-index: 99;
     }
+
+    
 </style>

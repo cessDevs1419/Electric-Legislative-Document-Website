@@ -12,6 +12,10 @@
             NewsListTemplateComponent
         },
         props: {
+            title: {
+                type: String,
+                required: true
+            },
             items: {
                 type: Array,
                 required: true
@@ -50,9 +54,9 @@
 </script>
 
 <template>
-    <TitleContainerComponent>
+    <TitleContainerComponent v-if="title">
         <template #heading>
-            <slot name="heading" ></slot>
+            {{ title }}
         </template>
     </TitleContainerComponent>
     <ul class="list-unstyled">

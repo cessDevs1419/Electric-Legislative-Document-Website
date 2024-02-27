@@ -6,12 +6,12 @@
 
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
-    <div class="spacer"></div>
+    <div class="reso-spacer"></div>
     <EmptyESubmission></EmptyESubmission>
 </template>
 
 <style>
-    .spacer {
-        padding-top: 15rem;
+    .reso-spacer {
+        padding-top: 12rem;
     }
 </style>

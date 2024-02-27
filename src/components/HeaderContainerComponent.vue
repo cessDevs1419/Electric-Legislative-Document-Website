@@ -6,7 +6,8 @@
 <template>
     <div class="position-fixed w-100 bg-white">
         <PageHeaderComponent></PageHeaderComponent>
-        <NavbarComponent ></NavbarComponent>    
+        <NavbarComponent ></NavbarComponent>   
+        
     </div>
 
   
@@ -18,4 +19,6 @@
         min-height: auto;
         z-index: 99;
     }
+
+    
 </style>

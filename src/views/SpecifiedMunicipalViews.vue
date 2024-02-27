@@ -11,9 +11,9 @@
     <TemplateContainer>
         <div class="row g-3 my-3">
         <div class="col-lg-7">
-            <SectionHeaderComponent>
-                <template #secondWord>Agdangan</template>
-                <template #fistWord>Municipality of</template>
+            <SectionHeaderComponent class="mt-5" type="outside">
+                <template #firstWord>MUNICIPALITY OF</template>
+                <template #secondWord>ADGANGAN</template>
             </SectionHeaderComponent>
             <div class="municipal-info pt-5">
                 <h5 class="pb-2 fw-bold">Brief History</h5>

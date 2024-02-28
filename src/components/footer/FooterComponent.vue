@@ -1,8 +1,8 @@
 <template>
-  <div class="footer-container px-5">
+  <div class="footer-container">
     <div class="container-fluid">
-      <div class="footer-info row py-5">
-        <div class="col">
+      <div class="footer-info row py-4">
+        <div class="col mx-5">
           <p class="company-header">
             SANGGUNIANG PANLUNGSOD NG <span>QUEZON PROVINCE</span>
           </p>
@@ -73,7 +73,7 @@
 .footer-container {
   background-color: var(--primary-color);
   color: var(--white-font);
-  padding: 20px 0;
+  padding: 15px 5rem;
 }
 
 .footer-container a:hover{

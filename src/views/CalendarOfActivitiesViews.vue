@@ -3,6 +3,7 @@
      import TemplateContainer from '@/components/TemplateContainer.vue';
      import SidebarListComponent from '@/components/SidebarListComponent.vue';
      import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
+     import CalendarViewer from '@/components/CalendarViewer.vue';
 </script>
 
 <template>
@@ -10,7 +11,7 @@
     <div class="spacer"></div>
     <TemplateContainer>
         <div class="row">
-
+            <CalendarViewer></CalendarViewer>
         </div>
         <div class="row">
             <div class="col-lg-6">

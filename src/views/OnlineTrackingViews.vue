@@ -1,41 +1,65 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
-    import OnlineTrackingTableComponent from '@/components/OnlineTrackingTableComponent.vue'
+    import OnlineTrackingTemplateComponent from '@/components/OnlineTrackingTemplateComponent.vue'
+    import OnlineTrackingTableComponent from '@/components/OnlineTrackingTableComponent.vue';
+    import ESubmissionFormComponent from '@/components/ESubmissionFormComponent.vue';
 </script>
 <script>
     export default {
         data(){
             return {
                 tableHeader: [
-                    '', 
+                    'No.', 
                     'Status', 
-                    'Description',
+                    'Documents',
                     'Division',
                     'Date',
                     'Time',
                 ],
                 tableRows: [
-                    'step',
+                    'no',
                     'status',
                     'description',
                     'division',
                     'date',
                     'time',
                 ],
-                tableData:  {
-                        step: '02',
+                tableData:  [
+                    {
+                        no: '01',
                         tracking_id: 'trckid1',
                         title: 'Document of the Philippines',
                         office: 'office1',
                         bayan: 'quezon prov',
                         attachments: 'pdf',
-                        division: 'office',
+                        division: 'Receiving',
+                        date: '2021-01-01',
+                        time: '12:00:00',
+                        status: 'Received',
+                        description: 'description',
+                    },
+                    {
+                        no: '02',
+                        tracking_id: 'trckid1',
+                        title: 'Document of the Philippines',
+                        office: 'office1',
+                        bayan: 'quezon prov',
+                        attachments: 'pdf',
+                        division: 'Sorting Office',
                         date: '2021-01-01',
                         time: '12:00:00',
                         status: 'Endorsed',
                         description: 'description',
                     }
+                ],
+                rowData: Object
+            }
+        },
+        methods: {
+            handleRowData(data){
+                this.rowData = data
+                console.log(data)
             }
         }
     }
@@ -66,15 +90,45 @@
         </div> -->
 
         <!-- Table  -->
-        <OnlineTrackingTableComponent
+        <!-- <OnlineTrackingTemplateComponent
             :header="tableHeader"
             :data="tableData"
             :rows="tableRows"
             :searchbar="true"
         >
 
+        </OnlineTrackingTemplateComponent> -->
+        <OnlineTrackingTableComponent
+            :header="tableHeader"
+            :data="tableData"
+            :rows="tableRows"
+            @row-click-data="handleRowData"
+        >
+
         </OnlineTrackingTableComponent>
+
+        
     </TemplateContainer>
+    <div class="modal fade" id="tableModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content rounded-0 p-2">
+                <div class="modal-header d-flex align-item-center border-0">
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <OnlineTrackingTemplateComponent
+                        :header="tableHeader"
+                        :data="rowData"
+                        :rows="tableRows"
+                        :standalone="false"
+                    >
+
+                    </OnlineTrackingTemplateComponent>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style scoped>

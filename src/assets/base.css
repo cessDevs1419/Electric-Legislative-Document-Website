@@ -8,7 +8,15 @@
   --blue-divider: #22609F;
   --container-lb: #F2F3F9;
   --placeholder: #8E8E8E;
-  
+
+  /* Calendar Event Type Colors */
+  --event-type-one: #D8E4F0;
+  --event-type-two: #FFE9D4;
+  --event-type-three: #DCF6DA;
+  --event-type-four: #FBFDE6;
+  --event-type-five: #F2DCFF;
+  --event-type-five: #FFF1FB;
+
 
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;

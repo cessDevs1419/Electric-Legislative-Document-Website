@@ -15,6 +15,7 @@ import MunicipalitiesViewsVue from '@/views/MunicipalitiesViews.vue'
 import ContactViewsVue from '@/views/ContactViews.vue'
 import SpecifiedMunicipalViewsVue from '@/views/SpecifiedMunicipalViews.vue'
 import ResolutionOrdinanceSignUpViews from '@/views/ResolutionOrdinanceSignUpViews.vue'
+import NewESubmissionViewsVue from '@/views/NewESubmissionViews.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -76,6 +77,10 @@ const router = createRouter({
         {
           path: 'online-tracking',
           component: OnlineTrackingViewsVue,
+        },
+        {
+          path:'new-submission',
+          component: NewESubmissionViewsVue,
         },
         {
           path: 'resolution/ordinance-esubmission/',

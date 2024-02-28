@@ -17,6 +17,7 @@
     .card-success {
         padding: 4.5rem 5rem 4rem 5rem;
     }
+
     .gradient-bg {
         background-image: linear-gradient(to right, #286BAE, #174E85);
     }
@@ -34,6 +35,13 @@
         font-size: 20px;
         color: white;
         background-color: var(--primary-color);
+        transition: all 0.5s ease;
+    }
+
+    .gotoESubmit-btn:hover {
+        color: var(--primary-color);
+        background-color: white;
+        transform: scale(1.05);
     }
    
 

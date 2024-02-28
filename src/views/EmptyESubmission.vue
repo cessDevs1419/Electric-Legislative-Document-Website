@@ -8,7 +8,7 @@
             <h1>404</h1>
             <h2>There's NOTHING here...</h2>
             <p>There are currently no E-Submission records from your account<br>Please make a E-Submission first.</p>
-            <button class="gotoESubmit-btn rounded-0 mt-4" type="submit">Make my first E-Submission</button>
+            <button class="create-btn rounded-0 mt-4" type="submit">Make my first E-Submission</button>
         </div>
     </TemplateContainer>
 </template>
@@ -26,11 +26,16 @@
         font-size: 40px;
     }
 
-    .gotoESubmit-btn {
+    .create-btn {
         padding: 1.3rem 9rem;
         font-size: 20px;
         color: white;
         background-color: var(--primary-color);
+        transition: all 0.5s ease;
+    }
+
+    .create-btn:hover {
+        transform: scale(1.05);
     }
    
 

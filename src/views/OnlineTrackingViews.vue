@@ -1,6 +1,44 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
+    import OnlineTrackingTableComponent from '@/components/OnlineTrackingTableComponent.vue'
+</script>
+<script>
+    export default {
+        data(){
+            return {
+                tableHeader: [
+                    '', 
+                    'Status', 
+                    'Description',
+                    'Division',
+                    'Date',
+                    'Time',
+                ],
+                tableRows: [
+                    'step',
+                    'status',
+                    'description',
+                    'division',
+                    'date',
+                    'time',
+                ],
+                tableData:  {
+                        step: '02',
+                        tracking_id: 'trckid1',
+                        title: 'Document of the Philippines',
+                        office: 'office1',
+                        bayan: 'quezon prov',
+                        attachments: 'pdf',
+                        division: 'office',
+                        date: '2021-01-01',
+                        time: '12:00:00',
+                        status: 'Endorsed',
+                        description: 'description',
+                    }
+            }
+        }
+    }
 </script>
 
 <template>
@@ -28,6 +66,14 @@
         </div> -->
 
         <!-- Table  -->
+        <OnlineTrackingTableComponent
+            :header="tableHeader"
+            :data="tableData"
+            :rows="tableRows"
+            :searchbar="true"
+        >
+
+        </OnlineTrackingTableComponent>
     </TemplateContainer>
 </template>
 

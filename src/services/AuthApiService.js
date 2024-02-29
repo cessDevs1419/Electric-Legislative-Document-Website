@@ -1,12 +1,11 @@
 import axios from "axios";
-import { GETProjectsApi } from "./Endpoint"
 
 const SampleApiService = {
     async fetchProjects() {
         try {
             const authToken = localStorage.getItem('authToken');
 
-            const response = await axios.get(GETProjectsApi, {
+            const response = await axios.get('http://127.0.0.1:8000/api/projects', {
                 headers: {
                     Authorization: `Bearer ${authToken}` 
                 }

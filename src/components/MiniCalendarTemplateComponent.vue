@@ -1,6 +1,10 @@
+<script setup>
+    import CalendarViewer from './CalendarViewer.vue';
+</script>
+
 <template>
     <div class="card-body position-relative w-100">
-        <img src="../assets/images/calendar_placeholder.png" class="m-0 w-100">
+        <CalendarViewer></CalendarViewer>
     </div>
 </template>
 

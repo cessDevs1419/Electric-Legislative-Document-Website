@@ -1,7 +1,3 @@
-<script setup>
-  import CalendarEventModalComponent from './CalendarEventModalComponent.vue'
-</script>
-
 <script>
   import { defineComponent } from 'vue'
   import FullCalendar from '@fullcalendar/vue3'
@@ -92,9 +88,9 @@
           :options='calendarOptions'
         >
           <template v-slot:eventContent='arg'>
-            <div class="event-holder px-4">
+            <div class="event-holder px-2">
               <div class="row">
-                <b>{{ arg.event.title }}</b>
+                <b class="event-title">{{ arg.event.title }}</b>
                 <br>
                 <p class="m-0">{{ formatDateTime(arg.event.start) }}</p>
               </div>
@@ -104,37 +100,39 @@
       </div>
     </div>
 
+
+
+
     <!-- Modal -->
-    <!-- Modal -->
-<div class="modal fade" v-for="(event, index) in eventDetails" :key="index" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content px-4 py-2">
-      <div class="modal-header d-flex align-item-center border-0">
-        <h4 class="d-flex align-items-center fw-bold"><span class="event-vl"></span>Activity Information</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Modal body content -->
-      <div class="row mb-3">
-        <h5 class="fw-semibold">What</h5>
-        <p>{{event.title}}</p>
-      </div>
-      <div class="row mb-3">
-        <h5 class="fw-semibold">Where</h5>
-        <p>{{event.place}}</p>
-      </div>
-      <div class="row mb-3">
-        <h5 class="fw-semibold">When</h5>
-        <p>{{event.date}}</p>
-      </div>
-      <div class="row mb-3">
-        <h5 class="fw-semibold">Description</h5>
-        <p>{{event.description}}</p>
-      </div>
+    <div class="modal fade" v-for="(event, index) in eventDetails" :key="index" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content px-4 pt-4 pb-3">
+          <div class="modal-header d-flex align-item-center border-0">
+            <h4 class="d-flex align-items-center fw-bold"><span class="event-vl"></span>Activity Information</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Modal body content -->
+          <div class="row mb-3">
+            <h5 class="fw-semibold">What</h5>
+            <p>{{event.title}}</p>
+          </div>
+          <div class="row mb-3">
+            <h5 class="fw-semibold">Where</h5>
+            <p>{{event.place}}</p>
+          </div>
+          <div class="row mb-3">
+            <h5 class="fw-semibold">When</h5>
+            <p>{{event.date}}</p>
+          </div>
+          <div class="row mb-3">
+            <h5 class="fw-semibold">Description</h5>
+            <p>{{event.description}}</p>
+          </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
   </template>
   
@@ -145,11 +143,6 @@
   
   * {
       font-family: "Montserrat", sans-serif;
-  }
-  
-  .event-holder {
-    border-radius: 5px;
-    color: var(--primary-font);
   }
   
   .demo-app {
@@ -170,9 +163,12 @@
   }
   
   .fc-event{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       margin: 0.3rem;
       padding: 0.7rem 0;
-      border: 0px;
+      border-left: 15px solid var(--primary-color);
       border-radius: 12px;
       background-color: var(--event-type-one);
   }
@@ -189,18 +185,33 @@
       margin-right: 10px; 
   }
 
+  .event-holder {
+    border-radius: 5px;
+    color: var(--primary-font);
+  }
+
   .fc .fc-button {
+    background-color: var(--primary-color);
     border: none;
-    background-color: var(--white-font);
   }
 
   .fc .fc-button:hover {
-    background-color: var(--tertiary-bg);
+    background-color: var(--primary-color);
+  }
+  
+  .fc .fc-button:active {
+    background-color: var(--primary-color);
   }
 
   .fc .fc-button .fc-icon {
     font-size: 3.5em;
+    color: var(--white-font);
+  }
+
+  .fc .fc-daygrid-day-number,.fc .fc-col-header-cell-cushion {
     color: var(--primary-font);
+    text-decoration: none;
+    font-weight: bold;
   }
   
   </style>

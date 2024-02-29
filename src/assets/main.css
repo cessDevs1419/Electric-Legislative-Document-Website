@@ -9,6 +9,31 @@
   font-weight: normal;
 }
 
+/* Event Color Indicators */
+.event-type-one{
+  background-color: var(--primary-color);
+}
+
+.event-type-two{
+  background-color: #3ECD31;
+}
+
+.event-type-three{
+  background-color: #B63FFF;
+}
+
+.event-type-four{
+  background-color: #ECF676;
+}
+
+.event-type-five{
+  background-color: #FFB0E9;
+}
+
+.event-type-six{
+  background-color: var(--secondary-color);
+}
+
 .linear-primary-bg{
   background: linear-gradient(180deg, #286BAE 0%, #5BADFF 100%);
 }

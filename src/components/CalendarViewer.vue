@@ -45,7 +45,7 @@
         eventDetails: [{
           title: 'Joint Committee Hearing- Dynamic Title',
           place: 'Munisipyo ng Baranggay Dimagasalang - Dynamic',
-          date: 'February 29, 2024  12:30 PM - Dynamic',
+          date: 'PM 12:00',
           description: 'Joint Commitee Hearing On February 19, 2024 (Monday) At 1:00 in the afternoon to be held at the Sangguniang Panlungsod Session Hall. Lorem ipsum dolor sit amet consectetur. Nibh habitant quisque egestas aenean eleifend fringilla interdum mattis id. Id ut sed volutpat aliquet arcu mollis convallis commodo. Odio lorem in in eget amet. Consequat donec ipsum pharetra sit morbi metus habitant.'
         }],
       }
@@ -83,25 +83,61 @@
 <template>
     <div class='demo-app'>
       <div class='demo-app-main'>
-        <FullCalendar
-          class='demo-app-calendar'
-          :options='calendarOptions'
-        >
-          <template v-slot:eventContent='arg'>
-            <div class="event-holder px-2">
-              <div class="row">
-                <b class="event-title">{{ arg.event.title }}</b>
-                <br>
-                <p class="m-0">{{ formatDateTime(arg.event.start) }}</p>
+
+        <!-- Drawer -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+
+          <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Activities</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+
+          <div class="offcanvas-body" v-for="(event, index) in eventDetails" :key="index">
+            <h6 class="d-flex align-items-center fw-bold"><span class="drawer-vl"></span>Municipal Activity</h6>
+            <div class="row py-1">
+              <div class="event-cards secondary-bg py-4">
+                <h6 class="fw-semibold text-truncate m-0">{{event.title}}</h6>
+                <p class="event-description m-0">{{event.description}}</p>
+                <p class="fw-semibold m-0">{{event.date}}</p>
               </div>
             </div>
-          </template>
-        </FullCalendar>
+            <div class="row py-1">
+              <div class="event-cards secondary-bg py-4">
+                <h6 class="fw-semibold text-truncate m-0">{{event.title}}</h6>
+                <p class="event-description m-0">{{event.description}}</p>
+                <p class="fw-semibold m-0">{{event.date}}</p>
+              </div>
+            </div>
+            
+          </div>
+
+        </div>
+
+        <!-- Calendar -->
+        <div class="row">
+          <div class="col-lg-11">
+            <FullCalendar
+              class='demo-app-calendar'
+              :options='calendarOptions'
+            >
+              <template v-slot:eventContent='arg'>
+                <div class="event-holder px-2">
+                  <div class="row">
+                    <b class="event-title">{{ arg.event.title }}</b>
+                    <br>
+                    <p class="m-0">{{ formatDateTime(arg.event.start) }}</p>
+                  </div>
+                </div>
+              </template>
+            </FullCalendar>
+          </div>
+          <div class="col-lg-1 pt-5">
+            <button class="drawer-btn btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">View Activities</button>
+          </div>
+        </div>
+        
       </div>
     </div>
-
-
-
 
     <!-- Modal -->
     <div class="modal fade" v-for="(event, index) in eventDetails" :key="index" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -144,7 +180,19 @@
   * {
       font-family: "Montserrat", sans-serif;
   }
-  
+
+  .drawer-btn{
+    border-radius: 0.7rem 0.7rem 0 0;
+    background-color: var(--primary-color);
+    /* transform: rotate(90deg); */
+  }
+
+  .event-description {
+    max-height: 3rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .demo-app {
     display: flex;
     font-size: 14px;
@@ -177,11 +225,20 @@
       background-color: #ebebeb;
   }
 
+  /* Vertical Line for Calendar Modal */
   .event-vl{
       display: inline-block;
       width: 17px;
       height: 40px;
       border-left: 17px solid var(--primary-color);
+      margin-right: 10px; 
+  }
+
+  /* Vertical Line for drawer event type */
+  .drawer-vl {
+      display: inline-block;
+      height: 25px;
+      border-left: 10px solid var(--secondary-color);
       margin-right: 10px; 
   }
 
@@ -204,7 +261,7 @@
   }
 
   .fc .fc-button .fc-icon {
-    font-size: 3.5em;
+    font-size: 2.5em;
     color: var(--white-font);
   }
 

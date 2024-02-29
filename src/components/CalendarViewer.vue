@@ -114,8 +114,8 @@
         </div>
 
         <!-- Calendar -->
-        <div class="row">
-          <div class="col-lg-11">
+        <div class="d-flex ">
+          <div class="w-100 px-2">
             <FullCalendar
               class='demo-app-calendar'
               :options='calendarOptions'
@@ -131,8 +131,10 @@
               </template>
             </FullCalendar>
           </div>
-          <div class="col-lg-1 pt-5">
-            <button class="drawer-btn btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">View Activities</button>
+          <div class="w-auto pt-5 px-0">
+            <button class="drawer-btn btn btn-primary px-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+              <p class="btn-text w-100 text-nowrap ">View Activities</p>
+            </button>
           </div>
         </div>
         
@@ -182,9 +184,22 @@
   }
 
   .drawer-btn{
-    border-radius: 0.7rem 0.7rem 0 0;
+    border-radius: 0 0.7rem 0.7rem 0;
     background-color: var(--primary-color);
-    /* transform: rotate(90deg); */
+    height: auto;
+    min-height: 9rem;
+    width: 2rem;
+    padding: 0 , 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  .btn-text{
+    transform: rotate(90deg);
+    text-wrap: nowrap;
+    margin: 0;
   }
 
   .event-description {

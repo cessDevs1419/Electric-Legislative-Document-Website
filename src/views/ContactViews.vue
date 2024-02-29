@@ -1,6 +1,7 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
+    import ValidationService from '@/services/ValidationService.js';
 
     const formData = {
         name: '',
@@ -10,13 +11,7 @@
     };
 
     const handleSubmit = () => {
-        let isEmpty = false;
-        Object.keys(formData).forEach(key => {
-            if (formData[key].trim() === '') {
-                isEmpty = true;
-                console.log(`${key} is empty`);
-            }
-        });
+        const isEmpty = ValidationService.fieldEmptyChecker(formData);
 
         if (isEmpty) {
             console.log('Please fill in all fields.');

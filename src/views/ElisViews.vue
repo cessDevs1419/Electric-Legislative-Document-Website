@@ -58,7 +58,7 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="">
+    <TemplateContainer class="mb-5">
         <div class="title mb-5 mt-lg-0">
             <SectionHeaderComponent  type="inside">
                 <template #firstWord>Legislative</template>

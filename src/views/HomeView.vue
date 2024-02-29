@@ -7,7 +7,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 </script>
 
 
-<template>
+<template >
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-xl position-fixed  w-100  p-0 " data-bs-theme="dark">
     <div class="navbar-container container-fluid py-4 " :class="{ 'primary-bg': isScrolled }">

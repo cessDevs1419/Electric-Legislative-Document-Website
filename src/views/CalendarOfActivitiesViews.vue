@@ -12,7 +12,7 @@
     <TemplateContainer>
         <div class="row w-100 m-auto">
             <CalendarViewer></CalendarViewer>
-            <div class="calendar-legend d-flex justify-content-center pb-4">
+            <div class="calendar-legend d-flex justify-content-center py-4">
               <div class="row w-100 m-auto">
                 <div class="col-lg-2 col-md-4 col-sm-6">
                   <div class="row">

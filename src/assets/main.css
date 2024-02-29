@@ -8,6 +8,9 @@
   font-family: "Montserrat", sans-serif;
   font-weight: normal;
 }
+.spacer{
+  padding-top: 15rem;
+}
 
 /* Event Color Indicators */
 .event-type-one{
@@ -98,3 +101,8 @@
 }
 
 
+@media screen and (max-width: 768px) {
+  .spacer{
+    padding-top: 8rem !important;
+  }
+}

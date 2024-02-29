@@ -7,7 +7,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 </script>
 
 
-<template>
+<template >
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-xl position-fixed  w-100  p-0 " data-bs-theme="dark">
     <div class="navbar-container container-fluid py-4 " :class="{ 'primary-bg': isScrolled }">
@@ -87,8 +87,8 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
   <!-- Hero Section -->
   <div class="hero w-100 vh-100">
     
-        <div class="nav-container  container-fluid d-flex align-items-center text-center justify-content-center">
-          <div class="row justify-content-center">
+        <div class="nav-container container-fluid d-flex align-items-center text-center justify-content-center">
+          <div class="row h-100 align-item-center justify-content-center">
               <!-- <i class="bi bi-4-circle" style="font-size: 15rem; vertical-align: middle; max-height: 20rem;"></i> -->
               <img class="company-logo mx-auto mb-2" src="../assets/images/circle.png" alt="" srcset="">
               <h1 class="company-header text-white fw-bold">
@@ -123,7 +123,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
       <div class="carousel-inner" >
         <div class="carousel-item active" data-bs-interval="5000">
           <div class="row">
-            <div class="col">
+            <div class="col-lg-6">
               <h6>
                 What's Happening
               </h6>
@@ -139,7 +139,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                 <div class="underline"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col-lg-6">
               <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
             </div>
           </div>
@@ -147,7 +147,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 
         <div class="carousel-item active" data-bs-interval="2000">
           <div class="row">
-            <div class="col">
+            <div class="col-lg-6">
               <h6>
                 What's Happening
               </h6>
@@ -163,7 +163,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                 <div class="underline"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col-lg-6">
               <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
             </div>
           </div>
@@ -171,7 +171,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 
         <div class="carousel-item active" data-bs-interval="2000">
           <div class="row">
-            <div class="col">
+            <div class="col-lg-6">
               <h6>
                 What's Happening
               </h6>
@@ -187,7 +187,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                 <div class="underline"></div>
               </div>
             </div>
-            <div class="col">
+            <div class="col-lg-6">
               <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
             </div>
           </div>
@@ -465,5 +465,11 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
   .navbar-container{
     background-color: var(--primary-color);
   }
+}
+
+@media screen and (max-height: 760px) {
+    .view-more-scroller{
+      margin-top: -5rem;
+    }
 }
 </style>

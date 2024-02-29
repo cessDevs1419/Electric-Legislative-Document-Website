@@ -10,13 +10,20 @@
     };
 
     const handleSubmit = () => {
-        if (!isValid) {
-            console.error('Please fill in all fields');
-            return;
-        }else {
+        let isEmpty = false;
+        Object.keys(formData).forEach(key => {
+            if (formData[key].trim() === '') {
+                isEmpty = true;
+                console.log(`${key} is empty`);
+            }
+        });
+
+        if (isEmpty) {
+            console.log('Please fill in all fields.');
+        } else {
             console.log('Form submitted:', formData);
         }
-        };
+    };
 </script>
 
 

@@ -1,14 +1,14 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
-import TemplateContainer from '@/components/TemplateContainer.vue';
+    import TemplateContainer from '@/components/TemplateContainer.vue';
 </script>
 
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="mt-md-0 mt-5 mb-5">
+    <TemplateContainer class="mt-md-0 mb-5">
 
-        <div class="row w-100 m-auto mb-5 mt-5">
+        <div class="row w-100 m-auto mb-5 ">
             <div class="col-lg-5 d-flex justify-content-center">
                 <div class="icon mission"></div>
             </div>
@@ -66,9 +66,6 @@ import TemplateContainer from '@/components/TemplateContainer.vue';
 </template>
 
 <style scoped>
-    .spacer{
-        padding-top: 15rem;
-    }
 
     .icon{
         width: 100%;

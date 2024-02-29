@@ -1,7 +1,8 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
-import { RouterLink } from 'vue-router';
+    import { RouterLink } from 'vue-router';
+    import AuthApiService from '@/services/AuthApiService.js'; 
 
 </script>
 <script>
@@ -19,9 +20,19 @@ import { RouterLink } from 'vue-router';
             toggleInput() {
                 this.showInput =! this.showInput;
             },
-            signinSubmit() {
-                console.log('Form submitted:', this.signinData);
-            },
+            async signinSubmit() {
+                try {
+                    
+                    await AuthApiService.login({
+                    email: this.signinData.email,
+                    password: this.signinData.password
+                    });
+                    console.log('Login successful');
+                } catch (error) {
+                    console.error('Sign-in failed:', error);
+                    
+                }
+            }
         }
     }
 </script>
@@ -36,7 +47,7 @@ import { RouterLink } from 'vue-router';
                     <div class="title m-auto text-center mb-5 mt-5">
                         <h1 class="fw-bolder m-0">Sign In</h1>
                     </div>
-                    <form class="px-5  " @submit.prevent="signinSubmit">
+                    <form class="px-2 px-md-5  " @submit.prevent="signinSubmit">
 
                         <div class="mb-4">
                             <label class="form-label">Email address</label> <span class="text-danger">*</span>

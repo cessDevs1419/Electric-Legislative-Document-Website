@@ -42,4 +42,8 @@
         max-width: 5.5rem;
         border-bottom: 2px solid var(--primary-color);
     }
+
+    .image-container{
+        min-height: 200px;
+    }
 </style>

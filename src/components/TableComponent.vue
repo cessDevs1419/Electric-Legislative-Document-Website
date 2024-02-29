@@ -93,7 +93,9 @@
             </thead>
             <tbody>
                 <tr class="cursor-pointer"  data-bs-toggle="modal" data-bs-target="#tableModal" v-for="(item, index) in filteredData" :key="index" @click="getData(item)"> 
-                    <td v-for="(rows, index) in rows" :key="index">{{ item[rows] }}</td>
+                    <td v-for="(rows, index) in rows" :key="index">
+                        {{ item[rows] }}
+                    </td>
                 </tr>
             </tbody>
         </table>

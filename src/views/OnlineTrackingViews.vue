@@ -68,7 +68,7 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="py-5 mt-5 mt-lg-0">
+    <TemplateContainer class=" mt-lg-0 mb-5">
         <!-- Search bar  -->
         <!-- 
             <div class=" w-100 text-center mb-5">

@@ -54,12 +54,13 @@
         }
     }
 </script>
+
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="my-5 py-5 py-xl-0">
-        <div class="title mb-5 mt-5 mt-lg-0">
-            <SectionHeaderComponent class="mt-5 mt-lg-0" type="inside">
+    <TemplateContainer class="mb-5">
+        <div class="title mb-5 mt-lg-0">
+            <SectionHeaderComponent  type="inside">
                 <template #firstWord>Legislative</template>
                 <template #secondWord>Documents</template>
             </SectionHeaderComponent>
@@ -80,8 +81,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col-lg-6 m-auto">
+                    <div class="row mb-3 ">
+                        <div class="col-lg-6 m-auto mt-0">
                             <h5 class="fw-semibold">Title</h5>
                             <p>{{ rowData.title }}</p>
                         </div>
@@ -137,7 +138,10 @@
                         </div>
                         <div class="col-lg-2">
                             <h5 class="fw-semibold">PDF</h5>
-                            <p>{{ rowData.pdf }}</p>
+                            <span>
+                                <i v-if="rowData.pdf === 'pdf' || rowData.pdf === 'PDF'" class="bi bi-filetype-pdf fs-3"></i>
+                                <i v-if="rowData.pdf === 'docs'" class="bi bi-file-earmark-word-fill fs-3"></i>
+                            </span>
                         </div>
                         <div class="col-lg-4">
                             <h5 class="fw-semibold">Remarks</h5>

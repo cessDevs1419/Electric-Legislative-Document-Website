@@ -9,10 +9,10 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer>
-        <div class="row">
+    <TemplateContainer >
+        <div class="row w-100 m-auto mt-md-0">
             <div class="col-lg-7">
-                <SectionHeaderComponent class="mt-5" type="inside">
+                <SectionHeaderComponent class="" type="inside">
                     <template #firstWord >Citizens Charter</template>
                     <template #secondWord >- 2022 Edition</template>
                 </SectionHeaderComponent>
@@ -37,10 +37,6 @@
 </template>
 
 <style scoped>
-    .spacer{
-        padding-top: 15rem;
-    }
-
     .pdf-reviewer{
         height: 66rem;
     }

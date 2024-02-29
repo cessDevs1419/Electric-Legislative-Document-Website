@@ -2,6 +2,7 @@
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import ValidationService from '@/services/ValidationService.js';
+    import SampleApiService from '@/services/SampleApiService.js';
 
     const formData = {
         name: '',
@@ -19,6 +20,15 @@
             console.log('Form submitted:', formData);
         }
     };
+
+    // SampleApiService.fetchProjects()
+    // .then(data => {
+    //     console.log("Projects:", data);
+    // })
+    // .catch(error => {
+    //     console.error('Error fetching projects:', error);
+    // });
+
 </script>
 
 

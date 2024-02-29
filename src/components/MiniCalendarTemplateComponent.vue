@@ -9,7 +9,7 @@
 </template>
 
 <style scoped>
-    .card-body img{
+    .card-body{
         max-height: 504px;
         max-width: 545px;
     }

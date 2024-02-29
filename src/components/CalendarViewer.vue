@@ -240,6 +240,9 @@
       background-color: #ebebeb;
   }
 
+  .demo-app-main {
+    padding: 0;
+  }
   /* Vertical Line for Calendar Modal */
   .event-vl{
       display: inline-block;

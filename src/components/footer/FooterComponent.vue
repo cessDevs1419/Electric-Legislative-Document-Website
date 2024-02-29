@@ -19,13 +19,13 @@
           </p>
           <ul class="about-links">
             <li>
-              <a href="/">Vision, Mission, Quality Policy & Mandate</a>
+              <router-link  class="my-2" to="/about/objectives">View, Mission, Quality Policy & Mandate</router-link>
             </li>
             <li>
-              <a href="/">The 20th Sanggunian Panlungsod Members</a>
+              <router-link  class="my-2" to="/about/citizen's-charter">Citizen's Charter - 2022 Edition</router-link>
             </li>
             <li>
-              <a href="">Organizational Structure</a>
+              <router-link  class="my-2" to="/about/organizational-structure">Organizational Structure</router-link>
             </li>
           </ul>
         </div>

@@ -8,6 +8,9 @@
   font-family: "Montserrat", sans-serif;
   font-weight: normal;
 }
+.spacer{
+  padding-top: 15rem;
+}
 
 .linear-primary-bg{
   background: linear-gradient(180deg, #286BAE 0%, #5BADFF 100%);
@@ -73,3 +76,8 @@
 }
 
 
+@media screen and (max-width: 768px) {
+  .spacer{
+    padding-top: 8rem !important;
+  }
+}

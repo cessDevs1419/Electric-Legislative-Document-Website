@@ -1,8 +1,8 @@
 <template>
-  <div class="footer-container">
-    <div class="container-fluid">
-      <div class="footer-info row py-4">
-        <div class="col mx-5">
+  <div class="footer-container px-0 px-md-4">
+    <div class="container-fluid ">
+      <div class="footer-info row py-4 w-100 m-auto ">
+        <div class="col-lg-3 col-md-6">
           <p class="company-header">
             SANGGUNIANG PANLUNGSOD NG <span>QUEZON PROVINCE</span>
           </p>
@@ -13,7 +13,7 @@
             <i class="icon bi bi-facebook mr-2" style="font-size: 34px;"></i><i class="icon bi bi-instagram" style="font-size: 34px;"></i><i class="icon bi bi-twitter-x mr-2" style="font-size: 34px;"></i>
           </div>
         </div>
-        <div class="col">
+        <div class="col-lg-3 col-md-6">
           <p class="footer-header">
             About Us
           </p>
@@ -29,7 +29,7 @@
             </li>
           </ul>
         </div>
-        <div class="col">
+        <div class="col-lg-3 col-md-6">
           <p class="footer-header">
             Hotlines
           </p>
@@ -46,7 +46,7 @@
             PNP GENSAN: 0927-766-7822 
           </p>
         </div>
-        <div class="col">
+        <div class="col-lg-3 col-md-6">
           <p class="footer-header">
             Locate Us
           </p>

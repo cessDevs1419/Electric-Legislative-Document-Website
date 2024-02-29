@@ -54,12 +54,13 @@
         }
     }
 </script>
+
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="my-5 py-5 py-xl-0">
-        <div class="title mb-5 mt-5 mt-lg-0">
-            <SectionHeaderComponent class="mt-5 mt-lg-0" type="inside">
+    <TemplateContainer class="">
+        <div class="title mb-5 mt-lg-0">
+            <SectionHeaderComponent  type="inside">
                 <template #firstWord>Legislative</template>
                 <template #secondWord>Documents</template>
             </SectionHeaderComponent>

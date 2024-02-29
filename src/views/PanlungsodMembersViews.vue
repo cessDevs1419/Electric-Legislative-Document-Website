@@ -7,7 +7,7 @@
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
     <TemplateContainerComponent class="mb-5 mt-5">
-        <div class="d-flex justify-content-center mb-5 mt-5">
+        <div class="d-flex justify-content-center mb-5 text-center">
             <SectionHeaderComponent class="m-auto  mt-5 mb-5" type="inside">
                 <template #firstWord >The 20th</template>
                 <template #secondWord >Sangguniang Panlungsod Members</template>
@@ -16,7 +16,7 @@
         
         <div class="d-flex flex-column align-item-center justify-content-center mt-5">
             <div class="card-container p-5 m-auto">
-                <div class="card bg-white box-shadow d-flex flex-row overflow-visible">
+                <div class="card bg-white box-shadow d-flex flex-row flex-wrap justify-content-center overflow-visible">
                     <div class="card-header bg-transparent">
                         <img class="w-100 h-100" src="../assets/images/sampleIcon.png" alt="" sizes="">
                     </div>
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="card-container p-5 m-auto">
-                <div class="card bg-white box-shadow d-flex flex-row overflow-visible">
+                <div class="card bg-white box-shadow d-flex flex-row flex-wrap justify-content-center overflow-visible">
                     <div class="card-header bg-transparent">
                         <img class="w-100 h-100" src="../assets/images/sampleIcon.png" alt="" sizes="">
                     </div>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="card-container p-5 m-auto">
-                <div class="card bg-white box-shadow d-flex flex-row overflow-visible">
+                <div class="card bg-white box-shadow d-flex flex-row flex-wrap justify-content-center overflow-visible">
                     <div class="card-header bg-transparent">
                         <img class="w-100 h-100" src="../assets/images/sampleIcon.png" alt="" sizes="">
                     </div>
@@ -53,9 +53,6 @@
 </template>
 
 <style scoped>
-    .spacer {
-        padding-top: 15rem;
-    }
     .card-container {
         max-width: 60rem;
         width: 100%;

@@ -111,10 +111,10 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class=" mt-lg-0  pb-5 mb-5">
+    <TemplateContainer class=" mt-lg-0 mt-5  pb-5 mb-5">
         <!-- Search bar  -->
         
-        <div class=" w-100 text-center mb-5">
+        <div class=" w-100 text-center mb-5 px-2">
             <div class="title mb-5 ">
                 <img class="company-logo primary-bg rounded-circle  border-0 mx-auto mb-2" src="../assets/images/circle.png" alt="" srcset="">
                 <h1 class="tertiary-font fw-bold">

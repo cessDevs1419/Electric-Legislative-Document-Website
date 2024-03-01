@@ -130,8 +130,15 @@ export default {
             </thead>
             <tbody>
                 <tr class="cursor-pointer"  data-bs-toggle="modal" data-bs-target="#tableModal" v-for="(item, index) in filteredData" :key="index" @click="getData(item)"> 
-                    <td v-for="(rows, index) in rows" :key="index">
-                        {{ item[rows] }}
+                    <td class="text-truncate max-data-width overflow-hidden " v-for="(rows, index) in rows" :key="index">
+                        <template v-if="rows === 'attachments'">
+                            <template v-if="item['attachments']">
+                                {{ item['not_show_attachments_desc'] }}
+                            </template>
+                        </template>
+                        <template v-else>
+                            {{ item[rows] }}
+                        </template>
                     </td>
                 </tr>
             </tbody>
@@ -161,5 +168,9 @@ export default {
     .filter-select{
         width: 100%;
         max-width: 200px;
+    }
+
+    .max-data-width{
+        max-width: 10rem;
     }
 </style>

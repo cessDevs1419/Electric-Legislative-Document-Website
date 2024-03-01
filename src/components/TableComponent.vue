@@ -65,14 +65,21 @@ export default {
             
     },
     computed: {
-        filteredData() {
-            return this.data.filter(item => {
-                return Object.values(item).some(value =>
-                    String(value).toLowerCase().includes(this.searchQuery.toLowerCase() || this.typeQuery.toLowerCase() || this.categoryQuery.toLowerCase() || this.bayanQuery.toLowerCase())
-                );
-            });
-        }
-    },
+    filteredData() {
+        return this.data.filter(item => {
+            const matchesSearch = this.searchQuery === '' || Object.values(item).some(value =>
+                String(value).toLowerCase().includes(this.searchQuery.toLowerCase())
+            );
+            const matchesType = this.typeQuery === '' || item.type_name.toLowerCase().includes(this.typeQuery.toLowerCase());
+            const matchesCategory = this.categoryQuery === '' || item.category_name.toLowerCase().includes(this.categoryQuery.toLowerCase());
+            const matchesBayan = this.bayanQuery === '' || item.bayan_name.toLowerCase().includes(this.bayanQuery.toLowerCase());
+
+            return matchesSearch && matchesType && matchesCategory && matchesBayan;
+        });
+    }
+},
+
+
     created() {
         this.fetchData(); 
     }
@@ -97,7 +104,7 @@ export default {
                     <label class="col-form-label">Filter By</label>
                         <select class="filter-select form-select rounded-0 px-2" v-model="typeQuery" >
                             <option selected>Types</option>
-                            <option v-for="(items, index) in type" :key="index" value="name">{{ items.name }}</option>
+                            <option v-for="(items, index) in type" :key="index" :value="items.name">{{ items.name }}</option>
                         </select>
                 </div>
             </div>
@@ -106,7 +113,7 @@ export default {
                     <label class="col-form-label">Category</label>
                         <select class="filter-select form-select rounded-0 px-2" v-model="categoryQuery" >
                             <option selected>Select Category</option>
-                            <option v-for="(category, index) in category" :key="index" value="name">{{ category.name }}</option>
+                            <option v-for="(category, index) in category" :key="index" :value="category.name">{{ category.name }}</option>
                         </select>
                 </div>
             </div>
@@ -115,7 +122,7 @@ export default {
                     <label class="col-form-label">Bayan</label>
                         <select class="filter-select form-select rounded-0 px-2" v-model="bayanQuery" >
                             <option selected>Select Bayan</option>
-                            <option v-for="(item, index) in bayan" :key="index" :value="name" >{{ item.name }}</option>
+                            <option v-for="(item, index) in bayan" :key="index" :value="item.name" >{{ item.name }}</option>
                         </select>
                 </div>
             </div>

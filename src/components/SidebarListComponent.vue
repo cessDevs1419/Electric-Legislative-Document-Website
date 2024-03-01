@@ -11,10 +11,6 @@
 <script>
 export default {
   props: {
-    items: {
-      type: Array,
-      required: true
-    },
     listType: {
       type: String,
       required: true
@@ -27,9 +23,6 @@ export default {
 }
 </script>
 
-
-
-
 <template>
     
     <TitleContainerComponent>
@@ -39,7 +32,7 @@ export default {
     </TitleContainerComponent>
   <ul class="list-unstyled">
     <li class="text-decoration-none mt-2">
-      <MembersListTemplateComponent v-if="listType === 'membersList'" :list="items">
+      <MembersListTemplateComponent v-if="listType === 'membersList'">
         <template #1st-MemberName>Hon. Rosalita T. Nuñez, MNSA, PHD</template>
         <template #2nd-MemberName>Hon. Jose Edmar J. Yumang</template>
         <template #3rd-MemberName>Hon. Jose Orlando R. Acharon</template>
@@ -51,7 +44,7 @@ export default {
         <template #9th-MemberName>Hon. Froebel Kan M. Balleque</template>
         <template #10th-MemberName>Hon. Virginia T. Llido</template>
       </MembersListTemplateComponent>
-      <HotlinesTemplateComponent v-if="listType === 'hotlineList'" :list="items">
+      <HotlinesTemplateComponent v-if="listType === 'hotlineList'">
         <template #HotlineTitle>Joint Task Force Gensan (JTF Gensan)</template>
             <template #HotlineNumber>Landline: 887-6018</template>
             <template #1HotlineTitle>Philippine National Police (PNP)</template>
@@ -63,16 +56,11 @@ export default {
             <template #4HotlineTitle>Philippine Army</template>
             <template #4HotlineNumber>Landline: 887-6018</template>
       </HotlinesTemplateComponent>
-      <MiniCalendarTemplateComponent v-if="listType === 'calendar'" :list="items">
+      <MiniCalendarTemplateComponent v-if="listType === 'calendar'">
       </MiniCalendarTemplateComponent>
-      <MunicipalitiesTemplateComponent v-if="listType === 'municipalityList'" :list="items">
+      <MunicipalitiesTemplateComponent v-if="listType === 'municipalityList'">
       </MunicipalitiesTemplateComponent>
-      <EventsTemplateComponent v-if="listType === 'eventList'" :list="items">
-        <template #1st-event>Paru-Paro Festival</template>
-        <template #2nd-event>10th Anniversary Party</template>
-        <template #3rd-event>Tapat mo, Linis mo</template>
-        <template #4th-event>Blood Letting with Red Cross</template>
-        <template #5th-event>Free anti-rabies for furbabies</template>
+      <EventsTemplateComponent v-if="listType === 'eventList'">
       </EventsTemplateComponent>
     </li>
   </ul>

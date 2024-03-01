@@ -39,7 +39,6 @@ export default {
 </template>
 
 <style scoped>
-
     .card-body p:hover{
         color:var(--secondary-color);
         cursor: pointer;

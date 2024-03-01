@@ -1,7 +1,6 @@
 <script setup>
 import TemplateContainer from '@/components/TemplateContainer.vue';
 import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
-import SidebarComponent from '@/components/SidebarComponent.vue';
 import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
 import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
 </script>
@@ -336,25 +335,6 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                   }
                   // Add more items as needed
               ],
-      names: [
-        {
-          memberName: 'Jerome',
-          link: 'http://example.com/another'
-        },
-        {
-          memberName: 'Jerome1',
-          link: 'http://example.com/another'
-        },
-        {
-          memberName: 'Jerome2',
-          link: 'http://example.com/another'
-        },
-        {
-          memberName: 'Jerome3',
-          link: 'http://example.com/another'
-        }
-      ],
-      
       };
     },
     mounted() {

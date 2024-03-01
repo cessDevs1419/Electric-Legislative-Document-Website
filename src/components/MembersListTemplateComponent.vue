@@ -1,7 +1,3 @@
-<script>
-import SidebarComponent from './SidebarComponent.vue';
-</script>
-
 <template>
     <div class="card-body tertiary-bg my-3 p-4 pb-5 position-relative">
         <ul class="list-unstyled">

@@ -1,44 +1,59 @@
 <script>
-    export default{
-        data(){
-            return{
-                searchQuery: '',
-                typeQuery: '',
-                categoryQuery: '',
-                bayanQuery: '',
-            }
+import BayanApiService from '@/services/BayanApiService';
+
+export default {
+    data() {
+        return {
+            searchQuery: '',
+            typeQuery: '',
+            categoryQuery: '',
+            bayanQuery: '',
+            bayan: [] 
+        };
+    },
+    props: {
+        header: {
+            type: Array,
+            required: true
         },
-        props: {
-            header: {
-                type: Array,
-                required: true
-            },
-            data: {
-                type: Array,
-                required: true
-            },
-            rows: {
-                type: Array,
-                required: true
-            }
+        data: {
+            type: Array,
+            required: true
         },
-        methods: {
-            getData(data){
-                this.$emit('row-click-data', data );
-            }
+        rows: {
+            type: Array,
+            required: true
+        }
+    },
+    methods: {
+        getData(data) {
+            this.$emit('row-click-data', data);
         },
-        computed: {
-            filteredData() {
+        fetchData() { 
+            BayanApiService.fetch()
+                .then(data => {
+                    this.bayan.push(...data); // Use "this.bayan" to access component data
+                })
+                .catch(error => {
+                    console.error('Error fetching projects:', error);
+                });
+        }
+    },
+    computed: {
+        filteredData() {
             return this.data.filter(item => {
                 return Object.values(item).some(value =>
-                String(value).toLowerCase().includes(this.searchQuery.toLowerCase() || this.typeQuery.toLowerCase() || this.categoryQuery.toLowerCase() || this.bayanQuery.toLowerCase())
+                    String(value).toLowerCase().includes(this.searchQuery.toLowerCase() || this.typeQuery.toLowerCase() || this.categoryQuery.toLowerCase() || this.bayanQuery.toLowerCase())
                 );
             });
-            }
-        },
-
+        }
+    },
+    created() {
+        this.fetchData(); 
     }
+};
 </script>
+
 
 <template>
 <div class="table-container box-shadow overflow-auto px-4">
@@ -77,8 +92,7 @@
                     <label class="col-form-label">Bayan</label>
                         <select class="filter-select form-select rounded-0 px-2" v-model="bayanQuery" >
                             <option value="" selected>Types</option>
-                            <option value="QP">QP</option>
-                            <option value="GP">GP</option>
+                            <option v-for="(item, index) in bayan" :key="index" :value="name" >{{ item.name }}</option>
                         </select>
                 </div>
             </div>
@@ -93,7 +107,9 @@
             </thead>
             <tbody>
                 <tr class="cursor-pointer"  data-bs-toggle="modal" data-bs-target="#tableModal" v-for="(item, index) in filteredData" :key="index" @click="getData(item)"> 
-                    <td v-for="(rows, index) in rows" :key="index">{{ item[rows] }}</td>
+                    <td v-for="(rows, index) in rows" :key="index">
+                        {{ item[rows] }}
+                    </td>
                 </tr>
             </tbody>
         </table>

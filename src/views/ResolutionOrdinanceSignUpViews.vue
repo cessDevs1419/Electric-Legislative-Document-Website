@@ -40,14 +40,14 @@
                         <h1 class="fw-bolder m-0">Sign Up Now</h1>
                         <p >We are just one call away</p>
                     </div>
-                    <div class="details px-5">
+                    <div class="details px-2 px-md-5  ">
                         <p>Lorem ipsum dolor sit amet consectetur. Scelerisque fringilla adipiscing risus nascetur leo pulvinar nunc. Sed pellentesque non varius ut aliquam ut. Elementum facilisis sit tortor iaculis.</p>
                         
                         <p><i class="bi bi-envelope me-1"></i> dummyEmail@hotmail.com</p>
                         <p><i class="bi bi-facebook me-1"></i> facebook.com/LguGensan</p>
 
                     </div>
-                    <div class="footer z-1 w-100 px-5 position-absolute bottom-0 pb-5">
+                    <div class="footer z-1 w-100 px-2 px-md-5  position-absolute bottom-0 pb-5">
                         <p class="m-0">Already have an account? <router-link to="/legislative/resolution/ordinance-esubmission/sign-in" class="secondary-font text-decoration-none">Sign In</router-link> here.</p>
                     </div>
 
@@ -58,7 +58,7 @@
                     
                 </div>
                 <div class="col-lg-7 dirty-white-bg py-5 ">
-                    <form class="px-5  " @submit.prevent="signinSubmit">
+                    <form class="px-2 px-md-5  " @submit.prevent="signinSubmit">
                         <div class="mb-4">
                             <label class="form-label">Full name</label> <span class="text-danger">*</span>
                             <input type="text" class="form-control p-3 bg-transparent" v-model="signupData.fullname" placeholder="">

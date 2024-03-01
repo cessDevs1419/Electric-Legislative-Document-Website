@@ -220,7 +220,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
   </TemplateContainer>
 
   <!-- News -->
-  <TemplateContainer>
+  <TemplateContainer class="mb-5">
 	<div class="row g-3 my-3">
 		<div class="col-lg-7">
 			<PaginationListComponentVue 

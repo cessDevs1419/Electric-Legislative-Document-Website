@@ -50,7 +50,7 @@
                 <div class="col-lg-6">
                     <h4 class="d-flex align-items-center fw-bold"><span class="vertical-line"></span>Your E Submission</h4>
                 </div>
-                <div class="col-lg-6 d-flex justify-content-end">
+                <div class="col-lg-6 d-flex justify-content-start justify-content-lg-end">
                     <div class="btn-bg primary-bg px-3 d-flex align-items-center">
                         <router-link to="/legislative/new-submission" class="h-0 text-white text-decoration-none rounded-0 p-0 m-0 " @click="routeToNewForm()">Submit New</router-link>
                     </div>

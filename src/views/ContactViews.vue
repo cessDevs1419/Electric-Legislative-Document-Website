@@ -2,7 +2,6 @@
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import ValidationService from '@/services/ValidationService.js';
-    import SampleApiService from '@/services/SampleApiService.js';
 
     const formData = {
         name: '',
@@ -36,14 +35,14 @@
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
     <TemplateContainer class="d-flex align-item-center jutify-content-center mb-5">
-        <div class="contact-container w-100 box-shadow my-5 m-auto">
+        <div class="contact-container w-100 box-shadow mb-5 m-auto">
             <div class="row w-100 h-100 m-auto ">
-                <div class="col-lg-7 p-5 dirty-white-bg">
+                <div class="col-lg-7 py-5 px-3 px-md-5 dirty-white-bg">
                     <div class="title m-auto text-center mb-5 mt-5">
                         <h1 class="fw-bolder m-0">Send us a Message !</h1>
                         <p>We would like to hear from you !</p>
                     </div>
-                    <form class="px-5  mt-5 mb-5" @submit.prevent="handleSubmit">
+                    <form class="px-0 px-md-5 mt-5 mb-5" @submit.prevent="handleSubmit">
                         <div class="mb-4">
                             <label class="form-label">Full name</label> <span class="text-danger">*</span>
                             <input type="text" class="form-control border-0 bg-transparent"  v-model="formData.name" placeholder="">

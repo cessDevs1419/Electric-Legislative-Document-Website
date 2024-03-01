@@ -1,6 +1,7 @@
 <script>
 import BayanApiService from '@/services/BayanApiService';
 import CategoryApiService from '@/services/CategoryApiService';
+import DocumentTypeApiService from '@/services/DocumentTypeApiService';
 
 export default {
     data() {
@@ -10,7 +11,8 @@ export default {
             categoryQuery: '',
             bayanQuery: '',
             bayan: [],
-            category: [] 
+            category: [],
+            type: [] 
         };
     },
     props: {
@@ -34,6 +36,7 @@ export default {
         fetchData() { 
             BayanApiService.fetch()
                 .then(data => {
+                    this.bayan = []
                     this.bayan.push(...data);
                 })
                 .catch(error => {
@@ -42,11 +45,21 @@ export default {
             
             CategoryApiService.fetch()
                 .then(data => {
+                    this.category = []
                     this.category.push(...data);
                 })
                 .catch(error => {
                     console.error('Error fetching categories:', error);
                 });    
+
+            DocumentTypeApiService.fetch()
+                .then(data => {
+                    this.type = []
+                    this.type.push(...data);
+                })
+                .catch(error => {
+                    console.error('Error fetching categories:', error);
+                });  
         }, 
         
             
@@ -83,9 +96,8 @@ export default {
                 <div class="d-flex align-item-center justify-content-between">
                     <label class="col-form-label">Filter By</label>
                         <select class="filter-select form-select rounded-0 px-2" v-model="typeQuery" >
-                            <option value="" selected>Types</option>
-                            <option value="ORDINANCE">ORDINANCE</option>
-                            <option value="RECOLLECTION">RECOLLECTION</option>
+                            <option selected>Types</option>
+                            <option v-for="(items, index) in type" :key="index" value="name">{{ items.name }}</option>
                         </select>
                 </div>
             </div>
@@ -93,8 +105,7 @@ export default {
                 <div class="d-flex align-item-center justify-content-between">
                     <label class="col-form-label">Category</label>
                         <select class="filter-select form-select rounded-0 px-2" v-model="categoryQuery" >
-                            <option value="" selected>Types</option>
-                            <option value="Category 1">Category 1</option>
+                            <option selected>Select Category</option>
                             <option v-for="(category, index) in category" :key="index" value="name">{{ category.name }}</option>
                         </select>
                 </div>
@@ -103,7 +114,7 @@ export default {
                 <div class="d-flex align-item-center justify-content-between">
                     <label class="col-form-label">Bayan</label>
                         <select class="filter-select form-select rounded-0 px-2" v-model="bayanQuery" >
-                            <option value="" selected>Types</option>
+                            <option selected>Select Bayan</option>
                             <option v-for="(item, index) in bayan" :key="index" :value="name" >{{ item.name }}</option>
                         </select>
                 </div>

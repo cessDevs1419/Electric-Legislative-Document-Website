@@ -1,7 +1,6 @@
 <script setup>
 import TemplateContainer from '@/components/TemplateContainer.vue';
 import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
-import SidebarComponent from '@/components/SidebarComponent.vue';
 import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
 import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
 </script>
@@ -244,14 +243,12 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 		<div class="col-lg-5">
         <!-- Sidebar -->
         <SidebarListComponentVue
-          :items="names"
           :listType="'calendar'"
         >
             <template #heading>Calendar of Events</template>
         </SidebarListComponentVue>
         
         <SidebarListComponentVue
-          :items="names"
           :listType="'membersList'"
         >
             <template #heading>The 20th SP Members Facebook Page</template>
@@ -259,7 +256,6 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         </SidebarListComponentVue>
 
         <SidebarListComponentVue
-          :items="names"
           :listType="'hotlineList'"
         >
             <template #heading>Quezon Province Hotlines</template>
@@ -267,7 +263,6 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         </SidebarListComponentVue>
 
         <SidebarListComponentVue
-        
             :listType="'municipalityList'"
         >
               <template #heading> Municipalities of Quezon</template>
@@ -340,25 +335,6 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                   }
                   // Add more items as needed
               ],
-      names: [
-        {
-          memberName: 'Jerome',
-          link: 'http://example.com/another'
-        },
-        {
-          memberName: 'Jerome1',
-          link: 'http://example.com/another'
-        },
-        {
-          memberName: 'Jerome2',
-          link: 'http://example.com/another'
-        },
-        {
-          memberName: 'Jerome3',
-          link: 'http://example.com/another'
-        }
-      ],
-      
       };
     },
     mounted() {

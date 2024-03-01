@@ -7,16 +7,6 @@
 
 <script>
     export default {
-        props: {
-            items: {
-            type: Array,
-            required: true
-            },
-            listType: {
-            type: String,
-            required: true
-            }
-        },
         data(){
             return{
                 municipalities: [

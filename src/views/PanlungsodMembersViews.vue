@@ -1,12 +1,13 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import SectionHeaderComponent from '@/components/SectionHeaderComponent.vue';
+    import TemplateContainer from '@/components/TemplateContainer.vue';
 </script>
 
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainerComponent class="mb-5 mt-5">
+    <TemplateContainer class="mb-5 mt-5">
         <div class="d-flex justify-content-center mb-5 text-center">
             <SectionHeaderComponent class="m-auto  mt-5 mb-5" type="inside">
                 <template #firstWord >The 20th</template>
@@ -49,7 +50,7 @@
                 </div>
             </div>
         </div>
-    </TemplateContainerComponent>
+    </TemplateContainer>
 </template>
 
 <style scoped>

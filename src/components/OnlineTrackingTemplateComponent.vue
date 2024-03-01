@@ -30,6 +30,9 @@
     methods: {
         getData(data) {
             this.$emit('row-click-data', data);
+        },
+        search(){
+            this.$emit('search-data', this.searchQuery);
         }
     },
     computed: {
@@ -37,6 +40,13 @@
             return this.data.filter(item => {
                 return Object.values(item).some(value => String(value).toLowerCase().includes(this.searchQuery.toLowerCase() || this.typeQuery.toLowerCase() || this.categoryQuery.toLowerCase() || this.bayanQuery.toLowerCase()));
             });
+        }
+    },
+    watch: {
+        searchQuery: function(newSearchQuery) {
+            if (newSearchQuery) {
+                this.search();
+            }
         }
     },
     components: { StatusTemplateComponent, StatusTemplateComponent }
@@ -85,7 +95,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="cursor-pointer"  data-bs-toggle="modal" data-bs-target="#tableModal" v-if="data"> 
+                    <tr class="cursor-pointer" :class="{'border-white' : data['breakdown']}" data-bs-toggle="modal" data-bs-target="#tableModal" v-if="data"> 
                         <td v-for="(rows, index) in rows" :key="index">
                             <template v-if="rows === 'status'">
                                 <StatusTemplateComponent
@@ -102,6 +112,32 @@
                             
                         </td>
                     </tr>
+                    <template v-if="data['breakdown']" >
+                        <tr class="cursor-pointer" :class="{'border-white border' : data['breakdown']}" v-for="(item, index) in  data['breakdown']" :key="index" > 
+                            <td class="p-1" >
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <div class="border-dashed"></div>
+                                    <div class="eclipse p-2 rounded-circle"></div>
+                                </div>
+                            </td>
+                            <td class="p-1" >
+                                {{ item.status }}
+                            </td>
+                            <td class="p-1" >
+                                {{ item.description }}
+                            </td>
+                            <td class="p-1" >
+                                {{ item.division}}
+                            </td>
+                            <td class="p-1" >
+                                {{ item.date }}
+                            </td>
+                            <td class="p-1" >
+                                {{ item.time }}
+                            </td>
+                        </tr>
+                        
+                    </template>
                 </tbody>
             </table>
         </div>
@@ -149,7 +185,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="cursor-pointer"  data-bs-toggle="modal" data-bs-target="#tableModal" v-if="data"> 
+                    <!--    -->
+                    <tr class="cursor-pointer border " :class="{'border-white' : data['breakdown']}"  v-if="data"> 
                         <td v-for="(rows, index) in rows" :key="index">
                             <template v-if="rows === 'status'">
                                 <StatusTemplateComponent
@@ -163,9 +200,34 @@
                             <template v-else>
                                 {{ data[rows] }}
                             </template>
-                            
                         </td>
                     </tr>
+                    <template v-if="data['breakdown']" >
+                        <tr class="cursor-pointer" :class="{'border-white border' : data['breakdown']}" v-for="(item, index) in  data['breakdown']" :key="index" > 
+                            <td class="p-1" >
+                                <div class="d-flex flex-column align-items-center justify-content-center">
+                                    <div class="border-dashed"></div>
+                                    <div class="eclipse p-2 rounded-circle"></div>
+                                </div>
+                            </td>
+                            <td class="p-1" >
+                                {{ item.status }}
+                            </td>
+                            <td class="p-1" >
+                                {{ item.description }}
+                            </td>
+                            <td class="p-1" >
+                                {{ item.division}}
+                            </td>
+                            <td class="p-1" >
+                                {{ item.date }}
+                            </td>
+                            <td class="p-1" >
+                                {{ item.time }}
+                            </td>
+                        </tr>
+                        
+                    </template>
                 </tbody>
             </table>
         </div>
@@ -195,5 +257,18 @@
 
     .form-contol-sm{
         height: 3rem;
+    }
+
+    .border-dashed{
+        border: 3px dashed var(--gray-divider);
+        width: 0;
+        height: 1rem;
+    }
+
+    .eclipse{
+        width: 1rem;
+        height: 1rem;
+        background: #286BAE;
+        filter: drop-shadow(1px 1px 10px #1271d1);
     }
 </style>

@@ -66,16 +66,6 @@ export default {
       <MiniCalendarTemplateComponent v-if="listType === 'calendar'" :list="items">
       </MiniCalendarTemplateComponent>
       <MunicipalitiesTemplateComponent v-if="listType === 'municipalityList'" :list="items">
-        <template #1st-Municipality>Agdangan</template>
-        <template #2nd-Municipality>Burdeos</template>
-        <template #3rd-Municipality>Calauag</template>
-        <template #4th-Municipality>Dolores</template>
-        <template #5th-Municipality>General Luna</template>
-        <template #6th-Municipality>Guinayangan</template>
-        <template #7th-Municipality>Jomalig</template>
-        <template #8th-Municipality>Pagbilao</template>
-        <template #9th-Municipality>Plaridel</template>
-        <template #10th-Municipality>Sampaloc</template>
       </MunicipalitiesTemplateComponent>
       <EventsTemplateComponent v-if="listType === 'eventList'" :list="items">
         <template #1st-event>Paru-Paro Festival</template>

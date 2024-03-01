@@ -1,44 +1,30 @@
+<script setup>
+import {ref} from 'vue'
+
+const municipalities = ref ([
+    { id: 1, label: "Agdangan" },
+    { id: 2, label: "Burdeos" },
+    { id: 3, label: "Caluag" },
+    { id: 4, label: "Dolores" },
+    { id: 5, label: "General Luna" },
+    { id: 5, label: "Guinayangan" },
+    { id: 5, label: "Jomalig" },
+    { id: 5, label: "Pagbilao" },
+    { id: 5, label: "Plaridel" },
+])
+
+</script>
+
 <template>
-    <div class="card-body tertiary-bg my-3 p-4 pb-5 position-relative">
-            <p class="my-2 semi-bold tertiary-font fs-5">
-                <slot name="1st-Municipality"></slot>
-            </p>
-            <hr class="grey-divider">
-            <p class="my-2 semi-bold tertiary-font fs-5">
-                <slot name="2nd-Municipality"></slot>
-            </p>
-            <hr class="grey-divider">
-            <p class="my-2 semi-bold tertiary-font fs-5">
-                <slot name="3rd-Municipality"></slot>
-            </p>
-            <hr class="grey-divider">
-            <p class="my-2 semi-bold tertiary-font fs-5">
-                <slot name="4th-Municipality"></slot>
-            </p>
-            <hr class="grey-divider">
-            <p class="my-2 semi-bold tertiary-font fs-5">
-                <slot name="5th-Municipality"></slot>
-            </p>
-            <hr class="grey-divider">
-            <p class="my-2 semi-bold tertiary-font fs-5">
-                <slot name="6th-Municipality"></slot>
-            </p>
-            <hr class="grey-divider">
-            <p class="my-2 semi-bold tertiary-font fs-5">
-                <slot name="7th-Municipality"></slot>
-            </p>
-            <hr class="grey-divider">
-            <p class="my-2 semi-bold tertiary-font fs-5">
-                <slot name="8th-Municipality"></slot>
-            </p>
-            <hr class="grey-divider">
-            <p class="my-2 semi-bold tertiary-font fs-5">
-                <slot name="9th-Municipality"></slot>
-            </p>
-            <hr class="grey-divider">
-            <p class="my-2 semi-bold tertiary-font fs-5">
-                <slot name="10th-Municipality"></slot>
-            </p>
+    <div class="card-body tertiary-bg my-3 px-2 pb-5 position-relative">
+        <ul class="list-unstyled">
+            <li v-for="municipality in municipalities" :key="municipality.id">
+                <p class="my-2 semi-bold tertiary-font fs-5">
+                    {{ municipality.label }}
+                </p>
+                <hr class="grey-divider">
+            </li>
+        </ul>
     </div>
 </template>
 

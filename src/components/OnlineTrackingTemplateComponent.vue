@@ -30,6 +30,9 @@
     methods: {
         getData(data) {
             this.$emit('row-click-data', data);
+        },
+        search(){
+            this.$emit('search-data', this.searchQuery);
         }
     },
     computed: {
@@ -37,6 +40,13 @@
             return this.data.filter(item => {
                 return Object.values(item).some(value => String(value).toLowerCase().includes(this.searchQuery.toLowerCase() || this.typeQuery.toLowerCase() || this.categoryQuery.toLowerCase() || this.bayanQuery.toLowerCase()));
             });
+        }
+    },
+    watch: {
+        searchQuery: function(newSearchQuery) {
+            if (newSearchQuery) {
+                this.search();
+            }
         }
     },
     components: { StatusTemplateComponent, StatusTemplateComponent }

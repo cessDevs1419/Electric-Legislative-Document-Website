@@ -8,7 +8,9 @@ const CategoryApiService = {
 
             const response = await axios.get(GETDocumentCategoryApi, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` 
+                    Authorization: `Bearer ${authToken}`,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
                 }
             });
             return response.data;

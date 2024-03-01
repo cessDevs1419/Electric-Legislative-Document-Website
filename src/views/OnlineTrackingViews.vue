@@ -20,7 +20,7 @@
                 tableRows: [
                     'no',
                     'status',
-                    'description',
+                    'documents',
                     'division',
                     'date',
                     'time',
@@ -31,7 +31,7 @@
                         tracking_id: 'trckid1',
                         title: 'Document of the Philippines',
                         office: 'office1',
-                        bayan: 'quezon prov',
+                        bayan_name: 'quezon prov',
                         attachments: 'pdf',
                         division: 'Receiving',
                         date: '2021-01-01',
@@ -57,12 +57,14 @@
                                 description: 'On process for endorsement',
                                 division: 'Sorting Office',
                                 date: '2021-02-29',
+                                status: 'Endorsed',
                                 time: '12:00:00',
                             },
                             {
                                 description: 'On final stage',
                                 division: 'Receiving',
                                 date: '2021-03-01',
+                                status: 'Received',
                                 time: '12:00:00',
                             }
                         ]
@@ -114,7 +116,7 @@
     <TemplateContainer class=" mt-lg-0 mt-5  pb-5 mb-5">
         <!-- Search bar  -->
         
-        <div class=" w-100 text-center mb-5 px-2">
+        <!-- <div class=" w-100 text-center mb-5 px-2">
             <div class="title mb-5 ">
                 <img class="company-logo primary-bg rounded-circle  border-0 mx-auto mb-2" src="../assets/images/circle.png" alt="" srcset="">
                 <h1 class="tertiary-font fw-bold">
@@ -130,7 +132,7 @@
                     <i class="bi bi-search p-2 text-white fs-3"></i>
                 </span>
             </div>
-        </div>
+        </div> -->
 
         <!-- Table  -->
         <!-- <OnlineTrackingTemplateComponent
@@ -142,14 +144,15 @@
         >
 
         </OnlineTrackingTemplateComponent> -->
-        <!-- <OnlineTrackingTableComponent
+
+        <OnlineTrackingTableComponent
             :header="tableHeader"
             :data="tableData"
             :rows="tableRows"
             @row-click-data="handleRowData"
         >
 
-        </OnlineTrackingTableComponent> -->
+        </OnlineTrackingTableComponent>
 
         
     </TemplateContainer>

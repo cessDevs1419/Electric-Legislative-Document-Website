@@ -12,15 +12,41 @@ const municipalities = ref ([
     { id: 5, label: "Pagbilao" },
     { id: 5, label: "Plaridel" },
 ])
+</script>
 
+<script>
+import BayanApiService from '@/services/BayanApiService';
+
+export default {
+    data () {
+        return {
+            category: []
+        }
+    },
+    methods: {
+        fetchData (){
+            BayanApiService.fetch()
+                .then(data => {
+                    this.bayan = []
+                    this.bayan.push(...data);
+                })
+                .catch(error => {
+                    console.error('Error fetching bayan:', error);
+                });
+        }
+    },
+    created() {
+        this.fetchData(); 
+    }
+}
 </script>
 
 <template>
     <div class="card-body tertiary-bg my-3 px-2 pb-5 position-relative">
         <ul class="list-unstyled">
-            <li v-for="municipality in municipalities" :key="municipality.id">
+            <li v-for="(bayan, index) in bayan" :key="index" :value="name">
                 <p class="my-2 semi-bold tertiary-font fs-5">
-                    {{ municipality.label }}
+                    {{ bayan.name }}
                 </p>
                 <hr class="grey-divider">
             </li>

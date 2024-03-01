@@ -1,5 +1,6 @@
 <script>
 import BayanApiService from '@/services/BayanApiService';
+import CategoryApiService from '@/services/CategoryApiService';
 
 export default {
     data() {
@@ -8,7 +9,8 @@ export default {
             typeQuery: '',
             categoryQuery: '',
             bayanQuery: '',
-            bayan: [] 
+            bayan: [],
+            category: [] 
         };
     },
     props: {
@@ -32,12 +34,22 @@ export default {
         fetchData() { 
             BayanApiService.fetch()
                 .then(data => {
-                    this.bayan.push(...data); // Use "this.bayan" to access component data
+                    this.bayan.push(...data);
                 })
                 .catch(error => {
-                    console.error('Error fetching projects:', error);
+                    console.error('Error fetching bayan:', error);
                 });
-        }
+            
+            CategoryApiService.fetch()
+                .then(data => {
+                    this.category.push(...data);
+                })
+                .catch(error => {
+                    console.error('Error fetching categories:', error);
+                });    
+        }, 
+        
+            
     },
     computed: {
         filteredData() {
@@ -83,7 +95,7 @@ export default {
                         <select class="filter-select form-select rounded-0 px-2" v-model="categoryQuery" >
                             <option value="" selected>Types</option>
                             <option value="Category 1">Category 1</option>
-                            <option value="Category 2">Category 2</option>
+                            <option v-for="(category, index) in category" :key="index" value="name">{{ category.name }}</option>
                         </select>
                 </div>
             </div>

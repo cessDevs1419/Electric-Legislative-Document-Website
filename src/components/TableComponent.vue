@@ -88,7 +88,7 @@ export default {
 
 
 <template>
-<div class="table-container box-shadow overflow-auto px-4">
+<div class="table-container box-shadow  px-4">
     <div class="table-header p-4">
         <div class="row">
             <div class="col-xl-3 col-lg-6">
@@ -128,7 +128,7 @@ export default {
             </div>
         </div>
     </div>
-    <div class="table-body p-4 pt-0">
+    <div class="table-body pb-4 overflow-auto mx-4 pt-0">
         <table class="table w-100">
             <thead>
                 <tr >

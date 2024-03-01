@@ -23,7 +23,7 @@
                     'type_name',
                     'bayan_name',
                     'title',
-                    'year',
+                    'enactment_date',
                     'category_name' ,
                     'attachments' ,
 

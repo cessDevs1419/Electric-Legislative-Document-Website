@@ -72,6 +72,7 @@
                 ],
                 sampletableData: {},
                 rowData: Object,
+                showModalTable: false,
                 searchQuery: '',
                 showTable: false,
                 hideSearch: true,
@@ -80,6 +81,7 @@
         methods: {
             handleRowData(data){
                 this.rowData = data
+                this.showModalTable = true
             },
             handleSearchQuery(){
                 if (!this.searchQuery) return; 
@@ -175,6 +177,7 @@
                 </div>
                 <div class="modal-body">
                     <OnlineTrackingTemplateComponent
+                        v-if="showModalTable"
                         :header="tableHeader"
                         :data="rowData"
                         :rows="tableRows"

@@ -101,7 +101,7 @@
                         </div>
                         <div class="col-lg-4 m-auto mt-0">
                             <h5 class="fw-semibold">Date of Enactment</h5>
-                            <p v-if="rowData.enactment_date || enactment_date2 ">{{ rowData.enactment_date || enactment_date2 }}</p>
+                            <p v-if="rowData.enactment_date">{{ rowData.enactment_date || enactment_date2 }}</p>
                             <p v-else>N/A</p>
                         </div>
                         <div class="col-lg-4 m-auto mt-0">

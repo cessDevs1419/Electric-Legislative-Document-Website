@@ -10,16 +10,6 @@
     import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
 
     export default {
-        props: {
-                items: {
-                type: Array,
-                required: true
-                },
-                listType: {
-                type: String,
-                required: true
-                }
-            },
         components: {
             PaginationListComponentVue
         },
@@ -101,6 +91,7 @@
                     :items="items" 
                     :itemsPerPage="4"
                     :listType="'orderList'"
+                    :title="''"
                 >
 
                 </PaginationListComponentVue>

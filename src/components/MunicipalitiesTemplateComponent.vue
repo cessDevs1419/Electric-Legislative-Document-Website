@@ -1,26 +1,10 @@
-<script setup>
-import {ref} from 'vue'
-
-const municipalities = ref ([
-    { id: 1, label: "Agdangan" },
-    { id: 2, label: "Burdeos" },
-    { id: 3, label: "Caluag" },
-    { id: 4, label: "Dolores" },
-    { id: 5, label: "General Luna" },
-    { id: 5, label: "Guinayangan" },
-    { id: 5, label: "Jomalig" },
-    { id: 5, label: "Pagbilao" },
-    { id: 5, label: "Plaridel" },
-])
-</script>
-
 <script>
 import BayanApiService from '@/services/BayanApiService';
 
 export default {
     data () {
         return {
-            category: []
+            bayan: []
         }
     },
     methods: {

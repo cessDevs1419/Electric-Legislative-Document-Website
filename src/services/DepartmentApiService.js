@@ -1,8 +1,8 @@
 import axios from "axios";
 import { GETDepartmentApi } from "./Endpoint"
 
-const BayanApiService = {
-    async fetchProjects() {
+const DepartmentApiService = {
+    async fetch() {
         try {
             const authToken = localStorage.getItem('authToken');
 
@@ -18,4 +18,4 @@ const BayanApiService = {
     }
 };
 
-export default BayanApiService;
+export default DepartmentApiService;

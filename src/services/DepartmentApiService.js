@@ -1,12 +1,12 @@
 import axios from "axios";
-import { GETProjectsApi } from "./Endpoint"
+import { GETDepartmentApi } from "./Endpoint"
 
-const SampleApiService = {
+const BayanApiService = {
     async fetchProjects() {
         try {
             const authToken = localStorage.getItem('authToken');
 
-            const response = await axios.get(GETProjectsApi, {
+            const response = await axios.get(GETDepartmentApi, {
                 headers: {
                     Authorization: `Bearer ${authToken}` 
                 }
@@ -18,4 +18,4 @@ const SampleApiService = {
     }
 };
 
-export default SampleApiService;
+export default BayanApiService;

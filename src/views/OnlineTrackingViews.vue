@@ -51,6 +51,20 @@
                         time: '12:00:00',
                         status: 'Endorsed',
                         description: 'description',
+                        breakdown: [
+                            {
+                                description: 'On process for endorsement',
+                                division: 'Sorting Office',
+                                date: '2021-02-29',
+                                time: '12:00:00',
+                            },
+                            {
+                                description: 'On final stage',
+                                division: 'Receiving',
+                                date: '2021-03-01',
+                                time: '12:00:00',
+                            }
+                        ]
                     }
                 ],
                 rowData: Object

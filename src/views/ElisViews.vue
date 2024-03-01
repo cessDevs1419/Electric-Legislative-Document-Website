@@ -3,6 +3,8 @@
     import SectionHeaderComponent from '@/components/SectionHeaderComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import TableComponent from '@/components/TableComponent.vue';
+
+
 </script>
 
 <script>
@@ -53,6 +55,8 @@
             }
         }
     }
+
+    
 </script>
 
 <template>

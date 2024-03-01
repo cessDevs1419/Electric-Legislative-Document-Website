@@ -8,7 +8,9 @@ const DocumentRequirementApiService = {
 
             const response = await axios.get(GETDocumentRequirementApi, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` 
+                    Authorization: `Bearer ${authToken}` ,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
                 }
             });
             return response.data;

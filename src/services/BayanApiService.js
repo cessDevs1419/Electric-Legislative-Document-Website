@@ -8,7 +8,9 @@ const BayanApiService = {
 
             const response = await axios.get(GETBayanApi, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` 
+                    Authorization: `Bearer ${authToken}` ,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json", 
                 }
             });
             return response.data;

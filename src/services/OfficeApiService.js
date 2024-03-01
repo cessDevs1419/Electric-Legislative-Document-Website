@@ -8,7 +8,9 @@ const OfficeApiService = {
 
             const response = await axios.get(GETOfficeApi, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` 
+                    Authorization: `Bearer ${authToken}` ,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
                 }
             });
             return response.data;

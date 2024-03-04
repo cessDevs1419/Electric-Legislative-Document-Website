@@ -4,7 +4,36 @@
      import SidebarListComponent from '@/components/SidebarListComponent.vue';
      import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
      import CalendarViewer from '@/components/CalendarViewer.vue';
+     import CalendarCategoryApiService from '@/services/CalendarCategoryApiService';
 </script>
+
+<script>
+import CalendarCategoryApiService from '@/services/CalendarCategoryApiService';
+
+export default {
+    data () {
+        return {
+            calendarCategory: []
+        }
+    },
+    methods: {
+        fetchData (){
+            CalendarCategoryApiService.fetch()
+                .then(data => {
+                    this.calendarCategory = []
+                    this.calendarCategory.push(...data);
+                })
+                .catch(error => {
+                    console.error('Error fetching categories:', error);
+                });
+        }
+    },
+    created() {
+        this.fetchData(); 
+    }
+}
+</script>
+
 
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
@@ -13,44 +42,18 @@
         <div class="row w-100 m-auto">
             <CalendarViewer></CalendarViewer>
             <div class="calendar-legend d-flex justify-content-center py-4">
-              <div class="row w-100 m-auto">
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                  <div class="row">
-                    <div class="col-lg-3 m-0"><div class="event-color event-type-one"></div></div>
-                    <div class="col-lg-5"><p>Sched01</p></div>
+              <ul class="list-unstyled d-flex">
+                <li class="py-0 px-2 display-inline" v-for="(calendarCategory, index) in calendarCategory" :key="index">
+                  <div class="d-flex align-items-center">
+                    <div class="col-lg-3 m-auto">
+                      <div class="event-color event-type-one" :style="{ backgroundColor: calendarCategory.color }"></div>
+                    </div>
+                    <p class="pt-3 primary-font fs-6 m-0">
+                      {{ calendarCategory.name }}
+                    </p>
                   </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                  <div class="row">
-                    <div class="col-lg-3 m-0"><div class="event-color event-type-two"></div></div>
-                    <div class="col-lg-5"><p>Sched02</p></div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                  <div class="row">
-                    <div class="col-lg-3 m-0"><div class="event-color event-type-three"></div></div>
-                    <div class="col-lg-5"><p>Sched03</p></div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                  <div class="row">
-                    <div class="col-lg-3 m-0"><div class="event-color event-type-four"></div></div>
-                    <div class="col-lg-5"><p>Sched04</p></div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                  <div class="row">
-                    <div class="col-lg-3 m-0"><div class="event-color event-type-five"></div></div>
-                    <div class="col-lg-5"><p>Sched05</p></div>
-                  </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                  <div class="row">
-                    <div class="col-lg-3 m-0"><div class="event-color event-type-six"></div></div>
-                    <div class="col-lg-5"><p>Sched06</p></div>
-                  </div>
-                </div>
-              </div>
+                </li>
+              </ul>
             </div>
         </div>
         <div class="row">

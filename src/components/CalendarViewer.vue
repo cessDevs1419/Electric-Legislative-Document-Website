@@ -75,18 +75,30 @@ export default defineComponent({
       return date.toLocaleString('en-US', options).replace(':', ' ');
     },
     fetchData() {
-    CalendarApiService.fetch()
+      CalendarApiService.fetch()
       .then(events => {
         this.calendarEvents = events;
         console.log('Fetched data to calendar events:', this.calendarEvents);
+        this.calendarOptions.events = events.map(event => ({
+          id: event.id,
+          title: event.title,
+          start: event.start_date_time, 
+          extendedProps: {
+            category_id: event.category_id,
+            category_name: event.category_name,
+            category_color: event.category_color,
+            description: event.description,
+            location: event.location
+          }
+        }));
 
-        // Group events by category
         this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
         console.log('Grouped Events:', this.groupedEvents);
       })
       .catch(error => {
         console.error('Error fetching calendar events:', error);
       });
+
 
     CalendarCategoryApiService.fetch()
       .then(categories => {
@@ -125,10 +137,27 @@ export default defineComponent({
     }
     return '#000000'; 
   },
-    formatDateTime(dateTime) {
-    // Your date formatting logic here
-    return dateTime; // For testing, just return the dateTime as is
-  },
+  formatDateTime(dateTime) {
+    const dateObj = new Date(dateTime);
+    
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    const day = days[dateObj.getDay()];
+    const month = months[dateObj.getMonth()];
+    const date = dateObj.getDate();
+    const year = dateObj.getFullYear();
+    const hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes();
+    const period = hours >= 12 ? 'PM' : 'AM';
+
+    // Convert 24-hour time to 12-hour time
+    const formattedHours = hours % 12 || 12; // 12-hour format, 0 should be converted to 12
+
+    const formattedDateTime = `${day}, ${month} ${date}, ${year}, ${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`;
+    return formattedDateTime;
+  }
+
 }
 })
 </script>
@@ -156,7 +185,7 @@ export default defineComponent({
     <div class="event-cards py-4 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
       <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
       <p class="event-description m-0">{{ event.description }}</p>
-      <p class="fw-semibold m-0">{{ formatDateTime(event.start_time) }}</p>
+      <p class="fw-semibold m-0">{{ event.start_time }}</p>
     </div>
   </div>
 </div>
@@ -171,18 +200,14 @@ export default defineComponent({
               class='demo-app-calendar'
               :options='calendarOptions'
             >
-
-            <FullCalendar :options="calendarOptions">
-                <template v-slot:eventContent='arg'>
-                    <div class="-event-holder px-2" :style="`border-left: 15px solid ${arg.event.extendedProps.category_color}; background-color: ${hexToRgbWithOpacity(arg.event.extendedProps.category_color, '0.2')}`">
-                        <div class="row">
-                            <b class="event-title">{{ arg.event.title }}</b>
-                            <br>
-                            <p class="m-0">{{ arg.event.extendedProps.start_time }}</p>
-                        </div>
+            <template v-slot:eventContent='arg'>
+                <div class="-event-holder px-2 cursor-pointer" >
+                    <div class="d-flex flex-column">
+                        <b class="event-title">{{ arg.event.title }}</b>
+                        <p class="m-0">{{ formatDateTime(arg.event.start) }}</p>
                     </div>
-                </template>
-            </FullCalendar>
+                </div>
+            </template>
 
             </FullCalendar>
           </div>

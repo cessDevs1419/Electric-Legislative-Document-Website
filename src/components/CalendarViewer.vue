@@ -5,6 +5,7 @@
   import timeGridPlugin from '@fullcalendar/timegrid'
   import interactionPlugin from '@fullcalendar/interaction'
   import { INITIAL_EVENTS, createEventId, formatDateTime } from '../event-utils'
+  import CalendarApiService from '@/services/CalendarApiService'
   
   export default defineComponent({
     components: {
@@ -34,20 +35,10 @@
           eventsSet: this.handleEvents,
           eventContent: this.eventContent,
           eventDidMount: this.handleEventMount,
-          /* you can update a remote database when these fire:
-          eventAdd:
-          eventChange:
-          eventRemove:
-          */
         },
         currentEvents: [],
         selectedEvent: null,
-        eventDetails: [{
-          title: 'Joint Committee Hearing- Dynamic Title',
-          place: 'Munisipyo ng Baranggay Dimagasalang - Dynamic',
-          date: 'PM 12:00',
-          description: 'Joint Commitee Hearing On February 19, 2024 (Monday) At 1:00 in the afternoon to be held at the Sangguniang Panlungsod Session Hall. Lorem ipsum dolor sit amet consectetur. Nibh habitant quisque egestas aenean eleifend fringilla interdum mattis id. Id ut sed volutpat aliquet arcu mollis convallis commodo. Odio lorem in in eget amet. Consequat donec ipsum pharetra sit morbi metus habitant.'
-        }],
+        calendarEvents: [],
       }
     },
     methods: {
@@ -75,6 +66,16 @@
         };
         return date.toLocaleString('en-US', options).replace(':', ' ');
       },
+      fetchData (){
+            CalendarApiService.fetch()
+                .then(data => {
+                    this.calendarEvents = []
+                    this.calendarEvents.push(...data);
+                })
+                .catch(error => {
+                    console.error('Error fetching calendar events:', error);
+                });
+        },
     }
   })
   </script>
@@ -92,20 +93,13 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
-          <div class="offcanvas-body" v-for="(event, index) in eventDetails" :key="index">
+          <div class="offcanvas-body" v-for="(calendarEvents, index) in calendarEvents" :key="index">
             <h6 class="d-flex align-items-center fw-bold"><span class="drawer-vl"></span>Municipal Activity</h6>
             <div class="row py-1">
               <div class="event-cards secondary-bg py-4">
-                <h6 class="fw-semibold text-truncate m-0">{{event.title}}</h6>
-                <p class="event-description m-0">{{event.description}}</p>
-                <p class="fw-semibold m-0">{{event.date}}</p>
-              </div>
-            </div>
-            <div class="row py-1">
-              <div class="event-cards secondary-bg py-4">
-                <h6 class="fw-semibold text-truncate m-0">{{event.title}}</h6>
-                <p class="event-description m-0">{{event.description}}</p>
-                <p class="fw-semibold m-0">{{event.date}}</p>
+                <h6 class="fw-semibold text-truncate m-0">{{calendarEvents.category_name}}</h6>
+                <p class="event-description m-0">{{calendarEvents.description}}</p>
+                <p class="fw-semibold m-0">{{calendarEvents.start_time}}</p>
               </div>
             </div>
             

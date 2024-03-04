@@ -183,12 +183,13 @@ export default defineComponent({
 
               <FullCalendar :options="calendarOptions">
                   <template v-slot:eventContent='arg'>
-                      <div class="-event-holder px-2" :style="`border-left: 15px solid ${arg.event.extendedProps.category_color}; background-color: ${hexToRgbWithOpacity(arg.event.extendedProps.category_color, '0.2')}`">
-                          <div class="d-flex">
-                              <b class="event-title">{{ arg.event.title }}</b>
-                              <p class="m-0">{{ arg.event.extendedProps.start_time }}</p>
-                          </div>
+                    <div class="event-holder px-2" :style="`border-left: 15px solid ${arg.event.extendedProps.category_color}; background-color: ${hexToRgbWithOpacity(arg.event.extendedProps.category_color, '0.2')}`">
+                      <div class="row">
+                          <b class="event-title">{{ arg.event.title }}</b>
+                          <br>
+                          <p class="m-0">{{ arg.event.extendedProps.start_time }}</p>
                       </div>
+                    </div>
                   </template>
               </FullCalendar>
 

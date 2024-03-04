@@ -9,4 +9,4 @@ export const GETDocumentTypeApi = url + 'api/document-type';
 export const GETOfficeApi = url + 'api/office';
 export const GETCalendarApi = url + 'api/calendar-of-activity';
 export const GETCalendarCategoryApi = url + 'api/calendar-of-activity/category';
-export const GETOnlineTrackingSearchApi = url + 'api/online-tracking';
+export const GETOnlineTrackingSearchApi = url + 'api/document/tracking';

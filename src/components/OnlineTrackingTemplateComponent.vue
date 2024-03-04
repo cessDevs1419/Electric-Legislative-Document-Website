@@ -59,15 +59,15 @@
             <div class="row w-100 m-auto align-items-end">
                 <div class="col-lg-6">
                     <div class="tracking-no secondary-bg p-0 px-2 w-auto">
-                        <p class="text-white m-0" >Tracking Number: {{ data.tracking_id }}</p>
+                        <p class="text-white m-0" >Document Number: {{ data.document_number }}</p>
                     </div>
                     <h3 class="fw-bold">{{ data.title }}</h3>
                     <div class="row">
                         <div class="col-auto ">
-                            <h6 class="fw-semibold">Bayan: <span>{{ data.bayan }}</span></h6>
+                            <h6 class="fw-semibold">Bayan: <span>{{ data.bayan_name }}</span></h6>
                         </div>
                         <div class="col-auto ">
-                            <h6 class="fw-semibold">Office: <span>{{ data.office }}</span></h6>
+                            <h6 class="fw-semibold">Office: <span>{{ data.office_name }}</span></h6>
                         </div>
                     </div>
                     <h6 class="fw-semibold">Attachments: 
@@ -95,11 +95,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="cursor-pointer" :class="{'border-white' : data['breakdown']}" data-bs-toggle="modal" data-bs-target="#tableModal" v-if="data"> 
+                    <tr class="cursor-pointer" @click="getData(data)" :class="{'border-white' : data['breakdown']}" data-bs-toggle="modal" data-bs-target="#tableModal" v-if="data"> 
                         <td v-for="(rows, index) in rows" :key="index">
-                            <template v-if="rows === 'status'">
+                            <template v-if="rows === 'status_name'">
                                 <StatusTemplateComponent
                                     :theme="data[rows]"
+                                    :status_bg_color="data['status_color']"
+                                    :status_font_color="data['status_text_color']"
                                 >
                                     <template #status >
                                         {{ data[rows] }}
@@ -121,13 +123,13 @@
                                 </div>
                             </td>
                             <td class="p-1" >
-                                {{ item.status }}
+                                {{ item.status_name }}
                             </td>
                             <td class="p-1" >
                                 {{ item.description }}
                             </td>
                             <td class="p-1" >
-                                {{ item.division}}
+                                {{ item.division }}
                             </td>
                             <td class="p-1" >
                                 {{ item.date }}

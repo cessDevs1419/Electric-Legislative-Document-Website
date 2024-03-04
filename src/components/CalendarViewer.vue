@@ -5,6 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import CalendarApiService from '@/services/CalendarApiService'
+import CalendarCategoryApiService from '@/services/CalendarCategoryApiService'
 
 export default defineComponent({
   components: {
@@ -33,7 +34,9 @@ export default defineComponent({
         eventClick: this.handleEventClick,
       },
       selectedEvent: null,
+      calendarCategory: [],
       calendarEvents: [],
+      groupedEvents: {},
     }
   },
   watch: {
@@ -72,42 +75,61 @@ export default defineComponent({
       return date.toLocaleString('en-US', options).replace(':', ' ');
     },
     fetchData() {
-      CalendarApiService.fetch()
-        .then(data => {
-          this.calendarEvents = data;
-          console.log('Fetched data to calendar events:', this.calendarEvents); // Log fetched events
-        })
-        .catch(error => {
-          console.error('Error fetching calendar events:', error);
-        });
-    },
+    CalendarApiService.fetch()
+      .then(events => {
+        this.calendarEvents = events;
+        console.log('Fetched data to calendar events:', this.calendarEvents);
+
+        // Group events by category
+        this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
+        console.log('Grouped Events:', this.groupedEvents);
+      })
+      .catch(error => {
+        console.error('Error fetching calendar events:', error);
+      });
+
+    CalendarCategoryApiService.fetch()
+      .then(categories => {
+        this.calendarCategory = categories;
+        console.log('Fetched data to calendar categories:', this.calendarCategory);
+        
+        // Group events by category
+        this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
+        console.log('Grouped Events:', this.groupedEvents);
+      })
+      .catch(error => {
+        console.error('Error fetching calendar categories:', error);
+      });
+  },
+  groupEventsByCategory(events, categories) {
+    const grouped = {};
+
+    // Initialize groups as arrays
+    categories.forEach(category => {
+      grouped[category.name] = [];
+    });
+
+    // Group events
+    events.forEach(event => {
+      if (grouped[event.category_name]) {
+        grouped[event.category_name].push(event);
+      }
+    });
+
+    return grouped;
+  },
+  getCategoryColor(categoryName) {
+    // Get category color from groupedEvents
+    if (this.groupedEvents[categoryName]) {
+      return this.groupedEvents[categoryName].color;
+    }
+    return '#000000'; 
+  },
     formatDateTime(dateTime) {
     // Your date formatting logic here
     return dateTime; // For testing, just return the dateTime as is
   },
-  setup() {
-        const {
-            setForm,
-            getFilter,
-            resetForm,
-            getActivities,
-            fetchActivities,
-        } = useActivityState()
-        const filter = getFilter()
-
-        const { getCategoryOptions } = useActivityCategoryState()
-
-        return {
-            filter,
-            setForm,
-            resetForm,
-            fetchActivities,
-            hexToRgbWithOpacity,
-            activities: getActivities(),
-            categoryOptions: getCategoryOptions(),
-        }
-    },
-  }
+}
 })
 </script>
 
@@ -125,16 +147,20 @@ export default defineComponent({
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
-          <div class="offcanvas-body" v-for="(event, index) in calendarEvents" :key="index">
-            <h6 class="d-flex align-items-center fw-bold"><span class="drawer-vl" :style="{ borderLeft: '10px solid ' + event.category_color }"></span>{{event.category_name}}</h6>
-            <div class="row py-1">
-              <div class="event-cards py-4" :style="{ backgroundColor: event.category_color + '33' }">
-                <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
-                <p class="event-description m-0">{{ event.description }}</p>
-                <p class="fw-semibold m-0">{{ event.start_time }}</p>
-              </div>
-            </div>
-          </div>
+          <div class="offcanvas-body" v-for="(events, categoryName) in groupedEvents" :key="categoryName">
+  <h6 class="d-flex align-items-center fw-bold">
+    <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + getCategoryColor(categoryName) }"></span>
+    {{ categoryName }}
+  </h6>
+  <div class="row py-1">
+    <div class="event-cards py-4 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
+      <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
+      <p class="event-description m-0">{{ event.description }}</p>
+      <p class="fw-semibold m-0">{{ formatDateTime(event.start_time) }}</p>
+    </div>
+  </div>
+</div>
+
 
         </div>
 

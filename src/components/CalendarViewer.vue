@@ -36,7 +36,6 @@ export default defineComponent({
       selectedEvent: null,
       calendarCategory: [],
       calendarEvents: [],
-      groupedEvents: {},
     }
   },
   watch: {
@@ -62,7 +61,6 @@ export default defineComponent({
       console.log(clickInfo.event);
     },
     closeModal() {
-      this.selectedEvent = null;
       $('#exampleModalCenter').modal('hide');
     },
     formatDateTime(dateTimeString) {
@@ -75,14 +73,22 @@ export default defineComponent({
       return date.toLocaleString('en-US', options).replace(':', ' ');
     },
     fetchData() {
-    CalendarApiService.fetch()
+      CalendarApiService.fetch()
       .then(events => {
         this.calendarEvents = events;
-        console.log('Fetched data to calendar events:', this.calendarEvents);
+        this.calendarOptions.events = events.map(event => ({
+          id: event.id,
+          title: event.title,
+          start: event.start_date_time, 
+          extendedProps: {
+            category_id: event.category_id,
+            category_name: event.category_name,
+            category_color: event.category_color,
+            description: event.description,
+            location: event.location
+          }
+        }));
 
-        // Group events by category
-        this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
-        console.log('Grouped Events:', this.groupedEvents);
       })
       .catch(error => {
         console.error('Error fetching calendar events:', error);
@@ -91,44 +97,44 @@ export default defineComponent({
     CalendarCategoryApiService.fetch()
       .then(categories => {
         this.calendarCategory = categories;
-        console.log('Fetched data to calendar categories:', this.calendarCategory);
-        
-        // Group events by category
-        this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
-        console.log('Grouped Events:', this.groupedEvents);
       })
       .catch(error => {
         console.error('Error fetching calendar categories:', error);
       });
-  },
-  groupEventsByCategory(events, categories) {
-    const grouped = {};
+    },
 
-    // Initialize groups as arrays
-    categories.forEach(category => {
-      grouped[category.name] = [];
-    });
-
-    // Group events
-    events.forEach(event => {
-      if (grouped[event.category_name]) {
-        grouped[event.category_name].push(event);
-      }
-    });
-
-    return grouped;
-  },
-  getCategoryColor(categoryName) {
-    // Get category color from groupedEvents
-    if (this.groupedEvents[categoryName]) {
-      return this.groupedEvents[categoryName].color;
-    }
-    return '#000000'; 
-  },
     formatDateTime(dateTime) {
-    // Your date formatting logic here
-    return dateTime; // For testing, just return the dateTime as is
-  },
+      const dateObj = new Date(dateTime);
+
+      const hours = dateObj.getHours();
+      const minutes = dateObj.getMinutes();
+      const period = hours >= 12 ? 'PM' : 'AM';
+
+      // Convert 24-hour time to 12-hour time
+      const formattedHours = hours % 12 || 12;
+
+      const formattedDateTime = `${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`;
+      return formattedDateTime;
+    },
+    modalFormatDate(dateTimeStr) {
+      const options = {
+        month: 'long', // Display full month name
+        day: '2-digit', // Display two-digit day
+        year: 'numeric', // Display full year
+        weekday: 'long', // Display full weekday name
+        hour: 'numeric', // Display hour in 12-hour format
+        minute: '2-digit', // Display two-digit minutes
+        hour12: true // Use 12-hour clock
+      };
+
+      const formattedDate = new Date(dateTimeStr).toLocaleString('en-US', options);
+      return formattedDate;
+    },
+    getEventsByCategoryId(id) {
+      const filteredEvents = this.calendarEvents.filter(event => event.category_id === id);
+      return filteredEvents;
+    },
+
 }
 })
 </script>
@@ -140,49 +146,43 @@ export default defineComponent({
       <div class='demo-app-main'>
 
         <!-- Drawer -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-
-          <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Activities</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-
-          <div class="offcanvas-body" v-for="(events, categoryName) in groupedEvents" :key="categoryName">
-  <h6 class="d-flex align-items-center fw-bold">
-    <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + getCategoryColor(categoryName) }"></span>
-    {{ categoryName }}
-  </h6>
-  <div class="row py-1">
-    <div class="event-cards py-4 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
-      <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
-      <p class="event-description m-0">{{ event.description }}</p>
-      <p class="fw-semibold m-0">{{ formatDateTime(event.start_time) }}</p>
+        <div class="offcanvas offcanvas-end vh-100" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="overflow-y: auto;">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Activities</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+    <div v-for="(events, index) in calendarCategory" :key="index" :style="{ flex: '0 0 auto' }">
+      <h6 class="d-flex align-items-center fw-bold pt-4">
+        <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + events.color }"></span>
+        {{ events.name }}
+      </h6>
+      <div class="row py-1">
+        <div class="event-cards py-3 my-1" v-for="(event, index) in getEventsByCategoryId(events.id)" :key="index" :style="{ backgroundColor: events.color + '33' }">
+          <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
+          <p class="event-description m-0">{{ event.description }}</p>
+          <p class="fw-semibold m-0">{{ event.start_time }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-
-        </div>
-
         <!-- Calendar -->
         <div class="d-flex ">
-          <div class="w-100 px-2">
+          <div class="w-100">
             <FullCalendar
               class='demo-app-calendar'
               :options='calendarOptions'
             >
-
-            <FullCalendar :options="calendarOptions">
-                <template v-slot:eventContent='arg'>
-                    <div class="-event-holder px-2" :style="`border-left: 15px solid ${arg.event.extendedProps.category_color}; background-color: ${hexToRgbWithOpacity(arg.event.extendedProps.category_color, '0.2')}`">
-                        <div class="row">
-                            <b class="event-title">{{ arg.event.title }}</b>
-                            <br>
-                            <p class="m-0">{{ arg.event.extendedProps.start_time }}</p>
-                        </div>
+            <template v-slot:eventContent='arg'>
+              <div class="event-holder py-3 w-100 cursor-pointer" :style="{ 'border-left': '15px solid ' + arg.event.extendedProps.category_color, 'background-color': arg.event.extendedProps.category_color + '33' }">
+                    <div class="d-flex flex-column primary-font mx-2">
+                        <b class="event-title">{{ arg.event.title }}</b>
+                        <p class="m-0">{{ formatDateTime(arg.event.start) }}</p>
                     </div>
-                </template>
-            </FullCalendar>
+                </div>
+            </template>
 
             </FullCalendar>
           </div>
@@ -197,35 +197,38 @@ export default defineComponent({
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" v-for="(event, index) in eventDetails" :key="index" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content px-4 pt-4 pb-3">
-          <div class="modal-header d-flex align-item-center border-0">
-            <h4 class="d-flex align-items-center fw-bold"><span class="event-vl"></span>Activity Information</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!-- Modal body content -->
-          <div class="row mb-3">
-            <h5 class="fw-semibold">What</h5>
-            <p>{{event.title}}</p>
-          </div>
-          <div class="row mb-3">
-            <h5 class="fw-semibold">Where</h5>
-            <p>{{event.place}}</p>
-          </div>
-          <div class="row mb-3">
-            <h5 class="fw-semibold">When</h5>
-            <p>{{event.date}}</p>
-          </div>
-          <div class="row mb-3">
-            <h5 class="fw-semibold">Description</h5>
-            <p>{{event.description}}</p>
-          </div>
-          </div>
+    <!-- Modal for Event Details -->
+<!-- Modal for Event Details -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content px-4 pt-4 pb-3">
+      <div class="modal-header d-flex align-item-center border-0">
+        <h4 class="d-flex align-items-center fw-bold"><span class="event-vl"></span>Activity Information</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">What</h5>
+          <p>{{ selectedEvent.title }}</p>
+        </div>
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">Where</h5>
+          <p>{{ selectedEvent.extendedProps.location }}</p>
+        </div>
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">When</h5>
+          <p>{{ modalFormatDate(selectedEvent.start) }}</p>
+        </div>
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">Description</h5>
+          <p>{{ selectedEvent.extendedProps.description }}</p>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
 
   </template>
   
@@ -238,6 +241,10 @@ export default defineComponent({
       font-family: "Montserrat", sans-serif;
   }
 
+  .event-holder {
+    border-radius: 12px;
+  }
+
   .drawer-btn{
     border-radius: 0 0.7rem 0.7rem 0;
     background-color: var(--primary-color);
@@ -248,7 +255,6 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     align-items: center;
-
   }
 
   .btn-text{
@@ -285,10 +291,7 @@ export default defineComponent({
       overflow: hidden;
       text-overflow: ellipsis;
       margin: 0.3rem;
-      padding: 0.7rem 0;
-      border-left: 15px solid var(--primary-color);
       border-radius: 12px;
-      background-color: var(--event-type-one);
   }
     
   .fc .fc-daygrid-day.fc-day-today {
@@ -313,11 +316,6 @@ export default defineComponent({
       height: 25px;
       border-left: 10px solid var(--secondary-color);
       margin-right: 10px; 
-  }
-
-  .event-holder {
-    border-radius: 5px;
-    color: var(--primary-font);
   }
 
   .fc .fc-button {

@@ -4,6 +4,9 @@
     import OnlineTrackingTemplateComponent from '@/components/OnlineTrackingTemplateComponent.vue'
     import OnlineTrackingTableComponent from '@/components/OnlineTrackingTableComponent.vue';
     import ESubmissionFormComponent from '@/components/ESubmissionFormComponent.vue';
+    import OnlineTrackingApiService from '@/services/OnlineTrackingApiService';
+
+
 </script>
 <script>
     export default {
@@ -12,64 +15,18 @@
                 tableHeader: [
                     'No.', 
                     'Status', 
-                    'Documents',
-                    'Division',
-                    'Date',
-                    'Time',
+                    'Type',
+                    'Year',
+                    'Office',
                 ],
                 tableRows: [
                     'no',
-                    'status',
-                    'documents',
-                    'division',
-                    'date',
-                    'time',
+                    'status_name',
+                    'type_name',
+                    'year',
+                    'office_name',
                 ],
-                tableData:  [
-                    {
-                        no: '01',
-                        tracking_id: 'trckid1',
-                        title: 'Document of the Philippines',
-                        office: 'office1',
-                        bayan_name: 'quezon prov',
-                        attachments: 'pdf',
-                        division: 'Receiving',
-                        date: '2021-01-01',
-                        time: '12:00:00',
-                        status: 'Received',
-                        description: 'description',
-                        breakdown: []
-                    },
-                    {
-                        no: '02',
-                        tracking_id: 'trckid2',
-                        title: 'Document of the Philippines',
-                        office: 'office1',
-                        bayan: 'quezon prov',
-                        attachments: 'pdf',
-                        division: 'Sorting Office',
-                        date: '2021-01-01',
-                        time: '12:00:00',
-                        status: 'Endorsed',
-                        description: 'description',
-                        breakdown: [
-                            {
-                                description: 'On process for endorsement',
-                                division: 'Sorting Office',
-                                date: '2021-02-29',
-                                status: 'Endorsed',
-                                time: '12:00:00',
-                            },
-                            {
-                                description: 'On final stage',
-                                division: 'Receiving',
-                                date: '2021-03-01',
-                                status: 'Received',
-                                time: '12:00:00',
-                            }
-                        ]
-                    }
-                ],
+                tableData:  [],
                 sampletableData: {},
                 rowData: Object,
                 showModalTable: false,
@@ -87,7 +44,7 @@
                 if (!this.searchQuery) return; 
                 this.sampletableData = {};
                 for (let item of this.tableData) {
-                    if (item.tracking_id === this.searchQuery) {
+                    if (item.document_number === this.searchQuery) {
                         this.sampletableData = { ...item };
                         this.hideSearch = false;
                         this.showTable = true;
@@ -99,11 +56,20 @@
                 this.showTable = true;
 
             },
+            fetchData(){
+                OnlineTrackingApiService.fetch().then(item => {
+                    this.tableData = []
+                    this.tableData.push(...item);
+                })
+                .catch(error => {
+                    console.error('', error);
+                });
+            },
             searchData(stringData){
                 if (!stringData) return; 
                 this.sampletableData = {};
                 for (let item of this.tableData) {
-                    if (item.tracking_id === stringData) {
+                    if (item.document_number === stringData) {
                         this.sampletableData = { ...item };
                         this.hideSearch = false;
                         this.showTable = true;
@@ -111,10 +77,17 @@
                     }
                 }
 
+
                 this.hideSearch = false;
                 this.showTable = true;
 
-            }
+            },
+            handleRowTrackingData(data){
+                console.log(data)
+            },
+        },
+        created() {
+            this.fetchData(); 
         }
     }
 </script>
@@ -136,7 +109,7 @@
                 </h3>
             </div>
             <div class="input-group mb-3 mx-auto">
-                <input type="text" class="form-control p-2 px-3" v-model="searchQuery" placeholder="Search Tracking Number Here . . . " >
+                <input type="text" class="form-control p-2 px-3" v-model="searchQuery" placeholder="Search Document Number Here . . . " >
                 <button @click="handleSearchQuery" class="input-group-text linear-primary-bg px-3" >
                     <i class="bi bi-search p-2 text-white fs-3"></i>
                 </button>
@@ -153,6 +126,7 @@
             :searchbar="true"
             :standalone="true"
             @search-data="searchData"
+            @row-click-data="handleRowTrackingData"
         >
 
         </OnlineTrackingTemplateComponent>
@@ -189,6 +163,8 @@
             </div>
         </div>
     </div>
+
+
 </template>
 
 <style scoped>

@@ -36,7 +36,6 @@ export default defineComponent({
       selectedEvent: null,
       calendarCategory: [],
       calendarEvents: [],
-      groupedEvents: {},
     }
   },
   watch: {
@@ -78,7 +77,6 @@ export default defineComponent({
       CalendarApiService.fetch()
       .then(events => {
         this.calendarEvents = events;
-        console.log('Fetched data to calendar events:', this.calendarEvents);
         this.calendarOptions.events = events.map(event => ({
           id: event.id,
           title: event.title,
@@ -92,51 +90,20 @@ export default defineComponent({
           }
         }));
 
-        this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
-        console.log('Grouped Events:', this.groupedEvents);
       })
       .catch(error => {
         console.error('Error fetching calendar events:', error);
       });
 
-
     CalendarCategoryApiService.fetch()
       .then(categories => {
         this.calendarCategory = categories;
-        console.log('Fetched data to calendar categories:', this.calendarCategory);
-        
-        // Group events by category
-        this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
-        console.log('Grouped Events:', this.groupedEvents);
       })
       .catch(error => {
         console.error('Error fetching calendar categories:', error);
       });
     },
-    groupEventsByCategory(events, categories) {
-      const grouped = {};
 
-      // Initialize groups as arrays
-      categories.forEach(category => {
-        grouped[category.name] = [];
-      });
-
-      // Group events
-      events.forEach(event => {
-        if (grouped[event.category_name]) {
-          grouped[event.category_name].push(event);
-        }
-      });
-
-      return grouped;
-    },
-    getCategoryColor(categoryName) {
-      // Get category color from groupedEvents
-      if (this.groupedEvents[categoryName]) {
-        return this.groupedEvents[categoryName].color;
-      }
-      return '#000000'; 
-    },
     formatDateTime(dateTime) {
       const dateObj = new Date(dateTime);
 
@@ -166,40 +133,27 @@ export default defineComponent({
       <div class='demo-app-main'>
 
         <!-- Drawer -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-
-          <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Activities</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-
-          <!-- <div class="offcanvas-body" v-for="(events, categoryName) in groupedEvents">
-            <h6 class="d-flex align-items-center fw-bold">
-              <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + getCategoryColor(categoryName) }"></span>
-              {{ categoryName }}
-            </h6>
-            <div class="row py-1">
-              <div class="event-cards py-5 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
-                <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
-                <p class="event-description m-0">{{ event.description }}</p>
-                <p class="fw-semibold m-0">{{ event.start_time }}</p>
-              </div>
-            </div>
-          </div> -->
-          <div class="offcanvas-body" v-for="(events, index) in calendarCategory" :key="index">
-            <h6 class="d-flex align-items-center fw-bold">
-              <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + events.color }"></span>
-                  {{ events.name }}
-              </h6>
-            <div class="row py-1">
-              <div class="event-cards py-5 my-1" v-for="(event, index) in getEventsByCategoryId(events.id)" :key="index" :style="{ backgroundColor: events.color + '33' }">
-                <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
-                <p class="event-description m-0">{{ event.description }}</p>
-                <p class="fw-semibold m-0">{{ event.start_time }}</p>
-              </div>
-            </div>
-          </div>
+        <div class="offcanvas offcanvas-end vh-100" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="overflow-y: auto;">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Activities</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column">
+    <div v-for="(events, index) in calendarCategory" :key="index" :style="{ flex: '0 0 auto' }">
+      <h6 class="d-flex align-items-center fw-bold pt-4">
+        <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + events.color }"></span>
+        {{ events.name }}
+      </h6>
+      <div class="row py-1">
+        <div class="event-cards py-3 my-1" v-for="(event, index) in getEventsByCategoryId(events.id)" :key="index" :style="{ backgroundColor: events.color + '33' }">
+          <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
+          <p class="event-description m-0">{{ event.description }}</p>
+          <p class="fw-semibold m-0">{{ event.start_time }}</p>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
 
         <!-- Calendar -->
         <div class="d-flex ">

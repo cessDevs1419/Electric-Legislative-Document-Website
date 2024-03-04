@@ -112,44 +112,48 @@ export default defineComponent({
       .catch(error => {
         console.error('Error fetching calendar categories:', error);
       });
-  },
-  groupEventsByCategory(events, categories) {
-    const grouped = {};
+    },
+    groupEventsByCategory(events, categories) {
+      const grouped = {};
 
-    // Initialize groups as arrays
-    categories.forEach(category => {
-      grouped[category.name] = [];
-    });
+      // Initialize groups as arrays
+      categories.forEach(category => {
+        grouped[category.name] = [];
+      });
 
-    // Group events
-    events.forEach(event => {
-      if (grouped[event.category_name]) {
-        grouped[event.category_name].push(event);
+      // Group events
+      events.forEach(event => {
+        if (grouped[event.category_name]) {
+          grouped[event.category_name].push(event);
+        }
+      });
+
+      return grouped;
+    },
+    getCategoryColor(categoryName) {
+      // Get category color from groupedEvents
+      if (this.groupedEvents[categoryName]) {
+        return this.groupedEvents[categoryName].color;
       }
-    });
+      return '#000000'; 
+    },
+    formatDateTime(dateTime) {
+      const dateObj = new Date(dateTime);
 
-    return grouped;
-  },
-  getCategoryColor(categoryName) {
-    // Get category color from groupedEvents
-    if (this.groupedEvents[categoryName]) {
-      return this.groupedEvents[categoryName].color;
-    }
-    return '#000000'; 
-  },
-  formatDateTime(dateTime) {
-    const dateObj = new Date(dateTime);
+      const hours = dateObj.getHours();
+      const minutes = dateObj.getMinutes();
+      const period = hours >= 12 ? 'PM' : 'AM';
 
-    const hours = dateObj.getHours();
-    const minutes = dateObj.getMinutes();
-    const period = hours >= 12 ? 'PM' : 'AM';
+      // Convert 24-hour time to 12-hour time
+      const formattedHours = hours % 12 || 12;
 
-    // Convert 24-hour time to 12-hour time
-    const formattedHours = hours % 12 || 12;
-
-    const formattedDateTime = `${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`;
-    return formattedDateTime;
-  }
+      const formattedDateTime = `${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`;
+      return formattedDateTime;
+    },
+    getEventsByCategoryId(id) {
+      const filteredEvents = this.calendarEvents.filter(event => event.category_id === id);
+      return filteredEvents;
+    },
 
 }
 })
@@ -169,19 +173,32 @@ export default defineComponent({
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
-          <div class="offcanvas-body" v-for="(events, categoryName) in groupedEvents" :key="categoryName">
-  <h6 class="d-flex align-items-center fw-bold">
-    <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + getCategoryColor(categoryName) }"></span>
-    {{ categoryName }}
-  </h6>
-  <div class="row py-1">
-    <div class="py-3 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
-      <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
-      <p class="event-description m-0">{{ event.description }}</p>
-      <p class="fw-semibold m-0">{{ event.category_color }}</p>
-    </div>
-  </div>
-</div>
+          <!-- <div class="offcanvas-body" v-for="(events, categoryName) in groupedEvents">
+            <h6 class="d-flex align-items-center fw-bold">
+              <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + getCategoryColor(categoryName) }"></span>
+              {{ categoryName }}
+            </h6>
+            <div class="row py-1">
+              <div class="event-cards py-5 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
+                <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
+                <p class="event-description m-0">{{ event.description }}</p>
+                <p class="fw-semibold m-0">{{ event.start_time }}</p>
+              </div>
+            </div>
+          </div> -->
+          <div class="offcanvas-body" v-for="(events, index) in calendarCategory" :key="index">
+            <h6 class="d-flex align-items-center fw-bold">
+              <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + events.color }"></span>
+                  {{ events.name }}
+              </h6>
+            <div class="row py-1">
+              <div class="event-cards py-5 my-1" v-for="(event, index) in getEventsByCategoryId(events.id)" :key="index" :style="{ backgroundColor: events.color + '33' }">
+                <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
+                <p class="event-description m-0">{{ event.description }}</p>
+                <p class="fw-semibold m-0">{{ event.start_time }}</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Calendar -->

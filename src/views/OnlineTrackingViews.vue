@@ -4,6 +4,7 @@
     import OnlineTrackingTemplateComponent from '@/components/OnlineTrackingTemplateComponent.vue'
     import OnlineTrackingTableComponent from '@/components/OnlineTrackingTableComponent.vue';
     import ESubmissionFormComponent from '@/components/ESubmissionFormComponent.vue';
+    import OnlineTrackingApiService from '@/services/OnlineTrackingApiService';
 </script>
 <script>
     export default {
@@ -110,6 +111,12 @@
                         return;
                     }
                 }
+                // OnlineTrackingApiService.fetch(stringData).then(item => {
+                //     this.sampletableData = { ...item };
+                // })
+                // .catch(error => {
+                //     console.error('Error fetching calendar events:', error);
+                // });
 
                 this.hideSearch = false;
                 this.showTable = true;

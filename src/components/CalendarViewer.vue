@@ -61,7 +61,6 @@ export default defineComponent({
       console.log(clickInfo.event);
     },
     closeModal() {
-      this.selectedEvent = null;
       $('#exampleModalCenter').modal('hide');
     },
     formatDateTime(dateTimeString) {
@@ -116,6 +115,20 @@ export default defineComponent({
 
       const formattedDateTime = `${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`;
       return formattedDateTime;
+    },
+    modalFormatDate(dateTimeStr) {
+      const options = {
+        month: 'long', // Display full month name
+        day: '2-digit', // Display two-digit day
+        year: 'numeric', // Display full year
+        weekday: 'long', // Display full weekday name
+        hour: 'numeric', // Display hour in 12-hour format
+        minute: '2-digit', // Display two-digit minutes
+        hour12: true // Use 12-hour clock
+      };
+
+      const formattedDate = new Date(dateTimeStr).toLocaleString('en-US', options);
+      return formattedDate;
     },
     getEventsByCategoryId(id) {
       const filteredEvents = this.calendarEvents.filter(event => event.category_id === id);
@@ -184,35 +197,38 @@ export default defineComponent({
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" v-for="(event, index) in eventDetails" :key="index" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content px-4 pt-4 pb-3">
-          <div class="modal-header d-flex align-item-center border-0">
-            <h4 class="d-flex align-items-center fw-bold"><span class="event-vl"></span>Activity Information</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <!-- Modal body content -->
-          <div class="row mb-3">
-            <h5 class="fw-semibold">What</h5>
-            <p>{{event.title}}</p>
-          </div>
-          <div class="row mb-3">
-            <h5 class="fw-semibold">Where</h5>
-            <p>{{event.place}}</p>
-          </div>
-          <div class="row mb-3">
-            <h5 class="fw-semibold">When</h5>
-            <p>{{event.date}}</p>
-          </div>
-          <div class="row mb-3">
-            <h5 class="fw-semibold">Description</h5>
-            <p>{{event.description}}</p>
-          </div>
-          </div>
+    <!-- Modal for Event Details -->
+<!-- Modal for Event Details -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content px-4 pt-4 pb-3">
+      <div class="modal-header d-flex align-item-center border-0">
+        <h4 class="d-flex align-items-center fw-bold"><span class="event-vl"></span>Activity Information</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">What</h5>
+          <p>{{ selectedEvent.title }}</p>
+        </div>
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">Where</h5>
+          <p>{{ selectedEvent.extendedProps.location }}</p>
+        </div>
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">When</h5>
+          <p>{{ modalFormatDate(selectedEvent.start) }}</p>
+        </div>
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">Description</h5>
+          <p>{{ selectedEvent.extendedProps.description }}</p>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
 
   </template>
   

@@ -137,22 +137,27 @@ export default defineComponent({
     }
     return '#000000'; 
   },
-    formatDateTime(dateTime) {
-      const dateObj = new Date(dateTime);
+  formatDateTime(dateTime) {
+    const dateObj = new Date(dateTime);
+    
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    
+    const day = days[dateObj.getDay()];
+    const month = months[dateObj.getMonth()];
+    const date = dateObj.getDate();
+    const year = dateObj.getFullYear();
+    const hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes();
+    const period = hours >= 12 ? 'PM' : 'AM';
 
-      const options = {
-        weekday: 'long', 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric', 
-        hour: 'numeric', 
-        minute: '2-digit', 
-        hour12: true 
-      };
+    // Convert 24-hour time to 12-hour time
+    const formattedHours = hours % 12 || 12; // 12-hour format, 0 should be converted to 12
 
-      const formattedDateTime = new Intl.DateTimeFormat('en-US', options).format(dateObj);
-      return formattedDateTime;
-  },
+    const formattedDateTime = `${day}, ${month} ${date}, ${year}, ${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`;
+    return formattedDateTime;
+  }
+
 }
 })
 </script>
@@ -180,7 +185,7 @@ export default defineComponent({
     <div class="event-cards py-4 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
       <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
       <p class="event-description m-0">{{ event.description }}</p>
-      <p class="fw-semibold m-0">{{ formatDateTime(event.start_time) }}</p>
+      <p class="fw-semibold m-0">{{ event.start_time }}</p>
     </div>
   </div>
 </div>

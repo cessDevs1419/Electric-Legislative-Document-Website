@@ -172,18 +172,19 @@ export default defineComponent({
           </div>
 
           <div class="offcanvas-body" v-for="(events, categoryName) in groupedEvents" :key="categoryName">
-            <h6 class="d-flex align-items-center fw-bold">
-              <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + getCategoryColor(categoryName) }"></span>
-              {{ categoryName }}
-            </h6>
-            <div class="row py-1">
-              <div class="event-cards py-4 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
-                <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
-                <p class="event-description m-0">{{ event.description }}</p>
-                <p class="fw-semibold m-0">{{ formatDateTime(event.start_time) }}</p>
-              </div>
-            </div>
-          </div>
+  <h6 class="d-flex align-items-center fw-bold">
+    <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + getCategoryColor(categoryName) }"></span>
+    {{ categoryName }}
+  </h6>
+  <div class="row py-1">
+    <div class="event-cards py-4 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
+      <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
+      <p class="event-description m-0">{{ event.description }}</p>
+      <p class="fw-semibold m-0">{{ formatDateTime(event.start_time) }}</p>
+    </div>
+  </div>
+</div>
+
 
         </div>
 

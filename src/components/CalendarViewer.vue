@@ -175,10 +175,10 @@ export default defineComponent({
     {{ categoryName }}
   </h6>
   <div class="row py-1">
-    <div class="event-cards py-5 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
+    <div class="py-3 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
       <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
       <p class="event-description m-0">{{ event.description }}</p>
-      <p class="fw-semibold m-0">{{ event.start_time }}</p>
+      <p class="fw-semibold m-0">{{ event.category_color }}</p>
     </div>
   </div>
 </div>

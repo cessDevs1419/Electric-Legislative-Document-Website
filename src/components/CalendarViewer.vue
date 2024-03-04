@@ -139,22 +139,15 @@ export default defineComponent({
   },
   formatDateTime(dateTime) {
     const dateObj = new Date(dateTime);
-    
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    
-    const day = days[dateObj.getDay()];
-    const month = months[dateObj.getMonth()];
-    const date = dateObj.getDate();
-    const year = dateObj.getFullYear();
+
     const hours = dateObj.getHours();
     const minutes = dateObj.getMinutes();
     const period = hours >= 12 ? 'PM' : 'AM';
 
     // Convert 24-hour time to 12-hour time
-    const formattedHours = hours % 12 || 12; // 12-hour format, 0 should be converted to 12
+    const formattedHours = hours % 12 || 12;
 
-    const formattedDateTime = `${day}, ${month} ${date}, ${year}, ${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`;
+    const formattedDateTime = `${formattedHours}:${minutes < 10 ? '0' : ''}${minutes} ${period}`;
     return formattedDateTime;
   }
 
@@ -182,27 +175,25 @@ export default defineComponent({
     {{ categoryName }}
   </h6>
   <div class="row py-1">
-    <div class="event-cards py-4 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
+    <div class="event-cards py-5 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
       <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
       <p class="event-description m-0">{{ event.description }}</p>
       <p class="fw-semibold m-0">{{ event.start_time }}</p>
     </div>
   </div>
 </div>
-
-
         </div>
 
         <!-- Calendar -->
         <div class="d-flex ">
-          <div class="w-100 px-2">
+          <div class="w-100">
             <FullCalendar
               class='demo-app-calendar'
               :options='calendarOptions'
             >
             <template v-slot:eventContent='arg'>
-                <div class="-event-holder px-2 cursor-pointer" >
-                    <div class="d-flex flex-column">
+              <div class="event-holder py-3 w-100 cursor-pointer" :style="{ 'border-left': '15px solid ' + arg.event.extendedProps.category_color, 'background-color': arg.event.extendedProps.category_color + '33' }">
+                    <div class="d-flex flex-column primary-font mx-2">
                         <b class="event-title">{{ arg.event.title }}</b>
                         <p class="m-0">{{ formatDateTime(arg.event.start) }}</p>
                     </div>
@@ -263,6 +254,10 @@ export default defineComponent({
       font-family: "Montserrat", sans-serif;
   }
 
+  .event-holder {
+    border-radius: 12px;
+  }
+
   .drawer-btn{
     border-radius: 0 0.7rem 0.7rem 0;
     background-color: var(--primary-color);
@@ -273,7 +268,6 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     align-items: center;
-
   }
 
   .btn-text{
@@ -310,10 +304,7 @@ export default defineComponent({
       overflow: hidden;
       text-overflow: ellipsis;
       margin: 0.3rem;
-      padding: 0.7rem 0;
-      border-left: 15px solid var(--primary-color);
       border-radius: 12px;
-      background-color: var(--event-type-one);
   }
     
   .fc .fc-daygrid-day.fc-day-today {
@@ -338,11 +329,6 @@ export default defineComponent({
       height: 25px;
       border-left: 10px solid var(--secondary-color);
       margin-right: 10px; 
-  }
-
-  .event-holder {
-    border-radius: 5px;
-    color: var(--primary-font);
   }
 
   .fc .fc-button {

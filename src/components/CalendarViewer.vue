@@ -77,6 +77,8 @@ export default defineComponent({
     fetchData() {
       CalendarApiService.fetch()
       .then(events => {
+        this.calendarEvents = events;
+        console.log('Fetched data to calendar events:', this.calendarEvents);
         this.calendarOptions.events = events.map(event => ({
           id: event.id,
           title: event.title,
@@ -89,14 +91,14 @@ export default defineComponent({
             location: event.location
           }
         }));
-        // Group events by category
+
         this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
         console.log('Grouped Events:', this.groupedEvents);
       })
       .catch(error => {
         console.error('Error fetching calendar events:', error);
       });
-	
+
 
     CalendarCategoryApiService.fetch()
       .then(categories => {
@@ -136,8 +138,20 @@ export default defineComponent({
     return '#000000'; 
   },
     formatDateTime(dateTime) {
-    // Your date formatting logic here
-    return dateTime; // For testing, just return the dateTime as is
+      const dateObj = new Date(dateTime);
+
+      const options = {
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric', 
+        hour: 'numeric', 
+        minute: '2-digit', 
+        hour12: true 
+      };
+
+      const formattedDateTime = new Intl.DateTimeFormat('en-US', options).format(dateObj);
+      return formattedDateTime;
   },
 }
 })
@@ -181,17 +195,14 @@ export default defineComponent({
               class='demo-app-calendar'
               :options='calendarOptions'
             >
-
-              <FullCalendar :options="calendarOptions">
-                  <template v-slot:eventContent='arg'>
-                      <div class="-event-holder px-2" :style="`border-left: 15px solid ${arg.event.extendedProps.category_color}; background-color: ${hexToRgbWithOpacity(arg.event.extendedProps.category_color, '0.2')}`">
-                          <div class="d-flex">
-                              <b class="event-title">{{ arg.event.title }}</b>
-                              <p class="m-0">{{ arg.event.extendedProps.start_time }}</p>
-                          </div>
-                      </div>
-                  </template>
-              </FullCalendar>
+            <template v-slot:eventContent='arg'>
+                <div class="-event-holder px-2 cursor-pointer" >
+                    <div class="d-flex flex-column">
+                        <b class="event-title">{{ arg.event.title }}</b>
+                        <p class="m-0">{{ formatDateTime(arg.event.start) }}</p>
+                    </div>
+                </div>
+            </template>
 
             </FullCalendar>
           </div>

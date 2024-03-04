@@ -15,7 +15,7 @@
                     'Type', 
                     'Bayan',
                     'Title',
-                    'Date',
+                    'Year',
                     'Category',
                     'PDF'
                 ],
@@ -23,7 +23,7 @@
                     'type_name',
                     'bayan_name',
                     'title',
-                    'enactment_date',
+                    'year',
                     'category_name' ,
                     'attachments' ,
 
@@ -43,7 +43,7 @@
                     this.tableData.push(...data);
                 })
                 .catch(error => {
-                    console.error('Error fetching categories:', error);
+                    console.error('Error fetching document:', error);
                 });  
             }
         },

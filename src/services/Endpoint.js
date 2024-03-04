@@ -1,5 +1,4 @@
-const url = 'https://dev.qpelis.goodstrings.io'
-
+const url = 'https://dev.qpelis.goodstrings.io/'
 
 export const GETBayanApi = url + 'api/bayan';
 export const GETDepartmentApi = url + 'api/department';

@@ -75,11 +75,20 @@ export default defineComponent({
       return date.toLocaleString('en-US', options).replace(':', ' ');
     },
     fetchData() {
-    CalendarApiService.fetch()
+      CalendarApiService.fetch()
       .then(events => {
-        this.calendarEvents = events;
-        console.log('Fetched data to calendar events:', this.calendarEvents);
-
+        this.calendarOptions.events = events.map(event => ({
+          id: event.id,
+          title: event.title,
+          start: event.start_date_time, 
+          extendedProps: {
+            category_id: event.category_id,
+            category_name: event.category_name,
+            category_color: event.category_color,
+            description: event.description,
+            location: event.location
+          }
+        }));
         // Group events by category
         this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
         console.log('Grouped Events:', this.groupedEvents);
@@ -87,6 +96,7 @@ export default defineComponent({
       .catch(error => {
         console.error('Error fetching calendar events:', error);
       });
+	
 
     CalendarCategoryApiService.fetch()
       .then(categories => {
@@ -171,17 +181,16 @@ export default defineComponent({
               :options='calendarOptions'
             >
 
-            <FullCalendar :options="calendarOptions">
-                <template v-slot:eventContent='arg'>
-                    <div class="-event-holder px-2" :style="`border-left: 15px solid ${arg.event.extendedProps.category_color}; background-color: ${hexToRgbWithOpacity(arg.event.extendedProps.category_color, '0.2')}`">
-                        <div class="row">
-                            <b class="event-title">{{ arg.event.title }}</b>
-                            <br>
-                            <p class="m-0">{{ arg.event.extendedProps.start_time }}</p>
-                        </div>
-                    </div>
-                </template>
-            </FullCalendar>
+              <FullCalendar :options="calendarOptions">
+                  <template v-slot:eventContent='arg'>
+                      <div class="-event-holder px-2" :style="`border-left: 15px solid ${arg.event.extendedProps.category_color}; background-color: ${hexToRgbWithOpacity(arg.event.extendedProps.category_color, '0.2')}`">
+                          <div class="d-flex">
+                              <b class="event-title">{{ arg.event.title }}</b>
+                              <p class="m-0">{{ arg.event.extendedProps.start_time }}</p>
+                          </div>
+                      </div>
+                  </template>
+              </FullCalendar>
 
             </FullCalendar>
           </div>

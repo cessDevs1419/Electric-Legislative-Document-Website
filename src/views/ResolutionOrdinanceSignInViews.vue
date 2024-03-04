@@ -3,7 +3,7 @@
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import { RouterLink } from 'vue-router';
     import AuthApiService from '@/services/AuthApiService.js'; 
-
+    import ValidationService from '@/services/ValidationService';
 </script>
 <script>
     export default {
@@ -13,7 +13,9 @@
                 signinData: {
                     email: '',
                     password: '',
-                }
+                },
+                showValidation: {},
+                border: {}
             }
         },
         methods: {
@@ -22,17 +24,29 @@
             },
             async signinSubmit() {
                 try {
-                    
-                    await AuthApiService.login({
-                    email: this.signinData.email,
-                    password: this.signinData.password
+                    this.showValidation = {};
+                    this.border = {};
+
+                    Object.keys(this.signinData).forEach(key => {
+                        if (this.signinData[key].trim() === '') {
+                            this.showValidation[key] = true;
+                            this.border[key] = true;
+                        } else if (key === 'email' && !ValidationService.emailValidator(this.signinData[key])) {
+                            this.showValidation[key] = true; 
+                            this.border[key] = true; 
+                        }
                     });
-                    console.log('Login successful');
+
+                    if (Object.keys(this.showValidation).length > 0) {
+                    return;
+                    }
+
+                    // await AuthApiService.login(this.signinData);
+                    console.log('Sign-in successful');
                 } catch (error) {
                     console.error('Sign-in failed:', error);
-                    
                 }
-            }
+            },
         }
     }
 </script>
@@ -48,16 +62,17 @@
                         <h1 class="fw-bolder m-0">Sign In</h1>
                     </div>
                     <form class="px-2 px-md-5  " @submit.prevent="signinSubmit">
-
                         <div class="mb-4">
-                            <label class="form-label">Email address</label> <span class="text-danger">*</span>
-                            <input type="email" class="form-control p-3 bg-transparent" v-model="signinData.email" placeholder="">
+                            <label class="form-label">Email address</label> 
+                            <span class="text-danger" v-if="showValidation.email"> *</span>
+                            <input type="email" :class="{ 'border-danger': border.email }" class="form-control p-3 bg-transparent" v-model="signinData.email" placeholder="">
                         </div>
                         <div class="mb-4">
-                            <label class="form-label">Password</label> <span class="text-danger">*</span>
+                            <label class="form-label">Password</label>
+                            <span class="text-danger" v-if="showValidation.password"> *</span>
                             <div class="input-group mb-3">
-                                <input :type="showInput ? 'text' : 'password'" class="form-control p-3 bg-transparent border border-end-0" v-model="signinData.password" placeholder="">
-                                <button type="button" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
+                                <input :type="showInput ? 'text' : 'password'" :class="{ 'border-danger': border.password }" class="form-control p-3 bg-transparent border border-end-0" v-model="signinData.password" placeholder="">
+                                <button type="button" :class="{ 'border-danger': border.password }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
                                     <i class="bi bi-eye px-3 tertiary-font fs-4"></i>
                                 </button>
                             </div>

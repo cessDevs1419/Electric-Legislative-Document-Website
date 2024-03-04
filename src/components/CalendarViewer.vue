@@ -1,83 +1,138 @@
 <script>
-  import { defineComponent } from 'vue'
-  import FullCalendar from '@fullcalendar/vue3'
-  import dayGridPlugin from '@fullcalendar/daygrid'
-  import timeGridPlugin from '@fullcalendar/timegrid'
-  import interactionPlugin from '@fullcalendar/interaction'
-  import { INITIAL_EVENTS, createEventId, formatDateTime } from '../event-utils'
-  
-  export default defineComponent({
-    components: {
-      FullCalendar,
-    },
-    data() {
-      return {
-        calendarOptions: {
-          plugins: [
-            dayGridPlugin,
-            timeGridPlugin,
-            interactionPlugin // needed for dateClick
-          ],
-          headerToolbar: {
-            left: 'prev',
-            center: 'title',
-            right: 'next'
-          },
-          initialView: 'dayGridMonth',
-          initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
-          selectable: true,
-          selectMirror: true,
-          dayMaxEvents: 2, // Allow grid to adjust based on number of events
-          weekends: true,
-          select: this.handleDateSelect,
-          eventClick: this.handleEventClick,
-          eventsSet: this.handleEvents,
-          eventContent: this.eventContent,
-          eventDidMount: this.handleEventMount,
-          /* you can update a remote database when these fire:
-          eventAdd:
-          eventChange:
-          eventRemove:
-          */
+import { defineComponent } from 'vue'
+import FullCalendar from '@fullcalendar/vue3'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import CalendarApiService from '@/services/CalendarApiService'
+import CalendarCategoryApiService from '@/services/CalendarCategoryApiService'
+
+export default defineComponent({
+  components: {
+    FullCalendar,
+  },
+  data() {
+    return {
+      calendarOptions: {
+        plugins: [
+          dayGridPlugin,
+          timeGridPlugin,
+          interactionPlugin // needed for dateClick
+        ],
+        headerToolbar: {
+          left: 'prev',
+          center: 'title',
+          right: 'next'
         },
-        currentEvents: [],
-        selectedEvent: null,
-        eventDetails: [{
-          title: 'Joint Committee Hearing- Dynamic Title',
-          place: 'Munisipyo ng Baranggay Dimagasalang - Dynamic',
-          date: 'PM 12:00',
-          description: 'Joint Commitee Hearing On February 19, 2024 (Monday) At 1:00 in the afternoon to be held at the Sangguniang Panlungsod Session Hall. Lorem ipsum dolor sit amet consectetur. Nibh habitant quisque egestas aenean eleifend fringilla interdum mattis id. Id ut sed volutpat aliquet arcu mollis convallis commodo. Odio lorem in in eget amet. Consequat donec ipsum pharetra sit morbi metus habitant.'
-        }],
-      }
-    },
-    methods: {
-      handleWeekendsToggle() {
-        this.calendarOptions.weekends = !this.calendarOptions.weekends // update a property
+        initialView: 'dayGridMonth',
+        events: [],
+        selectable: true,
+        selectMirror: true,
+        dayMaxEvents: 2, // Allow grid to adjust based on number of events
+        weekends: true,
+        datesSet: this.handleDateSet,
+        eventClick: this.handleEventClick,
       },
-      handleEventClick(clickInfo) {
-        this.selectedEvent = clickInfo.event;
-        $('#exampleModalCenter').modal('show');
-        console.log(clickInfo.event);
-      },
-      handleEvents(events) {
-        this.currentEvents = events
-      },
-      closeModal() {
-        this.selectedEvent = null;
-        $('#exampleModalCenter').modal('hide');
-       },
-      formatDateTime(dateTimeString) {
-        const date = new Date(dateTimeString);
-        const options = {
-          hour: 'numeric',
-          minute: '2-digit',
-          hour12: true
-        };
-        return date.toLocaleString('en-US', options).replace(':', ' ');
-      },
+      selectedEvent: null,
+      calendarCategory: [],
+      calendarEvents: [],
+      groupedEvents: {},
     }
-  })
-  </script>
+  },
+  watch: {
+    activities: function(value){
+      this.calendarOptions.events = value.map(d => {
+          return {
+              id: d.id,
+              title: d.title,
+              start: d.start_date_time,
+              extendedProps: d,
+          }
+      })
+    }
+  },
+
+  created() {
+    this.fetchData();
+  },
+  methods: {
+    handleEventClick(clickInfo) {
+      this.selectedEvent = clickInfo.event;
+      $('#exampleModalCenter').modal('show');
+      console.log(clickInfo.event);
+    },
+    closeModal() {
+      this.selectedEvent = null;
+      $('#exampleModalCenter').modal('hide');
+    },
+    formatDateTime(dateTimeString) {
+      const date = new Date(dateTimeString);
+      const options = {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      };
+      return date.toLocaleString('en-US', options).replace(':', ' ');
+    },
+    fetchData() {
+    CalendarApiService.fetch()
+      .then(events => {
+        this.calendarEvents = events;
+        console.log('Fetched data to calendar events:', this.calendarEvents);
+
+        // Group events by category
+        this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
+        console.log('Grouped Events:', this.groupedEvents);
+      })
+      .catch(error => {
+        console.error('Error fetching calendar events:', error);
+      });
+
+    CalendarCategoryApiService.fetch()
+      .then(categories => {
+        this.calendarCategory = categories;
+        console.log('Fetched data to calendar categories:', this.calendarCategory);
+        
+        // Group events by category
+        this.groupedEvents = this.groupEventsByCategory(this.calendarEvents, this.calendarCategory);
+        console.log('Grouped Events:', this.groupedEvents);
+      })
+      .catch(error => {
+        console.error('Error fetching calendar categories:', error);
+      });
+  },
+  groupEventsByCategory(events, categories) {
+    const grouped = {};
+
+    // Initialize groups as arrays
+    categories.forEach(category => {
+      grouped[category.name] = [];
+    });
+
+    // Group events
+    events.forEach(event => {
+      if (grouped[event.category_name]) {
+        grouped[event.category_name].push(event);
+      }
+    });
+
+    return grouped;
+  },
+  getCategoryColor(categoryName) {
+    // Get category color from groupedEvents
+    if (this.groupedEvents[categoryName]) {
+      return this.groupedEvents[categoryName].color;
+    }
+    return '#000000'; 
+  },
+    formatDateTime(dateTime) {
+    // Your date formatting logic here
+    return dateTime; // For testing, just return the dateTime as is
+  },
+}
+})
+</script>
+
   
 
 <template>
@@ -92,24 +147,20 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
 
-          <div class="offcanvas-body" v-for="(event, index) in eventDetails" :key="index">
-            <h6 class="d-flex align-items-center fw-bold"><span class="drawer-vl"></span>Municipal Activity</h6>
-            <div class="row py-1">
-              <div class="event-cards secondary-bg py-4">
-                <h6 class="fw-semibold text-truncate m-0">{{event.title}}</h6>
-                <p class="event-description m-0">{{event.description}}</p>
-                <p class="fw-semibold m-0">{{event.date}}</p>
-              </div>
-            </div>
-            <div class="row py-1">
-              <div class="event-cards secondary-bg py-4">
-                <h6 class="fw-semibold text-truncate m-0">{{event.title}}</h6>
-                <p class="event-description m-0">{{event.description}}</p>
-                <p class="fw-semibold m-0">{{event.date}}</p>
-              </div>
-            </div>
-            
-          </div>
+          <div class="offcanvas-body" v-for="(events, categoryName) in groupedEvents" :key="categoryName">
+  <h6 class="d-flex align-items-center fw-bold">
+    <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + getCategoryColor(categoryName) }"></span>
+    {{ categoryName }}
+  </h6>
+  <div class="row py-1">
+    <div class="event-cards py-4 my-1" v-for="(event, index) in events" :key="index" :style="{ backgroundColor: getCategoryColor(event.category_color) + '33' }">
+      <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
+      <p class="event-description m-0">{{ event.description }}</p>
+      <p class="fw-semibold m-0">{{ formatDateTime(event.start_time) }}</p>
+    </div>
+  </div>
+</div>
+
 
         </div>
 
@@ -120,15 +171,19 @@
               class='demo-app-calendar'
               :options='calendarOptions'
             >
-              <template v-slot:eventContent='arg'>
-                <div class="event-holder px-2">
-                  <div class="row">
-                    <b class="event-title">{{ arg.event.title }}</b>
-                    <br>
-                    <p class="m-0">{{ formatDateTime(arg.event.start) }}</p>
-                  </div>
-                </div>
-              </template>
+
+            <FullCalendar :options="calendarOptions">
+                <template v-slot:eventContent='arg'>
+                    <div class="-event-holder px-2" :style="`border-left: 15px solid ${arg.event.extendedProps.category_color}; background-color: ${hexToRgbWithOpacity(arg.event.extendedProps.category_color, '0.2')}`">
+                        <div class="row">
+                            <b class="event-title">{{ arg.event.title }}</b>
+                            <br>
+                            <p class="m-0">{{ arg.event.extendedProps.start_time }}</p>
+                        </div>
+                    </div>
+                </template>
+            </FullCalendar>
+
             </FullCalendar>
           </div>
           <div class="w-auto pt-5 px-0">

@@ -1,5 +1,4 @@
 export default class ValidationService {
-    
     static fieldEmptyChecker(form) {
         let isEmpty = false;
         Object.keys(form).forEach(key => {
@@ -10,4 +9,8 @@ export default class ValidationService {
         return isEmpty;
     }
 
+    static emailValidator(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
 }

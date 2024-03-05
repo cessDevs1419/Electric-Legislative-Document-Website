@@ -160,7 +160,15 @@
                 </div>
 
                 <div class="modal-body">
+                    <OnlineTrackingTemplateComponent
+                        v-if="showModalTable"
+                        :header="tableHeader"
+                        :data="rowData"
+                        :rows="tableRows"
+                        :standalone="false"
+                    >
 
+                    </OnlineTrackingTemplateComponent>
 
                     <div class="w-100" v-if="rowTrackingData">
                         <div class="row w-100 m-auto mb-3 ">

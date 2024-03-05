@@ -96,7 +96,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
               <h3 class="info text-white">
                 Regular Session Livestreaming at 8:00 AM every Monday
               </h3>
-            <a class="view-more-scroller" href="#carousel" @click="viewMore()">
+            <a class="view-more-scroller cursor-pointer" @click="viewMore()">
               <h5 class="text-white">
                 View More
               </h5>
@@ -351,9 +351,12 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         }
       },
       viewMore() {
-        this.isViewed = true;
-        this.positionWhenClicked = window.scrollY; 
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        const carouselSection = document.getElementById('carousel');
+        if (carouselSection) {
+          this.isViewed = true;
+          this.positionWhenClicked = window.scrollY;
+          carouselSection.scrollIntoView({ behavior: 'smooth' });
+        }
       },
     }
   };

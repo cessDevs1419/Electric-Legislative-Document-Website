@@ -6,7 +6,7 @@
                 type: String,
                 required: true
             },
-            imgLink: {
+            images: {
                 type: String,
                 required: true
             },
@@ -18,7 +18,7 @@
     <div class="row p-0 w-100 m-auto">
         <div class="col-lg-5 p-0">
             <div class="image-container w-100 h-100 bg-dark-subtle">
-                <img class="w-100 h-100" :src="imgLink" alt="Img">
+                <img class="w-100 h-100" :src="images" alt="Img">
             </div>
         </div>
         <div class="col-lg-7 position-relative">

@@ -59,6 +59,7 @@ export default defineComponent({
     handleEventClick(clickInfo) {
       this.selectedEvent = clickInfo.event;
       $('#exampleModalCenter').modal('show');
+      calendar.getEventPopover().close();
       console.log(clickInfo.event);
     },
     closeModal() {
@@ -118,19 +119,19 @@ export default defineComponent({
       return formattedDateTime;
     },
     modalFormatDate(dateTimeStr) {
-      const options = {
-        month: 'long', // Display full month name
-        day: '2-digit', // Display two-digit day
-        year: 'numeric', // Display full year
-        weekday: 'long', // Display full weekday name
-        hour: 'numeric', // Display hour in 12-hour format
-        minute: '2-digit', // Display two-digit minutes
-        hour12: true // Use 12-hour clock
-      };
+  const options = {
+    month: 'long', // Display full month name
+    day: '2-digit', // Display two-digit day
+    year: 'numeric', // Display full year
+    hour: 'numeric', // Display hour in 12-hour format
+    minute: '2-digit', // Display two-digit minutes
+    hour12: true // Use 12-hour clock
+  };
 
-      const formattedDate = new Date(dateTimeStr).toLocaleString('en-US', options);
-      return formattedDate;
-    },
+  const formattedDate = new Date(dateTimeStr).toLocaleString('en-US', options);
+  return formattedDate;
+},
+
     getEventsByCategoryId(id) {
       const filteredEvents = this.calendarEvents.filter(event => event.category_id === id);
       return filteredEvents;
@@ -160,9 +161,9 @@ export default defineComponent({
       </h6>
       <div class="row py-1">
         <div class="event-cards py-3 my-1" v-for="(event, index) in getEventsByCategoryId(events.id)" :key="index" :style="{ backgroundColor: events.color + '33' }">
-          <h6 class="fw-semibold text-truncate m-0">{{ event.title }}</h6>
+          <h6 class="fw-bold text-truncate m-0">{{ event.title }}</h6>
           <p class="event-description m-0">{{ event.description }}</p>
-          <p class="fw-semibold m-0">{{ event.start_time }}</p>
+          <p class="fw-semibold m-0">{{ modalFormatDate(event.start_date_time) }}</p>
         </div>
       </div>
     </div>
@@ -200,7 +201,7 @@ export default defineComponent({
     <!-- Modal -->
     <!-- Modal for Event Details -->
 <!-- Modal for Event Details -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="overflow-y: auto; z-index: 9999;">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content px-4 pt-4 pb-3">
       <div class="modal-header d-flex align-item-center border-0" v-if="selectedEvent">
@@ -244,6 +245,10 @@ export default defineComponent({
 
   .event-holder {
     border-radius: 12px;
+  }
+
+  .event-cards p {
+    font-size: 0.75rem;
   }
 
   .drawer-btn{

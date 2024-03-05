@@ -45,6 +45,9 @@
                 .catch(error => {
                     console.error('Error fetching document:', error);
                 });  
+            },
+            openPdf(file) {
+                window.open(file, '_blank');
             }
         },
         created() {
@@ -154,7 +157,7 @@
                             <span class="d-flex justify-content-start text-truncate" v-if="rowData.attachments !== null">
                                 <!-- 
                                 <i v-if="rowData.pdf === 'docs'" class="bi bi-file-earmark-word-fill fs-3"></i> -->
-                                <i v-for="(items, index) in rowData.attachments" :href="items" :key="index" class="cursor-pointer mx-2 bi bi-filetype-pdf fs-3">
+                                <i v-for="(items, index) in rowData.attachments" @click="openPdf(items)" :href="items" :key="index" class="cursor-pointer mx-2 bi bi-filetype-pdf fs-3">
                                     
                                 </i>    
                                 

@@ -11,7 +11,7 @@
 </script>
 
 <template>
-    <div class="row border p-0 w-100 m-auto">
+    <div class="row p-0 w-100 m-auto">
         <div class="col-lg-5 p-0">
             <div class="image-container w-100 h-100 bg-dark-subtle">
                 <img class="w-100 h-100" src="" alt="Img">

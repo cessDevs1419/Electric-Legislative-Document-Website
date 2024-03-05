@@ -118,7 +118,7 @@
                 </h3>
             </div>
             <div class="input-group mb-3 mx-auto">
-                <input type="text" class="form-control p-2 px-3" v-model="searchQuery" placeholder="Search Document Number Here . . . " >
+                <input type="text" class="form-control p-2 px-3" v-model="searchQuery" placeholder="Search By Document Number Here . . . " >
                 <button @click="handleSearchQuery" class="input-group-text linear-primary-bg px-3" >
                     <i class="bi bi-search p-2 text-white fs-3"></i>
                 </button>
@@ -143,7 +143,7 @@
         <!-- <OnlineTrackingTableComponent
             :header="tableHeader"
             :data="tableData"
-            :rows="tableRows"
+            :rows="tableRows" 
             @row-click-data="handleRowData"
         >
 

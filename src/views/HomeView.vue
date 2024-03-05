@@ -3,6 +3,7 @@ import TemplateContainer from '@/components/TemplateContainer.vue';
 import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
 import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
 import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
+import sampleIcon from '../assets/images/sampleIcon.png'
 </script>
 
 

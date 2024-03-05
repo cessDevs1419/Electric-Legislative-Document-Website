@@ -7,7 +7,6 @@
   import sample_vid from '@/assets/images/sample_vid.mp4';
 </script>
 
- 
 <template >
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-xl position-fixed  w-100  p-0 " data-bs-theme="dark">

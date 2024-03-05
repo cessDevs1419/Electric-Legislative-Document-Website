@@ -1,8 +1,10 @@
 <script setup>
-import TemplateContainer from '@/components/TemplateContainer.vue';
-import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
-import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
-import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
+  import TemplateContainer from '@/components/TemplateContainer.vue';
+  import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
+  import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
+  import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
+  import sample_news_img from '@/assets/images/sample_news_img.jpg';
+  import sample_vid from '@/assets/images/sample_vid.mp4';
 </script>
 
 
@@ -201,7 +203,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
       <div class="col-lg-6">
         <LiveVideoComponent
           :pageLink="'https://www.facebook.com/QuezonGovPh'"
-          :videoSrc="'src/assets/images/sample_vid.mp4'"
+          :videoSrc="sample_vid"
           >
           <template #heading>The 20th Sangguniang Panlungsod Members</template>
         </LiveVideoComponent>
@@ -209,7 +211,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
       <div class="col-lg-6">
         <LiveVideoComponent
           :pageLink="'https://www.facebook.com/QuezonGovPh'"
-          :videoSrc="'src/assets/images/sample_vid.mp4'"
+          :videoSrc="sample_vid"
           >
           <template #heading>Facebook Livestream Link</template>
         </LiveVideoComponent>
@@ -229,7 +231,9 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         >
 
         </PaginationListComponentVue>
+
         <div class="my-5"></div>
+
         <PaginationListComponentVue 
           title="Latest News"
           :items="items" 
@@ -282,6 +286,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                   description: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 15, 2024',
                   link: 'http://example.com',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 1'
                   },
                   {
@@ -289,6 +294,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   },
                   {
@@ -296,6 +302,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   },
                   {
@@ -303,6 +310,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   },
                   {
@@ -310,6 +318,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   },
                   {
@@ -317,6 +326,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   },
                   {
@@ -324,6 +334,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   }
                   // Add more items as needed

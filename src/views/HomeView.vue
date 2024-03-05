@@ -95,8 +95,8 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
               <h3 class="info text-white">
                 Regular Session Livestreaming at 8:00 AM every Monday
               </h3>
-            <a class="view-more-scroller cursor-pointer" @click="viewMore()">
-              <h5 class="text-white">
+            <a class="view-more-scroller cursor-pointer text-decoration-none" @click="viewMore()">
+              <h5 class="text-white ">
                 View More
               </h5>
               <i class="bi bi-arrow-down text-white" style="font-size: 4rem;"></i>

@@ -7,7 +7,7 @@
   import sample_vid from '@/assets/images/sample_vid.mp4';
 </script>
 
-
+ 
 <template >
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-xl position-fixed  w-100  p-0 " data-bs-theme="dark">
@@ -97,7 +97,7 @@
               <h3 class="info text-white">
                 Regular Session Livestreaming at 9:00am every Tuesday
               </h3>
-            <a class="view-more-scroller cursor-pointer text-decoration-none" @click="viewMore()">
+            <a class="view-more-scroller cursor-pointer text-decoration-none" @click="viewMore">
               <h5 class="text-white ">
                 View More
               </h5>
@@ -108,8 +108,12 @@
         <div class="overlay"></div>
   </div>
 
+  <div class="nav-spacer w-100 border" id="carousel" :class="{ 'd-block': isViewed }">
+      <!-- Content goes here -->
+  </div>
+
   <!-- Carousel -->
-  <TemplateContainer id="carousel">
+  <TemplateContainer >
     <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
 
       <div class="slide-indicator">
@@ -349,8 +353,13 @@
     },
     methods: {
       handleScroll() {
-
         this.isScrolled = window.scrollY > 10; 
+      },
+      viewMore() {
+        const carouselSection = document.getElementById('carousel');
+        if (carouselSection) {
+          carouselSection.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
   };

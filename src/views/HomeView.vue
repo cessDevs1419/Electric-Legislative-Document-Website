@@ -87,16 +87,16 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
   <div class="hero w-100 vh-100">
     
         <div class="nav-container container-fluid d-flex align-items-center text-center justify-content-center">
-          <div class="row h-100 align-item-center justify-content-center">
+          <div class="row h-100 align-item-center justify-content-center"  >
               <!-- <i class="bi bi-4-circle" style="font-size: 15rem; vertical-align: middle; max-height: 20rem;"></i> -->
               <img class="company-logo mx-auto mb-2" src="../assets/images/circle.png" alt="" srcset="">
               <h1 class="company-header text-white fw-bold">
                 THE SANGGUNIANG PANLUNGSOD OF QUEZON
               </h1>
               <h3 class="info text-white">
-                Regular Session Livestreaming at 9:00am every Tuesday
+                Regular Session Livestreaming at 8:00 AM every Monday
               </h3>
-            <a class="view-more-scroller" href="#carousel">
+            <a class="view-more-scroller" href="#carousel" @click="viewMore()">
               <h5 class="text-white">
                 View More
               </h5>
@@ -107,8 +107,12 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         <div class="overlay"></div>
   </div>
 
+  <div class="nav-spacer w-100" id="carousel" :class="{ 'd-block': isViewed }">
+
+  </div>
+
   <!-- Carousel -->
-  <TemplateContainer id="carousel">
+  <TemplateContainer  >
     <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
 
       <div class="slide-indicator">
@@ -277,6 +281,8 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
     data() {
       return {
       isScrolled: false,
+      isViewed: false,
+      positionWhenClicked: 0,
       items: [
                   {
                   title: 'Order Business – 69th Regular Session of the 20th Sangguniang Panlungsod of Quezon Province',
@@ -339,22 +345,33 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
     },
     methods: {
       handleScroll() {
-
         this.isScrolled = window.scrollY > 10; 
-      }
+        if (window.scrollY !== this.positionWhenClicked) {
+          this.isViewed = false;
+        }
+      },
+      viewMore() {
+        this.isViewed = true;
+        this.positionWhenClicked = window.scrollY; 
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
     }
   };
 </script>
 
 <style scoped>
 
-.navbar-container {
-  transition: .3s ease-in-out;
-}
-.glow{
-    background-color: rgb(40, 107, 174, 50);
-    backdrop-filter: blur(40px);
+  .nav-spacer{
+    display: none;
+    min-height: 100px;
   }
+  .navbar-container {
+    transition: .3s ease-in-out;
+  }
+  .glow{
+      background-color: rgb(40, 107, 174, 50);
+      backdrop-filter: blur(40px);
+    }
 
   .hero {
     position: relative;

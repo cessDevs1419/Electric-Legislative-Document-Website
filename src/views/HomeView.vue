@@ -85,9 +85,8 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 
   <!-- Hero Section -->
   <div class="hero w-100 vh-100">
-    
         <div class="nav-container container-fluid d-flex align-items-center text-center justify-content-center">
-          <div class="row h-100 align-item-center justify-content-center"  >
+          <div class="row w-100 m-auto h-100 align-item-center justify-content-center"  >
               <!-- <i class="bi bi-4-circle" style="font-size: 15rem; vertical-align: middle; max-height: 20rem;"></i> -->
               <img class="company-logo mx-auto mb-2" src="../assets/images/circle.png" alt="" srcset="">
               <h1 class="company-header text-white fw-bold">
@@ -125,7 +124,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
       
       <div class="carousel-inner" >
         <div class="carousel-item active" data-bs-interval="5000">
-          <div class="row">
+          <div class="row w-100 m-auto">
             <div class="col-lg-6">
               <h6>
                 What's Happening
@@ -149,7 +148,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         </div>
 
         <div class="carousel-item active" data-bs-interval="2000">
-          <div class="row">
+          <div class="row w-100 m-auto" >
             <div class="col-lg-6">
               <h6>
                 What's Happening
@@ -173,7 +172,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         </div>
 
         <div class="carousel-item active" data-bs-interval="2000">
-          <div class="row">
+          <div class="row w-100 m-auto">
             <div class="col-lg-6">
               <h6>
                 What's Happening
@@ -202,7 +201,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
   
   <!-- Videos / Link -->
   <TemplateContainer>
-    <div class="row g-3 my-3">
+    <div class="row w-100 m-auto g-3 my-3">
       <div class="col-lg-6">
         <LiveVideoComponent
           :pageLink="'https://www.facebook.com/QuezonGovPh'"
@@ -224,50 +223,50 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
 
   <!-- News -->
   <TemplateContainer class="mb-5">
-	<div class="row g-3 my-3">
-		<div class="col-lg-7">
-			<PaginationListComponentVue 
-				title="Recent Order of Business"
-				:items="items" 
-				:itemsPerPage="4"
-				:listType="'orderList'"
-			>
-
-			</PaginationListComponentVue>
-			<div class="my-5"></div>
-			<PaginationListComponentVue 
-				title="Latest News"
-				:items="items" 
-				:itemsPerPage="4"
-				:listType="'newsList'"
-			>
-
-			</PaginationListComponentVue>
-		</div>
-		<div class="col-lg-5">
-        <!-- Sidebar -->
-        <SidebarListComponentVue
-          :listType="'calendar'"
+    <div class="row w-100 m-auto g-3 my-3">
+      <div class="col-lg-7">
+        <PaginationListComponentVue 
+          title="Recent Order of Business"
+          :items="items" 
+          :itemsPerPage="4"
+          :listType="'orderList'"
         >
-            <template #heading>Calendar of Events</template>
-        </SidebarListComponentVue>
-        
-        <SidebarListComponentVue
-          :listType="'membersList'"
-        >
-            <template #heading>The 20th SP Members Facebook Page</template>
-    
-        </SidebarListComponentVue>
 
-        <SidebarListComponentVue
-          :listType="'hotlineList'"
+        </PaginationListComponentVue>
+        <div class="my-5"></div>
+        <PaginationListComponentVue 
+          title="Latest News"
+          :items="items" 
+          :itemsPerPage="4"
+          :listType="'newsList'"
         >
-            <template #heading>Quezon Province Hotlines</template>
-    
-        </SidebarListComponentVue>
 
-		</div>
-	</div>
+        </PaginationListComponentVue>
+      </div>
+      <div class="col-lg-5">
+          <!-- Sidebar -->
+          <SidebarListComponentVue
+            :listType="'calendar'"
+          >
+              <template #heading>Calendar of Events</template>
+          </SidebarListComponentVue>
+          
+          <SidebarListComponentVue
+            :listType="'membersList'"
+          >
+              <template #heading>The 20th SP Members Facebook Page</template>
+      
+          </SidebarListComponentVue>
+
+          <SidebarListComponentVue
+            :listType="'hotlineList'"
+          >
+              <template #heading>Quezon Province Hotlines</template>
+      
+          </SidebarListComponentVue>
+
+      </div>
+    </div>
   </TemplateContainer>
 
 </template>

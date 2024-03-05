@@ -48,7 +48,13 @@
             },
             openPdf(file) {
                 window.open(file, '_blank');
+            },
+            checkIfNotNull(attachments) {
+                console.log(attachments);
+                return attachments && attachments.length > 0; // Return true if attachments is not null and not empty
             }
+
+
         },
         created() {
             this.fetchData(); 
@@ -154,16 +160,14 @@
                         </div>
                         <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">PDF</h5>
-                            <span class="d-flex justify-content-start text-truncate" v-if="rowData.attachments !== null">
+                            <span class="d-flex justify-content-start text-truncate" v-if="checkIfNotNull(rowData.attachments)">
                                 <!-- 
                                 <i v-if="rowData.pdf === 'docs'" class="bi bi-file-earmark-word-fill fs-3"></i> -->
                                 <i v-for="(items, index) in rowData.attachments" @click="openPdf(items)" :href="items" :key="index" class="cursor-pointer mx-2 bi bi-filetype-pdf fs-3">
-                                    
                                 </i>    
-                                
                             </span>
                             <span v-else>
-                                {{ rowData.not_show_attachments_desc }}
+                                {{ rowData.not_show_attachments_desc || 'No attachments available' }}
                             </span>
                         </div>
                     </div>

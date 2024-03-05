@@ -29,6 +29,7 @@
                 tableData:  [],
                 sampletableData: {},
                 rowData: Object,
+                rowTrackingData: Object,
                 showModalTable: false,
                 searchQuery: '',
                 showTable: false,
@@ -84,7 +85,15 @@
             },
             handleRowTrackingData(data){
                 console.log(data)
+                this.rowTrackingData = data
             },
+            openPdf(file) {
+                window.open(file, '_blank');
+            },
+            checkIfNotNull(attachments) {
+                console.log(attachments);
+                return attachments && attachments.length > 0; // Return true if attachments is not null and not empty
+            }
         },
         created() {
             this.fetchData(); 
@@ -146,24 +155,106 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content rounded-0 p-2">
                 <div class="modal-header d-flex align-item-center border-0">
-                    
+                    <h4 v-if="rowTrackingData" class="d-flex align-items-center fw-bold"><span class="vertical-line"></span>Document Overview</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <OnlineTrackingTemplateComponent
-                        v-if="showModalTable"
-                        :header="tableHeader"
-                        :data="rowData"
-                        :rows="tableRows"
-                        :standalone="false"
-                    >
 
-                    </OnlineTrackingTemplateComponent>
+                <div class="modal-body">
+
+
+                    <div class="w-100" v-if="rowTrackingData">
+                        <div class="row w-100 m-auto mb-3 ">
+                            <div class="col-lg-6 m-auto mt-0">
+                                <h5 class="fw-semibold">Title</h5>
+                                <p v-if="rowTrackingData.title">{{ rowTrackingData.title }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col-lg-6 m-auto mt-0">
+                                <h5 class="fw-semibold">Author/Sponsorship</h5>
+                                <p v-if="rowTrackingData.author">{{ rowTrackingData.author }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                        </div>
+                        <div class="row w-100 m-auto mb-3">
+                            <div class="col-lg-4 m-auto mt-0">
+                                <h5 class="fw-semibold">Type</h5>
+                                <p v-if="rowTrackingData.type_name">{{ rowTrackingData.type_name }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col-lg-4 m-auto mt-0">
+                                <h5 class="fw-semibold">Date of Enactment</h5>
+                                <p v-if="rowTrackingData.enactment_date">{{ rowTrackingData.enactment_date || enactment_date2 }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col-lg-4 m-auto mt-0">
+                                <h5 class="fw-semibold">Session Type</h5>
+                                <p v-if="rowTrackingData.session_type">{{ rowTrackingData.session_type }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                        </div>
+                        <div class="row w-100 m-auto mb-3">
+                            <div class="col-lg-3 mt-0">
+                                <h5 class="fw-semibold">No</h5>
+                                <p v-if="rowTrackingData.no">{{ rowTrackingData.no }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col-lg-3 mt-0">
+                                <h5 class="fw-semibold">Year</h5>
+                                <p v-if="rowTrackingData.year">{{ rowTrackingData.year }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col-lg-3 mt-0">
+                                <h5 class="fw-semibold">Council No.</h5>
+                                <p v-if="rowTrackingData.council_no">{{ rowTrackingData.council_no }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col-lg-3 mt-0">
+                                <h5 class="fw-semibold">Session No</h5>
+                                <p v-if="rowTrackingData.session_no">{{ rowTrackingData.session_no }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                        </div>
+                        <div class="row w-100 m-auto mb-3">
+                            <div class="col-lg-3 mt-0">
+                                <h5 class="fw-semibold">JA/JS</h5>
+                                <p v-if="rowTrackingData.ja_js">{{ rowTrackingData.ja_js }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col-lg-3 mt-0">
+                                <h5 class="fw-semibold">Category</h5>
+                                <p v-if="rowTrackingData.category_name">{{ rowTrackingData.category_name }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col-lg-3 mt-0">
+                                <h5 class="fw-semibold">Bayan</h5>
+                                <p v-if="rowTrackingData.bayan_name">{{ rowTrackingData.bayan_name }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class="col-lg-3 mt-0">
+                                <h5 class="fw-semibold">PDF</h5>
+                                <span class="d-flex justify-content-start text-truncate" v-if="checkIfNotNull(rowData.attachments)">
+                                    <!-- 
+                                    <i v-if="rowData.pdf === 'docs'" class="bi bi-file-earmark-word-fill fs-3"></i> -->
+                                    <i v-for="(items, index) in rowData.attachments" @click="openPdf(items)" :href="items" :key="index" class="cursor-pointer mx-2 bi bi-filetype-pdf fs-3">
+                                    </i>    
+                                </span>
+                                <span v-else>
+                                    {{ rowData.not_show_attachments_desc || 'No attachments available' }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row w-100 m-auto">
+                            <div class="w-100 mt-0">
+                                <h5 class="fw-semibold">Remarks</h5>
+                                <p v-if="rowTrackingData.remarks">{{ rowTrackingData.remarks }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 
 </template>
 

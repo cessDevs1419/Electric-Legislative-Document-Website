@@ -12,7 +12,9 @@ export default {
             bayanQuery: '',
             bayan: [],
             category: [],
-            type: [] 
+            type: [],
+            typedropdownOpen: false,
+            
         };
     },
     props: {
@@ -69,6 +71,24 @@ export default {
         },
         openPdf(file) {
             window.open(file, '_blank');
+        },
+        getType(name){
+            this.typeQuery = name;
+        },
+        getCategory(name){
+            this.categoryQuery = name;
+        },
+        getBayan(name){
+            this.bayanQuery = name;
+        },
+        toggleTypeQuery() {
+            this.typeQuery = this.typeQuery ? '' : this.typeQuery;
+        },
+        toggleCategoryQuery() {
+            this.categoryQuery = this.categoryQuery ? '' : this.categoryQuery;
+        },
+        toggleBayanQuery() {
+            this.bayanQuery = this.bayanQuery ? '' : this.bayanQuery;
         }
         
             
@@ -116,28 +136,47 @@ export default {
             <div class="col-xl-4 col-lg-6 mb-3 mb-xl-0">
                 <div class="d-flex align-item-center justify-content-between flex-wrap">
                     <label class="col-form-label">Filter By</label>
-                        <select class="filter-select form-select rounded-0 px-2" v-model="typeQuery" >
-                            <option selected>Types</option>
-                            <option v-for="(items, index) in type" :key="index" :value="items.name">{{ items.name }}</option>
-                        </select>
+                        <div class="dropdown rounded-0">
+                            <button @click="toggleTypeQuery" data-bs-toggle="dropdown" aria-expanded="false"  class="dropdown-btn btn text-dark border d-flex align-items-center justify-content-between  rounded-0 " type="button" >
+                                {{ typeQuery ? typeQuery : 'Type' }} <i v-if="typeQuery" class="bi bi-x"></i> <i v-if="!typeQuery" class="bi bi-caret-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in type" :key="index"  @click="getType(items.name)">
+                                    {{ items.name }}
+                                </li>
+                            </ul>
+                        </div>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 mb-3 mb-xl-0">
                 <div class="d-flex align-item-center justify-content-between flex-wrap">
                     <label class="col-form-label">Category</label>
-                        <select class="filter-select form-select rounded-0 px-2" v-model="categoryQuery" >
-                            <option selected>Select Category</option>
-                            <option v-for="(category, index) in category" :key="index" :value="category.name">{{ category.name }}</option>
-                        </select>
+                        <div class="dropdown rounded-0">
+                            <button @click="toggleCategoryQuery" data-bs-toggle="dropdown" aria-expanded="false"  class="dropdown-btn btn text-dark border d-flex align-items-center justify-content-between  rounded-0 " type="button" >
+                                {{ categoryQuery ? categoryQuery : 'Category' }} <i v-if="categoryQuery" class="bi bi-x"></i> <i v-if="!categoryQuery" class="bi bi-caret-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in category" :key="index"  @click="getCategory(items.name)">
+                                    {{ items.name }}
+                                </li>
+                            </ul>
+                        </div>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-6 mb-3 mb-xl-0">
                 <div class="d-flex align-item-center justify-content-between flex-wrap">
                     <label class="col-form-label">Bayan</label>
-                        <select class="filter-select form-select rounded-0 px-2" v-model="bayanQuery" >
-                            <option selected>Select Bayan</option>
-                            <option v-for="(item, index) in bayan" :key="index" :value="item.name" >{{ item.name }}</option>
-                        </select>
+                        <div class="dropdown rounded-0">
+                            <button @click="toggleBayanQuery" data-bs-toggle="dropdown" aria-expanded="false"  class="dropdown-btn btn text-dark border d-flex align-items-center justify-content-between  rounded-0 " type="button" >
+                                {{ bayanQuery ? bayanQuery : 'Bayan' }} <i v-if="bayanQuery" class="bi bi-x"></i> <i v-if="!bayanQuery" class="bi bi-caret-down"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in bayan" :key="index"  @click="getBayan(items.name)">
+                                    {{ items.name }}
+                                </li>
+                            </ul>
+                        </div>
+                        
                 </div>
             </div>
         </div>
@@ -195,9 +234,16 @@ export default {
         text-align: center;
         padding: 1.5rem;
     }
-    .filter-select{
+    .input-group-text{
+        background-image: none;
+    }
+    .dropdown{
         width: 100%;
-        max-width: 200px;
+        max-width: 250px;
+    }
+    .dropdown-btn{
+        width: 100%;
+        max-width: 250px;
     }
 
     .max-data-width{

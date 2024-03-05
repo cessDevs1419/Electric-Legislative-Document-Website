@@ -93,7 +93,7 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
                 THE SANGGUNIANG PANLUNGSOD OF QUEZON
               </h1>
               <h3 class="info text-white">
-                Regular Session Livestreaming at 8:00 AM every Monday
+                Regular Session Livestreaming at 9:00am every Tuesday
               </h3>
             <a class="view-more-scroller cursor-pointer text-decoration-none" @click="viewMore()">
               <h5 class="text-white ">
@@ -106,12 +106,8 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
         <div class="overlay"></div>
   </div>
 
-  <div class="nav-spacer w-100" id="carousel" :class="{ 'd-block': isViewed }">
-
-  </div>
-
   <!-- Carousel -->
-  <TemplateContainer  >
+  <TemplateContainer id="carousel">
     <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
 
       <div class="slide-indicator">
@@ -280,8 +276,6 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
     data() {
       return {
       isScrolled: false,
-      isViewed: false,
-      positionWhenClicked: 0,
       items: [
                   {
                   title: 'Order Business – 69th Regular Session of the 20th Sangguniang Panlungsod of Quezon Province',
@@ -344,36 +338,22 @@ import PaginationListComponentVue from '@/components/PaginationListComponent.vue
     },
     methods: {
       handleScroll() {
+
         this.isScrolled = window.scrollY > 10; 
-        if (window.scrollY !== this.positionWhenClicked) {
-          this.isViewed = false;
-        }
-      },
-      viewMore() {
-        const carouselSection = document.getElementById('carousel');
-        if (carouselSection) {
-          this.isViewed = true;
-          this.positionWhenClicked = window.scrollY;
-          carouselSection.scrollIntoView({ behavior: 'smooth' });
-        }
-      },
+      }
     }
   };
 </script>
 
 <style scoped>
 
-  .nav-spacer{
-    display: none;
-    min-height: 100px;
+.navbar-container {
+  transition: .3s ease-in-out;
+}
+.glow{
+    background-color: rgb(40, 107, 174, 50);
+    backdrop-filter: blur(40px);
   }
-  .navbar-container {
-    transition: .3s ease-in-out;
-  }
-  .glow{
-      background-color: rgb(40, 107, 174, 50);
-      backdrop-filter: blur(40px);
-    }
 
   .hero {
     position: relative;

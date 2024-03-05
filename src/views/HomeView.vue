@@ -1,12 +1,13 @@
 <script setup>
-import TemplateContainer from '@/components/TemplateContainer.vue';
-import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
-import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
-import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
-import sampleIcon from '../assets/images/sampleIcon.png'
+  import TemplateContainer from '@/components/TemplateContainer.vue';
+  import LiveVideoComponent from '@/components/LiveVideoComponent.vue';
+  import SidebarListComponentVue from '@/components/SidebarListComponent.vue';
+  import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
+  import sample_news_img from '@/assets/images/sample_news_img.jpg';
+  import sample_vid from '@/assets/images/sample_vid.mp4';
 </script>
 
-
+ 
 <template >
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-xl position-fixed  w-100  p-0 " data-bs-theme="dark">
@@ -86,9 +87,8 @@ import sampleIcon from '../assets/images/sampleIcon.png'
 
   <!-- Hero Section -->
   <div class="hero w-100 vh-100">
-    
         <div class="nav-container container-fluid d-flex align-items-center text-center justify-content-center">
-          <div class="row h-100 align-item-center justify-content-center">
+          <div class="row w-100 m-auto h-100 align-item-center justify-content-center"  >
               <!-- <i class="bi bi-4-circle" style="font-size: 15rem; vertical-align: middle; max-height: 20rem;"></i> -->
               <img class="company-logo mx-auto mb-2" src="../assets/images/circle.png" alt="" srcset="">
               <h1 class="company-header text-white fw-bold">
@@ -97,8 +97,8 @@ import sampleIcon from '../assets/images/sampleIcon.png'
               <h3 class="info text-white">
                 Regular Session Livestreaming at 9:00am every Tuesday
               </h3>
-            <a class="view-more-scroller" href="#carousel">
-              <h5 class="text-white">
+            <a class="view-more-scroller cursor-pointer text-decoration-none" @click="viewMore">
+              <h5 class="text-white ">
                 View More
               </h5>
               <i class="bi bi-arrow-down text-white" style="font-size: 4rem;"></i>
@@ -106,6 +106,10 @@ import sampleIcon from '../assets/images/sampleIcon.png'
           </div>
         </div>
         <div class="overlay"></div>
+  </div>
+
+  <div class="nav-spacer w-100 border" id="carousel" :class="{ 'd-block': isViewed }">
+      <!-- Content goes here -->
   </div>
 
   <!-- Carousel -->
@@ -199,11 +203,11 @@ import sampleIcon from '../assets/images/sampleIcon.png'
   
   <!-- Videos / Link -->
   <TemplateContainer>
-    <div class="row g-3 my-3">
+    <div class="row w-100 m-auto g-3 my-3">
       <div class="col-lg-6">
         <LiveVideoComponent
           :pageLink="'https://www.facebook.com/QuezonGovPh'"
-          :videoSrc="'src/assets/images/sample_vid.mp4'"
+          :videoSrc="sample_vid"
           >
           <template #heading>The 20th Sangguniang Panlungsod Members</template>
         </LiveVideoComponent>
@@ -211,7 +215,7 @@ import sampleIcon from '../assets/images/sampleIcon.png'
       <div class="col-lg-6">
         <LiveVideoComponent
           :pageLink="'https://www.facebook.com/QuezonGovPh'"
-          :videoSrc="'src/assets/images/sample_vid.mp4'"
+          :videoSrc="sample_vid"
           >
           <template #heading>Facebook Livestream Link</template>
         </LiveVideoComponent>
@@ -221,50 +225,52 @@ import sampleIcon from '../assets/images/sampleIcon.png'
 
   <!-- News -->
   <TemplateContainer class="mb-5">
-	<div class="row g-3 my-3">
-		<div class="col-lg-7">
-			<PaginationListComponentVue 
-				title="Recent Order of Business"
-				:items="items" 
-				:itemsPerPage="4"
-				:listType="'orderList'"
-			>
-
-			</PaginationListComponentVue>
-			<div class="my-5"></div>
-			<PaginationListComponentVue 
-				title="Latest News"
-				:items="items" 
-				:itemsPerPage="4"
-				:listType="'newsList'"
-			>
-
-			</PaginationListComponentVue>
-		</div>
-		<div class="col-lg-5">
-        <!-- Sidebar -->
-        <SidebarListComponentVue
-          :listType="'calendar'"
+    <div class="row w-100 m-auto g-3 my-3">
+      <div class="col-lg-7">
+        <PaginationListComponentVue 
+          title="Recent Order of Business"
+          :items="items" 
+          :itemsPerPage="4"
+          :listType="'orderList'"
         >
-            <template #heading>Calendar of Events</template>
-        </SidebarListComponentVue>
-        
-        <SidebarListComponentVue
-          :listType="'membersList'"
-        >
-            <template #heading>The 20th SP Members Facebook Page</template>
-    
-        </SidebarListComponentVue>
 
-        <SidebarListComponentVue
-          :listType="'hotlineList'"
-        >
-            <template #heading>Quezon Province Hotlines</template>
-    
-        </SidebarListComponentVue>
+        </PaginationListComponentVue>
 
-		</div>
-	</div>
+        <div class="my-5"></div>
+
+        <PaginationListComponentVue 
+          title="Latest News"
+          :items="items" 
+          :itemsPerPage="4"
+          :listType="'newsList'"
+        >
+
+        </PaginationListComponentVue>
+      </div>
+      <div class="col-lg-5">
+          <!-- Sidebar -->
+          <SidebarListComponentVue
+            :listType="'calendar'"
+          >
+              <template #heading>Calendar of Events</template>
+          </SidebarListComponentVue>
+          
+          <SidebarListComponentVue
+            :listType="'membersList'"
+          >
+              <template #heading>The 20th SP Members Facebook Page</template>
+      
+          </SidebarListComponentVue>
+
+          <SidebarListComponentVue
+            :listType="'hotlineList'"
+          >
+              <template #heading>Quezon Province Hotlines</template>
+      
+          </SidebarListComponentVue>
+
+      </div>
+    </div>
   </TemplateContainer>
 
 </template>
@@ -284,6 +290,7 @@ import sampleIcon from '../assets/images/sampleIcon.png'
                   description: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 15, 2024',
                   link: 'http://example.com',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 1'
                   },
                   {
@@ -291,6 +298,7 @@ import sampleIcon from '../assets/images/sampleIcon.png'
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   },
                   {
@@ -298,6 +306,7 @@ import sampleIcon from '../assets/images/sampleIcon.png'
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   },
                   {
@@ -305,6 +314,7 @@ import sampleIcon from '../assets/images/sampleIcon.png'
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   },
                   {
@@ -312,6 +322,7 @@ import sampleIcon from '../assets/images/sampleIcon.png'
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   },
                   {
@@ -319,6 +330,7 @@ import sampleIcon from '../assets/images/sampleIcon.png'
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   },
                   {
@@ -326,6 +338,7 @@ import sampleIcon from '../assets/images/sampleIcon.png'
                   description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
                   date: 'February 20, 2024',
                   link: 'http://example.com/another',
+                  imgLink: sample_news_img,
                   linkTitle: 'Sample 2'
                   }
                   // Add more items as needed
@@ -340,8 +353,13 @@ import sampleIcon from '../assets/images/sampleIcon.png'
     },
     methods: {
       handleScroll() {
-
         this.isScrolled = window.scrollY > 10; 
+      },
+      viewMore() {
+        const carouselSection = document.getElementById('carousel');
+        if (carouselSection) {
+          carouselSection.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
   };

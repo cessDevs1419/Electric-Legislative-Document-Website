@@ -30,6 +30,7 @@ export default defineComponent({
         selectMirror: true,
         dayMaxEvents: 2, // Allow grid to adjust based on number of events
         weekends: true,
+        eventLimit: true,
         datesSet: this.handleDateSet,
         eventClick: this.handleEventClick,
       },
@@ -278,7 +279,11 @@ export default defineComponent({
     flex-grow: 1;
     padding: 3em;
   }
-  
+
+  .fc .fc-daygrid-day{
+    height: 8rem;
+  }
+
   .fc { /* the calendar root */
       width: 100%;
       margin: 0 auto;
@@ -301,6 +306,7 @@ export default defineComponent({
   .demo-app-main {
     padding: 0;
   }
+
   /* Vertical Line for Calendar Modal */
   .event-vl{
       display: inline-block;

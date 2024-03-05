@@ -118,7 +118,14 @@ const router = createRouter({
       name: 'view-municipality',
       component: SpecifiedMunicipalViewsVue
     },
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    
+    return { 
+      el: '#app',
+      top: 0 
+  }
+  },
 })
 
 export default router

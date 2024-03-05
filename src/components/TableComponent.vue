@@ -61,6 +61,15 @@ export default {
                     console.error('Error fetching categories:', error);
                 });  
         }, 
+        reset() {
+            this.searchQuery = '';
+            this.typeQuery = '';
+            this.categoryQuery = '';
+            this.bayanQuery = '';
+        },
+        openPdf(file) {
+            window.open(file, '_blank');
+        }
         
             
     },
@@ -90,8 +99,8 @@ export default {
 <template>
 <div class="table-container box-shadow  px-4">
     <div class="table-header p-4">
-        <div class="row">
-            <div class="col-xl-3 col-lg-6">
+        <div class="row w-100 m-auto mb-3 mb-xl-0">
+            <div class="col-md-6 ">
                 <div class="input-group mb-3">
                     <input type="search" v-model="searchQuery" class="form-control p-2 rounded-0 border border-end-0" placeholder="Search Documents . . ." >
                     <span class="input-group-text rounded-0 border border-start-0 bg-transparent px-2" >
@@ -99,8 +108,13 @@ export default {
                     </span>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-6 mb-3 mb-lg-0">
-                <div class="d-flex align-item-center justify-content-between">
+            <div class="col-md-6 d-flex justify-content-start justify-content-md-end">
+                <button @click="reset" class=" primary-bg clear-btn px-3 text-white border-0 rounded-0">Clear</button>
+            </div>
+        </div>
+        <div class="row w-100 m-auto">
+            <div class="col-xl-4 col-lg-6 mb-3 mb-xl-0">
+                <div class="d-flex align-item-center justify-content-between flex-wrap">
                     <label class="col-form-label">Filter By</label>
                         <select class="filter-select form-select rounded-0 px-2" v-model="typeQuery" >
                             <option selected>Types</option>
@@ -108,8 +122,8 @@ export default {
                         </select>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-6 mb-3 mb-lg-0">
-                <div class="d-flex align-item-center justify-content-between">
+            <div class="col-xl-4 col-lg-6 mb-3 mb-xl-0">
+                <div class="d-flex align-item-center justify-content-between flex-wrap">
                     <label class="col-form-label">Category</label>
                         <select class="filter-select form-select rounded-0 px-2" v-model="categoryQuery" >
                             <option selected>Select Category</option>
@@ -117,8 +131,8 @@ export default {
                         </select>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-6 mb-3 mb-lg-0">
-                <div class="d-flex align-item-center justify-content-between">
+            <div class="col-xl-4 col-lg-6 mb-3 mb-xl-0">
+                <div class="d-flex align-item-center justify-content-between flex-wrap">
                     <label class="col-form-label">Bayan</label>
                         <select class="filter-select form-select rounded-0 px-2" v-model="bayanQuery" >
                             <option selected>Select Bayan</option>
@@ -136,18 +150,25 @@ export default {
                 </tr>
             </thead>
             <tbody>
-                <tr class="cursor-pointer"  data-bs-toggle="modal" data-bs-target="#tableModal" v-for="(item, index) in filteredData" :key="index" @click="getData(item)"> 
-                    <td class="text-truncate max-data-width overflow-hidden " v-for="(rows, index) in rows" :key="index">
+                <tr class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#tableModal" v-for="(item, index) in filteredData" :key="index" @click="getData(item)"> 
+                    <td class="text-truncate max-data-width overflow-hidden" v-for="(rows, index) in rows" :key="index">
                         <template v-if="rows === 'attachments'">
-                            <template v-if="item['attachments']">
-                                {{ item['not_show_attachments_desc'] }}
+                            <template v-if="item['attachments'] !== null">
+                                <template v-for="(attachment, i) in item['attachments']" :key="i">
+                                    <i @click="openPdf(attachment)" class="cursor-pointer mx-2 bi bi-filetype-pdf fs-3">
+                                    </i>    
+                                </template>
+                            </template>
+                            <template v-else>
+                                {{ item['not_show_attachments_desc'] || 'No attachments available' }}
                             </template>
                         </template>
                         <template v-else>
-                            {{ item[rows] }}
+                        {{ item[rows] }}
                         </template>
                     </td>
                 </tr>
+
             </tbody>
         </table>
     </div>
@@ -160,7 +181,9 @@ export default {
         min-width: 1200px;
         width: 100%;
     }
-
+    .clear-btn{
+        height: 2.5rem;
+    }
     th{
         padding: 1.5rem;
         background-color: var(--primary-color);

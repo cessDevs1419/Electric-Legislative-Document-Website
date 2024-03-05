@@ -30,7 +30,6 @@ export default defineComponent({
         selectMirror: true,
         dayMaxEvents: 2, // Allow grid to adjust based on number of events
         weekends: true,
-        eventLimit: true,
         datesSet: this.handleDateSet,
         eventClick: this.handleEventClick,
       },
@@ -59,7 +58,6 @@ export default defineComponent({
     handleEventClick(clickInfo) {
       this.selectedEvent = clickInfo.event;
       $('#exampleModalCenter').modal('show');
-      calendar.getEventPopover().close();
       console.log(clickInfo.event);
     },
     closeModal() {

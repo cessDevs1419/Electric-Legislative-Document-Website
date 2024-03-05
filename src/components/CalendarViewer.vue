@@ -30,6 +30,7 @@ export default defineComponent({
         selectMirror: true,
         dayMaxEvents: 2, // Allow grid to adjust based on number of events
         weekends: true,
+        eventLimit: true,
         datesSet: this.handleDateSet,
         eventClick: this.handleEventClick,
       },
@@ -202,8 +203,8 @@ export default defineComponent({
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content px-4 pt-4 pb-3">
-      <div class="modal-header d-flex align-item-center border-0">
-        <h4 class="d-flex align-items-center fw-bold"><span class="event-vl"></span>Activity Information</h4>
+      <div class="modal-header d-flex align-item-center border-0" v-if="selectedEvent">
+        <h4 class="d-flex align-items-center fw-bold"><span class="event-vl" :style="{ borderLeft: '10px solid ' + selectedEvent.extendedProps.category_color }"></span>Activity Information</h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -278,7 +279,11 @@ export default defineComponent({
     flex-grow: 1;
     padding: 3em;
   }
-  
+
+  .fc .fc-daygrid-day{
+    height: 8rem;
+  }
+
   .fc { /* the calendar root */
       width: 100%;
       margin: 0 auto;
@@ -301,6 +306,7 @@ export default defineComponent({
   .demo-app-main {
     padding: 0;
   }
+
   /* Vertical Line for Calendar Modal */
   .event-vl{
       display: inline-block;

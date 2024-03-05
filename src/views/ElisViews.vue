@@ -45,6 +45,9 @@
                 .catch(error => {
                     console.error('Error fetching document:', error);
                 });  
+            },
+            openPdf(file) {
+                window.open(file, '_blank');
             }
         },
         created() {
@@ -73,6 +76,7 @@
             @row-click-data="getRowData"
         ></TableComponent>
     </TemplateContainer>
+    
     <div class="modal fade" id="tableModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-0 p-2">
@@ -81,7 +85,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row mb-3 ">
+                    <div class="row w-100 m-auto mb-3 ">
                         <div class="col-lg-6 m-auto mt-0">
                             <h5 class="fw-semibold">Title</h5>
                             <p v-if="rowData.title">{{ rowData.title }}</p>
@@ -93,7 +97,7 @@
                             <p v-else>N/A</p>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row w-100 m-auto mb-3">
                         <div class="col-lg-4 m-auto mt-0">
                             <h5 class="fw-semibold">Type</h5>
                             <p v-if="rowData.type_name">{{ rowData.type_name }}</p>
@@ -110,13 +114,13 @@
                             <p v-else>N/A</p>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-2 mt-0">
+                    <div class="row w-100 m-auto mb-3">
+                        <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">No</h5>
                             <p v-if="rowData.no">{{ rowData.no }}</p>
                             <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-2 mt-0">
+                        <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">Year</h5>
                             <p v-if="rowData.year">{{ rowData.year }}</p>
                             <p v-else>N/A</p>
@@ -126,40 +130,45 @@
                             <p v-if="rowData.council_no">{{ rowData.council_no }}</p>
                             <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-2 mt-0">
-                            <h5 class="fw-semibold">JA/JS</h5>
-                            <p v-if="rowData.ja_js">{{ rowData.ja_js }}</p>
-                            <p v-else>N/A</p>
-                        </div>
                         <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">Session No</h5>
                             <p v-if="rowData.session_no">{{ rowData.session_no }}</p>
                             <p v-else>N/A</p>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    <div class="row w-100 m-auto mb-3">
+                        <div class="col-lg-3 mt-0">
+                            <h5 class="fw-semibold">JA/JS</h5>
+                            <p v-if="rowData.ja_js">{{ rowData.ja_js }}</p>
+                            <p v-else>N/A</p>
+                        </div>
                         <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">Category</h5>
                             <p v-if="rowData.category_name">{{ rowData.category_name }}</p>
                             <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-2 mt-0">
+                        <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">Bayan</h5>
                             <p v-if="rowData.bayan_name">{{ rowData.bayan_name }}</p>
                             <p v-else>N/A</p>
                         </div>
                         <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">PDF</h5>
-                            <span v-if="rowData.attachments === null">
-                                <!-- <i v-if="rowData.pdf === 'pdf' || rowData.pdf === 'PDF'" class="bi bi-filetype-pdf fs-3"></i>
+                            <span class="d-flex justify-content-start text-truncate" v-if="rowData.attachments !== null">
+                                <!-- 
                                 <i v-if="rowData.pdf === 'docs'" class="bi bi-file-earmark-word-fill fs-3"></i> -->
+                                <i v-for="(items, index) in rowData.attachments" @click="openPdf(items)" :href="items" :key="index" class="cursor-pointer mx-2 bi bi-filetype-pdf fs-3">
+                                    
+                                </i>    
                                 
                             </span>
                             <span v-else>
                                 {{ rowData.not_show_attachments_desc }}
                             </span>
                         </div>
-                        <div class="col-lg-4 mt-0">
+                    </div>
+                    <div class="row w-100 m-auto">
+                        <div class="w-100 mt-0">
                             <h5 class="fw-semibold">Remarks</h5>
                             <p v-if="rowData.remarks">{{ rowData.remarks }}</p>
                             <p v-else>N/A</p>
@@ -177,7 +186,7 @@
         display: inline-block;
         width: 17px;
         height: 40px;
-        border-left: 17px solid var(--primary-color); /* Adjust thickness and color as needed */
+        border-left: 17px solid var(--primary-color); 
         margin-right: 10px; 
     }
 </style>

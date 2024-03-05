@@ -109,93 +109,93 @@ import sampleIcon from '../assets/images/sampleIcon.png'
   </div>
 
   <!-- Carousel -->
-  <TemplateContainer id="carousel">
-    <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
-
-      <div class="slide-indicator">
-        <ol class="carousel-indicators">
-          <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active"></li>
-          <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
-          <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
-        </ol>
-      </div>
-      
-      <div class="carousel-inner" >
-        <div class="carousel-item active" data-bs-interval="5000">
-          <div class="row">
-            <div class="col-lg-6">
-              <h6>
-                What's Happening
-              </h6>
-              <h4>
-                Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
-              </h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
-              </p>
-
-              <div class="card-footer px-0 bg-transparent">
-                <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
-                <div class="underline"></div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-item active" data-bs-interval="2000">
-          <div class="row">
-            <div class="col-lg-6">
-              <h6>
-                What's Happening
-              </h6>
-              <h4>
-                Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
-              </h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
-              </p>
-
-              <div class="card-footer px-0 bg-transparent">
-                <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
-                <div class="underline"></div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-item active" data-bs-interval="2000">
-          <div class="row">
-            <div class="col-lg-6">
-              <h6>
-                What's Happening
-              </h6>
-              <h4>
-                Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
-              </h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
-              </p>
-
-              <div class="card-footer px-0 bg-transparent">
-                <router-link  class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
-                <div class="underline"></div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
-            </div>
-          </div>
-        </div>
-      </div>
-
+  <TemplateContainer>
+  <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="slide-indicator">
+      <ol class="carousel-indicators">
+        <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
+        <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
+      </ol>
     </div>
-  </TemplateContainer>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="row">
+          <div class="col-lg-6">
+            <h6>
+              What's Happening
+            </h6>
+            <h4>
+              Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
+            </h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
+            </p>
+
+            <div class="card-footer px-0 bg-transparent">
+              <router-link class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
+              <div class="underline"></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="row">
+          <div class="col-lg-6">
+            <h6>
+              What's Happening
+            </h6>
+            <h4>
+              Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
+            </h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
+            </p>
+
+            <div class="card-footer px-0 bg-transparent">
+              <router-link class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
+              <div class="underline"></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 2">
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="row">
+          <div class="col-lg-6">
+            <h6>
+              What's Happening
+            </h6>
+            <h4>
+              Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
+            </h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
+            </p>
+
+            <div class="card-footer px-0 bg-transparent">
+              <router-link class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
+              <div class="underline"></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 3">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</TemplateContainer>
+
   
   <!-- Videos / Link -->
   <TemplateContainer>

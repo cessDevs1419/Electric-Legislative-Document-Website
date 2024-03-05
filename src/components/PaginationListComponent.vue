@@ -66,7 +66,7 @@
                 <template #date>{{item.date}}</template>
                 <template #linkTitle>{{item.linkTitle}}</template>
             </OrderListTemplateComponent>
-            <NewsListTemplateComponent v-if="this.listType === 'newsList'" :link="item.link" :images="item.imgLink">
+            <NewsListTemplateComponent v-if="this.listType === 'newsList'" :link="item.link" :imgLink="item.imgLink">
                 <template #title>{{item.title}}</template>
                 <template #description>{{item.description}}</template>
                 <template #date>{{item.date}}</template>

@@ -4,7 +4,7 @@
     import OnlineTrackingTemplateComponent from '@/components/OnlineTrackingTemplateComponent.vue'
     import OnlineTrackingTableComponent from '@/components/OnlineTrackingTableComponent.vue';
     import ESubmissionFormComponent from '@/components/ESubmissionFormComponent.vue';
-    import OnlineTrackingApiService from '@/services/OnlineTrackingApiService';
+    import DocumentApiService from '@/services/DocumentApiService';
 
 
 </script>
@@ -58,7 +58,7 @@
 
             },
             fetchData(){
-                OnlineTrackingApiService.fetch().then(item => {
+                DocumentApiService.fetchOnlineTrackingDocument().then(item => {
                     this.tableData = []
                     this.tableData.push(...item);
                 })

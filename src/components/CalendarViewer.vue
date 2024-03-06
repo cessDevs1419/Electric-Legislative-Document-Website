@@ -170,7 +170,7 @@ export default defineComponent({
 
         <!-- Calendar -->
         <div class="d-flex ">
-          <div class="w-100">
+          <div class="w-100 ">
             <FullCalendar
               class='demo-app-calendar'
               :options='calendarOptions'
@@ -186,8 +186,8 @@ export default defineComponent({
 
             </FullCalendar>
           </div>
-          <div class="w-auto pt-5 px-0">
-            <button class="drawer-btn btn btn-primary px-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <div class="w-auto pt-5 ps-2 px-0 ">
+            <button class="drawer-btn btn btn-primary px-2 mt-3 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
               <p class="btn-text w-100 text-nowrap ">View Activities</p>
             </button>
           </div>

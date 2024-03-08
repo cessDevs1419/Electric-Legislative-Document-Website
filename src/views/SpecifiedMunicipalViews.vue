@@ -3,9 +3,9 @@
     import SectionHeaderComponent from '@/components/SectionHeaderComponent.vue';
     import SidebarListComponent from '@/components/SidebarListComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
-    import MunicipalAdditionalInfoTemplateComponent from '@/components/MunicipalAdditionalInfoTemplateComponent.vue';
     import MunicipalitiesApiService from '@/services/MunicipalitiesApiService';
     import MunicipalityTableComponent from '@/components/MunicipalityTableComponent.vue';
+    import MunicipalOfficialsTemplateComponentVue from '@/components/MunicipalOfficialsTemplateComponent.vue';
 </script>
 
 <script>
@@ -57,38 +57,30 @@ methods: {
     <div class="spacer"></div>
     <TemplateContainer v-if="municipalityDetails" :key="municipalityDetails.id">
         <div class="row g-3 my-3">
-            <div class="col-lg-7">
-                
-                <SectionHeaderComponent class="mt-5" type="outside">
-                    <template #firstWord>MUNICIPALITY OF</template>
-                    <template #secondWord>{{ municipalityDetails.name }}</template>
-                </SectionHeaderComponent>
+          <div class="col-lg-7">
+  <SectionHeaderComponent class="mt-5" type="outside">
+    <template #firstWord>MUNICIPALITY OF</template>
+    <template #secondWord>{{ municipalityDetails.name }}</template>
+  </SectionHeaderComponent>
 
-                <div class="municipal-info pt-5">
-                    <h5 class="pb-2 fw-bold">Brief History</h5>
-                    <!-- <p>
-                        Quezon, officially the <b>Province of Quezon,</b> is a province in the Philippines located in the Calabarzon region or Luzon. <b>Kaliraya/Kalilayan</b> was the first known name of the province upon its creation in 1591.
-                    </p>
-                    <p>
-                        Around the middle of the 18th century, it was changed to <b>Tayabas</b>. In recognition of the second president of the Philippines, <b>Manuel L. Quezon</b>, the name of Tayabas Province is changed to Quezon.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur. Congue mauris aenean mattis mauris. Massa faucibus justo <b>amet tempor scelerisque</b> imperdiet rutrum vitae amet.
-                    </p> -->
-                    <div class="ck-content" v-html="municipalityDetails.history"></div>
-                    
-                    <div class="ck-content">
-                      <MunicipalityTableComponent :municipalityDetails="municipalityDetails.information"></MunicipalityTableComponent>
-                    </div>
-                </div>
+  <div class="municipal-info pt-5">
+    <h5 class="pb-2 fw-bold">Brief History</h5>
+    <div class="ck-content" v-html="municipalityDetails.history"></div>
+    
+    <!-- Check if municipalityDetails.information is an array before rendering to prevent duplication -->
+    <div class="ck-content py-2" v-if="Array.isArray(municipalityDetails.information) && municipalityDetails.information.length > 0">
+  <MunicipalityTableComponent :municipalityDetails="municipalityDetails.information"></MunicipalityTableComponent>
+</div>
 
-            <!-- <MunicipalAdditionalInfoTemplateComponent
-                    :sectionType="'officials'"
-            >
-                    <template #section-header>Municipal Officials</template>
-            </MunicipalAdditionalInfoTemplateComponent> -->
+    
+    <!-- Check if municipalityDetails.officials is an object before rendering to prevent duplication -->
+    <div class="ck-content py-4">
+      <MunicipalOfficialsTemplateComponentVue v-if="typeof municipalityDetails.officials === 'object'" :municipalityOfficials="municipalityDetails.officials"></MunicipalOfficialsTemplateComponentVue>
+    </div>
+    
+  </div>
+</div>
 
-            </div>
             
             <div class="col-lg-5">
                 <SidebarListComponent

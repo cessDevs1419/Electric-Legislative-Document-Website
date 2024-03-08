@@ -54,5 +54,9 @@ methods: {
     color: var(--secondary-color);
     cursor: pointer;
   }
+
+  .card-body a{
+    text-decoration: none;
+  }
   </style>
   

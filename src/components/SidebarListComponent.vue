@@ -64,5 +64,5 @@ export default {
       </EventsTemplateComponent>
     </li>
   </ul>
-  
+
 </template>

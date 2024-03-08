@@ -13,7 +13,7 @@
                 <template #firstWord>Organizational</template>
                 <template #secondWord>Structure</template>
         </SectionHeaderComponent>
-        <PDFReviewerComponent class="pdf-reviewer mb-5 "
+        <PDFReviewerComponent class="pdf-reviewer mb-5 mt-5"
             src="https://ws-platform.s3.ap-southeast-1.amazonaws.com/328/file-example_PDF_500_kB.pdf" 
         ></PDFReviewerComponent>
     </TemplateContainer>

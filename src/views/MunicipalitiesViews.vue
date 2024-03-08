@@ -1,57 +1,25 @@
 <script setup>
      import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
      import TemplateContainer from '@/components/TemplateContainer.vue';
-    import SidebarListComponent from '@/components/SidebarListComponent.vue';
-    import SectionHeaderComponent from '@/components/SectionHeaderComponent.vue';
+     import SidebarListComponent from '@/components/SidebarListComponent.vue';
+     import SectionHeaderComponent from '@/components/SectionHeaderComponent.vue';
 </script>
 
 <script>
     export default {
-        data(){
-            return{
-                municipalities: [
-                    {
-                        id: 1,
-                        name: 'Agdangan'
-                    },
-                    {
-                        id: 2,
-                        name: 'Burdeos'
-                    },
-                    {
-                        id: 3,
-                        name: 'Caluag'
-                    },
-                    {
-                        id: 4,
-                        name: 'Dolores'
-                    },
-                    {
-                        id: 5,
-                        name: 'General Luna'
-                    },
-                    {
-                        id: 6,
-                        name: 'Guinayangan'
-                    },
-                    {
-                        id: 7,
-                        name: 'Jomalig'
-                    },
-                    {
-                        id: 8,
-                        name: 'Pagbilao'
-                    },
-                    {
-                        id: 9,
-                        name: 'Plaridel'
-                    },
-                ]
+        props: {
+            items: {
+            type: Array,
+            required: true
+            },
+            listType: {
+            type: String,
+            required: true
             }
         },
-        mounted() {
-            // Log the items prop when the component is mounted
-        }
+    mounted() {
+        // Log the items prop when the component is mounted
+    }
     }
 </script>
 
@@ -60,9 +28,9 @@
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
     <TemplateContainer>
-        <div class="row g-3 ">
+        <div class="row g-3 my-3">
             <div class="col-lg-7">
-                <SectionHeaderComponent class="" type="inside">
+                <SectionHeaderComponent class="mt-5" type="inside">
                     <template #firstWord >MUNICIPALITIES</template>
                 </SectionHeaderComponent>
                 <div class="qp-info pt-4">
@@ -80,9 +48,37 @@
                     </p>
                 </div>
                 <div class="municipality-table py-4 mt-5 text-center tertiary-font">
-                    <div class="row w-100 m-auto">
-                        <div class="col-lg-4 mb-3" v-for="(items, index) in municipalities" :key="index">
-                            <router-link  class="table-item my-2" to="/view-municipality">{{items.name}}</router-link>
+                    <div class="row">
+                        <div class="col-4 p-2">
+                            <router-link  class="table-item my-2" to="/view-municipality">Agdangan</router-link>
+                        </div>
+                        <div class="col-4 py-2">
+                            <a class="tertiary-font" href="">Burdeos</a>
+                        </div>
+                        <div class="col-4 py-2">
+                            <a class="tertiary-font" href="">Calauag</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 py-2">
+                            <a class="tertiary-font" href="">Dolores</a>
+                        </div>
+                        <div class="col-4 py-2">
+                            <a class="tertiary-font" href="">General Luna</a>
+                        </div>
+                        <div class="col-4 py-2">
+                            <a class="tertiary-font" href="">Guinayangan</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4 py-2">
+                            <a class="tertiary-font" href="">Jomalig</a>
+                        </div>
+                        <div class="col-4 py-2">
+                            <a class="tertiary-font" href="">Pagbilao</a>
+                        </div>
+                        <div class="col-4 py-2">
+                            <a class="tertiary-font" href="">Plaridel</a>
                         </div>
                     </div>
                 </div>

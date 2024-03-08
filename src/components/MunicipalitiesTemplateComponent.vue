@@ -1,62 +1,54 @@
 <template>
-    <div class="card-body tertiary-bg my-3 px-2 pb-5 position-relative">
-      <ul class="list-unstyled">
-        <li class="py-0 px-2" v-for="(municipality, index) in municipalities" :key="index">
-          <router-link :to="'/view-municipality/' + municipality.uuid">{{ municipality.name }}</router-link>
-          <hr class="grey-divider mt-0">
-        </li>
-      </ul>
+    <div class="card-body tertiary-bg my-3 p-4 pb-5 position-relative">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="1st-Municipality"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="2nd-Municipality"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="3rd-Municipality"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="4th-Municipality"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="5th-Municipality"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="6th-Municipality"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="7th-Municipality"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="8th-Municipality"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="9th-Municipality"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="10th-Municipality"></slot>
+            </p>
     </div>
 </template>
-  
-  <script>
-  import MunicipalitiesApiService from '@/services/MunicipalitiesApiService';
-  
-  export default {
-    data() {
-  return {
-    municipalities: [],
-    municipalityDetails: null,
-  };
-},
-created() {
-  const uuid = this.$route.params.uuid;
-  this.fetchData(uuid);
-},
-methods: {
-  async fetchData(uuid) {
-    try {
-      // Fetch all municipalities
-      const data = await MunicipalitiesApiService.fetch();
-      
-      // Assign the fetched data to 'municipalities' and keep the original list
-      this.municipalities = data;
-      
-      // Find the municipality with the matching UUID
-      const foundMunicipality = data.find(municipality => municipality.uuid === uuid);
-      
-      if (foundMunicipality) {
-        this.municipalityDetails = foundMunicipality;
-      } else {
-        console.error('Municipality not found for UUID:', uuid);
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
+
+<style scoped>
+    .semi-bold {
+        font-weight: 600;
     }
-  },
-},
 
-  };
-  </script>
-  
-  <style scoped>
-  .card-body p:hover {
-    color: var(--secondary-color);
-    cursor: pointer;
-  }
-
-  .card-body a{
-    text-decoration: none;
-  }
-  </style>
-  
+    .card-body p:hover{
+        color:var(--secondary-color);
+        cursor: pointer;
+    }
+</style>

@@ -114,19 +114,11 @@ const router = createRouter({
       component: ContactViewsVue
     },
     {
-      path: '/view-municipality/:uuid',
+      path: '/view-municipality',
       name: 'view-municipality',
-      component: SpecifiedMunicipalViewsVue,
-      props: true,
+      component: SpecifiedMunicipalViewsVue
     },
-  ],
-  scrollBehavior(to, from, savedPosition) {
-    
-    return { 
-      el: '#app',
-      top: 0 
-  }
-  },
+  ]
 })
 
 export default router

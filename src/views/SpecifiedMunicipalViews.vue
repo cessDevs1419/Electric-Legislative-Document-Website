@@ -60,7 +60,7 @@ methods: {
           <div class="col-lg-7">
   <SectionHeaderComponent class="mt-5" type="outside">
     <template #firstWord>MUNICIPALITY OF</template>
-    <template #secondWord>{{ municipalityDetails.name }}</template>
+    <template #secondWord>{{ municipalityDetails.name.toUpperCase() }}</template>
   </SectionHeaderComponent>
 
   <div class="municipal-info pt-5">

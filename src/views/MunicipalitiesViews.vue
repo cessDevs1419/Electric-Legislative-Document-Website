@@ -63,7 +63,7 @@
         <div class="row g-3 ">
             <div class="col-lg-7">
                 <SectionHeaderComponent class="" type="inside">
-                    <template #firstWord >MUNICIPALITIES</template>
+                    <template #firstWord >Municipalities</template>
                 </SectionHeaderComponent>
                 <div class="qp-info pt-4">
                     <p>

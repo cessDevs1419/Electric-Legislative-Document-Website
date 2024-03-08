@@ -61,4 +61,9 @@ export default {
       color: var(--secondary-color) !important;
       font-weight: 700;
     }
+
+    .card-body a:hover {
+      color: var(--secondary-color) !important;
+      font-weight: 700;
+    }
 </style>

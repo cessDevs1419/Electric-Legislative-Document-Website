@@ -48,7 +48,12 @@ methods: {
       console.error('Error fetching data:', error);
     }
   },
+  upperCase(word) {
+  const capitalized = word.toUpperCase();
+  return capitalized;
+}
 },
+
 };
 </script>
 
@@ -59,8 +64,8 @@ methods: {
         <div class="row g-3 my-3">
           <div class="col-lg-7">
             <SectionHeaderComponent class="" type="outside">
-              <template #firstWord>MUNICIPALITY OF</template>
-              <template #secondWord>{{ municipalityDetails.name }}</template>
+              <template #firstWord>Municipality of</template>
+              <template #secondWord>{{  municipalityDetails.name }}</template>
             </SectionHeaderComponent>
 
             <div class="municipal-info pt-5">

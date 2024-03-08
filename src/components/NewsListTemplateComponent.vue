@@ -42,12 +42,21 @@
         height: 20px;
         border: 1px solid gray;
     }
+
+    .image-container{
+        min-height: 200px;
+    }
+
     .underline{
         max-width: 5.5rem;
         border-bottom: 2px solid var(--primary-color);
     }
 
-    .image-container{
-        min-height: 200px;
+    .footer a:hover {
+        color: var(--secondary-color);
+    }
+
+    .footer a:hover + .underline {
+        border-bottom-color: var(--secondary-color);
     }
 </style>

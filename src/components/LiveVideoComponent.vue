@@ -83,4 +83,12 @@ export default {
         max-width: 5.5rem;
         border-bottom: 2px solid var(--primary-color);
     }
+
+    .card-footer a:hover {
+        color: var(--secondary-color);
+    }
+
+    .card-footer a:hover + .underline {
+        border-bottom-color: var(--secondary-color);
+    }
 </style>

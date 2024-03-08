@@ -105,17 +105,24 @@ const router = createRouter({
     },
     {
       path: '/municipalities',
-      name: 'municipalities',
       component: MunicipalitiesViewsVue,
       children: [
         {
-          path: 'view-municipality/:uuid',
-          name: 'view-municipality',
-          component: SpecifiedMunicipalViewsVue,
-          props: true
+          path: '', 
+          components: {
+            default: MunicipalitiesViewsVue,
+            details: SpecifiedMunicipalViewsVue 
+          },
+          children: [
+            {
+              path: 'view-municipality/:uuid',
+              name: 'view-municipality',
+              props: true
+            }
+          ]
         }
       ]
-    },   
+    },     
     {
       path: '/contact-us',
       name: 'contact-us',

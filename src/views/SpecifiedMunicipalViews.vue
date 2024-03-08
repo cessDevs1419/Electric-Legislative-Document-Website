@@ -60,7 +60,7 @@ methods: {
           <div class="col-lg-7">
   <SectionHeaderComponent class="mt-5" type="outside">
     <template #firstWord>MUNICIPALITY OF</template>
-    <template #secondWord>{{ municipalityDetails.name.toUpperCase() }}</template>
+    <template #secondWord>{{ municipalityDetails.name }}</template>
   </SectionHeaderComponent>
 
   <div class="municipal-info pt-5">
@@ -68,7 +68,7 @@ methods: {
     <div class="ck-content" v-html="municipalityDetails.history"></div>
     
     <!-- Check if municipalityDetails.information is an array before rendering to prevent duplication -->
-    <div class="ck-content" v-if="Array.isArray(municipalityDetails.information) && municipalityDetails.information.length > 0">
+    <div class="ck-content py-2" v-if="Array.isArray(municipalityDetails.information) && municipalityDetails.information.length > 0">
   <MunicipalityTableComponent :municipalityDetails="municipalityDetails.information"></MunicipalityTableComponent>
 </div>
 

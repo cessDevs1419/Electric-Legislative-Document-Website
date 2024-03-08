@@ -5,6 +5,7 @@
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import MunicipalAdditionalInfoTemplateComponent from '@/components/MunicipalAdditionalInfoTemplateComponent.vue';
     import MunicipalitiesApiService from '@/services/MunicipalitiesApiService';
+    import MunicipalityTableComponent from '@/components/MunicipalityTableComponent.vue';
 </script>
 
 <script>
@@ -75,7 +76,10 @@ methods: {
                         Lorem ipsum dolor sit amet consectetur. Congue mauris aenean mattis mauris. Massa faucibus justo <b>amet tempor scelerisque</b> imperdiet rutrum vitae amet.
                     </p> -->
                     <div class="ck-content" v-html="municipalityDetails.history"></div>
-                    <div class="ck-content" v-html="municipalityDetails.information"></div>
+                    
+                    <div class="ck-content">
+                      <MunicipalityTableComponent :municipalityDetails="municipalityDetails.information"></MunicipalityTableComponent>
+                    </div>
                 </div>
 
             <!-- <MunicipalAdditionalInfoTemplateComponent

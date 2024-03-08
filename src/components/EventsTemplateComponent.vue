@@ -1,39 +1,24 @@
-<script>
-export default {
-    data () {
-        return {
-            events: [
-                {
-                    title: 'Paru Paro Festival'
-                },
-                {
-                    title: '10th Anniversary Party'
-                },
-                {
-                    title: 'Tapat Mo Linis Mo'
-                },
-                {
-                    title: 'Blood Letting with Red Cross'
-                },
-                {
-                    title: 'Free Anti-Rabies for furbabies'
-                }
-            ]
-        }
-    }
-}
-</script>
-
 <template>
-    <div class="card-body tertiary-bg my-3 px-2 pb-5 position-relative">
-        <ul class="list-unstyled">
-            <li class=" py-0 px-2" v-for="(events, index) in events" :key="index">
-                <p class=" pt-3 fw-semibold tertiary-font fs-5">
-                    {{ events.title }}
-                </p>
-                <hr class="grey-divider mt-0">
-            </li>
-        </ul>
+    <div class="card-body tertiary-bg my-3 p-4 pb-5 position-relative">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="1st-event"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="2nd-event"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="3rd-event"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="4th-event"></slot>
+            </p>
+            <hr class="grey-divider">
+            <p class="my-2 semi-bold tertiary-font fs-5">
+                <slot name="5th-event"></slot>
+            </p>
     </div>
 </template>
 

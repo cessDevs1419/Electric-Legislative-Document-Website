@@ -50,7 +50,7 @@
                 <div class="col-lg-6">
                     <h4 class="d-flex align-items-center fw-bold"><span class="vertical-line"></span>Your E Submission</h4>
                 </div>
-                <div class="col-lg-6 d-flex justify-content-start justify-content-lg-end">
+                <div class="col-lg-6 d-flex justify-content-end">
                     <div class="btn-bg primary-bg px-3 d-flex align-items-center">
                         <router-link to="/legislative/new-submission" class="h-0 text-white text-decoration-none rounded-0 p-0 m-0 " @click="routeToNewForm()">Submit New</router-link>
                     </div>
@@ -65,67 +65,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <template v-for="(items, index) in data" :key="index" >
-                        <tr class="cursor-pointer" :class="{'border-bottom-white' : items['breakdown']}"  data-bs-toggle="modal" data-bs-target="#tableModal"   @click="getData(items)"> 
-                            <td v-for="(rows, index) in rows" :key="index">
-                                <template v-if="rows === 'status'">
-                                    <StatusTemplateComponent
-                                        :theme="items[rows]"
-                                    >
-                                        <template #status >
-                                            {{ items[rows] }}
-                                        </template>
-                                    </StatusTemplateComponent>
-                                </template>
-                                <template v-else-if="rows === 'documents'">
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <div class="pdf me-2">
-                                            <i v-if="items.attachments === 'pdf'" class="bi bi-filetype-pdf fs-3"></i>
-                                            <i v-if="items.attachments === 'docs'" class="bi bi-file-earmark-word-fill fs-3"></i>
-                                        </div>
-                                        <div class="description ">
-                                            <h6 class="m-0">{{ items.title }}</h6>
-                                            <p class="m-0">{{ items.bayan_name }}</p>
-                                        </div>
-                                    </div>
-                                </template>
-                                <template v-else>
-                                    {{ items[rows] }}
-                                </template>
-                            </td>
-                        </tr>
-                        <template v-if="items['breakdown']" >
-                            <tr class="cursor-pointer" :class="{'border-white border' : items['breakdown']}" v-for="(item, index) in  items['breakdown']" :key="index" > 
-                                <td class="p-1" >
-                                    
-                                </td>
-                                <td class="p-1 px-2" >
-                                    <div class="px-3">
-                                        <StatusTemplateComponent
-                                            :theme="item['status']"
-                                        >
-                                            <template #status >
-                                                {{ item['status'] }}
-                                            </template>
-                                        </StatusTemplateComponent>
-                                    </div>
-                                </td>
-                                <td class="p-1" >
-                                    <!-- {{ item.description }} -->
-                                </td>
-                                <td class="p-1" >
-                                    {{ item.division}}
-                                </td>
-                                <td class="p-1" >
-                                    {{ item.date }}
-                                </td>
-                                <td class="p-1" >
-                                    {{ item.time }}
-                                </td>
-                            </tr>
-                        </template>
-                    </template>
-
+                    <tr class="cursor-pointer"  data-bs-toggle="modal" data-bs-target="#tableModal"  v-for="(items, index) in data" :key="index" @click="getData(items)"> 
+                        <td v-for="(rows, index) in rows" :key="index">
+                            <template v-if="rows === 'status'">
+                                <StatusTemplateComponent
+                                    :theme="items[rows]"
+                                >
+                                    <template #status >
+                                        {{ items[rows] }}
+                                    </template>
+                                </StatusTemplateComponent>
+                            </template>
+                            <template v-else>
+                                {{ items[rows] }}
+                            </template>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -158,9 +113,5 @@
 
     .form-contol-sm{
         height: 3rem;
-    }
-
-    .border-bottom-white{
-        border-bottom: #ffffff;
     }
 </style>

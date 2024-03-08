@@ -3,7 +3,6 @@
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import SectionHeaderComponent from '@/components/SectionHeaderComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
-    import sampleIcon from '../assets/images/sampleIcon.png'
 </script>
 
 <template>
@@ -17,7 +16,7 @@
         <div class="row mb-5 mt-5">
             <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
-                    :images="sampleIcon"
+                    images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
                     status="Elected"
                     description="1st Quezon Province Elected"
@@ -28,7 +27,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
-                    :images="sampleIcon"
+                    images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
                     status="Elected"
                     description="1st Quezon Province Elected"
@@ -39,7 +38,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
-                    :images="sampleIcon"
+                    images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
                     status="Elected"
                     description="1st Quezon Province Elected"
@@ -50,7 +49,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
-                    :images="sampleIcon"
+                    images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
                     status="Elected"
                     description="1st Quezon Province Elected"
@@ -61,7 +60,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
-                    :images="sampleIcon"
+                    images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
                     status="Elected"
                     description="1st Quezon Province Elected"
@@ -72,7 +71,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
-                    :images="sampleIcon"
+                    images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
                     status="Elected"
                     description="1st Quezon Province Elected"
@@ -83,7 +82,7 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
-                    :images="sampleIcon"
+                    images="../src/assets/images/sampleIcon.png"
                     name="Jose Marie Chan"
                     status="Elected"
                     description="1st Quezon Province Elected"

@@ -88,6 +88,11 @@ methods: {
             >
                 <template #heading>Municipalities of Quezon Province</template>
             </SidebarListComponent>
+            <SidebarListComponent
+                :listType="'hotlineList'"
+            >
+                <template #heading>Quezon Province Hotlines</template>
+            </SidebarListComponent>
           </div>
         </div>
     </TemplateContainer>

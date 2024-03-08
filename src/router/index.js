@@ -106,19 +106,22 @@ const router = createRouter({
     {
       path: '/municipalities',
       name: 'municipalities',
-      component: MunicipalitiesViewsVue
-    },
+      component: MunicipalitiesViewsVue,
+      children: [
+        {
+          path: 'view-municipality/:uuid',
+          name: 'view-municipality',
+          component: SpecifiedMunicipalViewsVue,
+          props: true
+        }
+      ]
+    },   
     {
       path: '/contact-us',
       name: 'contact-us',
       component: ContactViewsVue
     },
-    {
-      path: '/view-municipality/:uuid',
-      name: 'view-municipality',
-      component: SpecifiedMunicipalViewsVue,
-      props: true,
-    },
+
   ],
   scrollBehavior(to, from, savedPosition) {
     

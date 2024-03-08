@@ -17,7 +17,7 @@
       municipalityDetails: Array,
     },
     created() {
-        console.log('Test' +this.municipalityDetails)
+        
     },
     computed: {
         tableData() {

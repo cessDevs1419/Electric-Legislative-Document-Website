@@ -1,40 +1,51 @@
 <template>
     <div class="card-body tertiary-bg my-3 px-2 pb-5 position-relative">
       <ul class="list-unstyled">
-        <li class="py-0 px-2" v-for="(id, index) in uuid" :key="index">
-          <p class="pt-3 fw-semibold tertiary-font fs-5">
-            {{ id.uuid }}
-          </p>
+        <li class="py-0 px-2" v-for="(municipality, index) in municipalities" :key="index">
+          <router-link :to="'/view-municipality/' + municipality.uuid">{{ municipality.name }}</router-link>
           <hr class="grey-divider mt-0">
         </li>
       </ul>
     </div>
-  </template>
+</template>
   
   <script>
   import MunicipalitiesApiService from '@/services/MunicipalitiesApiService';
   
   export default {
     data() {
-      return {
-        uuid: [], // Initialize uuid as an empty array
-      };
-    },
-    created() {
-      this.fetchData();
-    },
-    methods: {
-      fetchData() {
-        MunicipalitiesApiService.fetch()
-          .then(data => {
-            // Assuming data is an array of objects with `uuid` property
-            this.uuid = data;
-          })
-          .catch(error => {
-            console.error('Error fetching uuid:', error);
-          });
-      },
-    },
+  return {
+    municipalities: [],
+    municipalityDetails: null,
+  };
+},
+created() {
+  const uuid = this.$route.params.uuid;
+  this.fetchData(uuid);
+},
+methods: {
+  async fetchData(uuid) {
+    try {
+      // Fetch all municipalities
+      const data = await MunicipalitiesApiService.fetch();
+      
+      // Assign the fetched data to 'municipalities' and keep the original list
+      this.municipalities = data;
+      
+      // Find the municipality with the matching UUID
+      const foundMunicipality = data.find(municipality => municipality.uuid === uuid);
+      
+      if (foundMunicipality) {
+        this.municipalityDetails = foundMunicipality;
+      } else {
+        console.error('Municipality not found for UUID:', uuid);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  },
+},
+
   };
   </script>
   

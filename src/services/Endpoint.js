@@ -10,4 +10,4 @@ export const GETOfficeApi = url + 'api/office';
 export const GETCalendarApi = url + 'api/calendar-of-activity';
 export const GETCalendarCategoryApi = url + 'api/calendar-of-activity/category';
 export const GETOnlineTrackingSearchApi = url + 'api/document/tracking';
-export const GETMunicipalitiesApi = url + ' api/municipality'
+export const GETMunicipalitiesApi = url + 'api/municipality'

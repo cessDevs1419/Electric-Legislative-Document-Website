@@ -10,16 +10,6 @@
     import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
 
     export default {
-        props: {
-                items: {
-                type: Array,
-                required: true
-                },
-                listType: {
-                type: String,
-                required: true
-                }
-            },
         components: {
             PaginationListComponentVue
         },
@@ -90,22 +80,23 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="my-5">
-        <div class="row g-5 my-5">
-            <div class="col-lg-7 p-md-0 p-5">
+    <TemplateContainer>
+        <div class="row g-5 w-100 m-auto mb-5">
+            <div class="col-lg-7 px-md-5 ">
                 <SectionHeaderComponent type="outside" class="mb-5" >
-                    <template #firstWord >Order of </template>
+                    <template #firstWord >Order of</template>
                     <template #secondWord >Business</template>
                 </SectionHeaderComponent>
                 <PaginationListComponentVue 
                     :items="items" 
                     :itemsPerPage="4"
                     :listType="'orderList'"
+                    :title="''"
                 >
 
                 </PaginationListComponentVue>
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-5 px-0">
                 <SidebarListComponent
                     :listType="'membersList'"
                 >
@@ -123,7 +114,4 @@
 </template>
 
 <style scoped>
-    .spacer{
-        padding-top: 15rem;
-    }
 </style>

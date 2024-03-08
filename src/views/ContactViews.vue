@@ -1,22 +1,60 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
+    import ValidationService from '@/services/ValidationService.js';
 
-    const formData = {
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-    };
+    // SampleApiService.fetchProjects()
+    // .then(data => {
+    //     console.log("Projects:", data);
+    // })
+    // .catch(error => {
+    //     console.error('Error fetching projects:', error);
+    // });
 
-    const handleSubmit = () => {
-        if (!isValid) {
-            console.error('Please fill in all fields');
-            return;
-        }else {
-            console.log('Form submitted:', formData);
+</script>
+<script>
+    export default {
+        data() {
+            return{
+                showInput: false,
+                contactData: {
+                    name: '',
+                    email: '',
+                    subject: '',
+                    message: ''
+                },
+                showValidation: {},
+                border: {}
+            }
+        },
+        methods: {
+            async contactSubmit() {
+                try {
+                    this.showValidation = {};
+                    this.border = {};
+
+                    Object.keys(this.contactData).forEach(key => {
+                        if (this.contactData[key].trim() === '') {
+                            this.showValidation[key] = true;
+                            this.border[key] = true;
+                        } else if (key === 'email' && !ValidationService.emailValidator(this.contactData[key])) {
+                            this.showValidation[key] = true; 
+                            this.border[key] = true; 
+                        }
+                    });
+
+                    if (Object.keys(this.showValidation).length > 0) {
+                        return;
+                    }
+
+                    // await AuthApiService.login(this.signinData);
+                    console.log('Contact successful');
+                } catch (error) {
+                    console.error('Contact failed:', error);
+                }
+            },
         }
-        };
+    }
 </script>
 
 
@@ -24,29 +62,33 @@
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
     <TemplateContainer class="d-flex align-item-center jutify-content-center mb-5">
-        <div class="contact-container w-100 box-shadow my-5 m-auto">
+        <div class="contact-container w-100 box-shadow mb-5 m-auto">
             <div class="row w-100 h-100 m-auto ">
-                <div class="col-lg-7 p-5 dirty-white-bg">
+                <div class="col-lg-7 py-5 px-3 px-md-5 dirty-white-bg">
                     <div class="title m-auto text-center mb-5 mt-5">
                         <h1 class="fw-bolder m-0">Send us a Message !</h1>
                         <p>We would like to hear from you !</p>
                     </div>
-                    <form class="px-5  mt-5 mb-5" @submit.prevent="handleSubmit">
+                    <form class="px-0 px-md-5 mt-5 mb-5" @submit.prevent="contactSubmit">
                         <div class="mb-4">
-                            <label class="form-label">Full name</label> <span class="text-danger">*</span>
-                            <input type="text" class="form-control border-0 bg-transparent"  v-model="formData.name" placeholder="">
+                            <label class="form-label">Full name</label>
+                            <span class="text-danger" v-if="showValidation.name"> *</span>
+                            <input type="text" :class="{ 'border border-danger border-1': border.name }" class="form-control bg-transparent"  v-model="contactData.name" placeholder="">
                         </div>
                         <div class="mb-4">
-                            <label class="form-label">Email address</label> <span class="text-danger">*</span>
-                            <input type="email" class="form-control border-0 bg-transparent" v-model="formData.email" placeholder="">
+                            <label class="form-label">Email address</label>
+                            <span class="text-danger" v-if="showValidation.email"> *</span>
+                            <input type="email" :class="{ 'border border-danger border-1': border.email }" class="form-control bg-transparent" v-model="contactData.email" placeholder="">
                         </div>
                         <div class="mb-4">
-                            <label class="form-label">Subject</label> <span class="text-danger">*</span>
-                            <input type="text" class="form-control border-0 bg-transparent" v-model="formData.subject" placeholder="">
+                            <label class="form-label">Subject</label>
+                            <span class="text-danger" v-if="showValidation.subject"> *</span>
+                            <input type="text" :class="{ 'border border-danger border-1': border.subject }" class="form-control bg-transparent" v-model="contactData.subject" placeholder="">
                         </div>
                         <div class="mb-4">
-                            <label class="form-label">Message</label> <span class="text-danger">*</span>
-                            <textarea class="form-control border-0 bg-transparent" v-model="formData.message" rows="3"></textarea>
+                            <label class="form-label">Message</label>
+                            <span class="text-danger" v-if="showValidation.message"> *</span>
+                            <textarea :class="{ 'border border-danger border-1': border.message }" class="form-control bg-transparent" v-model="contactData.message" rows="3"></textarea>
                         </div>
 
 
@@ -90,6 +132,9 @@
 </template>
 
 <style scoped>
+    .form-control{
+        border: 1px solid #F9F9F9;
+    }   
     .spacer {
         padding-top: 15rem;
     }

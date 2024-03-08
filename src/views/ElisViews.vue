@@ -3,6 +3,8 @@
     import SectionHeaderComponent from '@/components/SectionHeaderComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import TableComponent from '@/components/TableComponent.vue';
+    import DocumentApiService from '@/services/DocumentApiService';
+
 </script>
 
 <script>
@@ -13,53 +15,61 @@
                     'Type', 
                     'Bayan',
                     'Title',
-                    'Date',
+                    'Year',
                     'Category',
                     'PDF'
                 ],
                 tableRows: [
-                    'type',
-                    'bayan',
+                    'type_name',
+                    'bayan_name',
                     'title',
-                    'date',
-                    'category' ,
-                    'pdf' ,
+                    'year',
+                    'category_name' ,
+                    'attachments' ,
 
                 ],
-                tableData:[
-                    {
-                        title: '(FP) AN ORDINANCE OPERATIONALIZING FREEDOM OF INFORMATION IN THE CITY OF GENERAL SANTOS, PROVIDING',
-                        author: '[Sponsor] Nuñez, Rosalita T., [Sponsor] Balleque, Froebel Kan M, [Sponsor] Yumang, Jose Edmar J, [Sponsor] Rivera, Jane G, [Sponsor] Bagonoc, Elizabeth B., [Sponsor] Acharon, Edgar C',
-                        type: 'ORDINANCE',
-                        date: 'Feb 27, 2024',
-                        session_type: 'Regular Session',
-                        no: '69',
-                        year: '2024',
-                        council_no: '20th',
-                        ja: '60',
-                        session_no: '60',
-                        bayan: 'quezon prov',
-                        category: 'Category 1',
-                        pdf: 'PDF',
-                        remarks: 'For publication: If the document is needed, please visit the SP-Records Division. Thank you!'
-                    },
-                ],
+                tableData:[],
                 rowData: Array
             }
         },
         methods: {
             getRowData(item){
                 this.rowData = item
+            },
+            fetchData(){
+                DocumentApiService.fetch()
+                .then(data => {
+                    this.tableData = []
+                    this.tableData.push(...data);
+                })
+                .catch(error => {
+                    console.error('Error fetching document:', error);
+                });  
+            },
+            openPdf(file) {
+                window.open(file, '_blank');
+            },
+            checkIfNotNull(attachments) {
+                console.log(attachments);
+                return attachments && attachments.length > 0; // Return true if attachments is not null and not empty
             }
+
+
+        },
+        created() {
+            this.fetchData(); 
         }
     }
+
+    
 </script>
+
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="my-5 py-5 py-xl-0">
-        <div class="title mb-5 mt-5 mt-lg-0">
-            <SectionHeaderComponent class="mt-5 mt-lg-0" type="inside">
+    <TemplateContainer class="mb-5 px-3 px-lg-0">
+        <div class="title mb-5 mt-lg-0">
+            <SectionHeaderComponent  type="inside">
                 <template #firstWord>Legislative</template>
                 <template #secondWord>Documents</template>
             </SectionHeaderComponent>
@@ -72,6 +82,7 @@
             @row-click-data="getRowData"
         ></TableComponent>
     </TemplateContainer>
+    
     <div class="modal fade" id="tableModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content rounded-0 p-2">
@@ -80,68 +91,91 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col-lg-6 m-auto">
+                    <div class="row w-100 m-auto mb-3 ">
+                        <div class="col-lg-6 m-auto mt-0">
                             <h5 class="fw-semibold">Title</h5>
-                            <p>{{ rowData.title }}</p>
+                            <p v-if="rowData.title">{{ rowData.title }}</p>
+                            <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-6 m-auto">
+                        <div class="col-lg-6 m-auto mt-0">
                             <h5 class="fw-semibold">Author/Sponsorship</h5>
-                            <p>{{ rowData.author }}</p>
+                            <p v-if="rowData.author">{{ rowData.author }}</p>
+                            <p v-else>N/A</p>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-4 m-auto">
+                    <div class="row w-100 m-auto mb-3">
+                        <div class="col-lg-4 m-auto mt-0">
                             <h5 class="fw-semibold">Type</h5>
-                            <p>{{ rowData.type }}</p>
+                            <p v-if="rowData.type_name">{{ rowData.type_name }}</p>
+                            <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-4 m-auto">
+                        <div class="col-lg-4 m-auto mt-0">
                             <h5 class="fw-semibold">Date of Enactment</h5>
-                            <p>{{ rowData.date }}</p>
+                            <p v-if="rowData.enactment_date">{{ rowData.enactment_date || enactment_date2 }}</p>
+                            <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-4 m-auto">
+                        <div class="col-lg-4 m-auto mt-0">
                             <h5 class="fw-semibold">Session Type</h5>
-                            <p>{{ rowData.session_type }}</p>
+                            <p v-if="rowData.session_type">{{ rowData.session_type }}</p>
+                            <p v-else>N/A</p>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-2">
+                    <div class="row w-100 m-auto mb-3">
+                        <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">No</h5>
-                            <p>{{ rowData.no }}</p>
+                            <p v-if="rowData.no">{{ rowData.no }}</p>
+                            <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">Year</h5>
-                            <p>{{ rowData.year }}</p>
+                            <p v-if="rowData.year">{{ rowData.year }}</p>
+                            <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">Council No.</h5>
-                            <p>{{ rowData.council_no }}</p>
+                            <p v-if="rowData.council_no">{{ rowData.council_no }}</p>
+                            <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-2">
-                            <h5 class="fw-semibold">JA/JS</h5>
-                            <p>{{ rowData.ja }}</p>
-                        </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">Session No</h5>
-                            <p>{{ rowData.session_no }}</p>
+                            <p v-if="rowData.session_no">{{ rowData.session_no }}</p>
+                            <p v-else>N/A</p>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-lg-3">
+                    <div class="row w-100 m-auto mb-3">
+                        <div class="col-lg-3 mt-0">
+                            <h5 class="fw-semibold">JA/JS</h5>
+                            <p v-if="rowData.ja_js">{{ rowData.ja_js }}</p>
+                            <p v-else>N/A</p>
+                        </div>
+                        <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">Category</h5>
-                            <p>{{ rowData.category }}</p>
+                            <p v-if="rowData.category_name">{{ rowData.category_name }}</p>
+                            <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">Bayan</h5>
-                            <p>{{ rowData.bayan }}</p>
+                            <p v-if="rowData.bayan_name">{{ rowData.bayan_name }}</p>
+                            <p v-else>N/A</p>
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-3 mt-0">
                             <h5 class="fw-semibold">PDF</h5>
-                            <p>{{ rowData.pdf }}</p>
+                            <span class="d-flex justify-content-start text-truncate" v-if="checkIfNotNull(rowData.attachments)">
+                                <!-- 
+                                <i v-if="rowData.pdf === 'docs'" class="bi bi-file-earmark-word-fill fs-3"></i> -->
+                                <i v-for="(items, index) in rowData.attachments" @click="openPdf(items)" :href="items" :key="index" class="cursor-pointer mx-2 bi bi-filetype-pdf fs-3">
+                                </i>    
+                            </span>
+                            <span v-else>
+                                {{ rowData.not_show_attachments_desc || 'No attachments available' }}
+                            </span>
                         </div>
-                        <div class="col-lg-4">
+                    </div>
+                    <div class="row w-100 m-auto">
+                        <div class="w-100 mt-0">
                             <h5 class="fw-semibold">Remarks</h5>
-                            <p>{{ rowData.remarks }}</p>
+                            <p v-if="rowData.remarks">{{ rowData.remarks }}</p>
+                            <p v-else>N/A</p>
                         </div>
                     </div>
                 </div>
@@ -156,7 +190,7 @@
         display: inline-block;
         width: 17px;
         height: 40px;
-        border-left: 17px solid var(--primary-color); /* Adjust thickness and color as needed */
+        border-left: 17px solid var(--primary-color); 
         margin-right: 10px; 
     }
 </style>

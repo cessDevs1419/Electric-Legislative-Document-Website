@@ -73,7 +73,7 @@ export default {
         height: 3rem;
         transition: .1s ease-out;
     }
-
+    
     button:hover{
         transform: scale(110%);
         transition: .1s ease-in;

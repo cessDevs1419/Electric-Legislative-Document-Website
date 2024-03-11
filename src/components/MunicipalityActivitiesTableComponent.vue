@@ -3,20 +3,21 @@
       <table class="table">
         <thead>
           <tr>
-            <th v-for="(header, index) in tableHeaders" :key="index">
-              {{ header }}
+            <th v-for="(column, index) in columns" :key="index">
+              {{ column.name }}
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(row, rowIndex) in tableData" :key="rowIndex">
-            <td v-for="(cell, cellIndex) in row" :key="cellIndex">
-              {{ cell }}
-            </td>
-          </tr>
+            <tr v-for="(row, rowIndex) in municipalityDetails.rows" :key="rowIndex">
+          <td v-for="(column, columnIndex) in municipalityDetails.columns" :key="columnIndex">
+            {{ getRowValue(row, column) }}
+          </td>
+        </tr>
         </tbody>
       </table>
     </div>
+    <p>TEST{{ this.rowValues }}</p>
   </template>
   
   <script>
@@ -24,33 +25,38 @@
     props: {
       municipalityDetails: Object,
     },
-    computed: {
-      tableHeaders() {
-        if (!this.municipalityDetails || Object.keys(this.municipalityDetails).length === 0) {
-          return [];
+    data() {
+      return {
+        columns: [],
+        rows: [],
+        rowValues: []
+      };
+    },
+    created() {
+      this.populateColumns();
+      this.populateRows();
+      this.rowValueGetter();
+    },
+    methods: {
+      populateColumns() {
+        if (this.municipalityDetails && this.municipalityDetails.columns) {
+          this.columns = this.municipalityDetails.columns;
         }
-  
-        return Object.keys(this.municipalityDetails);
       },
-      tableData() {
-        if (!this.municipalityDetails || Object.keys(this.municipalityDetails).length === 0) {
-          return [];
+      populateRows() {
+        if (this.municipalityDetails && this.municipalityDetails.rows) {
+          this.rows = this.municipalityDetails.rows;
         }
-  
-        const maxLength = Math.max(...Object.values(this.municipalityDetails).map(arr => arr.length));
-  
-        // Fill missing values with empty strings
-        const filledData = Object.keys(this.municipalityDetails).reduce((acc, key) => {
-          const columnData = this.municipalityDetails[key];
-          const paddedColumn = new Array(maxLength).fill('').map((_, index) => columnData[index] || '');
-          return { ...acc, [key]: paddedColumn };
-        }, {});
-  
-        // Convert object to array of arrays
-        return Array.from({ length: maxLength }, (_, i) => {
-          return this.tableHeaders.map(header => filledData[header][i]);
-        });
       },
+      rowValueGetter() {
+        if(this.columns.name === this.rows.column_name){
+            this.rowValues = this.rows.value;
+        }
+      },
+      getRowValue(row, column) {
+      const rowData = row.find(r => r.column_id === column.id);
+      return rowData ? rowData.value : '';
+    },
     },
   };
   </script>

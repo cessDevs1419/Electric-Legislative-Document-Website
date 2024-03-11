@@ -70,11 +70,9 @@
                 </div>
                 <div class="municipality-table py-4 mt-5 text-center tertiary-font">
                     <div class="row w-100 m-auto">
-                        <ul class="list-unstyled px-2">
-                            <li class="py-3" v-for="(municipality, index) in municipalities" :key="index">
-                                <router-link class="tertiary-font fw-bold m-0" :to="'/municipalities/view-municipality/' + municipality.uuid" :exact="true">{{ municipality.name }}</router-link>
-                            </li>
-                        </ul>
+                        <div class="col-lg-4 mb-3" v-for="(municipality, index) in municipalities" :key="index">
+                            <router-link class="tertiary-font fw-bold m-0" :to="'/municipalities/view-municipality/' + municipality.uuid" :exact="true">{{ municipality.name }}</router-link>
+                        </div>
                     </div>
                 </div>
             </div>

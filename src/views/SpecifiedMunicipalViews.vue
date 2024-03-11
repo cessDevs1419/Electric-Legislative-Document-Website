@@ -54,6 +54,11 @@ methods: {
   return capitalized;
 }
 },
+computed: {
+    isOfficialsObject() {
+      return typeof this.municipalityDetails.officials === 'object';
+    },
+  },
 
 };
 </script>
@@ -70,27 +75,37 @@ methods: {
             </SectionHeaderComponent>
 
             <div class="municipal-info pt-5">
-              <h5 class="pb-2 fw-bold">Brief History</h5>
-                  <div class="ck-content" v-html="municipalityDetails.history"></div>
 
-                  <!-- Check if municipalityDetails.officials is an object before rendering to prevent duplication -->
-              <div class="ck-content py-4">
-                <MunicipalOfficialsTemplateComponentVue v-if="typeof municipalityDetails.officials === 'object'" :municipalityOfficials="municipalityDetails.officials"></MunicipalOfficialsTemplateComponentVue>
+              <!-- Checks if the municipal history is empty, if it is then it will not render. -->
+              <div v-if="municipalityDetails && municipalityDetails.history" class="pb-2">
+                <h5 class="fw-bold">Brief History</h5>
+                <div class="ck-content" v-html="municipalityDetails.history"></div>
+              </div>
+
+              <!-- Checks if the municipal officials is empty, if it is then it will not render. -->
+              <div v-if=" municipalityDetails && municipalityDetails.officials" class="pb-2">
+                <div class="ck-content py-4">
+                  <MunicipalOfficialsTemplateComponentVue v-if="isOfficialsObject" :municipalityOfficials="municipalityDetails.officials"></MunicipalOfficialsTemplateComponentVue>
+                </div>
+              </div>
+
+              <!-- Checks if the municipal officials is empty, if it is then it will not render -->
+              <div v-if=" municipalityDetails && municipalityDetails.information" class="pb-2">
+                <div class="ck-content py-2" v-if="Array.isArray(municipalityDetails.information) && municipalityDetails.information.length > 0">
+                 <MunicipalityInformationTableComponent :municipalityDetails="municipalityDetails.information"></MunicipalityInformationTableComponent>
+                </div>
               </div>
                   
-                  <!-- Check if municipalityDetails.information is an array before rendering to prevent duplication -->
-                  <div class="ck-content py-2" v-if="Array.isArray(municipalityDetails.information) && municipalityDetails.information.length > 0">
-                <MunicipalityInformationTableComponent :municipalityDetails="municipalityDetails.information"></MunicipalityInformationTableComponent>
+              <!-- Checks if the municipal activity's row is empty, if it is then it will not render  -->
+              <div v-if="municipalityDetails && municipalityDetails.activities && municipalityDetails.activities.rows && municipalityDetails.activities.rows.length > 0" class="pb-2">
+                <div class="ck-content py-4">
+                  <MunicipalityActivitiesTableComponentVue :municipalityDetails="municipalityDetails.activities"></MunicipalityActivitiesTableComponentVue>
+                </div>
               </div>
-
-              <div class="ck-content py-4">
-                <MunicipalityActivitiesTableComponentVue :municipalityDetails="municipalityDetails.activities"></MunicipalityActivitiesTableComponentVue>
-              </div>
-            
+                 
             </div>
           </div>
-
-                  
+     
           <div class="col-lg-5">
             <SidebarListComponent
                 :listType="'municipalityList'"

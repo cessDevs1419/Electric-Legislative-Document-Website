@@ -1,4 +1,5 @@
 <template>
+  <h4 class="mb-4 fw-bold d-flex align-items-center"><span class="vertical-line"></span>Information</h4>
     <div>
       <table class="table">
         <tbody>

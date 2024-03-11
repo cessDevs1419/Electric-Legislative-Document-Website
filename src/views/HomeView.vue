@@ -257,15 +257,12 @@
           
           <SidebarListComponentVue
             :listType="'membersList'"
-
           >
               <template #heading>The 20th SP Members Facebook Page</template>
-      
           </SidebarListComponentVue>
 
           <SidebarListComponentVue
             :listType="'hotlineList'"
-
           >
               <template #heading>Quezon Province Hotlines</template>
       
@@ -297,12 +294,6 @@
                   description: '<p><strong>ORDER OF BUSINESS OF THE 75TH REGULAR SESSION OF THE 20TH SANGGUNIANG PANLUNGSOD OF GENERAL SANTOS CITY</strong>, TO BE HELD AT THE SESSION HALL, LEGISLATIVE BUILDING, GENERAL SANTOS CITY ON WEDNESDAY, FEBRUARY 28, 2024 AT 9:00 A.M.</p>'
                 }
               ],
-        members: [
-
-        ],
-        hotlines: [
-
-        ]
       };
     },
     mounted() {
@@ -329,23 +320,6 @@
         .catch(error => {
           console.error('', error);
         });
-
-        OrderofBusinessApiService.fetch20thSPMembers().then(item => {
-          this.members = []
-          this.members.push(...item);
-          console.log(item);
-        })
-        .catch(error => {
-          console.error('', error);
-        });
-        OrderofBusinessApiService.fetchHotlines().then(item => {
-          this.hotlines = []
-          this.hotlines.push(...item);
-        })
-        .catch(error => {
-          console.error('', error);
-        });
-
       }, 
 
     },

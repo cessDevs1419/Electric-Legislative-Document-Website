@@ -1,11 +1,29 @@
+<script setup>
+    import OrderofBusinessApiService from '@/services/OrderofBusinessApiService';
+</script>
 <script>
+    
     export default {
-        props: {
-            items: {
-                type: Array, 
-            },
+        data () {
+            return {
+                members: []
+            }
         },
-
+        methods: {
+            fetchData(){
+                OrderofBusinessApiService.fetch20thSPMembers().then(item => {
+                    this.members = []
+                    this.members.push(...item);
+                    console.log(item);
+                })
+                .catch(error => {
+                    console.error('', error);
+                });
+            }, 
+        },
+        created() {
+            this.fetchData(); 
+        }
         
     }
 </script>
@@ -13,14 +31,14 @@
 <template>
     <div class="card-body tertiary-bg my-3 p-4 pb-5 position-relative">
         <ul class="list-unstyled">
-            <li class="my-2" v-for="(items, index) in items" :key="index">
+            <li class="my-2" v-for="(items, index) in members" :key="index">
                 <a class="tertiary-font fs-5" :href="items.fb_page">
-                    {{ items }}
+                    {{ items.name }}
                 </a>
             </li>
         </ul>
 
-        </div>
+    </div>
 </template>
 
 <style scoped>

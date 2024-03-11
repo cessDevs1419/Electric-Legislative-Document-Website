@@ -35,14 +35,14 @@
         </p>
         <div class="vertical-border-line mx-4"></div>
         <div v-for="(items, index) in categories" :key="index">
-            <a  class="m-0 tertiary-font" v-if="index === 2">
+            <a  class="m-0 tertiary-font cursor-pointer" title="category" v-if="index > 1">
                 <!-- <slot name="linkTitle" ></slot> -->
                 Etc
             </a> 
             <a  class="m-0 tertiary-font" v-else>
                 <!-- <slot name="linkTitle" ></slot> -->
-                {{ items }}
-            </a>, &nbsp
+                {{ items }},
+            </a> &nbsp
         </div>
     </div>  
     <hr class="divider">

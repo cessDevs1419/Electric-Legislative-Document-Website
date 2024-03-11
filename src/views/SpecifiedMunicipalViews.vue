@@ -97,7 +97,6 @@ export default {
                   <MunicipalityActivitiesTableComponentVue :municipalityDetails="municipalityDetails.activities"></MunicipalityActivitiesTableComponentVue>
                 </div>
               </div>
-                 
             </div>
           </div>
      

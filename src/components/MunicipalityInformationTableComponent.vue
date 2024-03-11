@@ -5,7 +5,8 @@
       <tbody>
         <tr v-for="(item, index) in municipalityDetails" :key="index">
             <td class="first-column"><b>{{ item.name }}</b></td>
-            <td class="ck-content">{{ renderValue(item.value) }}</td>
+            <td class="ck-content" v-html="renderValue(item.value)"></td>
+            
           </tr>
       </tbody>
     </table>

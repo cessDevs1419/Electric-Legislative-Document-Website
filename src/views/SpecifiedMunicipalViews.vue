@@ -4,8 +4,9 @@
     import SidebarListComponent from '@/components/SidebarListComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import MunicipalitiesApiService from '@/services/MunicipalitiesApiService';
-    import MunicipalityTableComponent from '@/components/MunicipalityTableComponent.vue';
+    import MunicipalityInformationTableComponent from '@/components/MunicipalityInformationTableComponent.vue';
     import MunicipalOfficialsTemplateComponentVue from '@/components/MunicipalOfficialsTemplateComponent.vue';
+    import MunicipalityActivitiesTableComponentVue from '@/components/MunicipalityActivitiesTableComponent.vue';
 </script>
 
 <script>
@@ -71,16 +72,19 @@ methods: {
             <div class="municipal-info pt-5">
               <h5 class="pb-2 fw-bold">Brief History</h5>
                   <div class="ck-content" v-html="municipalityDetails.history"></div>
+
+                  <!-- Check if municipalityDetails.officials is an object before rendering to prevent duplication -->
+              <div class="ck-content py-4">
+                <MunicipalOfficialsTemplateComponentVue v-if="typeof municipalityDetails.officials === 'object'" :municipalityOfficials="municipalityDetails.officials"></MunicipalOfficialsTemplateComponentVue>
+              </div>
                   
                   <!-- Check if municipalityDetails.information is an array before rendering to prevent duplication -->
                   <div class="ck-content py-2" v-if="Array.isArray(municipalityDetails.information) && municipalityDetails.information.length > 0">
-                <MunicipalityTableComponent :municipalityDetails="municipalityDetails.information"></MunicipalityTableComponent>
+                <MunicipalityInformationTableComponent :municipalityDetails="municipalityDetails.information"></MunicipalityInformationTableComponent>
               </div>
 
-            
-              <!-- Check if municipalityDetails.officials is an object before rendering to prevent duplication -->
               <div class="ck-content py-4">
-                <MunicipalOfficialsTemplateComponentVue v-if="typeof municipalityDetails.officials === 'object'" :municipalityOfficials="municipalityDetails.officials"></MunicipalOfficialsTemplateComponentVue>
+                <MunicipalityActivitiesTableComponentVue :municipalityDetails="municipalityDetails.activities"></MunicipalityActivitiesTableComponentVue>
               </div>
             
             </div>

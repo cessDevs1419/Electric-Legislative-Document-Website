@@ -15,11 +15,7 @@
                 required: true
             },
         },
-        methods: {
-            sanitizeRTFData() {
-                return DOMPurify.sanitize(this.description);
-            }
-        }
+
     }
 </script>
 
@@ -28,7 +24,7 @@
         <slot name="title" ></slot>
     </h4>
 
-    <div v-html="sanitizeRTFData()" ></div>
+    <p><slot name="description" ></slot></p>
     <div class="details d-flex align-items-center mb-5">
         <p class="m-0 grey-font" >
             <slot name="date" ></slot>

@@ -63,6 +63,7 @@
             <OrderListTemplateComponent v-if="this.listType === 'orderList'" :categories="item.category_names" :description="item.description">
                 <template #title>{{item.title}}</template>
                 <template #date>{{item.published_date2}}</template>
+                <template #description>{{item.description_preview}}</template>
             </OrderListTemplateComponent>
             <NewsListTemplateComponent v-if="this.listType === 'newsList'" :link="item.link" :imgLink="item.imgLink" :description="item.description">
                 <template #title>{{item.title}}</template>

@@ -14,7 +14,6 @@
                 OrderofBusinessApiService.fetch20thSPMembers().then(item => {
                     this.members = []
                     this.members.push(...item);
-                    console.log(item);
                 })
                 .catch(error => {
                     console.error('', error);

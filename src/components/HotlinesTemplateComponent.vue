@@ -1,10 +1,32 @@
+<script setup>
+    import OrderofBusinessApiService from '@/services/OrderofBusinessApiService';
+    import DOMPurify from 'dompurify';
+</script>
 <script>
     export default {
-        props: {
-            items: {
-                type: Array,
+        data () {
+            return {
+                hotlines: []
             }
         },
+        methods: {
+            fetchData(){
+                OrderofBusinessApiService.fetchHotlines().then(item => {
+                    this.hotlines = []
+                    this.hotlines.push(...item);
+
+                })
+                .catch(error => {
+                    console.error('', error);
+                });
+            }, 
+            sanitizeRTFData(contact) {
+                return DOMPurify.sanitize(contact);
+            }
+        },
+        created() {
+            this.fetchData(); 
+        }
         
     }
 </script>
@@ -12,9 +34,9 @@
 <template>
     <div class="card-body tertiary-bg my-3 p-4 position-relative">
         <ul class="list-unstyled">
-            <li class="text-decoration-none" v-for="(items, index) in items" :key="index">
+            <li class="text-decoration-none" v-for="(items, index) in hotlines" :key="index">
                 <h5 class="m-0">{{items.contact_entity}}</h5>
-                <h6 class="grey-font mb-4">{{items.contact_number}}</h6>
+                <div v-html="sanitizeRTFData(items.contact_number)" ></div>
             </li>
         </ul>
 

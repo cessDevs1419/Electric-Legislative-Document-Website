@@ -1,31 +1,38 @@
 <template>
   <h4 class="mb-4 fw-bold d-flex align-items-center"><span class="vertical-line"></span>Information</h4>
-    <div>
-      <table class="table">
-        <tbody>
-          <tr v-for="(item, index) in tableData" :key="index">
-            <td><b>{{ item.title }}</b></td>
-            <td v-html="item.value"></td>
+  <div>
+    <table class="table">
+      <tbody>
+        <tr v-for="(item, index) in municipalityDetails" :key="index">
+            <td class="first-column"><b>{{ item.name }}</b></td>
+            <td class="ck-content">{{ renderValue(item.value) }}</td>
           </tr>
-        </tbody>
-      </table>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    props: {
-      municipalityDetails: Array,
-    },
-    created() {
-        
-    },
-    computed: {
-        tableData() {
-      if (!this.municipalityDetails || this.municipalityDetails.length === 0) {
-        return [];
-      }
+      </tbody>
+    </table>
+  </div>
+</template>
 
+<script>
+export default {
+  data() {
+    return {
+      values: []
+    }
+  },
+  props: {
+    municipalityDetails: Array,
+  },
+  methods: {
+    renderValue(value) {
+      if (value === null || value === undefined) {
+        return 'N/A';
+      }
+      return value;
+    },
+  },
+  computed: {
+    tableData() {
+      
       const tableData = [];
 
       this.municipalityDetails.forEach(municipality => {
@@ -36,20 +43,25 @@
 
       return tableData;
     },
-    },
-  };
-  </script>
-  
-  <style scoped>
-  /* Add your custom table styles here */
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table td {
-    padding: 8px;
-    border: 1px solid #ccc;
-  }
-  </style>
-  
+  },
+};
+</script>
+
+<style scoped>
+/* Add your custom table styles here */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.first-column {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+</style>

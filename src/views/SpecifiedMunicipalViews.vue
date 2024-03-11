@@ -14,53 +14,48 @@ export default {
   data() {
     return {
       municipalityDetails: [],
-      
     };
   },
+
   created() {
-  const uuid = this.$route.params.uuid;
-  this.fetchData(uuid);
-},
-watch: {
+    const uuid = this.$route.params.uuid;
+    this.fetchData(uuid);
+  },
+
+  watch: {
     '$route.params.uuid': function(newUUID) {
       this.fetchData(newUUID);
     },
   },
-methods: {
-  async fetchData(uuid) {
-    try {
-      // Fetch all municipalities
-      const data = await MunicipalitiesApiService.fetch();
-      
-      // Assign the fetched data to 'municipalities' and keep the original list
-      this.municipalities = data;
-      
-      // Find the municipality with the matching UUID
-      const foundMunicipality = data.find(municipality => municipality.uuid === uuid);
-      
-      if (foundMunicipality) {
-        this.municipalityDetails = foundMunicipality;
-        console.log('Municipality Details:', this.municipalityDetails);
-        console.log('All Municipalities:', this.municipalities);
-      } else {
-        console.error('Municipality not found for UUID:', uuid);
+  methods: {
+    async fetchData(uuid) {
+      try {
+        // Fetch all municipalities
+        const data = await MunicipalitiesApiService.fetch();
+        
+        this.municipalities = data;
+        
+        // Finds the municipality with the matching UUID
+        const foundMunicipality = data.find(municipality => municipality.uuid === uuid);
+        
+        if (foundMunicipality) {
+          this.municipalityDetails = foundMunicipality;
+          console.log('Municipality Details:', this.municipalityDetails);
+          console.log('All Municipalities:', this.municipalities);
+        } else {
+          console.error('Municipality not found for UUID:', uuid);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  },
-  upperCase(word) {
-  const capitalized = word.toUpperCase();
-  return capitalized;
-}
-},
-computed: {
-    isOfficialsObject() {
-      return typeof this.municipalityDetails.officials === 'object';
     },
   },
-
-};
+  computed: {
+      isOfficialsObject() {
+        return typeof this.municipalityDetails.officials === 'object';
+      },
+    },
+  };
 </script>
 
 <template>

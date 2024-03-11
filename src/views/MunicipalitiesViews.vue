@@ -3,56 +3,45 @@
      import TemplateContainer from '@/components/TemplateContainer.vue';
     import SidebarListComponent from '@/components/SidebarListComponent.vue';
     import SectionHeaderComponent from '@/components/SectionHeaderComponent.vue';
+    import MunicipalitiesApiService from '@/services/MunicipalitiesApiService';
 </script>
 
 <script>
     export default {
-        data(){
-            return{
-                municipalities: [
-                    {
-                        id: 1,
-                        name: 'Agdangan'
-                    },
-                    {
-                        id: 2,
-                        name: 'Burdeos'
-                    },
-                    {
-                        id: 3,
-                        name: 'Caluag'
-                    },
-                    {
-                        id: 4,
-                        name: 'Dolores'
-                    },
-                    {
-                        id: 5,
-                        name: 'General Luna'
-                    },
-                    {
-                        id: 6,
-                        name: 'Guinayangan'
-                    },
-                    {
-                        id: 7,
-                        name: 'Jomalig'
-                    },
-                    {
-                        id: 8,
-                        name: 'Pagbilao'
-                    },
-                    {
-                        id: 9,
-                        name: 'Plaridel'
-                    },
-                ]
-            }
-        },
-        mounted() {
-            // Log the items prop when the component is mounted
+  data() {
+    return {
+      municipalities: [],
+      municipalityDetails: null,
+    };
+  },
+  created() {
+    const uuid = this.$route.params.uuid;
+    this.fetchData(uuid);
+  },
+  methods: {
+    async fetchData(uuid) {
+      try {
+        // Fetch all municipalities
+        const data = await MunicipalitiesApiService.fetch();
+        
+        // Assign the fetched data to 'municipalities' and keep the original list
+        this.municipalities = data;
+        
+        // Find the municipality with the matching UUID
+        const foundMunicipality = data.find(municipality => municipality.uuid === uuid);
+        
+        if (foundMunicipality) {
+          this.municipalityDetails = foundMunicipality;
+        } else {
+          console.error('Municipality not found for UUID:', uuid);
         }
-    }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    },
+  },
+
+};
 </script>
 
 
@@ -81,9 +70,11 @@
                 </div>
                 <div class="municipality-table py-4 mt-5 text-center tertiary-font">
                     <div class="row w-100 m-auto">
-                        <div class="col-lg-4 mb-3" v-for="(items, index) in municipalities" :key="index">
-                            <router-link  class="table-item my-2" to="/view-municipality">{{items.name}}</router-link>
-                        </div>
+                        <ul class="list-unstyled px-2">
+                            <li class="py-3" v-for="(municipality, index) in municipalities" :key="index">
+                                <router-link class="tertiary-font fw-bold m-0" :to="'/municipalities/view-municipality/' + municipality.uuid" :exact="true">{{ municipality.name }}</router-link>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

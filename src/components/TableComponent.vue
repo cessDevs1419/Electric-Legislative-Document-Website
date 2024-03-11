@@ -192,7 +192,7 @@ export default {
                 <tr class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#tableModal" v-for="(item, index) in filteredData" :key="index" @click="getData(item)"> 
                     <td class="text-truncate max-data-width overflow-hidden" v-for="(rows, index) in rows" :key="index">
                         <template v-if="rows === 'attachments'">
-                            <template v-if="item['attachments'].length !== 0">
+                            <template v-if="item['is_show_attachments']">
                                 <template v-for="(attachment, i) in item['attachments']" :key="i">
                                     <i @click="openPdf(attachment)" class="cursor-pointer mx-2 bi bi-filetype-pdf fs-3">
                                     </i>    

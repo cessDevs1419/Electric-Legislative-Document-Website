@@ -8,6 +8,7 @@
 
 <script>
     import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
+    import OrderofBusinessApiService from '@/services/OrderofBusinessApiService';
 
     export default {
         components: {
@@ -16,63 +17,23 @@
         data() {
             return {
                 items: [
-                        {
-                        title: 'Order Business – 69th Regular Session of the 20th Sangguniang Panlungsod of Quezon Province',
-                        description: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                        date: 'February 15, 2024',
-                        link: 'http://example.com',
-                        linkTitle: 'Sample 1'
-                        },
-                        {
-                        title: 'Another Dynamic Item2',
-                        description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                        date: 'February 20, 2024',
-                        link: 'http://example.com/another',
-                        linkTitle: 'Sample 2'
-                        },
-                        {
-                        title: 'Another Dynamic Item3',
-                        description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                        date: 'February 20, 2024',
-                        link: 'http://example.com/another',
-                        linkTitle: 'Sample 2'
-                        },
-                        {
-                        title: 'Another Dynamic Item4',
-                        description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                        date: 'February 20, 2024',
-                        link: 'http://example.com/another',
-                        linkTitle: 'Sample 2'
-                        },
-                        {
-                        title: 'Another Dynamic Item5',
-                        description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                        date: 'February 20, 2024',
-                        link: 'http://example.com/another',
-                        linkTitle: 'Sample 2'
-                        },
-                        {
-                        title: 'Another Dynamic Item6',
-                        description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                        date: 'February 20, 2024',
-                        link: 'http://example.com/another',
-                        linkTitle: 'Sample 2'
-                        },
-                        {
-                        title: 'Another Dynamic Item8',
-                        description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                        date: 'February 20, 2024',
-                        link: 'http://example.com/another',
-                        linkTitle: 'Sample 2'
-                        }
-                        // Add more items as needed
                 ]
             };
         },
-        mounted() {
-            // Log the items prop when the component is mounted
-        
-        }
+        methods: {
+            fetchData(){
+                OrderofBusinessApiService.fetchOrderOfBusiness().then(item => {
+                    this.items = []
+                    this.items.push(...item);
+                })
+                .catch(error => {
+                    console.error('', error);
+                });
+                }, 
+            },
+        created() {
+            this.fetchData(); 
+            }
     }
 </script>
 

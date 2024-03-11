@@ -1,5 +1,6 @@
 
 <script>
+    import DOMPurify from 'dompurify';
     export default {
         props: {
             link: {
@@ -10,7 +11,17 @@
                 type: String,
                 required: true
             },
+            description: {
+                type: String,
+                required: true
+            },
+
         },
+        methods: {
+            sanitizeRTFData() {
+                return DOMPurify.sanitize(this.description);
+            }
+        }
     }
 </script>
 
@@ -25,9 +36,7 @@
             <h5 class="fw-semibold mb-3">
                 <slot name="title" ></slot>
             </h5>
-            <p class="">
-                <slot name="description" ></slot>
-            </p>
+            <div v-html="sanitizeRTFData()" ></div>
             <div class="footer ">
                 <a class="tertiary-font fw-semibold m-0 text-decoration-none mb" :href="link">Read More</a>
                 <div class="underline"></div>

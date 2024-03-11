@@ -4,8 +4,9 @@
     import SidebarListComponent from '@/components/SidebarListComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import MunicipalitiesApiService from '@/services/MunicipalitiesApiService';
-    import MunicipalityTableComponent from '@/components/MunicipalityTableComponent.vue';
+    import MunicipalityInformationTableComponent from '@/components/MunicipalityInformationTableComponent.vue';
     import MunicipalOfficialsTemplateComponentVue from '@/components/MunicipalOfficialsTemplateComponent.vue';
+    import MunicipalityActivitiesTableComponentVue from '@/components/MunicipalityActivitiesTableComponent.vue';
 </script>
 
 <script>
@@ -13,48 +14,48 @@ export default {
   data() {
     return {
       municipalityDetails: [],
-      
     };
   },
+
   created() {
-  const uuid = this.$route.params.uuid;
-  this.fetchData(uuid);
-},
-watch: {
+    const uuid = this.$route.params.uuid;
+    this.fetchData(uuid);
+  },
+
+  watch: {
     '$route.params.uuid': function(newUUID) {
       this.fetchData(newUUID);
     },
   },
-methods: {
-  async fetchData(uuid) {
-    try {
-      // Fetch all municipalities
-      const data = await MunicipalitiesApiService.fetch();
-      
-      // Assign the fetched data to 'municipalities' and keep the original list
-      this.municipalities = data;
-      
-      // Find the municipality with the matching UUID
-      const foundMunicipality = data.find(municipality => municipality.uuid === uuid);
-      
-      if (foundMunicipality) {
-        this.municipalityDetails = foundMunicipality;
-        console.log('Municipality Details:', this.municipalityDetails);
-        console.log('All Municipalities:', this.municipalities);
-      } else {
-        console.error('Municipality not found for UUID:', uuid);
+  methods: {
+    async fetchData(uuid) {
+      try {
+        // Fetch all municipalities
+        const data = await MunicipalitiesApiService.fetch();
+        
+        this.municipalities = data;
+        
+        // Finds the municipality with the matching UUID
+        const foundMunicipality = data.find(municipality => municipality.uuid === uuid);
+        
+        if (foundMunicipality) {
+          this.municipalityDetails = foundMunicipality;
+          console.log('Municipality Details:', this.municipalityDetails);
+          console.log('All Municipalities:', this.municipalities);
+        } else {
+          console.error('Municipality not found for UUID:', uuid);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+    },
   },
-  upperCase(word) {
-  const capitalized = word.toUpperCase();
-  return capitalized;
-}
-},
-
-};
+  computed: {
+      isOfficialsObject() {
+        return typeof this.municipalityDetails.officials === 'object';
+      },
+    },
+  };
 </script>
 
 <template>
@@ -69,24 +70,36 @@ methods: {
             </SectionHeaderComponent>
 
             <div class="municipal-info pt-5">
-              <h5 class="pb-2 fw-bold">Brief History</h5>
-                  <div class="ck-content" v-html="municipalityDetails.history"></div>
-                  
-                  <!-- Check if municipalityDetails.information is an array before rendering to prevent duplication -->
-                  <div class="ck-content py-2" v-if="Array.isArray(municipalityDetails.information) && municipalityDetails.information.length > 0">
-                <MunicipalityTableComponent :municipalityDetails="municipalityDetails.information"></MunicipalityTableComponent>
+
+              <!-- Checks if the municipal history is empty, if it is then it will not render. -->
+              <div v-if="municipalityDetails && municipalityDetails.history" class="pb-2">
+                <h5 class="fw-bold">Brief History</h5>
+                <div class="ck-content" v-html="municipalityDetails.history"></div>
               </div>
 
-            
-              <!-- Check if municipalityDetails.officials is an object before rendering to prevent duplication -->
-              <div class="ck-content py-4">
-                <MunicipalOfficialsTemplateComponentVue v-if="typeof municipalityDetails.officials === 'object'" :municipalityOfficials="municipalityDetails.officials"></MunicipalOfficialsTemplateComponentVue>
+              <!-- Checks if the municipal officials is empty, if it is then it will not render. -->
+              <div v-if=" municipalityDetails && municipalityDetails.officials" class="pb-2">
+                <div class="ck-content py-4">
+                  <MunicipalOfficialsTemplateComponentVue v-if="isOfficialsObject" :municipalityOfficials="municipalityDetails.officials"></MunicipalOfficialsTemplateComponentVue>
+                </div>
               </div>
-            
+
+              <!-- Checks if the municipal officials is empty, if it is then it will not render -->
+              <div v-if=" municipalityDetails && municipalityDetails.information" class="pb-2">
+                <div class="ck-content py-2" v-if="Array.isArray(municipalityDetails.information) && municipalityDetails.information.length > 0">
+                 <MunicipalityInformationTableComponent :municipalityDetails="municipalityDetails.information"></MunicipalityInformationTableComponent>
+                </div>
+              </div>
+                  
+              <!-- Checks if the municipal activity's row is empty, if it is then it will not render  -->
+              <div v-if="municipalityDetails && municipalityDetails.activities && municipalityDetails.activities.rows && municipalityDetails.activities.rows.length > 0" class="pb-2">
+                <div class="ck-content py-4">
+                  <MunicipalityActivitiesTableComponentVue :municipalityDetails="municipalityDetails.activities"></MunicipalityActivitiesTableComponentVue>
+                </div>
+              </div>
             </div>
           </div>
-
-                  
+     
           <div class="col-lg-5">
             <SidebarListComponent
                 :listType="'municipalityList'"

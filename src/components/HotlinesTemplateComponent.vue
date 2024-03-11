@@ -1,25 +1,45 @@
+<script setup>
+    import OrderofBusinessApiService from '@/services/OrderofBusinessApiService';
+    import DOMPurify from 'dompurify';
+</script>
 <script>
-export default {
-    
-}
+    export default {
+        data () {
+            return {
+                hotlines: []
+            }
+        },
+        methods: {
+            fetchData(){
+                OrderofBusinessApiService.fetchHotlines().then(item => {
+                    this.hotlines = []
+                    this.hotlines.push(...item);
+
+                })
+                .catch(error => {
+                    console.error('', error);
+                });
+            }, 
+            sanitizeRTFData(contact) {
+                return DOMPurify.sanitize(contact);
+            }
+        },
+        created() {
+            this.fetchData(); 
+        }
+        
+    }
 </script>
 
 <template>
     <div class="card-body tertiary-bg my-3 p-4 position-relative">
-        <h5 class="m-0"><slot name="HotlineTitle"></slot></h5>
-        <h6 class="grey-font mb-4"><slot name="HotlineNumber"></slot></h6>
+        <ul class="list-unstyled">
+            <li class="text-decoration-none" v-for="(items, index) in hotlines" :key="index">
+                <h5 class="m-0">{{items.contact_entity}}</h5>
+                <div v-html="sanitizeRTFData(items.contact_number)" ></div>
+            </li>
+        </ul>
 
-        <h5 class="m-0"><slot name="1HotlineTitle"></slot></h5>
-        <h6 class="grey-font mb-4"><slot name="1HotlineNumber"></slot></h6>
-
-        <h5 class="m-0"><slot name="2HotlineTitle"></slot></h5>
-        <h6 class="grey-font mb-4"><slot name="2HotlineNumber"></slot></h6>
-
-        <h5 class="m-0"><slot name="3HotlineTitle"></slot></h5>
-        <h6 class="grey-font mb-4"><slot name="3HotlineNumber"></slot></h6>
-
-        <h5 class="m-0"><slot name="4HotlineTitle"></slot></h5>
-        <h6 class="grey-font mb-4"><slot name="4HotlineNumber"></slot></h6>
 
     </div>
 </template>

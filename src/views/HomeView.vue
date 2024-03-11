@@ -5,6 +5,7 @@
   import PaginationListComponentVue from '@/components/PaginationListComponent.vue';
   import sample_news_img from '@/assets/images/sample_news_img.jpg';
   import sample_vid from '@/assets/images/sample_vid.mp4';
+  import OrderofBusinessApiService from '@/services/OrderofBusinessApiService';
 </script>
 
 <template >
@@ -228,7 +229,7 @@
       <div class="col-lg-7">
         <PaginationListComponentVue 
           title="Recent Order of Business"
-          :items="items" 
+          :items="OrderOfBusiness" 
           :itemsPerPage="4"
           :listType="'orderList'"
         >
@@ -239,7 +240,7 @@
 
         <PaginationListComponentVue 
           title="Latest News"
-          :items="items" 
+          :items="News" 
           :itemsPerPage="4"
           :listType="'newsList'"
         >
@@ -258,7 +259,6 @@
             :listType="'membersList'"
           >
               <template #heading>The 20th SP Members Facebook Page</template>
-      
           </SidebarListComponentVue>
 
           <SidebarListComponentVue
@@ -282,65 +282,17 @@
     },
     data() {
       return {
-      isScrolled: false,
-      items: [
-                  {
-                  title: 'Order Business – 69th Regular Session of the 20th Sangguniang Panlungsod of Quezon Province',
-                  description: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                  date: 'February 15, 2024',
-                  link: 'http://example.com',
+        isScrolled: false,
+        OrderOfBusiness: [
+              ],
+        News: [
+                {
+                  title: 'Sample News',
                   imgLink: sample_news_img,
-                  linkTitle: 'Sample 1'
-                  },
-                  {
-                  title: 'Another Dynamic Item2',
-                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                  date: 'February 20, 2024',
-                  link: 'http://example.com/another',
-                  imgLink: sample_news_img,
-                  linkTitle: 'Sample 2'
-                  },
-                  {
-                  title: 'Another Dynamic Item3',
-                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                  date: 'February 20, 2024',
-                  link: 'http://example.com/another',
-                  imgLink: sample_news_img,
-                  linkTitle: 'Sample 2'
-                  },
-                  {
-                  title: 'Another Dynamic Item4',
-                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                  date: 'February 20, 2024',
-                  link: 'http://example.com/another',
-                  imgLink: sample_news_img,
-                  linkTitle: 'Sample 2'
-                  },
-                  {
-                  title: 'Another Dynamic Item5',
-                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                  date: 'February 20, 2024',
-                  link: 'http://example.com/another',
-                  imgLink: sample_news_img,
-                  linkTitle: 'Sample 2'
-                  },
-                  {
-                  title: 'Another Dynamic Item6',
-                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                  date: 'February 20, 2024',
-                  link: 'http://example.com/another',
-                  imgLink: sample_news_img,
-                  linkTitle: 'Sample 2'
-                  },
-                  {
-                  title: 'Another Dynamic Item8',
-                  description: 'Another description Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut........',
-                  date: 'February 20, 2024',
-                  link: 'http://example.com/another',
-                  imgLink: sample_news_img,
-                  linkTitle: 'Sample 2'
-                  }
-                  // Add more items as needed
+                  link: 'aaa',
+                  published_date2: 'March 10, 2024',
+                  description: '<p><strong>ORDER OF BUSINESS OF THE 75TH REGULAR SESSION OF THE 20TH SANGGUNIANG PANLUNGSOD OF GENERAL SANTOS CITY</strong>, TO BE HELD AT THE SESSION HALL, LEGISLATIVE BUILDING, GENERAL SANTOS CITY ON WEDNESDAY, FEBRUARY 28, 2024 AT 9:00 A.M.</p>'
+                }
               ],
       };
     },
@@ -359,7 +311,20 @@
         if (carouselSection) {
           carouselSection.scrollIntoView({ behavior: 'smooth' });
         }
-      }
+      },
+      fetchData(){
+        OrderofBusinessApiService.fetchOrderOfBusiness().then(item => {
+          this.OrderOfBusiness = []
+          this.OrderOfBusiness.push(...item);
+        })
+        .catch(error => {
+          console.error('', error);
+        });
+      }, 
+
+    },
+    created() {
+      this.fetchData(); 
     }
   };
 </script>

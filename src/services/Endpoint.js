@@ -11,3 +11,7 @@ export const GETCalendarApi = url + 'api/calendar-of-activity';
 export const GETCalendarCategoryApi = url + 'api/calendar-of-activity/category';
 export const GETOnlineTrackingSearchApi = url + 'api/document/tracking';
 export const GETMunicipalitiesApi = url + 'api/municipality'
+export const GETOrderOfBusiness = url + 'api/order-of-the-business'
+export const GETOrderOfBusinessCategory = url + 'api/order-of-the-business/category'
+export const GET20thSPMembers = url + 'api/order-of-the-business/20th-sp-member'
+export const GETHotlines = url + 'api/order-of-the-business/hotline'

@@ -37,6 +37,17 @@
         checkIfNotNull(attachments) {
             console.log(attachments);
             return attachments && attachments.length > 0; 
+        },
+        getDate(dateTime) {
+            const date = new Date(dateTime);
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        },
+        getTime(time) {
+            const date = new Date(time);
+
+            const options = { hour: 'numeric', minute: 'numeric', hour12: true };
+            return date.toLocaleTimeString('en-US', options);
         }
     },
     computed: {
@@ -102,7 +113,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="cursor-pointer" @click="getData(data)" :class="{'border-white' : data['breakdown']}" data-bs-toggle="modal" data-bs-target="#tableModal" v-if="data"> 
+                    <tr class="cursor-pointer" @click="getData(data)" :class="{'border-white' : data['logs']}" data-bs-toggle="modal" data-bs-target="#tableModal" v-if="data"> 
                         <td v-for="(rows, index) in rows" :key="index">
                             <template v-if="rows === 'status_name'">
                                 <StatusTemplateComponent
@@ -118,34 +129,42 @@
                             <template v-else>
                                 {{ data[rows] }}
                             </template>
-                            
                         </td>
                     </tr>
-                    <template v-if="data['breakdown']" >
-                        <tr class="cursor-pointer" :class="{'border-white border' : data['breakdown']}" v-for="(item, index) in  data['breakdown']" :key="index" > 
-                            <td class="p-1" >
-                                <div class="d-flex flex-column align-items-center justify-content-center">
-                                    <div class="border-dashed"></div>
-                                    <div class="eclipse p-2 rounded-circle"></div>
-                                </div>
-                            </td>
-                            <td class="p-1" >
-                                {{ item.status_name }}
-                            </td>
-                            <td class="p-1" >
-                                {{ item.description }}
-                            </td>
-                            <td class="p-1" >
-                                {{ item.division }}
-                            </td>
-                            <td class="p-1" >
-                                {{ item.date }}
-                            </td>
-                            <td class="p-1" >
-                                {{ item.time }}
-                            </td>
-                        </tr>
-                        
+                    <template v-if="data['logs']" >
+                        <template v-for="(item, ind) in  data['logs']" :key="ind" >
+                            <tr class="cursor-pointer" :class="{'border-white border' : data['logs']}"   > 
+                                <td class="p-1" >
+                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <div class="border-dashed"></div>
+                                        <div class="eclipse p-2 rounded-circle"></div>
+                                    </div>
+                                </td>
+                                <td class="p-1" >
+                                    <!-- <StatusTemplateComponent
+                                        :theme="data[rows]"
+                                        :status_bg_color="item.field_names[0].new_value_color"
+                                        :status_font_color="item.field_names[0].new_value_text_color"
+                                    >
+                                        <template #status >
+                                            {{ item.field_names[0].new_value  }}
+                                        </template>
+                                    </StatusTemplateComponent> -->
+                                </td>
+                                <td class="p-1" >
+                                    {{ item.title }}
+                                </td>
+                                <td class="p-1" >
+                                    {{ item.process_name }}
+                                </td>
+                                <td class="p-1" >
+                                    {{ getDate(item.date) }}
+                                </td>
+                                <td class="p-1" >
+                                    {{ getTime(item.date) }}
+                                </td>
+                            </tr>
+                        </template>
                     </template>
                 </tbody>
             </table>
@@ -155,7 +174,7 @@
 
 <style scoped>
     .tracking-no{
-        max-width: 300px;
+        max-width: fit-content;
     }
     .table{
         min-width: 1200px;
@@ -179,7 +198,7 @@
     }
 
     .border-dashed{
-        border: 3px dashed var(--gray-divider);
+        border: 2px dashed var(--gray-divider);
         width: 0;
         height: 1rem;
     }

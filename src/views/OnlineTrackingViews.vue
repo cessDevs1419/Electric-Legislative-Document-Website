@@ -170,94 +170,153 @@
                     </OnlineTrackingTemplateComponent>
 
                     <div class="w-100" v-if="rowTrackingData">
-                        <div class="row w-100 m-auto mb-3 ">
-                            <div class="col-lg-6 m-auto mt-0">
+                        <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 ">
+                            <div class=" mt-0">
                                 <h5 class="fw-semibold">Title</h5>
                                 <p v-if="rowTrackingData.title">{{ rowTrackingData.title }}</p>
                                 <p v-else>N/A</p>
                             </div>
-                            <div class="col-lg-6 m-auto mt-0">
-                                <h5 class="fw-semibold">Author/Sponsorship</h5>
-                                <p v-if="rowTrackingData.author">{{ rowTrackingData.author }}</p>
-                                <p v-else>N/A</p>
-                            </div>
-                        </div>
-                        <div class="row w-100 m-auto mb-3">
-                            <div class="col-lg-4 m-auto mt-0">
+                            <div class=" mt-0">
                                 <h5 class="fw-semibold">Type</h5>
                                 <p v-if="rowTrackingData.type_name">{{ rowTrackingData.type_name }}</p>
                                 <p v-else>N/A</p>
                             </div>
-                            <div class="col-lg-4 m-auto mt-0">
-                                <h5 class="fw-semibold">Date of Enactment</h5>
-                                <p v-if="rowTrackingData.enactment_date">{{ rowTrackingData.enactment_date || enactment_date2 }}</p>
-                                <p v-else>N/A</p>
-                            </div>
-                            <div class="col-lg-4 m-auto mt-0">
-                                <h5 class="fw-semibold">Session Type</h5>
-                                <p v-if="rowTrackingData.session_type">{{ rowTrackingData.session_type }}</p>
-                                <p v-else>N/A</p>
-                            </div>
-                        </div>
-                        <div class="row w-100 m-auto mb-3">
-                            <div class="col-lg-3 mt-0">
-                                <h5 class="fw-semibold">No</h5>
-                                <p v-if="rowTrackingData.no">{{ rowTrackingData.no }}</p>
-                                <p v-else>N/A</p>
-                            </div>
-                            <div class="col-lg-3 mt-0">
-                                <h5 class="fw-semibold">Year</h5>
-                                <p v-if="rowTrackingData.year">{{ rowTrackingData.year }}</p>
-                                <p v-else>N/A</p>
-                            </div>
-                            <div class="col-lg-3 mt-0">
-                                <h5 class="fw-semibold">Council No.</h5>
-                                <p v-if="rowTrackingData.council_no">{{ rowTrackingData.council_no }}</p>
-                                <p v-else>N/A</p>
-                            </div>
-                            <div class="col-lg-3 mt-0">
-                                <h5 class="fw-semibold">Session No</h5>
-                                <p v-if="rowTrackingData.session_no">{{ rowTrackingData.session_no }}</p>
-                                <p v-else>N/A</p>
-                            </div>
-                        </div>
-                        <div class="row w-100 m-auto mb-3">
-                            <div class="col-lg-3 mt-0">
-                                <h5 class="fw-semibold">JA/JS</h5>
-                                <p v-if="rowTrackingData.ja_js">{{ rowTrackingData.ja_js }}</p>
-                                <p v-else>N/A</p>
-                            </div>
-                            <div class="col-lg-3 mt-0">
+                            <div class=" mt-0">
                                 <h5 class="fw-semibold">Category</h5>
                                 <p v-if="rowTrackingData.category_name">{{ rowTrackingData.category_name }}</p>
                                 <p v-else>N/A</p>
                             </div>
-                            <div class="col-lg-3 mt-0">
-                                <h5 class="fw-semibold">Bayan</h5>
-                                <p v-if="rowTrackingData.bayan_name">{{ rowTrackingData.bayan_name }}</p>
-                                <p v-else>N/A</p>
+                        </div>  
+                        <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 " >
+                            <div class=" mt-0">
+                                <h5 class="fw-semibold">No</h5>
+                                <p class="m-0" v-if="rowTrackingData.no">{{ rowTrackingData.no }}</p>
+                                <p class="m-0" v-else>N/A</p>
                             </div>
-                            <div class="col-lg-3 mt-0">
+                            <div class=" mt-0">
+                                <h5 class="fw-semibold">Year</h5>
+                                <p class="m-0" v-if="rowTrackingData.year">{{ rowTrackingData.year }}</p>
+                                <p class="m-0" v-else>N/A</p>
+                            </div>
+                            <div class="mt-0">
+                                <h5 class="fw-semibold">Bayan</h5>
+                                <p class="m-0" v-if="rowTrackingData.bayan_name">{{ rowTrackingData.bayan_name }}</p>
+                                <p class="m-0" v-else>N/A</p>
+                            </div>
+                            <div class="mt-0">
+                                <h5 class="fw-semibold">Office</h5>
+                                <p class="m-0" v-if="rowTrackingData.office_name">{{ rowTrackingData.office_name }}</p>
+                                <p class="m-0" v-else>N/A</p>
+                            </div>
+                            <div class="mt-0" v-if="rowTrackingData.show_records_division_data" >
                                 <h5 class="fw-semibold">PDF</h5>
-                                <span class="d-flex justify-content-start text-truncate" v-if="checkIfNotNull(rowData.attachments)">
-                                    <!-- 
-                                    <i v-if="rowData.pdf === 'docs'" class="bi bi-file-earmark-word-fill fs-3"></i> -->
-                                    <i v-for="(items, index) in rowData.attachments" @click="openPdf(items)" :href="items" :key="index" class="cursor-pointer mx-2 bi bi-filetype-pdf fs-3">
+                                <span class="d-flex justify-content-start text-truncate" v-if="checkIfNotNull(rowTrackingData.attachments)">
+    
+                                    <i v-for="(items, index) in rowTrackingData.attachments" @click="openPdf(items)" :href="items" :key="index" class="cursor-pointer mx-2 bi bi-filetype-pdf fs-3">
                                     </i>    
                                 </span>
                                 <span v-else>
-                                    {{ rowData.not_show_attachments_desc || 'No attachments available' }}
+                                    {{ rowTrackingData.not_show_attachments_desc || 'No attachments available' }}
                                 </span>
                             </div>
+                        </div>   
+                        <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 " v-if="rowTrackingData.show_legislative_division_data" >
+                            <div class=" mt-0">
+                                <h5 class="fw-semibold">Session Type</h5>
+                                <p v-if="rowTrackingData.session_type">{{ rowTrackingData.session_type }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class=" mt-0">
+                                <h5 class="fw-semibold">Session No</h5>
+                                <p v-if="rowTrackingData.session_no">{{ rowTrackingData.session_no }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class=" mt-0">
+                                <h5 class="fw-semibold">JA/JS</h5>
+                                <p v-if="rowTrackingData.ja_js">{{ rowTrackingData.ja_js }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                            <div class=" mt-0">
+                                <h5 class="fw-semibold">Date of Enactment</h5>
+                                <p v-if="rowTrackingData.enactment_date">{{ rowTrackingData.enactment_date || enactment_date2 }}</p>
+                                <p v-else>N/A</p>
+                            </div>
+                        </div>    
+                        <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 "  >    
+                            <div class=" mt-0" >
+                                <h5 class="fw-semibold">Endorsed to</h5>
+                                <p v-if="rowTrackingData.endorse_to_office_name">{{ rowTrackingData.endorse_to_office_name }}</p>
+                                <p v-else>N/A</p>
+                            </div>  
+                            <div class=" mt-0" >
+                                <h5 class="fw-semibold">Pages</h5>
+                                <p v-if="rowTrackingData.pages">{{ rowTrackingData.pages }}</p>
+                                <p v-else>N/A</p>
+                            </div>        
+                            <div class=" mt-0" v-if="rowTrackingData.show_legislative_division_data" >
+                                <h5 class="fw-semibold">Council No.</h5>
+                                <p v-if="rowTrackingData.council_no">{{ rowTrackingData.council_no }}</p>
+                                <p v-else>N/A</p>
+                            </div>   
+                            <div class=" mt-0" v-if="rowTrackingData.show_legislative_division_data" >
+                                <h5 class="fw-semibold" >Author/Sponsorship</h5>
+                                <p class="m-0" v-if="rowTrackingData.author">{{ rowTrackingData.author }}</p>
+                                <p class="m-0" v-else>N/A</p>
+                            </div>
+                        </div>    
+
+                        <div class=" w-100 m-auto px-2 mb-4" v-if="rowTrackingData.requirements && rowTrackingData.requirements.length > 0" >
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                      <th class="p-0 px-2">
+                                        <h5 class="fw-semibold" >Requirements</h5>
+                                      </th>
+                                      <th class="p-0 px-2" >
+                                        <h5 class="fw-semibold" >Files</h5>
+                                      </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr  v-for="(items, index) in rowTrackingData.requirements" :key="index">
+                                        <td class="p-0 px-2">{{items.requirement_name}}</td>
+                                        <td class="p-0 px-2">
+                                            <ul v-if="items.files && items.files.length > 0">
+                                                <li v-for="(file, index) in items.files" :key="index">
+                                                    {{ file }}
+                                                </li>
+                                            </ul>
+                                            <template v-else>
+                                                N/A
+                                            </template>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="row w-100 m-auto">
+
+                        <div class=" w-100 m-auto px-3 mb-4" v-if="rowTrackingData.show_legislative_division_data" >
+                            <div class=" mt-0" >
+                                <h5 class="fw-semibold" >Schedule</h5> 
+                                <ul v-if="rowTrackingData.schedules && rowTrackingData.schedules.length > 0" >
+                                    <li v-for="(scheds, index) in rowTrackingData.schedules" :key="index">
+                                        {{ scheds}}
+                                    </li>
+                                </ul>
+                                <p class="m-0" v-else>N/A</p>
+                            </div>
+                        </div>
+
+                        <div class="row w-100 m-auto px-1" v-if="rowTrackingData.show_legislative_division_data" >
                             <div class="w-100 mt-0">
                                 <h5 class="fw-semibold">Remarks</h5>
                                 <p v-if="rowTrackingData.remarks">{{ rowTrackingData.remarks }}</p>
                                 <p v-else>N/A</p>
                             </div>
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </div>
@@ -268,5 +327,10 @@
 <style scoped>
     .input-group{
         max-width: 1000px;
+    }
+
+    tr{
+        padding: 0;
+        border: white;
     }
 </style>

@@ -92,7 +92,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <div class="d-flex px-3 flex-wrap align-items-center justify-content-between w-100 m-auto mb-4 ">
+                    <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 ">
                         <div class=" mt-0">
                             <h5 class="fw-semibold">Title</h5>
                             <p v-if="rowData.title">{{ rowData.title }}</p>
@@ -109,7 +109,7 @@
                             <p v-else>N/A</p>
                         </div>
                     </div>  
-                    <div class="d-flex px-3 flex-wrap align-items-center justify-content-between w-100 m-auto mb-4 " >
+                    <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 " >
                         <div class=" mt-0">
                             <h5 class="fw-semibold">No</h5>
                             <p class="m-0" v-if="rowData.no">{{ rowData.no }}</p>
@@ -137,7 +137,7 @@
                             </span>
                         </div>
                     </div>   
-                    <div class="d-flex px-3 flex-wrap align-items-center justify-content-between w-100 m-auto mb-4 " v-if="rowData.show_legislative_division_data" >
+                    <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 " v-if="rowData.show_legislative_division_data" >
                         <div class=" mt-0">
                             <h5 class="fw-semibold">Session Type</h5>
                             <p v-if="rowData.session_type">{{ rowData.session_type }}</p>
@@ -159,7 +159,7 @@
                             <p v-else>N/A</p>
                         </div>
                     </div>    
-                    <div class="d-flex px-3 flex-wrap align-items-center justify-content-between w-100 m-auto mb-4 " v-if="rowData.show_legislative_division_data" >
+                    <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 " v-if="rowData.show_legislative_division_data" >
                         <div class=" mt-0">
                             <h5 class="fw-semibold">Council No.</h5>
                             <p v-if="rowData.council_no">{{ rowData.council_no }}</p>

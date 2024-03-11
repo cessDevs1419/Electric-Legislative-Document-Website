@@ -1,25 +1,23 @@
 <script>
-export default {
-    
-}
+    export default {
+        props: {
+            items: {
+                type: Array,
+            }
+        },
+        
+    }
 </script>
 
 <template>
     <div class="card-body tertiary-bg my-3 p-4 position-relative">
-        <h5 class="m-0"><slot name="HotlineTitle"></slot></h5>
-        <h6 class="grey-font mb-4"><slot name="HotlineNumber"></slot></h6>
+        <ul class="list-unstyled">
+            <li class="text-decoration-none" v-for="(items, index) in items" :key="index">
+                <h5 class="m-0">{{items.contact_entity}}</h5>
+                <h6 class="grey-font mb-4">{{items.contact_number}}</h6>
+            </li>
+        </ul>
 
-        <h5 class="m-0"><slot name="1HotlineTitle"></slot></h5>
-        <h6 class="grey-font mb-4"><slot name="1HotlineNumber"></slot></h6>
-
-        <h5 class="m-0"><slot name="2HotlineTitle"></slot></h5>
-        <h6 class="grey-font mb-4"><slot name="2HotlineNumber"></slot></h6>
-
-        <h5 class="m-0"><slot name="3HotlineTitle"></slot></h5>
-        <h6 class="grey-font mb-4"><slot name="3HotlineNumber"></slot></h6>
-
-        <h5 class="m-0"><slot name="4HotlineTitle"></slot></h5>
-        <h6 class="grey-font mb-4"><slot name="4HotlineNumber"></slot></h6>
 
     </div>
 </template>

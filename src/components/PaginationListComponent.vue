@@ -60,17 +60,13 @@
     </TitleContainerComponent>
     <ul class="list-unstyled">
         <li class="text-decoration-none mt-5" v-for="(item, index) in paginatedItems" :key="index">
-            <OrderListTemplateComponent v-if="this.listType === 'orderList'" :link="item.link">
+            <OrderListTemplateComponent v-if="this.listType === 'orderList'" :categories="item.category_names" :description="item.description">
                 <template #title>{{item.title}}</template>
-                <template #description>{{item.description}}</template>
-                <template #date>{{item.date}}</template>
-                <template #linkTitle>{{item.linkTitle}}</template>
+                <template #date>{{item.published_date2}}</template>
             </OrderListTemplateComponent>
-            <NewsListTemplateComponent v-if="this.listType === 'newsList'" :link="item.link" :imgLink="item.imgLink">
+            <NewsListTemplateComponent v-if="this.listType === 'newsList'" :link="item.link" :imgLink="item.imgLink" :description="item.description">
                 <template #title>{{item.title}}</template>
-                <template #description>{{item.description}}</template>
-                <template #date>{{item.date}}</template>
-                <template #linkTitle>{{item.linkTitle}}</template>
+                <template #date>{{item.published_date2}}</template>
             </NewsListTemplateComponent>
         </li>
     </ul>

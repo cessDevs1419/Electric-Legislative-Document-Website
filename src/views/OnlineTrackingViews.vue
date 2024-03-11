@@ -243,7 +243,7 @@
                             </div>
                         </div>    
                         <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 "  >    
-                            <div class=" mt-0" >
+                            <div class=" mt-0" v-if="rowTrackingData.show_sorting_data" >
                                 <h5 class="fw-semibold">Endorsed to</h5>
                                 <p v-if="rowTrackingData.endorse_to_office_name">{{ rowTrackingData.endorse_to_office_name }}</p>
                                 <p v-else>N/A</p>
@@ -264,7 +264,6 @@
                                 <p class="m-0" v-else>N/A</p>
                             </div>
                         </div>    
-
                         <div class=" w-100 m-auto px-2 mb-4" v-if="rowTrackingData.requirements && rowTrackingData.requirements.length > 0" >
                             <table class="table ">
                                 <thead>
@@ -294,7 +293,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                         <div class=" w-100 m-auto px-3 mb-4" v-if="rowTrackingData.show_legislative_division_data" >
                             <div class=" mt-0" >
                                 <h5 class="fw-semibold" >Schedule</h5> 
@@ -306,7 +304,6 @@
                                 <p class="m-0" v-else>N/A</p>
                             </div>
                         </div>
-
                         <div class="row w-100 m-auto px-1" v-if="rowTrackingData.show_legislative_division_data" >
                             <div class="w-100 mt-0">
                                 <h5 class="fw-semibold">Remarks</h5>

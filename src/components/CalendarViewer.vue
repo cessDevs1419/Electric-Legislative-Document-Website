@@ -54,8 +54,6 @@ export default defineComponent({
 
   created() {
     this.fetchData();
-    console.log('All Events:', this.calendarEvents);
-    console.log('Filtered Events for Current Year:', this.filteredEvents);
   },
   methods: {
     handleEventClick(clickInfo) {
@@ -160,7 +158,6 @@ export default defineComponent({
       this.monthYearActive = false;
       this.yearActive = false;
       this.filterEventsByCurrentDate();
-      console.log('Filtered Events for Current Date:', this.filteredEvents);
     },
 
     // Filter Events by current month and year
@@ -181,7 +178,6 @@ export default defineComponent({
       this.monthYearActive = true;
       this.yearActive = false;
       this.filterEventsByMonthAndYear();
-      console.log('Filtered Events for Current Month and Year:', this.filteredEvents);
     },
 
     //Filter Events by current year
@@ -198,7 +194,6 @@ export default defineComponent({
       this.monthYearActive = false;
       this.yearActive = true;
       this.filterEventsByYear();
-      console.log('Filtered Events for Current Year:', this.filteredEvents);
     },
 
     getEventsWithFiltered(categoryId) {

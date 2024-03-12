@@ -70,7 +70,7 @@
                 </div>
                 <div class="municipality-table py-4 mt-5 text-center tertiary-font">
                     <div class="row w-100 m-auto">
-                        <div class="col-lg-4 mb-3" v-for="(municipality, index) in municipalities" :key="index">
+                        <div class="col-lg-4 my-2" v-for="(municipality, index) in municipalities" :key="index">
                             <router-link class="tertiary-font fw-bold m-0" :to="'/municipalities/view-municipality/' + municipality.uuid" :exact="true">{{ municipality.name }}</router-link>
                         </div>
                     </div>

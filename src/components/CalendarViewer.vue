@@ -36,6 +36,7 @@ export default defineComponent({
       selectedEvent: null,
       calendarCategory: [],
       calendarEvents: [],
+      filteredEvents: [],
     }
   },
   watch: {
@@ -53,6 +54,10 @@ export default defineComponent({
 
   created() {
     this.fetchData();
+    this.getEventsByToday();
+    this.filterEventsByYear();
+    console.log('All Events:', this.calendarEvents);
+    console.log('Filtered Events for Current Year:', this.filteredEvents);
   },
   methods: {
     handleEventClick(clickInfo) {
@@ -125,7 +130,7 @@ export default defineComponent({
     minute: '2-digit', // Display two-digit minutes
     hour12: true // Use 12-hour clock
   };
-
+  
   const formattedDate = new Date(dateTimeStr).toLocaleString('en-US', options);
   return formattedDate;
 },
@@ -133,6 +138,28 @@ export default defineComponent({
     getEventsByCategoryId(id) {
       const filteredEvents = this.calendarEvents.filter(event => event.category_id === id);
       return filteredEvents;
+    },
+
+    getEventsByToday() {
+      const today = new Date().toISOString().slice(0, 10);
+      this.filteredEvents = this.calendarEvents.filter(event => event.start_date === today);
+    },
+
+    filterEventsByYear() {
+      const currentYear = new Date().getFullYear();
+      this.filteredEvents = this.calendarEvents.filter(event => {
+        const eventYear = new Date(event.start_date).getFullYear();
+        return eventYear === currentYear;
+      });
+    },
+    handleFilterByYear() {
+      this.filterEventsByYear();
+      console.log('Filtered Events for Current Year:', this.filteredEvents);
+    },
+
+    getEventsWithFiltered(categoryId) {
+      const events = this.getEventsByCategoryId(categoryId);
+      return events.filter(event => this.filteredEvents.some(filteredEvent => filteredEvent.id === event.id));
     },
 
 }
@@ -152,21 +179,39 @@ export default defineComponent({
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body d-flex flex-column">
-    <div v-for="(events, index) in calendarCategory" :key="index" :style="{ flex: '0 0 auto' }">
-      <h6 class="d-flex align-items-center fw-bold pt-4">
-        <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + events.color }"></span>
-        {{ events.name }}
-      </h6>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary active">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked> Today
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option2" autocomplete="off"> Month
+  </label>
+  <label class="btn btn-secondary">
+    <input @click="handleFilterByYear" type="radio" name="options" id="option3" autocomplete="off"> Year
+  </label>
+
+
+</div>
+    
+      
       <div class="row py-1">
-        <div class="event-cards py-3 my-1" v-for="(event, index) in getEventsByCategoryId(events.id)" :key="index" :style="{ backgroundColor: events.color + '33' }">
-          <h6 class="fw-bold text-truncate m-0">{{ event.title }}</h6>
-          <p class="event-description m-0">{{ event.description }}</p>
-          <p class="fw-semibold m-0">{{ modalFormatDate(event.start_date_time) }}</p>
+        <div v-for="(category, catIndex) in calendarCategory" :key="catIndex" :style="{ flex: '0 0 auto' }">
+          <h6 class="d-flex align-items-center fw-bold pt-4">
+            <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + category.color }"></span>
+            {{ category.name }}
+          </h6>
+
+          <div class="event-cards py-3 my-1" v-for="(event, eventIndex) in getEventsWithFiltered(category.id)" :key="eventIndex" :style="{ backgroundColor: category.color + '33' }">
+            <h6 class="fw-bold text-truncate m-0">{{ event.title }}</h6>
+            <p class="event-description m-0">{{ event.description }}</p>
+            <p class="fw-semibold m-0">{{ modalFormatDate(event.start_date_time) }}</p>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
-</div>
+
 
         <!-- Calendar -->
         <div class="d-flex ">
@@ -196,8 +241,6 @@ export default defineComponent({
       </div>
     </div>
 
-    <!-- Modal -->
-    <!-- Modal for Event Details -->
 <!-- Modal for Event Details -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="overflow-y: auto; z-index: 9999;">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -239,6 +282,32 @@ export default defineComponent({
   
   * {
       font-family: "Montserrat", sans-serif;
+  }
+
+  /* Hide the default radio button */
+  .btn-secondary input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  .btn-secondary input[type="radio"]:checked + label {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+
+   .btn-secondary label {
+    cursor: pointer;
+    padding: 10px 20px;
+    display: inline-block;
+    background-color: #ccc;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
   }
 
   .event-holder {

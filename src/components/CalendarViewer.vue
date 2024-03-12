@@ -36,6 +36,7 @@ export default defineComponent({
       selectedEvent: null,
       calendarCategory: [],
       calendarEvents: [],
+      filteredEvents: [],
     }
   },
   watch: {
@@ -125,14 +126,79 @@ export default defineComponent({
     minute: '2-digit', // Display two-digit minutes
     hour12: true // Use 12-hour clock
   };
-
+  
   const formattedDate = new Date(dateTimeStr).toLocaleString('en-US', options);
   return formattedDate;
 },
-
+    // Sorting by category
     getEventsByCategoryId(id) {
       const filteredEvents = this.calendarEvents.filter(event => event.category_id === id);
       return filteredEvents;
+    },
+
+    // Filter events by current date
+    filterEventsByCurrentDate() {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth() + 1;
+      const currentDay = currentDate.getDate();
+
+      this.filteredEvents = this.calendarEvents.filter(event => {
+        const eventDate = new Date(event.start_date);
+        const eventYear = eventDate.getFullYear();
+        const eventMonth = eventDate.getMonth() + 1; // Adding 1 because getMonth() is zero-based
+        const eventDay = eventDate.getDate();
+
+        return eventYear === currentYear && eventMonth === currentMonth && eventDay === currentDay;
+      });
+    },
+
+    handleFilterByCurrentDate() {
+      this.currentDateActive = true;
+      this.monthYearActive = false;
+      this.yearActive = false;
+      this.filterEventsByCurrentDate();
+    },
+
+    // Filter Events by current month and year
+    filterEventsByMonthAndYear() {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth() + 1; 
+
+      this.filteredEvents = this.calendarEvents.filter(event => {
+        const eventYear = new Date(event.start_date).getFullYear();
+        const eventMonth = new Date(event.start_date).getMonth() + 1;
+        return eventYear === currentYear && eventMonth === currentMonth;
+      });
+    },
+
+    handleFilterByMonthAndYear() {
+      this.currentDateActive = false;
+      this.monthYearActive = true;
+      this.yearActive = false;
+      this.filterEventsByMonthAndYear();
+    },
+
+    //Filter Events by current year
+    filterEventsByYear() {
+      const currentYear = new Date().getFullYear();
+      this.filteredEvents = this.calendarEvents.filter(event => {
+        const eventYear = new Date(event.start_date).getFullYear();
+        return eventYear === currentYear;
+      });
+    },
+
+    handleFilterByYear() {
+      this.currentDateActive = false;
+      this.monthYearActive = false;
+      this.yearActive = true;
+      this.filterEventsByYear();
+    },
+
+    getEventsWithFiltered(categoryId) {
+      const events = this.getEventsByCategoryId(categoryId);
+      return events.filter(event => this.filteredEvents.some(filteredEvent => filteredEvent.id === event.id));
     },
 
 }
@@ -147,26 +213,46 @@ export default defineComponent({
 
         <!-- Drawer -->
         <div class="offcanvas offcanvas-end vh-100" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="overflow-y: auto;">
-  <div class="offcanvas-header">
-    <h5 id="offcanvasRightLabel">Activities</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body d-flex flex-column">
-    <div v-for="(events, index) in calendarCategory" :key="index" :style="{ flex: '0 0 auto' }">
-      <h6 class="d-flex align-items-center fw-bold pt-4">
-        <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + events.color }"></span>
-        {{ events.name }}
-      </h6>
-      <div class="row py-1">
-        <div class="event-cards py-3 my-1" v-for="(event, index) in getEventsByCategoryId(events.id)" :key="index" :style="{ backgroundColor: events.color + '33' }">
-          <h6 class="fw-bold text-truncate m-0">{{ event.title }}</h6>
-          <p class="event-description m-0">{{ event.description }}</p>
-          <p class="fw-semibold m-0">{{ modalFormatDate(event.start_date_time) }}</p>
+          <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Activities</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body d-flex flex-column">
+
+          <!-- Filter Button Group -->
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label :class="{'btn': true, 'filter-btn': true, 'active': currentDateActive}">
+              <input @click="handleFilterByCurrentDate" type="radio" name="options" id="option1" autocomplete="off" checked> Today
+            </label>
+            <label :class="{'btn': true, 'filter-btn': true, 'active': monthYearActive}">
+              <input @click="handleFilterByMonthAndYear" type="radio" name="options" id="option2" autocomplete="off"> Month
+            </label>
+            <label :class="{'btn': true, 'filter-btn': true, 'active': yearActive}">
+              <input @click="handleFilterByYear" type="radio" name="options" id="option3" autocomplete="off"> Year
+            </label>
+          </div>
+
+
+          <!-- Event Deck -->
+          <div class="row py-1">
+            <div v-for="(category, catIndex) in calendarCategory" :key="catIndex" :style="{ flex: '0 0 auto' }">
+              <h6 class="d-flex align-items-center fw-bold pt-4">
+                <span class="drawer-vl" :style="{ borderLeft: '10px solid ' + category.color }"></span>
+                {{ category.name }}
+              </h6>
+
+              <div class="event-cards px-3 py-3 my-1" v-for="(event, eventIndex) in getEventsWithFiltered(category.id)" :key="eventIndex" :style="{ backgroundColor: category.color + '33' }">
+                <h6 class="fw-bold text-truncate m-0">{{ event.title }}</h6>
+                <p class="event-description m-0">{{ event.description }}</p>
+                <p class="fw-semibold m-0">{{ modalFormatDate(event.start_date_time) }}</p>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-      </div>
-    </div>
   </div>
-</div>
+
 
         <!-- Calendar -->
         <div class="d-flex ">
@@ -187,7 +273,7 @@ export default defineComponent({
             </FullCalendar>
           </div>
           <div class="w-auto pt-5 ps-2 px-0 ">
-            <button class="drawer-btn btn btn-primary px-2 mt-3 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+            <button @click="handleFilterByCurrentDate" class="drawer-btn btn btn-primary px-2 mt-3 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
               <p class="btn-text w-100 text-nowrap ">View Activities</p>
             </button>
           </div>
@@ -196,8 +282,6 @@ export default defineComponent({
       </div>
     </div>
 
-    <!-- Modal -->
-    <!-- Modal for Event Details -->
 <!-- Modal for Event Details -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="overflow-y: auto; z-index: 9999;">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -239,6 +323,46 @@ export default defineComponent({
   
   * {
       font-family: "Montserrat", sans-serif;
+  }
+
+  .filter-btn {
+    background-color: #286BAE;
+    color: white;
+  }
+
+  .filter-btn:active,
+  .filter-btn.active {
+    background-color: #1C5083;
+    color:white;
+    border: none;
+  }
+
+  .filter-btn:hover{
+    background-color: #1C5083;
+  }
+
+  /* Hide the default radio button */
+  .filter-btn input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  /* Style the label for the filter button */
+  .filter-btn label {
+    cursor: pointer;
+    padding: 0.8rem 1rem;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .filter-btn label.active {
+    background-color: #1C5083;
+    color: white;
   }
 
   .event-holder {

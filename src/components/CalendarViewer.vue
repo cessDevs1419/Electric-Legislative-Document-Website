@@ -145,6 +145,27 @@ export default defineComponent({
       this.filteredEvents = this.calendarEvents.filter(event => event.start_date === today);
     },
 
+    filterEventsByCurrentDate() {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth() + 1; // Adding 1 because getMonth() is zero-based
+      const currentDay = currentDate.getDate();
+
+      this.filteredEvents = this.calendarEvents.filter(event => {
+        const eventDate = new Date(event.start_date);
+        const eventYear = eventDate.getFullYear();
+        const eventMonth = eventDate.getMonth() + 1; // Adding 1 because getMonth() is zero-based
+        const eventDay = eventDate.getDate();
+
+        return eventYear === currentYear && eventMonth === currentMonth && eventDay === currentDay;
+      });
+    },
+
+    handleFilterByCurrentDate() {
+      this.filterEventsByCurrentDate();
+      console.log('Filtered Events for Current Date:', this.filteredEvents);
+    },
+
     filterEventsByMonthAndYear() {
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
@@ -199,7 +220,7 @@ export default defineComponent({
   <div class="offcanvas-body d-flex flex-column">
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
   <label class="btn btn-secondary active">
-    <input type="radio" name="options" id="option1" autocomplete="off" checked> Today
+    <input @click="handleFilterByCurrentDate" type="radio" name="options" id="option1" autocomplete="off" checked> Today
   </label>
   <label class="btn btn-secondary">
     <input @click="handleFilterByMonthAndYear" type="radio" name="options" id="option2" autocomplete="off"> Month

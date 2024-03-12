@@ -145,6 +145,18 @@ export default defineComponent({
       this.filteredEvents = this.calendarEvents.filter(event => event.start_date === today);
     },
 
+    filterEventsByMonthAndYear() {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth() + 1; // Adding 1 because getMonth() is zero-based
+
+      this.filteredEvents = this.calendarEvents.filter(event => {
+        const eventYear = new Date(event.start_date).getFullYear();
+        const eventMonth = new Date(event.start_date).getMonth() + 1; // Adding 1 because getMonth() is zero-based
+        return eventYear === currentYear && eventMonth === currentMonth;
+      });
+    },
+
     filterEventsByYear() {
       const currentYear = new Date().getFullYear();
       this.filteredEvents = this.calendarEvents.filter(event => {
@@ -152,6 +164,12 @@ export default defineComponent({
         return eventYear === currentYear;
       });
     },
+
+    handleFilterByMonthAndYear() {
+      this.filterEventsByMonthAndYear();
+      console.log('Filtered Events for Current Month and Year:', this.filteredEvents);
+    },
+
     handleFilterByYear() {
       this.filterEventsByYear();
       console.log('Filtered Events for Current Year:', this.filteredEvents);
@@ -184,7 +202,7 @@ export default defineComponent({
     <input type="radio" name="options" id="option1" autocomplete="off" checked> Today
   </label>
   <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option2" autocomplete="off"> Month
+    <input @click="handleFilterByMonthAndYear" type="radio" name="options" id="option2" autocomplete="off"> Month
   </label>
   <label class="btn btn-secondary">
     <input @click="handleFilterByYear" type="radio" name="options" id="option3" autocomplete="off"> Year
@@ -192,8 +210,6 @@ export default defineComponent({
 
 
 </div>
-    
-      
       <div class="row py-1">
         <div v-for="(category, catIndex) in calendarCategory" :key="catIndex" :style="{ flex: '0 0 auto' }">
           <h6 class="d-flex align-items-center fw-bold pt-4">

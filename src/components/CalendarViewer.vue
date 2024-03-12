@@ -226,16 +226,16 @@ export default defineComponent({
 
           <!-- Filter Button Group -->
           <div class="btn-group btn-group-toggle text-white" data-toggle="buttons">
-  <label :class="{'btn': true, 'filter-btn': true, 'active': currentDateActive}">
-    <input @click="handleFilterByCurrentDate" type="radio" name="options" id="option1" autocomplete="off" checked> Today
-  </label>
-  <label :class="{'btn': true, 'filter-btn': true, 'active': monthYearActive}">
-    <input @click="handleFilterByMonthAndYear" type="radio" name="options" id="option2" autocomplete="off"> Month
-  </label>
-  <label :class="{'btn': true, 'filter-btn': true, 'active': yearActive}">
-    <input @click="handleFilterByYear" type="radio" name="options" id="option3" autocomplete="off"> Year
-  </label>
-</div>
+            <label :class="{'btn': true, 'filter-btn': true, 'active': currentDateActive}">
+              <input @click="handleFilterByCurrentDate" type="radio" name="options" id="option1" autocomplete="off" checked> Today
+            </label>
+            <label :class="{'btn': true, 'filter-btn': true, 'active': monthYearActive}">
+              <input @click="handleFilterByMonthAndYear" type="radio" name="options" id="option2" autocomplete="off"> Month
+            </label>
+            <label :class="{'btn': true, 'filter-btn': true, 'active': yearActive}">
+              <input @click="handleFilterByYear" type="radio" name="options" id="option3" autocomplete="off"> Year
+            </label>
+          </div>
 
 
           <!-- Event Deck -->
@@ -254,8 +254,8 @@ export default defineComponent({
 
             </div>
           </div>
-        </div>
 
+        </div>
   </div>
 
 
@@ -329,45 +329,43 @@ export default defineComponent({
   * {
       font-family: "Montserrat", sans-serif;
   }
-/* Default styles for the filter buttons */
-.filter-btn {
-  background-color: #286BAE;
-}
 
-/* Active/clicked styles for the filter buttons */
-.filter-btn:active,
-.filter-btn.active {
-  background-color: #1C5083;
-}
+  .filter-btn {
+    background-color: #286BAE;
+  }
 
-.filter-btn:hover{
-  background-color: #1C5083;
-}
+  .filter-btn:active,
+  .filter-btn.active {
+    background-color: #1C5083;
+  }
 
-/* Hide the default radio button */
-.filter-btn input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  width: 0;
-  height: 0;
-  position: absolute;
-}
+  .filter-btn:hover{
+    background-color: #1C5083;
+  }
 
-/* Style the label for the filter button */
-.filter-btn label {
-  cursor: pointer;
-  padding: 10px 20px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+  /* Hide the default radio button */
+  .filter-btn input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
 
-/* Adjust the label style for the active filter button */
-.filter-btn label.active {
-  background-color: #1C5083;
-  color: white;
-}
+  /* Style the label for the filter button */
+  .filter-btn label {
+    cursor: pointer;
+    padding: 0.8rem 1rem;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .filter-btn label.active {
+    background-color: #1C5083;
+    color: white;
+  }
 
   .event-holder {
     border-radius: 12px;

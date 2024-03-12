@@ -220,7 +220,7 @@ export default defineComponent({
           <div class="offcanvas-body d-flex flex-column">
 
           <!-- Filter Button Group -->
-          <div class="btn-group btn-group-toggle text-white" data-toggle="buttons">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <label :class="{'btn': true, 'filter-btn': true, 'active': currentDateActive}">
               <input @click="handleFilterByCurrentDate" type="radio" name="options" id="option1" autocomplete="off" checked> Today
             </label>
@@ -327,11 +327,14 @@ export default defineComponent({
 
   .filter-btn {
     background-color: #286BAE;
+    color: white;
   }
 
   .filter-btn:active,
   .filter-btn.active {
     background-color: #1C5083;
+    color:white;
+    border: none;
   }
 
   .filter-btn:hover{

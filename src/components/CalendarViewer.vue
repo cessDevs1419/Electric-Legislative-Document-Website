@@ -54,8 +54,6 @@ export default defineComponent({
 
   created() {
     this.fetchData();
-    this.getEventsByToday();
-    this.filterEventsByYear();
     console.log('All Events:', this.calendarEvents);
     console.log('Filtered Events for Current Year:', this.filteredEvents);
   },
@@ -134,21 +132,17 @@ export default defineComponent({
   const formattedDate = new Date(dateTimeStr).toLocaleString('en-US', options);
   return formattedDate;
 },
-
+    // Sorting by category
     getEventsByCategoryId(id) {
       const filteredEvents = this.calendarEvents.filter(event => event.category_id === id);
       return filteredEvents;
     },
 
-    getEventsByToday() {
-      const today = new Date().toISOString().slice(0, 10);
-      this.filteredEvents = this.calendarEvents.filter(event => event.start_date === today);
-    },
-
+    // Filter events by current date
     filterEventsByCurrentDate() {
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
-      const currentMonth = currentDate.getMonth() + 1; // Adding 1 because getMonth() is zero-based
+      const currentMonth = currentDate.getMonth() + 1;
       const currentDay = currentDate.getDate();
 
       this.filteredEvents = this.calendarEvents.filter(event => {
@@ -162,22 +156,35 @@ export default defineComponent({
     },
 
     handleFilterByCurrentDate() {
+      this.currentDateActive = true;
+      this.monthYearActive = false;
+      this.yearActive = false;
       this.filterEventsByCurrentDate();
       console.log('Filtered Events for Current Date:', this.filteredEvents);
     },
 
+    // Filter Events by current month and year
     filterEventsByMonthAndYear() {
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
-      const currentMonth = currentDate.getMonth() + 1; // Adding 1 because getMonth() is zero-based
+      const currentMonth = currentDate.getMonth() + 1; 
 
       this.filteredEvents = this.calendarEvents.filter(event => {
         const eventYear = new Date(event.start_date).getFullYear();
-        const eventMonth = new Date(event.start_date).getMonth() + 1; // Adding 1 because getMonth() is zero-based
+        const eventMonth = new Date(event.start_date).getMonth() + 1;
         return eventYear === currentYear && eventMonth === currentMonth;
       });
     },
 
+    handleFilterByMonthAndYear() {
+      this.currentDateActive = false;
+      this.monthYearActive = true;
+      this.yearActive = false;
+      this.filterEventsByMonthAndYear();
+      console.log('Filtered Events for Current Month and Year:', this.filteredEvents);
+    },
+
+    //Filter Events by current year
     filterEventsByYear() {
       const currentYear = new Date().getFullYear();
       this.filteredEvents = this.calendarEvents.filter(event => {
@@ -186,12 +193,10 @@ export default defineComponent({
       });
     },
 
-    handleFilterByMonthAndYear() {
-      this.filterEventsByMonthAndYear();
-      console.log('Filtered Events for Current Month and Year:', this.filteredEvents);
-    },
-
     handleFilterByYear() {
+      this.currentDateActive = false;
+      this.monthYearActive = false;
+      this.yearActive = true;
       this.filterEventsByYear();
       console.log('Filtered Events for Current Year:', this.filteredEvents);
     },
@@ -220,17 +225,18 @@ export default defineComponent({
           <div class="offcanvas-body d-flex flex-column">
 
           <!-- Filter Button Group -->
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-secondary active">
-              <input @click="handleFilterByCurrentDate" type="radio" name="options" id="option1" autocomplete="off" checked> Today
-            </label>
-            <label class="btn btn-secondary">
-              <input @click="handleFilterByMonthAndYear" type="radio" name="options" id="option2" autocomplete="off"> Month
-            </label>
-            <label class="btn btn-secondary">
-              <input @click="handleFilterByYear" type="radio" name="options" id="option3" autocomplete="off"> Year
-            </label>
-          </div>
+          <div class="btn-group btn-group-toggle text-white" data-toggle="buttons">
+  <label :class="{'btn': true, 'filter-btn': true, 'active': currentDateActive}">
+    <input @click="handleFilterByCurrentDate" type="radio" name="options" id="option1" autocomplete="off" checked> Today
+  </label>
+  <label :class="{'btn': true, 'filter-btn': true, 'active': monthYearActive}">
+    <input @click="handleFilterByMonthAndYear" type="radio" name="options" id="option2" autocomplete="off"> Month
+  </label>
+  <label :class="{'btn': true, 'filter-btn': true, 'active': yearActive}">
+    <input @click="handleFilterByYear" type="radio" name="options" id="option3" autocomplete="off"> Year
+  </label>
+</div>
+
 
           <!-- Event Deck -->
           <div class="row py-1">
@@ -323,32 +329,45 @@ export default defineComponent({
   * {
       font-family: "Montserrat", sans-serif;
   }
+/* Default styles for the filter buttons */
+.filter-btn {
+  background-color: #286BAE;
+}
 
-  /* Hide the default radio button */
-  .btn-secondary input[type="radio"] {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 0;
-    height: 0;
-    position: absolute;
-  }
+/* Active/clicked styles for the filter buttons */
+.filter-btn:active,
+.filter-btn.active {
+  background-color: #1C5083;
+}
 
-  .btn-secondary input[type="radio"]:checked + label {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-  }
+.filter-btn:hover{
+  background-color: #1C5083;
+}
 
-   .btn-secondary label {
-    cursor: pointer;
-    padding: 10px 20px;
-    display: inline-block;
-    background-color: #ccc;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
+/* Hide the default radio button */
+.filter-btn input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+/* Style the label for the filter button */
+.filter-btn label {
+  cursor: pointer;
+  padding: 10px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Adjust the label style for the active filter button */
+.filter-btn label.active {
+  background-color: #1C5083;
+  color: white;
+}
 
   .event-holder {
     border-radius: 12px;

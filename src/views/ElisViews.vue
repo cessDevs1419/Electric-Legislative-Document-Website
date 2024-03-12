@@ -92,40 +92,40 @@
                 </div>
                 <div class="modal-body">
 
-                    <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 ">
-                        <div class=" mt-0">
+                    <div class="d-flex flex-wrap align-items-start w-100 m-auto mb-4 row">
+                        <div class=" mt-0 col-md-6">
                             <h5 class="fw-semibold">Title</h5>
                             <p v-if="rowData.title">{{ rowData.title }}</p>
                             <p v-else>N/A</p>
                         </div>
-                        <div class=" mt-0">
+                        <div class=" mt-0 col-md-3">
                             <h5 class="fw-semibold">Type</h5>
                             <p v-if="rowData.type_name">{{ rowData.type_name }}</p>
                             <p v-else>N/A</p>
                         </div>
-                        <div class=" mt-0">
+                        <div class=" mt-0 col-md-3">
                             <h5 class="fw-semibold">Category</h5>
                             <p v-if="rowData.category_name">{{ rowData.category_name }}</p>
                             <p v-else>N/A</p>
                         </div>
                     </div>  
-                    <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 " >
-                        <div class=" mt-0">
+                    <div class="d-flex flex-wrap align-items-start w-100 m-auto mb-4 row" >
+                        <div class=" mt-0 col-md-3">
                             <h5 class="fw-semibold">No</h5>
-                            <p class="m-0" v-if="rowData.no">{{ rowData.no }}</p>
-                            <p class="m-0" v-else>N/A</p>
+                            <p class="m-0 mb-3" v-if="rowData.no">{{ rowData.no }}</p>
+                            <p class="m-0 mb-3" v-else>N/A</p>
                         </div>
-                        <div class=" mt-0">
+                        <div class=" mt-0 col-md-3">
                             <h5 class="fw-semibold">Year</h5>
-                            <p class="m-0" v-if="rowData.year">{{ rowData.year }}</p>
-                            <p class="m-0" v-else>N/A</p>
+                            <p class="m-0 mb-3" v-if="rowData.year">{{ rowData.year }}</p>
+                            <p class="m-0 mb-3" v-else>N/A</p>
                         </div>
-                        <div class="mt-0">
+                        <div class="mt-0 col-md-3">
                             <h5 class="fw-semibold">Bayan</h5>
-                            <p class="m-0" v-if="rowData.bayan_name">{{ rowData.bayan_name }}</p>
-                            <p class="m-0" v-else>N/A</p>
+                            <p class="m-0 mb-3" v-if="rowData.bayan_name">{{ rowData.bayan_name }}</p>
+                            <p class="m-0 mb-3" v-else>N/A</p>
                         </div>
-                        <div class="mt-0" v-if="rowData.show_records_division_data">
+                        <div class="mt-0 col-md-3" v-if="rowData.show_records_division_data">
                             <h5 class="fw-semibold">PDF</h5>
                             <span class="d-flex justify-content-start text-truncate" v-if="checkIfNotNull(rowData.attachments)">
 
@@ -137,36 +137,37 @@
                             </span>
                         </div>
                     </div>   
-                    <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 " v-if="rowData.show_legislative_division_data" >
-                        <div class=" mt-0">
+                    <div class="d-flex flex-wrap align-items-start w-100 m-auto mb-4 row" v-if="rowData.show_legislative_division_data" >
+                        <div class=" mt-0 col-md-6">
                             <h5 class="fw-semibold">Session Type</h5>
                             <p v-if="rowData.session_type">{{ rowData.session_type }}</p>
                             <p v-else>N/A</p>
                         </div>
-                        <div class=" mt-0">
+                        <div class=" mt-0 col-md-3">
                             <h5 class="fw-semibold">Session No</h5>
                             <p v-if="rowData.session_no">{{ rowData.session_no }}</p>
                             <p v-else>N/A</p>
                         </div>
-                        <div class=" mt-0">
+                        <div class=" mt-0 col-md-3">
                             <h5 class="fw-semibold">JA/JS</h5>
                             <p v-if="rowData.ja_js">{{ rowData.ja_js }}</p>
                             <p v-else>N/A</p>
                         </div>
-                        <div class=" mt-0">
+                    </div>    
+                    <div class="d-flex flex-wrap align-items-start w-100 m-auto mb-4 row" v-if="rowData.show_legislative_division_data" >
+                        <div class=" mt-0 col-md-6">
                             <h5 class="fw-semibold">Date of Enactment</h5>
                             <p v-if="rowData.enactment_date">{{ rowData.enactment_date || enactment_date2 }}</p>
                             <p v-else>N/A</p>
                         </div>
-                    </div>    
-                    <div class="d-flex px-3 flex-wrap align-items-start justify-content-between w-100 m-auto mb-4 " v-if="rowData.show_legislative_division_data" >
-                        <div class=" mt-0">
+                       
+                        <div class=" mt-0 col-md-3">
                             <h5 class="fw-semibold">Council No.</h5>
                             <p v-if="rowData.council_no">{{ rowData.council_no }}</p>
                             <p v-else>N/A</p>
                         </div>   
                                     
-                        <div class=" mt-0">
+                        <div class=" mt-0 col-md-3">
                             <h5 class="fw-semibold" >Author/Sponsorship</h5>
                             <p class="m-0" v-if="rowData.author">{{ rowData.author }}</p>
                             <p class="m-0" v-else>N/A</p>

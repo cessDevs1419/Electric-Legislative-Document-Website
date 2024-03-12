@@ -13,17 +13,28 @@
         data(){
             return {
                 tableHeader: [
-                    'No.', 
-                    'Status', 
-                    'Description',
-                    'Division',
+                    'Process', 
+                    'Title', 
                     'Date',
                     'Time',
                 ],
                 tableRows: [
-                    'no',
-                    'status_name',
-                    'type_name',
+                    'process_name',
+                    'title',
+                    'date',
+                    'time',
+                ],
+                detailsHeader: [
+                    'Field name', 
+                    'Old Value', 
+                    'New Value',
+                    'Remarks',
+                ],
+                detailsRows: [
+                    'name',
+                    'old_value',
+                    'new_value',
+                    'remarks',
                 ],
                 tableData:  [],
                 sampletableData: {},
@@ -130,6 +141,8 @@
             v-if="showTable"
             :header="tableHeader"
             :data="sampletableData"
+            :detailsheader="detailsHeader"
+            :detailsrows="detailsRows"
             :rows="tableRows"
             :searchbar="true"
             :standalone="true"

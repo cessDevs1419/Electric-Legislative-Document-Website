@@ -94,19 +94,19 @@ export default {
             
     },
     computed: {
-    filteredData() {
-        return this.data.filter(item => {
-            const matchesSearch = this.searchQuery === '' || Object.values(item).some(value =>
-                String(value).toLowerCase().includes(this.searchQuery.toLowerCase())
-            );
-            const matchesType = this.typeQuery === '' || item.type_name.toLowerCase().includes(this.typeQuery.toLowerCase());
-            const matchesCategory = this.categoryQuery === '' || item.category_name.toLowerCase().includes(this.categoryQuery.toLowerCase());
-            const matchesBayan = this.bayanQuery === '' || item.bayan_name.toLowerCase().includes(this.bayanQuery.toLowerCase());
+        filteredData() {
+            return this.data.filter(item => {
+                const matchesSearch = this.searchQuery === '' || Object.values(item).some(value =>
+                    String(value).toLowerCase().includes(this.searchQuery.toLowerCase())
+                );
+                const matchesType = this.typeQuery === '' || item.type_name.toLowerCase().includes(this.typeQuery.toLowerCase());
+                const matchesCategory = this.categoryQuery === '' || item.category_name.toLowerCase().includes(this.categoryQuery.toLowerCase());
+                const matchesBayan = this.bayanQuery === '' || item.bayan_name.toLowerCase().includes(this.bayanQuery.toLowerCase());
 
-            return matchesSearch && matchesType && matchesCategory && matchesBayan;
-        });
-    }
-},
+                return matchesSearch && matchesType && matchesCategory && matchesBayan;
+            });
+        }
+    },
 
 
     created() {

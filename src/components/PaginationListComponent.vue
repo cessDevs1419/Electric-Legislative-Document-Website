@@ -27,6 +27,9 @@
             listType: {
                 type: String,
                 required: true
+            },
+            searchQuery: {
+                type: String,
             }
         },
         data() {
@@ -38,7 +41,17 @@
             paginatedItems() {
                 const startIndex = (this.currentPage - 1) * this.itemsPerPage;
                 const endIndex = startIndex + this.itemsPerPage;
-                return this.items.slice(startIndex, endIndex);
+                let filteredItems = this.items;
+
+                // Filter items if searchQuery has a value
+                if (typeof this.searchQuery === 'string') {
+                    const query = this.searchQuery.toLowerCase();
+                    filteredItems = this.items.filter(item =>
+                        item.title.toLowerCase().includes(query)
+                    );
+                }
+
+                return filteredItems.slice(startIndex, endIndex);
             }
         },
         methods: {
@@ -48,9 +61,11 @@
         },
         mounted() {
 
-}
-        };
+        },
+    };
 </script>
+
+
 
 <template>
     <TitleContainerComponent v-if="title">

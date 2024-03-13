@@ -16,24 +16,28 @@
         },
         data() {
             return {
-                orderDetails: []
+                orderDetails: [],
+                searchQuery: ''
             };
         },
 
         created() {
-            const uuid = this.$route.params.uuid;
-            this.fetchData(uuid);
+            this.fetchData(this.$route.params.uuid);
+        },
+        watch: {
+            '$route.params.uuid': function(newUUID, oldUUID) {
+                this.fetchData(newUUID);
+            }
         },
         methods: {
             async fetchData(uuid) {
                 try {
+                    this.orderDetails = []; 
+
                     const data = await OrderofBusinessApiService.fetchOrderOfBusiness();
-                    this.orderDetails = [];
 
                     data.forEach(item => {
                         const hasMatchingCategory = item.categories.some(category => category.category_id === Number(uuid));
-                        console.log(item, hasMatchingCategory)
-
                         if (hasMatchingCategory) {
                             this.orderDetails.push(item);
                         }
@@ -58,6 +62,7 @@
                     <template #secondWord >Business</template>
                 </SectionHeaderComponent>
                 <PaginationListComponentVue 
+                    :searchQuery="searchQuery"
                     :items="orderDetails" 
                     :itemsPerPage="4"
                     :listType="'orderList'"
@@ -67,6 +72,12 @@
                 </PaginationListComponentVue>
             </div>
             <div class="col-lg-5 px-0">
+                <div class="input-group mb-3 mx-auto">
+                    <input type="text" class="form-control p-1 px-3 rounded-0" v-model="searchQuery" placeholder="Search . . .  " >
+                    <button @click="handleSearchQuery" class="input-group-text linear-primary-bg px-3 rounded-0" >
+                        <i class="bi bi-search p-1 text-white fs-3"></i>
+                    </button>
+                </div>
                 <SidebarListComponent
                     :listType="'membersList'"
                 >

@@ -3,6 +3,10 @@
     import DOMPurify from 'dompurify';
     export default {
         props: {
+            id: {
+                type: String,
+                required: true
+            },
             link: {
                 type: String,
                 required: true
@@ -26,23 +30,25 @@
 </script>
 
 <template>
-    <div class="row p-0 w-100 m-auto">
-        <div class="col-lg-5 p-0">
-            <div class="image-container w-100 h-100 bg-dark-subtle">
-                <img class="w-100 h-100" :src="imgLink" alt="Img">
+    <router-link class="border py-2 text-decoration-none text-dark" :to="'/view-news/'+ id">
+        <div class="row p-0 w-100 m-auto">
+            <div class="col-lg-5 p-0">
+                <div class="image-container w-100 h-100 bg-dark-subtle">
+                    <img class="w-100 h-100" :src="imgLink" alt="Img">
+                </div>
+            </div>
+            <div class="col-lg-7 position-relative">
+                <h5 class="fw-semibold mb-3">
+                    <slot name="title" ></slot>
+                </h5>
+                <div v-html="sanitizeRTFData()" ></div>
+                <div class="footer ">
+                    <a class="tertiary-font fw-semibold m-0 text-decoration-none mb" :href="link">Read More</a>
+                    <div class="underline"></div>
+                </div> 
             </div>
         </div>
-        <div class="col-lg-7 position-relative">
-            <h5 class="fw-semibold mb-3">
-                <slot name="title" ></slot>
-            </h5>
-            <div v-html="sanitizeRTFData()" ></div>
-            <div class="footer ">
-                <a class="tertiary-font fw-semibold m-0 text-decoration-none mb" :href="link">Read More</a>
-                <div class="underline"></div>
-            </div> 
-        </div>
-    </div>
+    </router-link>
 </template>
 
 <style scoped>

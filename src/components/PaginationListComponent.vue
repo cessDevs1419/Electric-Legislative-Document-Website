@@ -14,7 +14,6 @@
         props: {
             title: {
                 type: String,
-                required: true
             },
             items: {
                 type: Array,
@@ -86,6 +85,9 @@
             </NewsListTemplateComponent>
         </li>
     </ul>
+    <div class="w-100 h-100 text-center grey-font" v-if="!paginatedItems.length && searchQuery">
+        <h1>No items found</h1>
+    </div>
     <div class="d-flex justify-content-end">
         <PaginationNavComponentVue :total-items="items.length" :items-per-page="itemsPerPage" :current-page="currentPage" @page-changed="handlePageChange" />
     </div>

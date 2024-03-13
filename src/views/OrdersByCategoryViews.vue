@@ -17,7 +17,8 @@
         data() {
             return {
                 orderDetails: [],
-                searchQuery: ''
+                searchQuery: '',
+                category_name: ''
             };
         },
 
@@ -40,6 +41,10 @@
                         const hasMatchingCategory = item.categories.some(category => category.category_id === Number(uuid));
                         if (hasMatchingCategory) {
                             this.orderDetails.push(item);
+                            const matchingCategory = item.categories.find(category => category.category_id === Number(uuid));
+                            if (matchingCategory) {
+                                this.category_name = matchingCategory.category_name;
+                            }
                         }
                     });
                 } catch (error) {
@@ -57,10 +62,13 @@
     <TemplateContainer>
         <div class="row g-5 w-100 m-auto mb-5">
             <div class="col-lg-7 px-md-5 ">
-                <SectionHeaderComponent type="outside" class="mb-5" >
+                <SectionHeaderComponent type="outside" class="mb-2" >
                     <template #firstWord >Order of</template>
                     <template #secondWord >Business</template>
                 </SectionHeaderComponent>
+                <h6 class="secondary-bg px-2 ms-1 fw-bold text-white mb-5">
+                    Filtered Category: <span class="fw-medium">{{ category_name }}</span>
+                </h6>
                 <PaginationListComponentVue 
                     :searchQuery="searchQuery"
                     :items="orderDetails" 
@@ -95,4 +103,7 @@
 </template>
 
 <style scoped>
+    h6{
+        max-width: fit-content
+    }
 </style>

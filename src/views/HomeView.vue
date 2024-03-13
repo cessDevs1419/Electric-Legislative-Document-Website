@@ -287,6 +287,7 @@
               ],
         News: [
                 {
+                  uuid: 'awB2I-dwwas2',
                   title: 'Sample News',
                   imgLink: sample_news_img,
                   link: 'aaa',

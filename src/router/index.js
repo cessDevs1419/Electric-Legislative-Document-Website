@@ -16,14 +16,33 @@ import ContactViewsVue from '@/views/ContactViews.vue'
 import SpecifiedMunicipalViewsVue from '@/views/SpecifiedMunicipalViews.vue'
 import ResolutionOrdinanceSignUpViews from '@/views/ResolutionOrdinanceSignUpViews.vue'
 import NewESubmissionViewsVue from '@/views/NewESubmissionViews.vue';
+import SpecifiedOrdinanceView from '@/views/SpecifiedOrdinanceView.vue'
+import SpecifiedNewsView from '@/views/SpecifiedNewsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: HomeView
+        },
+        {
+          path: 'view-ordinance/:uuid',
+          name: 'view-ordinance',
+          component: SpecifiedOrdinanceView,
+          props: true
+        },
+        {
+          path: 'view-news/:uuid',
+          name: 'view-news',
+          component: SpecifiedNewsView,
+          props: true
+        }
+      ]
     },
     {
       path: '/about',

@@ -33,12 +33,6 @@ const router = createRouter({
           component: HomeView
         },
         {
-          path: 'view-ordinance/:uuid',
-          name: 'view-ordinance',
-          component: SpecifiedOrdinanceView,
-          props: true
-        },
-        {
           path: 'view-news/:uuid',
           name: 'view-news',
           component: SpecifiedNewsView,
@@ -126,6 +120,12 @@ const router = createRouter({
           path: '',
           name: 'order-of-business',
           component: OrdersBusinessViewsVue,
+        },
+        {
+          path: 'view-ordinance/:uuid',
+          name: 'view-ordinance',
+          component: SpecifiedOrdinanceView,
+          props: true
         },
         {
           path: 'category/:uuid',

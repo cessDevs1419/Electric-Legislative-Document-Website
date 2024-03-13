@@ -24,7 +24,7 @@
 </script>
 
 <template>
-    <router-link class="py-2 text-decoration-none text-dark" :to="'/view-ordinance/'+ id">
+    <router-link class="py-2 text-decoration-none text-dark" :to="'/order-of-business/view-ordinance/'+ id">
         <h4 class="fw-semibold">
             <slot name="title" ></slot>
         </h4>
@@ -55,8 +55,5 @@
         border: 1px solid gray;
     }
 
-    .router-link-active{
-        background-color: var(--secondary-color) !important;
-        font-weight: 700;
-    }
+
 </style>

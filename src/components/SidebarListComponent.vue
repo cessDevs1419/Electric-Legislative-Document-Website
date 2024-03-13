@@ -80,8 +80,8 @@ export default {
       :items="OrderOfBusiness" 
       :itemsPerPage="4"
       :listType="'orderList'"
-    >
-    </PaginationListComponent>
+      >
+      </PaginationListComponent>
     </li>
   </ul>
   

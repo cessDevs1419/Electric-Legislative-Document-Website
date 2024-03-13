@@ -8,6 +8,12 @@ import CalendarApiService from '@/services/CalendarApiService'
 import CalendarCategoryApiService from '@/services/CalendarCategoryApiService'
 
 export default defineComponent({
+  props: {
+    calendarType: {
+      type: String,
+      required: true
+    },
+  },
   components: {
     FullCalendar,
   },
@@ -208,6 +214,7 @@ export default defineComponent({
   
 
 <template>
+  <div class="full-view" v-if="calendarType === 'fullview'">
     <div class='demo-app'>
       <div class='demo-app-main'>
 
@@ -311,10 +318,66 @@ export default defineComponent({
     </div>
   </div>
 </div>
+  </div>
 
+  <div class="full-view" v-if="calendarType === 'miniview'">
+    <div class='demo-app'>
+      <div class='demo-app-main'>
 
+        <!-- Calendar -->
+        <div class="d-flex ">
+          <div class="w-100 ">
+            <FullCalendar
+              class='demo-app-calendar'
+              :options='calendarOptions'
+            >
+            <template v-slot:eventContent='arg'>
+              <div class="event-holder py-3 w-100 cursor-pointer" :style="{ 'border-left': '15px solid ' + arg.event.extendedProps.category_color, 'background-color': arg.event.extendedProps.category_color + '33' }">
+                    <div class="d-flex flex-column primary-font mx-2">
+                        <b class="event-title">{{ arg.event.title }}</b>
+                        <p class="m-0">{{ formatDateTime(arg.event.start) }}</p>
+                    </div>
+                </div>
+            </template>
 
-  </template>
+            </FullCalendar>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+<!-- Modal for Event Details -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="overflow-y: auto; z-index: 9999;">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content px-4 pt-4 pb-3">
+      <div class="modal-header d-flex align-item-center border-0" v-if="selectedEvent">
+        <h4 class="d-flex align-items-center fw-bold"><span class="event-vl" :style="{ borderLeft: '10px solid ' + selectedEvent.extendedProps.category_color }"></span>Activity Information</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">What</h5>
+          <p>{{ selectedEvent.title }}</p>
+        </div>
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">Where</h5>
+          <p>{{ selectedEvent.extendedProps.location }}</p>
+        </div>
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">When</h5>
+          <p>{{ modalFormatDate(selectedEvent.start) }}</p>
+        </div>
+        <div class="row mb-3" v-if="selectedEvent">
+          <h5 class="fw-semibold">Description</h5>
+          <p>{{ selectedEvent.extendedProps.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</template>
   
   
   <style lang='css'>

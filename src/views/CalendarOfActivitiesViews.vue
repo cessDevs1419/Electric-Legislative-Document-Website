@@ -40,7 +40,9 @@ export default {
     <div class="spacer"></div>
     <TemplateContainer>
         <div class="row w-100 m-auto">
-            <CalendarViewer></CalendarViewer>
+            <CalendarViewer
+                :calendarType="'fullview'"
+            ></CalendarViewer>
             <div class="calendar-legend d-flex justify-content-center py-4">
                  
                   <div class="row">

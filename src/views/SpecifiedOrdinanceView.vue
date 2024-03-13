@@ -3,6 +3,8 @@
     import SectionHeaderComponent from '@/components/SectionHeaderComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import OrderofBusinessApiService from '@/services/OrderofBusinessApiService';
+    import SidebarListComponent from '@/components/SidebarListComponent.vue';
+    import PaginationListComponent from '@/components/PaginationListComponent.vue';
 </script>
 <script >
     export default {
@@ -40,13 +42,24 @@
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
     <TemplateContainer class="mb-5 px-3 px-lg-0">
-        <div class="title mb-5 mt-lg-0">
+        <div class="row">
+            <div class="title mb-5 mt-lg-0 col-lg-7">
             <!-- <SectionHeaderComponent  type="inside">
                 <template #firstWord>Legislative</template>
                 <template #secondWord>Documents</template>
             </SectionHeaderComponent> -->
             {{ orderDetails.title }}
         </div>
+        <div class="col-lg-5">
+            <SidebarListComponent
+                :listType="'orderList'"
+            >
+                <template #heading>Recent Order of Business</template>
+            </SidebarListComponent>
+        </div>
+        </div>
 
     </TemplateContainer>
+
+   
 </template>

@@ -60,7 +60,7 @@
     </TitleContainerComponent>
     <ul class="list-unstyled">
         <li class="text-decoration-none mt-5" v-for="(item, index) in paginatedItems" :key="index">
-            <OrderListTemplateComponent v-if="this.listType === 'orderList'" :id="item.uuid" :categories="item.category_names" :description="item.description">
+            <OrderListTemplateComponent v-if="this.listType === 'orderList'" :id="item.uuid" :categories="item.categories" :description="item.description">
                 <template #title>{{item.title}}</template>
                 <template #date>{{item.published_date2}}</template>
                 <template #description>{{item.description_preview}}</template>

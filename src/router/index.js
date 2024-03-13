@@ -18,6 +18,8 @@ import ResolutionOrdinanceSignUpViews from '@/views/ResolutionOrdinanceSignUpVie
 import NewESubmissionViewsVue from '@/views/NewESubmissionViews.vue';
 import SpecifiedOrdinanceView from '@/views/SpecifiedOrdinanceView.vue'
 import SpecifiedNewsView from '@/views/SpecifiedNewsView.vue'
+import OrdersByCategoryViews from '@/views/OrdersByCategoryViews.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -119,9 +121,20 @@ const router = createRouter({
     },
     {
       path: '/order-of-business',
-      name: 'order-of-business',
-      component: OrdersBusinessViewsVue
-    },
+      children: [
+        {
+          path: '',
+          name: 'order-of-business',
+          component: OrdersBusinessViewsVue,
+        },
+        {
+          path: 'category/:uuid',
+          name: 'order-of-business-by-category',
+          component: OrdersByCategoryViews,
+          props: true
+        }
+      ]
+    }, 
     {
       path: '/municipalities',
       children: [

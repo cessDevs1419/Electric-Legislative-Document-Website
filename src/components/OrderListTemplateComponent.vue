@@ -28,26 +28,24 @@
         <h4 class="fw-semibold">
             <slot name="title" ></slot>
         </h4>
-
-        <p><slot name="description" ></slot></p>
-        <div class="details d-flex align-items-center mb-5">
+    </router-link>
+    <p><slot name="description" ></slot></p>
+    <div class="details d-flex align-items-center mb-5">
             <p class="m-0 grey-font" >
                 <slot name="date" ></slot>
             </p>
             <div class="vertical-border-line mx-4"></div>
             <div v-for="(items, index) in categories" :key="index">
-                <a  class="m-0 tertiary-font cursor-pointer" title="category" v-if="index > 1">
-                    <!-- <slot name="linkTitle" ></slot> -->
+                <router-link title="category" v-if="index > 1" class="m-0 tertiary-font cursor-pointer" :to="'/order-of-business/category/'+ items.category_id">
                     Etc
-                </a> 
-                <a  class="m-0 tertiary-font" v-else>
-                    <!-- <slot name="linkTitle" ></slot> -->
-                    {{ items }},
-                </a> &nbsp
+                </router-link> 
+                <router-link title="category"  v-else class="m-0 tertiary-font curor-pointer" :to="'/order-of-business/category/'+ items.category_id">
+                    {{ items.category_name}},
+                </router-link>&nbsp
             </div>
-        </div>  
-        <hr class="divider">
-    </router-link>
+    </div>  
+    <hr class="divider">
+    
 </template>
 
 <style scoped>

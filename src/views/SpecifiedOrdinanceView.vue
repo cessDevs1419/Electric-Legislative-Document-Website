@@ -13,6 +13,11 @@
                 orderDetails: {},
             };
         },
+        watch: {
+            '$route.params.uuid': function(newUUID) {
+                this.fetchData(newUUID);
+            },
+        },
 
         created() {
             const uuid = this.$route.params.uuid;
@@ -48,7 +53,29 @@
                 <template #firstWord>Legislative</template>
                 <template #secondWord>Documents</template>
             </SectionHeaderComponent> -->
-            {{ orderDetails.title }}
+            <div class="order-header">
+                <p>{{ orderDetails.title }}</p>
+            </div>
+            <p>{{ orderDetails.published_date2 }}</p>
+            <p>{{ orderDetails.category_names }}</p>
+            <p class="ck-editor" v-html="orderDetails.description"></p>
+
+            <div class="details d-flex align-items-center mb-5">
+                <p class="m-0 grey-font" >{{ orderDetails.published_date2 }}<slot name="date" ></slot>
+                </p>
+                <div class="vertical-border-line mx-4"></div>
+                <div v-for="(items, index) in orderDetails" :key="index">
+    <router-link v-if="index > 1" class="m-0 tertiary-font cursor-pointer" :to="'/order-of-business/category/' + items.category_id">
+        Etc
+    </router-link> 
+    <router-link v-else class="m-0 tertiary-font cursor-pointer" :to="'/order-of-business/category/' + items.category_id">
+        {{ items.category_names }}
+    </router-link>&nbsp
+</div>
+
+            </div>  
+
+            <p>{{ this.orderDetails }}</p>
         </div>
         <div class="col-lg-5">
             <SidebarListComponent
@@ -63,3 +90,21 @@
 
    
 </template>
+
+<style scoped>
+    .order-header p {
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+    .vertical-border-line{
+        width: 1px;
+        height: 20px;
+        border: 1px solid gray;
+    }
+
+    .router-link-active{
+        background-color: var(--secondary-color) !important;
+        font-weight: 700;
+    }
+</style>

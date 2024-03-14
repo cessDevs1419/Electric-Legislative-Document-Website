@@ -161,7 +161,7 @@
                                     <label class="form-label">City/Municipality</label>
                                     <span class="text-danger" v-if="showValidation.municipality_id"> *</span>
                                     <div class="dropdown rounded-0 w-100">
-                                        <button @click="toggleMunicipalityQuery" data-bs-toggle="dropdown" aria-expanded="false" :class="{ 'border-danger': border.municipality_id }"  class="w-100 dropdown-btn btn text-dark border d-flex align-items-center justify-content-between p-3 rounded-0 " type="button" >
+                                        <button @click="toggleMunicipalityQuery" data-bs-toggle="dropdown" aria-expanded="false" :class="{ 'border-danger': border.municipality_id }"  class="w-100 dropdown-btn btn text-dark border d-flex align-items-center justify-content-between p-3 rounded-2 " type="button" >
                                            <p class="text-nowrap text-truncate m-0">{{ municipalityQuery ? municipalityQuery : 'Select Municipality' }}</p> <i v-if="municipalityQuery" class="bi bi-x"></i> <i v-if="!municipalityQuery" class="bi bi-caret-down"></i>
                                         </button>
                                         <ul class="dropdown-menu w-100">
@@ -186,7 +186,7 @@
                                     <label class="form-label">Office</label>
                                     <span class="text-danger" v-if="showValidation.office_id"> *</span>
                                     <div class="dropdown rounded-0 w-100">
-                                        <button @click="toggleOfficeQuery" data-bs-toggle="dropdown" aria-expanded="false" :class="{ 'border-danger': border.office_id }"  class="w-100 dropdown-btn btn text-dark border d-flex align-items-center justify-content-between p-3 rounded-0 " type="button" >
+                                        <button @click="toggleOfficeQuery" data-bs-toggle="dropdown" aria-expanded="false" :class="{ 'border-danger': border.office_id }"  class="w-100 dropdown-btn btn text-dark border d-flex align-items-center justify-content-between p-3 rounded-2 " type="button" >
                                             <p class="text-nowrap text-truncate m-0">{{ officeQuery ? officeQuery : 'Select Municipality' }}</p> <i v-if="officeQuery" class="bi bi-x"></i> <i v-if="!officeQuery" class="bi bi-caret-down"></i>
                                         </button>
                                         <ul class="dropdown-menu w-100">

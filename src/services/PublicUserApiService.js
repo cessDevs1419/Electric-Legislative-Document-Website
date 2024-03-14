@@ -1,19 +1,22 @@
 import axios from "axios";
 import { GETCurrentAuthUser, POSTLogin, POSTRegister, POSTForgotPassword, POSTResetPassword, POSTLogout } from "./Endpoint";
 const PublicUserApiService = {
+    authToken: localStorage.getItem('authToken'),
     async getAuthUser() {
-        // try {
-        //     const authToken = localStorage.getItem('authToken');
+        try {
+            const authToken = localStorage.getItem('authToken');
 
-        //     const response = await axios.get('http://127.0.0.1:8000/api/projects', {
-        //         headers: {
-        //             Authorization: `Bearer ${authToken}` 
-        //         }
-        //     });
-        //     return response.data;
-        // } catch (error) {
-        //     throw error;
-        // }
+            const response = await axios.get(GETCurrentAuthUser, {
+                headers: {
+                    "Authorization": `Bearer ${authToken}`,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
     },
     async register(data) {
         try {
@@ -32,7 +35,7 @@ const PublicUserApiService = {
             throw error;
         }
     },
-    async login() {
+    async login(data) {
         try {
             
             const response = await axios.post(
@@ -44,13 +47,66 @@ const PublicUserApiService = {
                 }
             });
             
-            localStorage.setItem('responseData', JSON.stringify(response.data));
+            const authToken = response.data.token;
+            localStorage.setItem('authToken', authToken);
     
             return response.data;
         } catch (error) {
             throw error;
         }
-    }
+    },
+    async forgotPassword(data) {
+        try {
+            
+            const response = await axios.post(
+                POSTForgotPassword, 
+                data, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            });
+            
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    async resetPassword(data) {
+        try {
+            
+            const response = await axios.post(
+                POSTResetPassword, 
+                data, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            });
+            
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    async logout() {
+        try {
+            
+            const response = await axios.post(
+                POSTLogout, 
+                data, {
+                headers: {
+                    "Authorization": `Bearer ${authToken}` ,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            });
+            
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default PublicUserApiService;

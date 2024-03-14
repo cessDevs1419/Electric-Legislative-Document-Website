@@ -4,7 +4,10 @@
 
 <template>
     <div class="card-body position-relative w-100">
-        <CalendarViewer></CalendarViewer>
+        <CalendarViewer
+            :calendarType="'miniview'"
+        >
+        </CalendarViewer>
     </div>
 </template>
 

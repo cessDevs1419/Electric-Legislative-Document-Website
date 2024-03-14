@@ -1,7 +1,11 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
+    import MunicipalitiesApiService from '@/services/MunicipalitiesApiService';
+    import OfficeApiService from '@/services/OfficeApiService';
+    import PublicUserApiService from '@/services/PublicUserApiService';
     import ValidationService from '@/services/ValidationService';
+    import {toast} from '@/toast'
 </script>
 <script>
     export default {
@@ -9,15 +13,19 @@
             return{
                 showInput: false,
                 signupData: {
-                    fullname: '',
+                    full_name: '',
                     email: '',
-                    city: '',
-                    contact: '',
-                    office: '',
-                    secretary: '',
+                    municipality_id: '',
+                    contact_number: '',
+                    office_id: '',
+                    secretary_name: '',
                 },
                 showValidation: {},
-                border: {}
+                border: {},
+                office: [],
+                municipality: [],
+                officeQuery: '',
+                municipalityQuery: ''
             }
         },
         methods: {
@@ -30,25 +38,77 @@
                     this.border = {};
 
                     Object.keys(this.signupData).forEach(key => {
-                        if (this.signupData[key].trim() === '') {
-                            this.showValidation[key] = true;
-                            this.border[key] = true;
-                        } else if (key === 'email' && !ValidationService.emailValidator(this.signupData[key])) {
-                            this.showValidation[key] = true; 
-                            this.border[key] = true; 
+                        const value = this.signupData[key];
+                        if (typeof value === 'string') {
+                            if (value.trim() === '') {
+                                toast('Some fields are empty '+key, 'warning', 4000);
+                                this.showValidation[key] = true;
+                                this.border[key] = true;
+
+                            } else if (key === 'email' && !ValidationService.emailValidator(value)) {
+                                toast('Invalid email, please Input valid email', 'warning');
+                                this.showValidation[key] = true; 
+                                this.border[key] = true; 
+                            }
                         }
                     });
+
 
                     if (Object.keys(this.showValidation).length > 0) {
                         return;
                     }
 
-                    // await AuthApiService.login(this.signinData);
-                    console.log('Sign-up successful');
+                    await PublicUserApiService.register(this.signupData).then(items => {
+                        for (let key in this.signupData) {
+                            this.signupData[key] = '';
+                        }
+                        this.municipalityQuery = ''
+                        this.officeQuery = ''
+                        toast(items.text, items.type);
+
+                    })
+                    .catch(error => {
+                        console.error('', error);
+                    });
+                    
                 } catch (error) {
                     console.error('Sign-up failed:', error);
                 }
             },
+            fetchData(){
+                MunicipalitiesApiService.fetch().then(item => {
+                    this.municipality = []
+                    this.municipality.push(...item);
+                })
+                .catch(error => {
+                    console.error('', error);
+                });
+
+                OfficeApiService.fetch().then(item => {
+                    this.office = []
+                    this.office.push(...item);
+                })
+                .catch(error => {
+                    console.error('', error);
+                });
+            }, 
+            getMunicipality(id, name){
+                this.signupData.municipality_id = id
+                this.municipalityQuery = name
+            },
+            getOffice(id, name){
+                this.signupData.office_id = id
+                this.officeQuery = name
+            },
+            toggleMunicipalityQuery() {
+                this.municipalityQuery = this.municipalityQuery ? '' : this.municipalityQuery;
+            },
+            toggleOfficeQuery() {
+                this.officeQuery = this.officeQuery ? '' : this.officeQuery;
+            },
+        },
+        created() {
+            this.fetchData(); 
         }
     }
 </script>
@@ -85,8 +145,8 @@
                     <form class="px-2 px-md-5  " @submit.prevent="signupSubmit">
                         <div class="mb-4">
                             <label class="form-label">Full name</label>
-                            <span class="text-danger" v-if="showValidation.fullname"> *</span>
-                            <input type="text" :class="{ 'border-danger': border.fullname }" class="form-control p-3 bg-transparent" v-model="signupData.fullname" placeholder="">
+                            <span class="text-danger" v-if="showValidation.full_name"> *</span>
+                            <input type="text" :class="{ 'border-danger': border.full_name }" class="form-control p-3 bg-transparent" v-model="signupData.full_name" placeholder="">
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
@@ -99,8 +159,17 @@
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">City/Municipality</label>
-                                    <span class="text-danger" v-if="showValidation.city"> *</span>
-                                    <input type="text" :class="{ 'border-danger': border.city }" class="form-control p-3 bg-transparent" v-model="signupData.city" placeholder="">
+                                    <span class="text-danger" v-if="showValidation.municipality_id"> *</span>
+                                    <div class="dropdown rounded-0 w-100">
+                                        <button @click="toggleMunicipalityQuery" data-bs-toggle="dropdown" aria-expanded="false" :class="{ 'border-danger': border.municipality_id }"  class="w-100 dropdown-btn btn text-dark border d-flex align-items-center justify-content-between p-3 rounded-2 " type="button" >
+                                           <p class="text-nowrap text-truncate m-0">{{ municipalityQuery ? municipalityQuery : 'Select Municipality' }}</p> <i v-if="municipalityQuery" class="bi bi-x"></i> <i v-if="!municipalityQuery" class="bi bi-caret-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu w-100">
+                                            <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in municipality" :key="index"  @click="getMunicipality(items.id, items.name)">
+                                                {{ items.name }}
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -108,22 +177,31 @@
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">Contact Number</label> 
-                                    <span class="text-danger" v-if="showValidation.contact"> *</span>
-                                    <input type="text" :class="{ 'border-danger': border.contact }" class="form-control p-3 bg-transparent" v-model="signupData.contact" placeholder="">
+                                    <span class="text-danger" v-if="showValidation.contact_number"> *</span>
+                                    <input type="text" :class="{ 'border-danger': border.contact_number }" class="form-control p-3 bg-transparent" v-model="signupData.contact_number" placeholder="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-4">
                                     <label class="form-label">Office</label>
-                                    <span class="text-danger" v-if="showValidation.office"> *</span>
-                                    <input type="text" :class="{ 'border-danger': border.office }" class="form-control p-3 bg-transparent" v-model="signupData.office" placeholder="">
+                                    <span class="text-danger" v-if="showValidation.office_id"> *</span>
+                                    <div class="dropdown rounded-0 w-100">
+                                        <button @click="toggleOfficeQuery" data-bs-toggle="dropdown" aria-expanded="false" :class="{ 'border-danger': border.office_id }"  class="w-100 dropdown-btn btn text-dark border d-flex align-items-center justify-content-between p-3 rounded-2 " type="button" >
+                                            <p class="text-nowrap text-truncate m-0">{{ officeQuery ? officeQuery : 'Select Municipality' }}</p> <i v-if="officeQuery" class="bi bi-x"></i> <i v-if="!officeQuery" class="bi bi-caret-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu w-100">
+                                            <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in office" :key="index"  @click="getOffice(items.id, items.name)">
+                                                {{ items.name }}
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Name of Secretary</label>
-                            <span class="text-danger" v-if="showValidation.secretary"> *</span>
-                            <input type="text" :class="{ 'border-danger': border.secretary }" class="form-control p-3 bg-transparent" v-model="signupData.secretary" placeholder="">
+                            <span class="text-danger" v-if="showValidation.secretary_name"> *</span>
+                            <input type="text" :class="{ 'border-danger': border.secretary_name }" class="form-control p-3 bg-transparent" v-model="signupData.secretary_name" placeholder="">
                         </div>
 
                         <div class="footer w-100 text-center d-flex justify-content-end mt-5">

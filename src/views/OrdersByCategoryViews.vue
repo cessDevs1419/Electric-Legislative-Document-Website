@@ -80,12 +80,19 @@
                 </PaginationListComponentVue>
             </div>
             <div class="col-lg-5 px-0">
-                <div class="input-group mb-3 mx-auto">
-                    <input type="text" class="form-control p-1 px-3 rounded-0" v-model="searchQuery" placeholder="Search . . .  " >
-                    <button @click="handleSearchQuery" class="input-group-text linear-primary-bg px-3 rounded-0" >
-                        <i class="bi bi-search p-1 text-white fs-3"></i>
-                    </button>
+                <div class="text-end mb-3">
+                    <div class="input-group mb-2 mx-auto">
+                        <input type="text" class="form-control p-1 px-3 rounded-0" v-model="searchQuery" placeholder="Search . . .  " >
+                        <button @click="handleSearchQuery" class="input-group-text linear-primary-bg px-3 rounded-0" >
+                            <i class="bi bi-search p-1 text-white fs-3"></i>
+                        </button>
+                    </div>
+                    <!-- <router-link to="/order-of-business" class=" text-decoration-none text-white linear-primary-bg py-2 px-3 rounded-0" >
+                        Clear
+                    </router-link> -->
                 </div>
+
+
                 <SidebarListComponent
                     :listType="'membersList'"
                 >

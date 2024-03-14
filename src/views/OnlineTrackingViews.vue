@@ -13,6 +13,7 @@
         data(){
             return {
                 tableHeader: [
+                    'No',
                     'Process', 
                     'Title', 
                     'Date',
@@ -36,7 +37,6 @@
                     'new_value',
                     'remarks',
                 ],
-                tableData:  [],
                 sampletableData: {},
                 rowData: Object,
                 rowTrackingData: Object,
@@ -53,45 +53,30 @@
             },
             handleSearchQuery(){
                 if (!this.searchQuery) return; 
-                this.sampletableData = {};
-                for (let item of this.tableData) {
-                    if (item.document_number === this.searchQuery) {
-                        this.sampletableData = { ...item };
-                        this.hideSearch = false;
-                        this.showTable = true;
-                        return;
-                    }
-                }
-
-                this.hideSearch = false;
-                this.showTable = true;
-
+                this.fetchData(this.searchQuery)
             },
-            fetchData(){
-                DocumentApiService.fetchOnlineTrackingDocument().then(item => {
-                    this.tableData = []
-                    this.tableData.push(...item);
+            fetchData(stringData){
+                DocumentApiService.fetchOnlineTrackingDocument().then(items => {
+                    this.sampletableData = {};
+                    for (let item of items) {
+                        if (item.document_number === stringData) {
+                            this.sampletableData = { ...item };
+                            this.hideSearch = false;
+                            this.showTable = true;
+                            return;
+                        }
+                    }
+                    this.hideSearch = false;
+                    this.showTable = true;
                 })
+
                 .catch(error => {
                     console.error('', error);
                 });
             },
             searchData(stringData){
                 if (!stringData) return; 
-                this.sampletableData = {};
-                for (let item of this.tableData) {
-                    if (item.document_number === stringData) {
-                        this.sampletableData = { ...item };
-                        this.hideSearch = false;
-                        this.showTable = true;
-                        return;
-                    }
-                }
-
-
-                this.hideSearch = false;
-                this.showTable = true;
-
+                this.fetchData(stringData)
             },
             handleRowTrackingData(data){
                 console.log(data)
@@ -104,9 +89,6 @@
                 console.log(attachments);
                 return attachments && attachments.length > 0; // Return true if attachments is not null and not empty
             }
-        },
-        created() {
-            this.fetchData(); 
         }
     }
 </script>

@@ -36,39 +36,40 @@
                 try {
                     this.showValidation = {};
                     this.border = {};
-
-                    Object.keys(this.signupData).forEach(key => {
-                        const value = this.signupData[key];
-                        if (typeof value === 'string') {
-                            if (value.trim() === '') {
-                                toast('Some fields are empty '+key, 'warning', 4000);
-                                this.showValidation[key] = true;
-                                this.border[key] = true;
-
-                            } else if (key === 'email' && !ValidationService.emailValidator(value)) {
-                                toast('Invalid email, please Input valid email', 'warning');
-                                this.showValidation[key] = true; 
-                                this.border[key] = true; 
-                            }
-                        }
-                    });
-
-
-                    if (Object.keys(this.showValidation).length > 0) {
-                        return;
-                    }
-
+                    
                     await PublicUserApiService.register(this.signupData).then(items => {
-                        for (let key in this.signupData) {
-                            this.signupData[key] = '';
+                        if(items.type === 'error'){
+                            toast(items.text, items.type);
+                            console.log(items.data.errors)
+                            // Object.keys(items.data)
+                            // this.showValidation[field] = true;
+                            // this.border[field] = true;
+                        }else{
+                            for (let key in this.signupData) {
+                                this.signupData[key] = '';
+                            }
+                            this.municipalityQuery = ''
+                            this.officeQuery = ''
+
+                            toast(items.text, items.type);
                         }
-                        this.municipalityQuery = ''
-                        this.officeQuery = ''
-                        toast(items.text, items.type);
 
                     })
                     .catch(error => {
-                        console.error('', error);
+                        const errorMessages = error.response.data.errors;
+
+                        const hasValidationErrors = ValidationService.validateFormWithApiErrors(this.signupData, error.response.data);
+
+                        if (hasValidationErrors) {
+                            toast(error.response.data.message, 'warning', 3500);
+                            for (const field in errorMessages) {
+                                if (errorMessages.hasOwnProperty(field)) {
+                                    // const errorMessage = errorMessages[field][0];                                 
+                                    this.showValidation[field] = true;
+                                    this.border[field] = true;
+                                }
+                            }
+                        }
                     });
                     
                 } catch (error) {

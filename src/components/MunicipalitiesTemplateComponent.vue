@@ -19,25 +19,16 @@ export default {
   },
   created() {
     const uuid = this.$route.params.uuid;
-    this.fetchData(uuid);
+    this.fetchData();
   },
   methods: {
-    async fetchData(uuid) {
+    async fetchData() {
       try {
         // Fetch all municipalities
         const data = await MunicipalitiesApiService.fetch();
-        
-        // Assign the fetched data to 'municipalities' and keep the original list
+
         this.municipalities = data;
         
-        // Find the municipality with the matching UUID
-        const foundMunicipality = data.find(municipality => municipality.uuid === uuid);
-        
-        if (foundMunicipality) {
-          this.municipalityDetails = foundMunicipality;
-        } else {
-          console.error('Municipality not found for UUID:', uuid);
-        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }

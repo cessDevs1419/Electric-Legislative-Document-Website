@@ -137,8 +137,8 @@ export default {
                 <div class="d-flex align-item-center justify-content-between flex-wrap">
                     <label class="col-form-label">Filter By</label>
                         <div class="dropdown rounded-0">
-                            <button @click="toggleTypeQuery" data-bs-toggle="dropdown" aria-expanded="false"  class="dropdown-btn btn text-dark border d-flex align-items-center justify-content-between  rounded-0 " type="button" >
-                                {{ typeQuery ? typeQuery : 'Type' }} <i v-if="typeQuery" class="bi bi-x"></i> <i v-if="!typeQuery" class="bi bi-caret-down"></i>
+                            <button @click="toggleTypeQuery" data-bs-toggle="dropdown" aria-expanded="false"  class="text-nowrap text-truncate dropdown-btn btn text-dark border d-flex align-items-center justify-content-between  rounded-0 " type="button" >
+                               <p class="text-nowrap text-truncate m-0">{{ typeQuery ? typeQuery : 'Type' }}</p>  <i v-if="typeQuery" class="bi bi-x"></i> <i v-if="!typeQuery" class="bi bi-caret-down"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in type" :key="index"  @click="getType(items.name)">
@@ -152,8 +152,8 @@ export default {
                 <div class="d-flex align-item-center justify-content-between flex-wrap">
                     <label class="col-form-label">Category</label>
                         <div class="dropdown rounded-0">
-                            <button @click="toggleCategoryQuery" data-bs-toggle="dropdown" aria-expanded="false"  class="dropdown-btn btn text-dark border d-flex align-items-center justify-content-between  rounded-0 " type="button" >
-                                {{ categoryQuery ? categoryQuery : 'Category' }} <i v-if="categoryQuery" class="bi bi-x"></i> <i v-if="!categoryQuery" class="bi bi-caret-down"></i>
+                            <button @click="toggleCategoryQuery" data-bs-toggle="dropdown" aria-expanded="false"  class="text-nowrap text-truncate dropdown-btn btn text-dark border d-flex align-items-center justify-content-between  rounded-0 " type="button" >
+                                <p class="text-nowrap text-truncate m-0">{{ categoryQuery ? categoryQuery : 'Category' }}</p>  <i v-if="categoryQuery" class="bi bi-x"></i> <i v-if="!categoryQuery" class="bi bi-caret-down"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in category" :key="index"  @click="getCategory(items.name)">
@@ -167,8 +167,8 @@ export default {
                 <div class="d-flex align-item-center justify-content-between flex-wrap">
                     <label class="col-form-label">Bayan</label>
                         <div class="dropdown rounded-0">
-                            <button @click="toggleBayanQuery" data-bs-toggle="dropdown" aria-expanded="false"  class="dropdown-btn btn text-dark border d-flex align-items-center justify-content-between  rounded-0 " type="button" >
-                                {{ bayanQuery ? bayanQuery : 'Bayan' }} <i v-if="bayanQuery" class="bi bi-x"></i> <i v-if="!bayanQuery" class="bi bi-caret-down"></i>
+                            <button @click="toggleBayanQuery" data-bs-toggle="dropdown" aria-expanded="false"  class="text-nowrap text-truncate dropdown-btn btn text-dark border d-flex align-items-center justify-content-between  rounded-0 " type="button" >
+                                <p class="text-nowrap text-truncate m-0">{{ bayanQuery ? bayanQuery : 'Bayan' }}</p> <i v-if="bayanQuery" class="bi bi-x"></i> <i v-if="!bayanQuery" class="bi bi-caret-down"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in bayan" :key="index"  @click="getBayan(items.name)">

@@ -1,3 +1,5 @@
+import {toast} from '@/toast'
+
 export default class ValidationService {
     static fieldEmptyChecker(form) {
         let isEmpty = false;
@@ -7,6 +9,20 @@ export default class ValidationService {
             }
         });
         return isEmpty;
+    }
+
+    static async validateFormWithApiErrors(form, errorResponse) {
+        const errors = errorResponse.errors;
+        const errorKeys = Object.keys(errors);
+        const validationResults = {};
+
+        for (const key of errorKeys) {
+            if (form.hasOwnProperty(key)) {
+                validationResults[key] = true;
+            }
+        }
+
+        return Object.keys(validationResults).length === 0;
     }
 
     static emailValidator(email) {

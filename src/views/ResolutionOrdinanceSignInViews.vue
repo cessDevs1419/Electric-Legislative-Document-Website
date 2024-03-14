@@ -2,8 +2,9 @@
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import { RouterLink } from 'vue-router';
-    import AuthApiService from '@/services/AuthApiService.js'; 
+    import PublicUserApiService from '@/services/PublicUserApiService';
     import ValidationService from '@/services/ValidationService';
+    import {toast} from '@/toast'
 </script>
 <script>
     export default {
@@ -31,6 +32,7 @@
                         if (this.signinData[key].trim() === '') {
                             this.showValidation[key] = true;
                             this.border[key] = true;
+                            toast(key+' is required', 'warning');
                         } else if (key === 'email' && !ValidationService.emailValidator(this.signinData[key])) {
                             this.showValidation[key] = true; 
                             this.border[key] = true; 
@@ -38,11 +40,24 @@
                     });
 
                     if (Object.keys(this.showValidation).length > 0) {
-                    return;
+                        return;
                     }
 
-                    // await AuthApiService.login(this.signinData);
-                    console.log('Sign-in successful');
+                    await PublicUserApiService.login(this.signinData).then(items => {
+                        if(items.type === 'error'){
+                            toast(items.text, items.type);
+                        }else{
+                            for (let key in this.signinData) {
+                                this.signinData[key] = '';
+                            }
+
+                            toast(items.text, items.type);
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+
                 } catch (error) {
                     console.error('Sign-in failed:', error);
                 }

@@ -67,6 +67,7 @@
         watch: {
             searchQuery: function(newSearchQuery) {
                 if (newSearchQuery) {
+                    console.log()
                     this.search();
                 }
             }
@@ -114,14 +115,11 @@
         </div>
         <div class="table-body p-4 pt-0" :class="{'px-2':!this.standalone}">
             <ul class="w-100 border list-unstyled d-flex ">
-                <li class="primary-bg ps-2 text-white fw-semibold py-3 m-auto w-100 text-center" >
-                    No
-                </li>
                 <li class="primary-bg text-white fw-semibold py-3 m-auto w-100 text-center" v-for="(item, index) in header" :key="index">
                     {{ item }}
                 </li>
             </ul>
-            <div class="accordion mt-0" id="accordionExample">
+            <div class="accordion mt-0" id="accordionExample" v-if="data['logs'] && data['logs'].length !== 0">
                 <div v-for="(items, index) in data['logs']" :key="index" class=" accordion-item rounded-0 border-top-0 border-end-0 border-start-0" >
                     <button class="btn border border-0 w-100" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse'+index" aria-expanded="false" aria-controls="collapseOne">
                         <ul class="w-100 list-unstyled d-flex ">
@@ -129,10 +127,10 @@
                                 {{ index }}
                             </li>
                             <li class="py-2 m-auto w-100" v-for="(row, index) in rows" :key="index">
-                                <template v-if="header[2].toLowerCase() === row">
+                                <template v-if="header[3].toLowerCase() === row">
                                     {{ getDate(items[row]) }}
                                 </template>
-                                <template v-else-if="header[3].toLowerCase()  === row">
+                                <template v-else-if="header[4].toLowerCase()  === row">
                                     {{ getTime(items['date'])  }}
                                 </template>
                                 <template v-else>
@@ -194,6 +192,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="w-100 h-100 text-center grey-font" v-else>
+                <h1>No Current Logs</h1>
             </div>
         </div>
 

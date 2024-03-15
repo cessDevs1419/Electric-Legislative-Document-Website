@@ -19,6 +19,7 @@ import NewESubmissionViewsVue from '@/views/NewESubmissionViews.vue';
 import SpecifiedOrdinanceView from '@/views/SpecifiedOrdinanceView.vue'
 import SpecifiedNewsView from '@/views/SpecifiedNewsView.vue'
 import OrdersByCategoryViews from '@/views/OrdersByCategoryViews.vue'
+import ResolutionOrdinanceSubmissionViews from '@/views/ResolutionOrdinanceSubmissionViews.vue'
 
 
 const router = createRouter({
@@ -94,21 +95,20 @@ const router = createRouter({
           component: OnlineTrackingViewsVue,
         },
         {
-          path:'new-submission',
-          component: NewESubmissionViewsVue,
-        },
-        {
-          path: 'resolution/ordinance-esubmission/',
+          path: 'resolution',
           children: [
             {
-              path: 'sign-in',
-              component: ResolutionOrdinanceSignInViews
+              path: 'ordinance-esubmission',
+              component: ResolutionOrdinanceSubmissionViews,
+              meta: { requiresAuth: true }
             },
             {
-              path: 'sign-up',
-              component: ResolutionOrdinanceSignUpViews
-            }
+              path: 'new-submission',
+              component: NewESubmissionViewsVue,
+              meta: { requiresAuth: true }
+            },
           ]
+          
         }
         
       ],
@@ -156,6 +156,16 @@ const router = createRouter({
       name: 'contact-us',
       component: ContactViewsVue
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: ResolutionOrdinanceSignInViews
+    },
+    {
+      path: '/sign-up',
+      name: 'sign-up',
+      component: ResolutionOrdinanceSignUpViews
+    }
 
   ],
   scrollBehavior(to, from, savedPosition) {
@@ -166,5 +176,32 @@ const router = createRouter({
   }
   },
 })
+
+router.beforeEach((to, from, next) => {
+  const authToken = localStorage.getItem('authToken');
+  const authTime = localStorage.getItem('authTime');
+  const currentTime = new Date().getTime();
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!authToken || currentTime > authTime) { 
+      next('/login');
+    } else {
+      next();
+    }
+  } else {
+    next(); 
+  }
+});
+
+router.afterEach((to, from) => {
+  const authToken = localStorage.getItem('authToken');
+  const authTime = localStorage.getItem('authTime');
+  const currentTime = new Date().getTime();
+
+  if (to.path === '/login' && authToken && currentTime <= authTime) {
+    router.push(from.path);
+  }
+});
+
 
 export default router

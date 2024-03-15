@@ -133,7 +133,7 @@
 
                     </div>
                     <div class="footer z-1 w-100 px-2 px-md-5  position-absolute bottom-0 pb-5">
-                        <p class="m-0">Already have an account? <router-link to="/legislative/resolution/ordinance-esubmission/sign-in" class="secondary-font text-decoration-none">Sign In</router-link> here.</p>
+                        <p class="m-0">Already have an account? <router-link to="/login" class="secondary-font text-decoration-none">Sign In</router-link> here.</p>
                     </div>
 
                     <div class="blob w-100 h-100 position-absolute top-0 start-0">

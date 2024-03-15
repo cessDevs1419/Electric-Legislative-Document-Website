@@ -37,24 +37,29 @@ const PublicUserApiService = {
     },
     async login(data) {
         try {
-            
-            const response = await axios.post(
-                POSTLogin, 
-                data, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                }
-            });
-            
-            const authToken = response.data.token;
-            localStorage.setItem('authToken', authToken);
-    
-            return response.data;
+          const response = await axios.post(
+            POSTLogin, 
+            data, {
+              headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+              }
+            }
+          );
+      
+          const authToken = response.data.data.token;
+          const authTime = response.data.data.token_expiration_in_minutes;
+          const currentTime = new Date().getTime();
+          const expirationTime = currentTime + (authTime * 60 * 1000); 
+      
+          localStorage.setItem('authToken', authToken);
+          localStorage.setItem('authTime', expirationTime); 
+          return response.data;
         } catch (error) {
-            throw error;
+          throw error;
         }
-    },
+      },
+      
     async forgotPassword(data) {
         try {
             

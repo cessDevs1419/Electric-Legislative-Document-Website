@@ -5,6 +5,8 @@
     import PublicUserApiService from '@/services/PublicUserApiService';
     import ValidationService from '@/services/ValidationService';
     import {toast} from '@/toast'
+    import router from '@/router';
+
 </script>
 <script>
     export default {
@@ -47,11 +49,16 @@
                         if(items.type === 'error'){
                             toast(items.text, items.type);
                         }else{
-                            for (let key in this.signinData) {
-                                this.signinData[key] = '';
-                            }
+                            
+                            if(items.data.token){
+                                for (let key in this.signinData) {
+                                    this.signinData[key] = '';
+                                }
+                                toast(items.text, items.type);
+                                router.push('/legislative/resolution/ordinance-esubmission');
+                            }else{
 
-                            toast(items.text, items.type);
+                            }  
                         }
                     })
                     .catch(error => {
@@ -96,7 +103,7 @@
                         <div class="footer w-100 text-center mt-5 mb-5">
                             <button class="btn text-white w-100 py-3 px-4 primary-bg rounded-0" type="submit">SIGN IN</button>
                             <p class="mt-3 mb-0">Forgot your password?</p>
-                            <p class="m-0">Don't have an account? <router-link to="/legislative/resolution/ordinance-esubmission/sign-up" class="secondary-font text-decoration-none" href="">Sign Up</router-link> here.</p>
+                            <p class="m-0">Don't have an account? <router-link to="/sign-up" class="secondary-font text-decoration-none" href="">Sign Up</router-link> here.</p>
                         </div>
                     </form>
                 </div>

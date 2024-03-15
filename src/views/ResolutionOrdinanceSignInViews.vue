@@ -7,6 +7,7 @@
     import {toast} from '@/toast'
     import router from '@/router';
 
+
 </script>
 <script>
     export default {
@@ -48,8 +49,7 @@
                     await PublicUserApiService.login(this.signinData).then(items => {
                         if(items.type === 'error'){
                             toast(items.text, items.type);
-                        }else{
-                            
+                        }else{   
                             if(items.data.token){
                                 for (let key in this.signinData) {
                                     this.signinData[key] = '';
@@ -59,6 +59,13 @@
                             }else{
 
                             }  
+
+                            for (let key in this.signinData) {
+                                this.signinData[key] = '';
+                            }
+
+                            toast(items.text, items.type);
+
                         }
                     })
                     .catch(error => {

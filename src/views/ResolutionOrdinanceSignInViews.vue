@@ -57,15 +57,8 @@
                                 toast(items.text, items.type);
                                 router.push('/legislative/resolution/ordinance-esubmission');
                             }else{
-
+                                return
                             }  
-
-                            for (let key in this.signinData) {
-                                this.signinData[key] = '';
-                            }
-
-                            toast(items.text, items.type);
-
                         }
                     })
                     .catch(error => {

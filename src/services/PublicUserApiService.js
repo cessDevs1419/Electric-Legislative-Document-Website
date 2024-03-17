@@ -4,11 +4,9 @@ const PublicUserApiService = {
     authToken: localStorage.getItem('authToken'),
     async getAuthUser() {
         try {
-            const authToken = localStorage.getItem('authToken');
-
             const response = await axios.get(GETCurrentAuthUser, {
                 headers: {
-                    "Authorization": `Bearer ${authToken}`,
+                    "Authorization": `Bearer ${this.authToken}`,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }
@@ -101,7 +99,7 @@ const PublicUserApiService = {
                 POSTLogout, 
                 data, {
                 headers: {
-                    "Authorization": `Bearer ${authToken}` ,
+                    "Authorization": `Bearer ${this.authToken}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }

@@ -90,7 +90,7 @@
                     <h4 class="d-flex align-items-center fw-bold"><span class="vertical-line"></span>Document Overview</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body border">
+                <div class="modal-body">
 
                     <div class="d-flex flex-wrap justify-content-between align-items-start w-100 m-auto mb-4 ">
                         <div class="mt-0 mx-0 mx-lg-0 px-2">

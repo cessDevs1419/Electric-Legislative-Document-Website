@@ -29,19 +29,22 @@
         </li>
 
         <!-- Attachment column -->
-        <li class="py-3 m-auto w-25 text-center">
-          <!-- Display attachment icons based on type -->
-          <i
-            v-for="attachment in attachments"
-            :key="attachment.attachmentName"
-            :class="iconClass(attachment.attachmentType)"
-          ></i>
-        </li>
+        <div class="py-3 m-auto w-25 text-center d-flex justify-content-center">
+          <div>
+            <i
+              v-for="(attachment, index) in req.attachments"
+              :key="index"
+              :class="iconClass(attachment.attachmentType)"
+              style="font-size: 24px"
+            ></i>
+          </div>
+        </div>
 
         <!-- Action column with upload button -->
         <li class="py-3 m-auto w-25 text-center d-flex justify-content-center">
+          <!-- Upload Icon (Always Visible) -->
           <div
-            class="view-btn action-btns primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+            class="action-btns primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
             @click="triggerFileInput(index)"
           >
             <input
@@ -53,6 +56,28 @@
             />
             <i class="bi bi-cloud-arrow-up text-white"></i>
           </div>
+
+          <!-- Other Icons (Conditionally Displayed) -->
+          <template v-if="req.attachments && req.attachments.length > 0">
+            <div
+              class="action-btns secondary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              @click="viewAttachments(req.attachments)"
+            >
+              <i class="bi bi-eye text-white"></i>
+            </div>
+            <div
+              class="action-btns primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              @click="downloadAttachments(req.attachments)"
+            >
+              <i class="bi bi-download text-white"></i>
+            </div>
+            <div
+              class="action-btns red-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              @click="removeAttachments(req.id)"
+            >
+              <i class="bi bi-x-lg text-white"></i>
+            </div>
+          </template>
         </li>
       </ul>
 
@@ -60,6 +85,7 @@
       <p v-if="requirements.length === 0" class="text-center mt-3">
         No requirements to display.
       </p>
+      <!-- <p>{{ this.requirements }}</p> -->
     </div>
   </div>
 </template>
@@ -71,7 +97,6 @@ export default {
   data() {
     return {
       tableHeader: ["No", "Name", "Attachment", "Action"],
-      attachments: [], // Array to store uploaded files
     };
   },
   props: {
@@ -85,7 +110,7 @@ export default {
       const input = this.$refs.fileInput[index];
       input.click();
     },
-    handleFileUpload(event, id, name) {
+    handleFileUpload(event, requirementId) {
       const files = event.target.files;
 
       for (let i = 0; i < files.length; i++) {
@@ -107,23 +132,26 @@ export default {
           attachmentType = "other";
         }
 
-        // Push file details to the attachments array
-        this.attachments.push({
+        // Create a new attachment object for this file
+        const newAttachment = {
           attachmentType: attachmentType,
           attachmentName: file.name,
-        });
+        };
+
+        // Find the specific requirement by its ID
+        const requirement = this.requirements.find(
+          (req) => req.id === requirementId
+        );
+        if (requirement) {
+          if (!requirement.attachments) {
+            requirement.attachments = []; // Create attachments array if it doesn't exist
+          }
+          requirement.attachments.push(newAttachment);
+        }
       }
 
-      // Create the requirements object with the provided id and name
-      const requirement = {
-        id: id,
-        name: name,
-        attachments: this.attachments,
-      };
-
       console.log("Uploaded files:", files);
-      console.log("Requirement:", requirement);
-      console.log("Attachments:", this.attachments);
+      console.log("Requirements with attachments:", this.requirements);
       // Do something with the requirement object, such as sending it to a server, etc.
     },
     iconClass(attachmentType) {
@@ -144,6 +172,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .action-btns {
   height: 36px;

@@ -6,6 +6,9 @@
   import sample_news_img from '@/assets/images/sample_news_img.jpg';
   import sample_vid from '@/assets/images/sample_vid.mp4';
   import OrderofBusinessApiService from '@/services/OrderofBusinessApiService';
+  import PublicUserApiService from '@/services/PublicUserApiService';
+  import router from '@/router';
+
 </script>
 
 <template >
@@ -79,6 +82,29 @@
             </li>
             <li class="nav-item mx-1">
               <router-link  class="nav-link text-white" to="/contact-us">Contact Us</router-link>
+            </li>
+            <li class="nav-item dropdown-center mx-1" data-bs-theme="light" v-if="authToken">
+              <a class="nav-link dropdown-toggle text-white" class-active="active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Settings
+              </a>
+              <ul class="dropdown-menu rounded-0">
+                <!-- <li class="">
+                  <router-link  class="dropdown-item my-2 d-flex align-items-center " to="/reset-password">
+                     <i class="bi bi-arrow-repeat me-3"></i> 
+                     <p class="m-0">
+                      Change Password
+                     </p>
+                  </router-link>
+                </li> -->
+                <li class="d-flex align-items-center cursor-pointer" @click="logout">
+                  <p  class="dropdown-item my-2 d-flex align-items-center " to="/reset-password">
+                    <i class="bi bi-box-arrow-left me-3"></i>
+                    <p class="m-0">
+                       Logout
+                    </p>
+                   </p>
+                </li>
+              </ul>	
             </li>
           </ul>
         </div>
@@ -283,6 +309,7 @@
     data() {
       return {
         isScrolled: false,
+        authToken: PublicUserApiService.authToken,
         OrderOfBusiness: [
               ],
         News: [
@@ -322,6 +349,19 @@
           console.error('', error);
         });
       }, 
+      async logout() {
+        try {
+
+          await PublicUserApiService.logout();
+					
+					localStorage.removeItem('authToken');
+        	localStorage.removeItem('authTime');
+					router.push('/login');
+
+          } catch (error) {
+          console.error('logout failed:', error);
+          }
+        },
 
     },
     created() {

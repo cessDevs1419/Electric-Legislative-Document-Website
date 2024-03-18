@@ -81,7 +81,19 @@
                         toast(items.text, items.type);
                     })
                     .catch(error => {
-                        console.log(error)
+                        const errorMessages = error.response.data.errors;
+
+                        const hasValidationErrors = ValidationService.validateFormWithApiErrors(this.signinData, error.response.data);
+
+                        if (hasValidationErrors) {
+                            toast(error.response.data.message, 'warning', 3500);
+                            for (const field in errorMessages) {
+                                if (errorMessages.hasOwnProperty(field)) {                               
+                                    this.showValidation[field] = true;
+                                    this.border[field] = true;
+                                }
+                            }
+                        }
                     });
 
                 } catch (error) {

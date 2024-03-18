@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GETDocumentApi ,GETOnlineTrackingSearchApi, POSTDocumentApi } from "./Endpoint"
+import { GETDocumentApi ,GETOnlineTrackingSearchApi, POSTDocumentApi, GETMyDocument } from "./Endpoint"
 
 const DocumentApiService = {
     authToken: localStorage.getItem('authToken'),
@@ -22,6 +22,20 @@ const DocumentApiService = {
             const response = await axios.get(GETOnlineTrackingSearchApi, {
                 headers: {
                     Authorization: `Bearer ${this.authToken}`,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    async fetchMyDocument() {
+        try {
+            const response = await axios.get(GETMyDocument, {
+                headers: {
+                    Authorization: `Bearer ${this.authToken}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }

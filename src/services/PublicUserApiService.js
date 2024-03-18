@@ -93,7 +93,6 @@ const PublicUserApiService = {
     },
     async logout() {
         try {
-            console.log(this.authToken);
             const response = await axios.post(
                 POSTLogout,
                 {},

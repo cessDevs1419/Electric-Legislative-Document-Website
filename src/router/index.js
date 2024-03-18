@@ -191,7 +191,7 @@ router.beforeEach((to, from, next) => {
 
  
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!authToken || currentTime > 1) { 
+    if (!authToken || currentTime > authTime) { 
       next('/login');
     } else {
       console.log(currentTime, authTime)
@@ -207,7 +207,7 @@ router.afterEach((to, from) => {
   const authTime = localStorage.getItem('authTime');
   const currentTime = new Date().getTime();
 
-  if (to.path === '/login' && authToken && currentTime <= 1) {
+  if (to.path === '/login' && authToken && currentTime <= authTime) {
     router.push(from.path);
   }
 });

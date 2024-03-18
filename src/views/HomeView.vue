@@ -112,7 +112,7 @@
   </nav>
 
   <!-- Hero Section -->
-  <div class="hero w-100 vh-100">
+  <div class="hero w-100 ">
         <div class="nav-container container-fluid d-flex align-items-center text-center justify-content-center">
           <div class="row w-100 m-auto h-100 align-item-center justify-content-center"  >
               <!-- <i class="bi bi-4-circle" style="font-size: 15rem; vertical-align: middle; max-height: 20rem;"></i> -->
@@ -386,6 +386,7 @@
     background-image: linear-gradient(rgba(66, 103, 178, 0.8), rgba(66, 103, 178, 0.8)), url('../assets/images/Hero-Bg.png');
     background-size: cover;
     background-position: center;
+    height: 100vh;
   }
 
   .navbar{
@@ -466,4 +467,11 @@
       margin-top: -5rem;
     }
 }
+
+@media screen and (max-height: 840px) {
+  .hero {
+    height: 100%;
+  }
+}
+
 </style>

@@ -14,14 +14,12 @@
         data() {
             return{
                 showInput: false,
-                showValidation: {},
-                border: {},
-                token: '',
-                email: '',
                 signinData: {
                     email: '',
                     password: '',
                 },
+                showValidation: {},
+                border: {}
             }
         },
         methods: {
@@ -104,7 +102,7 @@
 
                         <div class="footer w-100 text-center mt-5 mb-5">
                             <button class="btn text-white w-100 py-3 px-4 primary-bg rounded-0" type="submit">SIGN IN</button>
-                            <p class="mt-3 mb-2"><router-link :to="'/reset-password/'+token+'/email=/'+email" class="secondary-font text-decoration-none" >Forgot your password?</router-link></p>
+                            <p class="mt-3 mb-0">Forgot your password?</p>
                             <p class="m-0">Don't have an account? <router-link to="/sign-up" class="secondary-font text-decoration-none" href="">Sign Up</router-link> here.</p>
                         </div>
                     </form>

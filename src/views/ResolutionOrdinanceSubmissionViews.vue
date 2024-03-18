@@ -3,6 +3,7 @@
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import OnlineTrackingTableComponent from '@/components/OnlineTrackingTableComponent.vue';
     import PublicUserApiService from '@/services/PublicUserApiService';
+    import EmptySubmissionComponent from '@/components/EmptySubmissionComponent.vue';
 
 </script>
 <script>
@@ -53,14 +54,7 @@
                 this.fetchData(this.searchQuery)
             },
             fetchData(){
-                // PublicUserApiService.getAuthUser().then(items => {
-                //     this.tableData = [];
-                //     console.log(items)
-                // })
 
-                // .catch(error => {
-                //     console.error('', error);
-                // });
             },
             openPdf(file) {
                 window.open(file, '_blank');
@@ -81,6 +75,7 @@
     <div class="spacer"></div>
         <TemplateContainer class="d-flex align-item-center mb-5">
             <OnlineTrackingTableComponent 
+                v-if="tableData && tableData.length > 0"
                 :header="tableHeader"
                 :data="tableData"
                 :detailsheader="detailsHeader"
@@ -90,8 +85,11 @@
                 :standalone="true"
             >
 
-            </OnlineTrackingTableComponent>
-    </TemplateContainer>
+            </OnlineTrackingTableComponent >
+            <EmptySubmissionComponent v-else>
+
+            </EmptySubmissionComponent>
+        </TemplateContainer>
 
 </template>
 

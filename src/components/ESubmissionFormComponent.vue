@@ -102,7 +102,7 @@ export default {
 
 <template>
   <TemplateContainer>
-    <div class="">
+    <div class="tertiary-bg p-4">
       <div class="title">
         <h3 class="fw-bold m-0">E-Submission Form</h3>
         <p class="text-danger m-0">
@@ -219,15 +219,15 @@ export default {
           Docs, JPG, JPEG and PNG. Must be less than 10MB )
         </p>
         <!-- <div>
-      <p v-if="selectedRequirements.length > 0">
-        Selected Requirements:
-        <ul>
-          <li v-for="(req, index) in selectedRequirements" :key="index">{{ req }}</li>
-        </ul>
-      </p>
-      <p v-else>
-        No requirements selected.
-      </p>
+            <p v-if="selectedRequirements.length > 0">
+                Selected Requirements:
+                <ul>
+                <li v-for="(req, index) in selectedRequirements" :key="index">{{ req }}</li>
+                </ul>
+            </p>
+            <p v-else>
+                No requirements selected.
+            </p>
         </div> -->
         <ESubmissionTableComponentVue
           :requirements="this.selectedRequirements"

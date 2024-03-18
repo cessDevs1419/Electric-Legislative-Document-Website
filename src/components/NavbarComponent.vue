@@ -69,11 +69,56 @@
 					<li class="nav-item mx-1">
 						<router-link  class="nav-link text-white" to="/contact-us">Contact Us</router-link>
 					</li>
+					<li class="nav-item dropdown-center mx-1" data-bs-theme="light" v-if="authToken">
+						<a class="nav-link dropdown-toggle text-white" class-active="active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						  Settings
+						</a>
+						<ul class="dropdown-menu rounded-0">
+						  <li class="d-flex align-items-center cursor-pointer" @click="logout">
+							<p  class="dropdown-item my-2 d-flex align-items-center " to="/reset-password">
+							  <i class="bi bi-box-arrow-left me-3"></i>
+							  <p class="m-0">
+								 Logout
+							  </p>
+							 </p>
+						  </li>
+						</ul>	
+					</li>
 				</ul>
         	</div>
         </div>
     </nav>
 </template>
+
+<script>
+    import PublicUserApiService from '@/services/PublicUserApiService';
+    import router from '@/router';
+
+	export default {
+		data () {
+			return {
+				authToken: PublicUserApiService.getAuthToken()
+			}
+		},
+		methods: {
+			async logout() {
+                try {
+
+                    await PublicUserApiService.logout();
+					
+					localStorage.removeItem('authToken');
+        			localStorage.removeItem('authTime');
+					router.push('/login');
+
+
+                } catch (error) {
+                    console.error('logout failed:', error);
+                }
+            },
+		},
+
+	}
+</script>
 <style scoped>
 	.nav-container{
 		min-height: 100px;

@@ -20,6 +20,7 @@ import SpecifiedOrdinanceView from '@/views/SpecifiedOrdinanceView.vue'
 import SpecifiedNewsView from '@/views/SpecifiedNewsView.vue'
 import OrdersByCategoryViews from '@/views/OrdersByCategoryViews.vue'
 import ResolutionOrdinanceSubmissionViews from '@/views/ResolutionOrdinanceSubmissionViews.vue'
+import ResolutionOrdinanceResetPassword from '@/views/ResolutionOrdinanceResetPassword.vue'
 
 
 const router = createRouter({
@@ -165,7 +166,13 @@ const router = createRouter({
       path: '/sign-up',
       name: 'sign-up',
       component: ResolutionOrdinanceSignUpViews
-    }
+    },
+    {
+      path: '/reset-password/:token',
+      name: 'reset-password',
+      component: ResolutionOrdinanceResetPassword,
+      props: true
+    },
 
   ],
   scrollBehavior(to, from, savedPosition) {
@@ -182,10 +189,12 @@ router.beforeEach((to, from, next) => {
   const authTime = localStorage.getItem('authTime');
   const currentTime = new Date().getTime();
 
+ 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!authToken || currentTime > authTime) { 
       next('/login');
     } else {
+      console.log(currentTime, authTime)
       next();
     }
   } else {

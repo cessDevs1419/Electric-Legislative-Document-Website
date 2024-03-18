@@ -1,12 +1,14 @@
 import axios from "axios";
 import { GETCurrentAuthUser, POSTLogin, POSTRegister, POSTForgotPassword, POSTResetPassword, POSTLogout } from "./Endpoint";
 const PublicUserApiService = {
-    authToken: localStorage.getItem('authToken'),
+    getAuthToken() {
+        return localStorage.getItem('authToken');
+    },
     async getAuthUser() {
         try {
             const response = await axios.get(GETCurrentAuthUser, {
                 headers: {
-                    "Authorization": `Bearer ${this.authToken}`,
+                    "Authorization": `Bearer ${this.getAuthToken()}`,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }
@@ -56,8 +58,7 @@ const PublicUserApiService = {
         } catch (error) {
           throw error;
         }
-      },
-      
+    },  
     async forgotPassword(data) {
         try {
             
@@ -94,22 +95,24 @@ const PublicUserApiService = {
     },
     async logout() {
         try {
-            
             const response = await axios.post(
-                POSTLogout, 
-                data, {
-                headers: {
-                    "Authorization": `Bearer ${this.authToken}` ,
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
+                POSTLogout,
+                {},
+                {
+                    headers: {
+                        "Authorization": `Bearer ${this.getAuthToken()}`,
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    }
                 }
-            });
-            
+            );
+
             return response.data;
         } catch (error) {
             throw error;
         }
-    },
+    }
+    
 };
 
 export default PublicUserApiService;

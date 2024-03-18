@@ -5,6 +5,8 @@ import DocumentTypeApiService from "@/services/DocumentTypeApiService";
 import CategoryApiService from "@/services/CategoryApiService";
 import PublicUserApiService from "@/services/PublicUserApiService";
 import OfficeApiService from "@/services/OfficeApiService";
+import DocumentRequirementApiService from "@/services/DocumentRequirementApiService";
+import ESubmissionTableComponentVue from './ESubmissionTableComponent.vue';
 </script>
 
 <script>
@@ -17,10 +19,33 @@ export default {
       fileType: [],
       bayan: [],
       office: [],
+      requirements: [],
+      selectedType: null,
+      selectedRequirements: [],
       currentYear: new Date().getFullYear().toString(),
     };
   },
+  watch: {
+    selectedType: {
+      handler(newValue) {
+        this.displayRequirements(newValue);
+      },
+      immediate: true // Call the handler immediately on component load
+    }
+  },
   methods: {
+    displayRequirements(typeId) {
+      const selectedItem = this.fileType.find(type => type.id === typeId);
+      if (selectedItem) {
+        // Map each requirement to an object with id and name
+        this.selectedRequirements = selectedItem.requirements.map(req => ({
+          id: req.id,
+          name: req.requirement_name
+        }));
+      } else {
+        this.selectedRequirements = [];
+      }
+    },
     fetchData() {
       CategoryApiService.fetch()
         .then((data) => {
@@ -37,6 +62,14 @@ export default {
         })
         .catch((error) => {
           console.error("Error fetching Office:", error);
+        });
+      DocumentRequirementApiService.fetch()
+        .then((data) => {
+          this.requirements = [];
+          this.requirements.push(...data);
+        })
+        .catch((error) => {
+          console.error("Error fetching Requirements :", error);
         });
       DocumentTypeApiService.fetch()
         .then((data) => {
@@ -82,7 +115,8 @@ export default {
             <label class="form-label">Type</label>
             <select
               class="form-select p-2 bg-transparent rounded-0"
-              aria-label="Default select example"
+              v-model="selectedType"
+              @change="displayRequirements"
             >
               <option disabled value="">Select Document Type</option>
               <option
@@ -184,6 +218,18 @@ export default {
           ( Only files with the following extensions are allowed : PDV, Excel,
           Docs, JPG, JPEG and PNG. Must be less than 10MB )
         </p>
+        <div>
+      <p v-if="selectedRequirements.length > 0">
+        Selected Requirements:
+        <ul>
+          <li v-for="(req, index) in selectedRequirements" :key="index">{{ req }}</li>
+        </ul>
+      </p>
+      <p v-else>
+        No requirements selected.
+      </p>
+      <ESubmissionTableComponentVue :requirements="this.selectedRequirements"></ESubmissionTableComponentVue>
+    </div>
       </div>
     </div>
   </TemplateContainer>

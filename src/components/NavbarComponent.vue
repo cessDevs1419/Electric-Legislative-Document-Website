@@ -97,7 +97,7 @@
 	export default {
 		data () {
 			return {
-				authToken: PublicUserApiService.authToken
+				authToken: PublicUserApiService.getAuthToken()
 			}
 		},
 		methods: {

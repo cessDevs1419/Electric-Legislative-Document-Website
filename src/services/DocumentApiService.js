@@ -1,13 +1,14 @@
 import axios from "axios";
 import { GETDocumentApi ,GETOnlineTrackingSearchApi, POSTDocumentApi, GETMyDocument } from "./Endpoint"
+import PublicUserApiService from "./PublicUserApiService";
 
 const DocumentApiService = {
-    authToken: localStorage.getItem('authToken'),
+
     async fetch() {
         try {
             const response = await axios.get(GETDocumentApi, {
                 headers: {
-                    Authorization: `Bearer ${this.authToken}` ,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }
@@ -21,7 +22,7 @@ const DocumentApiService = {
         try {
             const response = await axios.get(GETOnlineTrackingSearchApi, {
                 headers: {
-                    Authorization: `Bearer ${this.authToken}`,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}`,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }
@@ -35,7 +36,7 @@ const DocumentApiService = {
         try {
             const response = await axios.get(GETMyDocument, {
                 headers: {
-                    Authorization: `Bearer ${this.authToken}` ,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }
@@ -51,7 +52,7 @@ const DocumentApiService = {
                 POSTDocumentApi, 
                 data, {
                 headers: {
-                    "Authorization": `Bearer ${this.authToken}` ,
+                    "Authorization": `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }

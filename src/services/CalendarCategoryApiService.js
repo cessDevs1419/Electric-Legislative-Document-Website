@@ -1,14 +1,13 @@
 import axios from "axios";
 import { GETCalendarCategoryApi } from "./Endpoint"
+import PublicUserApiService from "./PublicUserApiService";
 
 const CalendarCategoryApiService = {
     async fetch() {
         try {
-            const authToken = localStorage.getItem('authToken');
-
             const response = await axios.get(GETCalendarCategoryApi, {
                 headers: {
-                    Authorization: `Bearer ${authToken}`,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}`,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }

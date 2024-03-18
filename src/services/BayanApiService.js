@@ -1,14 +1,14 @@
 import axios from "axios";
 import { GETBayanApi } from "./Endpoint"
+import PublicUserApiService from "./PublicUserApiService";
 
 const BayanApiService = {
     async fetch() {
         try {
-            const authToken = localStorage.getItem('authToken');
 
             const response = await axios.get(GETBayanApi, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` ,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json", 
                 }

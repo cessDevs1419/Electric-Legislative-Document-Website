@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GETOrderOfBusiness, GETOrderOfBusinessCategory, GET20thSPMembers, GETHotlines } from "./Endpoint"
+import PublicUserApiService from "./PublicUserApiService";
 
 const OrderofBusinessApiService = {
     async fetchOrderOfBusiness() {
@@ -8,7 +9,7 @@ const OrderofBusinessApiService = {
 
             const response = await axios.get(GETOrderOfBusiness, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` ,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json", 
                 }
@@ -24,7 +25,7 @@ const OrderofBusinessApiService = {
 
             const response = await axios.get(GETOrderOfBusinessCategory, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` ,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json", 
                 }
@@ -40,7 +41,7 @@ const OrderofBusinessApiService = {
 
             const response = await axios.get(GET20thSPMembers, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` ,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json", 
                 }
@@ -56,7 +57,7 @@ const OrderofBusinessApiService = {
 
             const response = await axios.get(GETHotlines, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` ,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json", 
                 }

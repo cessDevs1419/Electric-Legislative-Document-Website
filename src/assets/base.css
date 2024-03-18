@@ -8,6 +8,8 @@
   --blue-divider: #22609F;
   --container-lb: #F2F3F9;
   --placeholder: #8E8E8E;
+  --disabled-field-bg: #D9D9D9;
+  --red-bg: #E5252A;
 
   /* Calendar Event Type Colors */
   --event-type-one: #D8E4F0;

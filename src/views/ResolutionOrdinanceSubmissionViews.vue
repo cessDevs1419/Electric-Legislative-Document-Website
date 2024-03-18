@@ -1,10 +1,12 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
-    import OnlineTrackingTemplateComponent from '@/components/OnlineTrackingTemplateComponent.vue'
     import OnlineTrackingTableComponent from '@/components/OnlineTrackingTableComponent.vue';
-    import ESubmissionFormComponent from '@/components/ESubmissionFormComponent.vue';
+    import PublicUserApiService from '@/services/PublicUserApiService';
+    import EmptySubmissionComponent from '@/components/EmptySubmissionComponent.vue';
+    import TableComponent from '@/components/TableComponent.vue';
     import DocumentApiService from '@/services/DocumentApiService';
+    import OnlineTrackingTemplateComponent from '@/components/OnlineTrackingTemplateComponent.vue';
 
 </script>
 <script>
@@ -12,31 +14,35 @@
         data(){
             return {
                 tableHeader: [
+                    'Type',
+                    'Bayan', 
+                    'Title', 
+                    'Year',
+                    'Category',
+                    'PDF',
+                ],
+                tableRows: [
+                    'type_name',
+                    'bayan_name',
+                    'title',
+                    'year',
+                    'category_name',
+                    'attachments',
+                ],
+                detailsHeader: [
                     'No',
                     'Process', 
                     'Title', 
                     'Date',
                     'Time',
                 ],
-                tableRows: [
+                detailsRows: [
                     'process_name',
                     'title',
                     'date',
                     'time',
                 ],
-                detailsHeader: [
-                    'Field name', 
-                    'Old Value', 
-                    'New Value',
-                    'Remarks',
-                ],
-                detailsRows: [
-                    'name',
-                    'old_value',
-                    'new_value',
-                    'remarks',
-                ],
-                sampletableData: {},
+                tableData: [],
                 rowData: Object,
                 rowTrackingData: Object,
                 showModalTable: false,
@@ -46,48 +52,31 @@
             }
         },
         methods: {
-            handleRowData(data){
-                this.rowData = data
-                this.showModalTable = true
+            getRowData(item){
+                this.rowData = {}
+                this.rowData = item
+                this.showTable = true
             },
-            handleSearchQuery(){
-                if (!this.searchQuery) return; 
-                this.fetchData(this.searchQuery)
-            },
-            fetchData(stringData){
-                DocumentApiService.fetchOnlineTrackingDocument().then(items => {
-                    this.sampletableData = {};
-                    for (let item of items) {
-                        if (item.document_number === stringData) {
-                            this.sampletableData = { ...item };
-                            this.hideSearch = false;
-                            this.showTable = true;
-                            return;
-                        }
-                    }
-                    this.hideSearch = false;
-                    this.showTable = true;
+            fetchData(){
+                DocumentApiService.fetchMyDocument()
+                .then(data => {
+                    this.tableData = []
+                    this.tableData.push(...data);
                 })
-
                 .catch(error => {
-                    console.error('', error);
-                });
-            },
-            searchData(stringData){
-                if (!stringData) return; 
-                this.fetchData(stringData)
-            },
-            handleRowTrackingData(data){
-                console.log(data)
-                this.rowTrackingData = data
+                    console.error('Error fetching document:', error);
+                });  
             },
             openPdf(file) {
                 window.open(file, '_blank');
             },
             checkIfNotNull(attachments) {
                 console.log(attachments);
-                return attachments && attachments.length > 0; // Return true if attachments is not null and not empty
+                return attachments && attachments.length > 0; 
             }
+        },
+        created(){
+            this.fetchData()
         }
     }
 </script>
@@ -95,20 +84,47 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-        <TemplateContainer class="d-flex align-item-center mb-5 py-5">
+        <TemplateContainer class="d-flex align-item-center mb-5">
             <OnlineTrackingTableComponent 
-                :header="tableHeader"
-                :data="sampletableData"
-                :detailsheader="detailsHeader"
-                :detailsrows="detailsRows"
-                :rows="tableRows"
-                :searchbar="true"
-                :standalone="true"
+                v-if="tableData && tableData.length !== 0"
             >
+                <TableComponent
+                    v-if="tableData && tableData.length > 0"
+                    :header="tableHeader"
+                    :data="tableData"
+                    :rows="tableRows"
+                    :standalone="true"
+                    @row-click-data="getRowData"
+                ></TableComponent>
+            </OnlineTrackingTableComponent >
 
-            </OnlineTrackingTableComponent>
-    </TemplateContainer>
+            <EmptySubmissionComponent v-else>
 
+            </EmptySubmissionComponent>
+        </TemplateContainer>
+
+        <div class="modal fade" id="tableModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content rounded-0 p-2">
+                    <div class="modal-header d-flex align-item-center border-0">
+                        <h4 class="d-flex align-items-center fw-bold"><span class="vertical-line"></span>Document Logs</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-0">
+    
+                        <OnlineTrackingTemplateComponent 
+                            v-if="showTable"
+                            :header="detailsHeader"
+                            :data="rowData"
+                            :rows="detailsRows"
+                            :standalone="false"
+                        >
+                
+                        </OnlineTrackingTemplateComponent>
+                    </div>
+                </div>
+            </div>
+        </div>
 </template>
 
 <style scoped>

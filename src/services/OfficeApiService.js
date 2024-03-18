@@ -1,5 +1,7 @@
 import axios from "axios";
 import { GETOfficeApi } from "./Endpoint"
+import PublicUserApiService from "./PublicUserApiService";
+
 
 const OfficeApiService = {
     async fetch() {
@@ -8,7 +10,7 @@ const OfficeApiService = {
 
             const response = await axios.get(GETOfficeApi, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` ,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }

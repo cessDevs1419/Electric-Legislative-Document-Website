@@ -13,23 +13,18 @@
         props: {
             header: {
                 type: Array,
-                required: true
             },
             rows: {
                 type: Array,
-                required: true
             },
             data: {
                 type: Object,
-                required: true
             },
             detailsheader: {
                 type: Array,
-                required: true
             },
             detailsrows: {
                 type: Array,
-                required: true
             },
             searchbar: Boolean,
             standalone: Boolean,
@@ -206,7 +201,7 @@
         max-width: fit-content;
     }
     .table-body{
-        min-width: 1200px;
+        min-width: 1000px;
         width: 100%;
     }
 

@@ -33,6 +33,10 @@
   background-color: #FFB0E9;
 }
 
+.red-bg {
+  background-color: var(--red-bg);
+}
+
 .event-type-six{
   background-color: var(--secondary-color);
 }
@@ -82,6 +86,10 @@
 
 .tertiary-divider{
   border-color: var(--primary-color);
+}
+
+.disabled-bg {
+  background-color: var(--disabled-field-bg);
 }
 
 .box-shadow{

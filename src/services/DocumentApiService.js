@@ -1,15 +1,14 @@
 import axios from "axios";
-import { GETDocumentApi ,GETOnlineTrackingSearchApi, POSTDocumentApi } from "./Endpoint"
+import { GETDocumentApi ,GETOnlineTrackingSearchApi, POSTDocumentApi, GETMyDocument } from "./Endpoint"
+import PublicUserApiService from "./PublicUserApiService";
 
 const DocumentApiService = {
-    authToken: localStorage.getItem('authToken'),
+
     async fetch() {
         try {
-            const authToken = localStorage.getItem('authToken');
-
             const response = await axios.get(GETDocumentApi, {
                 headers: {
-                    Authorization: `Bearer ${authToken}` ,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }
@@ -21,11 +20,23 @@ const DocumentApiService = {
     },
     async fetchOnlineTrackingDocument(){
         try {
-            const authToken = localStorage.getItem('authToken');
-
             const response = await axios.get(GETOnlineTrackingSearchApi, {
                 headers: {
-                    Authorization: `Bearer ${authToken}`,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}`,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    async fetchMyDocument() {
+        try {
+            const response = await axios.get(GETMyDocument, {
+                headers: {
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }
@@ -37,12 +48,11 @@ const DocumentApiService = {
     },
     async submitDocument(data) {
         try {
-            
             const response = await axios.post(
                 POSTDocumentApi, 
                 data, {
                 headers: {
-                    "Authorization": `Bearer ${authToken}` ,
+                    "Authorization": `Bearer ${PublicUserApiService.getAuthToken()}` ,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }

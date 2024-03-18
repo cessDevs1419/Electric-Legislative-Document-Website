@@ -18,6 +18,7 @@ export const GET20thSPMembers = url + 'api/order-of-the-business/20th-sp-member'
 export const GETHotlines = url + 'api/order-of-the-business/hotline'
 
 export const GETCurrentAuthUser = url + 'api/me'
+export const GETMyDocument = url + 'api/document/my-submission'
 export const POSTRegister = url + 'api/register'
 export const POSTLogin = url + 'api/login'
 export const POSTForgotPassword = url + 'api/forgot-password'

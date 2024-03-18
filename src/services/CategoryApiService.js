@@ -1,14 +1,14 @@
 import axios from "axios";
 import { GETDocumentCategoryApi } from "./Endpoint"
+import PublicUserApiService from "./PublicUserApiService";
+
 
 const CategoryApiService = {
     async fetch() {
         try {
-            const authToken = localStorage.getItem('authToken');
-
             const response = await axios.get(GETDocumentCategoryApi, {
                 headers: {
-                    Authorization: `Bearer ${authToken}`,
+                    Authorization: `Bearer ${PublicUserApiService.getAuthToken()}`,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }

@@ -6,6 +6,9 @@
   import sample_news_img from '@/assets/images/sample_news_img.jpg';
   import sample_vid from '@/assets/images/sample_vid.mp4';
   import OrderofBusinessApiService from '@/services/OrderofBusinessApiService';
+  import PublicUserApiService from '@/services/PublicUserApiService';
+  import router from '@/router';
+
 </script>
 
 <template >
@@ -80,13 +83,36 @@
             <li class="nav-item mx-1">
               <router-link  class="nav-link text-white" to="/contact-us">Contact Us</router-link>
             </li>
+            <li class="nav-item dropdown-center mx-1" data-bs-theme="light" v-if="authToken">
+              <a class="nav-link dropdown-toggle text-white" class-active="active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Settings
+              </a>
+              <ul class="dropdown-menu rounded-0">
+                <!-- <li class="">
+                  <router-link  class="dropdown-item my-2 d-flex align-items-center " to="/reset-password">
+                     <i class="bi bi-arrow-repeat me-3"></i> 
+                     <p class="m-0">
+                      Change Password
+                     </p>
+                  </router-link>
+                </li> -->
+                <li class="d-flex align-items-center cursor-pointer" @click="logout">
+                  <p  class="dropdown-item my-2 d-flex align-items-center " to="/reset-password">
+                    <i class="bi bi-box-arrow-left me-3"></i>
+                    <p class="m-0">
+                       Logout
+                    </p>
+                   </p>
+                </li>
+              </ul>	
+            </li>
           </ul>
         </div>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <div class="hero w-100 vh-100">
+  <div class="hero w-100 ">
         <div class="nav-container container-fluid d-flex align-items-center text-center justify-content-center">
           <div class="row w-100 m-auto h-100 align-item-center justify-content-center"  >
               <!-- <i class="bi bi-4-circle" style="font-size: 15rem; vertical-align: middle; max-height: 20rem;"></i> -->
@@ -283,6 +309,7 @@
     data() {
       return {
         isScrolled: false,
+        authToken: PublicUserApiService.getAuthToken(),
         OrderOfBusiness: [
               ],
         News: [
@@ -322,6 +349,19 @@
           console.error('', error);
         });
       }, 
+      async logout() {
+        try {
+
+          await PublicUserApiService.logout();
+					
+					localStorage.removeItem('authToken');
+        	localStorage.removeItem('authTime');
+					router.push('/login');
+
+          } catch (error) {
+          console.error('logout failed:', error);
+          }
+        },
 
     },
     created() {
@@ -346,6 +386,7 @@
     background-image: linear-gradient(rgba(66, 103, 178, 0.8), rgba(66, 103, 178, 0.8)), url('../assets/images/Hero-Bg.png');
     background-size: cover;
     background-position: center;
+    height: 100vh;
   }
 
   .navbar{
@@ -426,4 +467,11 @@
       margin-top: -5rem;
     }
 }
+
+@media screen and (max-height: 840px) {
+  .hero {
+    height: 100%;
+  }
+}
+
 </style>

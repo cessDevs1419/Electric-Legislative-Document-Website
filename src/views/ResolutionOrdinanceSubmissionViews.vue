@@ -42,7 +42,9 @@
                     'date',
                     'time',
                 ],
-                tableData: [],
+                tableData: [
+
+                ],
                 rowData: Object,
                 rowTrackingData: Object,
                 showModalTable: false,
@@ -89,7 +91,6 @@
                 v-if="tableData && tableData.length !== 0"
             >
                 <TableComponent
-                    v-if="tableData && tableData.length > 0"
                     :header="tableHeader"
                     :data="tableData"
                     :rows="tableRows"

@@ -65,6 +65,9 @@ export default {
                     console.error('Error fetching categories:', error);
                 });  
         }, 
+        getCategory(name){
+            this.categoryQuery = name;
+        },
         reset() {
             this.searchQuery = '';
             this.typeQuery = '';

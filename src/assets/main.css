@@ -33,6 +33,10 @@
   background-color: #FFB0E9;
 }
 
+.red-bg {
+  background-color: var(--red-bg);
+}
+
 .event-type-six{
   background-color: var(--secondary-color);
 }

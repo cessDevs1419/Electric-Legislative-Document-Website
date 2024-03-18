@@ -194,7 +194,6 @@ router.beforeEach((to, from, next) => {
     if (!authToken || currentTime > authTime) { 
       next('/login');
     } else {
-      console.log(currentTime, authTime)
       next();
     }
   } else {

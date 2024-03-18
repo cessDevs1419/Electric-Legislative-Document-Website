@@ -14,7 +14,6 @@ export default {
             category: [],
             type: [],
             typedropdownOpen: false,
-            
         };
     },
     props: {
@@ -29,6 +28,9 @@ export default {
         rows: {
             type: Array,
             required: true
+        },
+        standalone: {
+            type: Boolean,
         }
     },
     methods: {
@@ -117,8 +119,8 @@ export default {
 
 
 <template>
-<div class="table-container box-shadow  px-4">
-    <div class="table-header p-4">
+<div class="table-container " :class="{'box-shadow  px-4': !standalone}">
+    <div class="table-header py-4 px-2">
         <div class="row w-100 m-auto mb-3 mb-xl-0">
             <div class="col-md-6 ">
                 <div class="input-group mb-3">
@@ -181,7 +183,7 @@ export default {
             </div>
         </div>
     </div>
-    <div class="table-body pb-4 overflow-auto mx-4 pt-0">
+    <div class="table-body pb-4 overflow-auto mx-3 pt-0">
         <table class="table w-100">
             <thead>
                 <tr >

@@ -168,7 +168,7 @@ const router = createRouter({
       component: ResolutionOrdinanceSignUpViews
     },
     {
-      path: '/reset-password/:token/email=/:email',
+      path: '/reset-password/:token',
       name: 'reset-password',
       component: ResolutionOrdinanceResetPassword,
       props: true
@@ -191,7 +191,7 @@ router.beforeEach((to, from, next) => {
 
  
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!authToken || currentTime > authTime) { 
+    if (!authToken || currentTime > 1) { 
       next('/login');
     } else {
       console.log(currentTime, authTime)
@@ -207,7 +207,7 @@ router.afterEach((to, from) => {
   const authTime = localStorage.getItem('authTime');
   const currentTime = new Date().getTime();
 
-  if (to.path === '/login' && authToken && currentTime <= authTime) {
+  if (to.path === '/login' && authToken && currentTime <= 1) {
     router.push(from.path);
   }
 });

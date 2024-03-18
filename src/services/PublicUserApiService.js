@@ -56,8 +56,7 @@ const PublicUserApiService = {
         } catch (error) {
           throw error;
         }
-      },
-      
+    },  
     async forgotPassword(data) {
         try {
             
@@ -94,22 +93,25 @@ const PublicUserApiService = {
     },
     async logout() {
         try {
-            
+            console.log(this.authToken);
             const response = await axios.post(
-                POSTLogout, 
-                data, {
-                headers: {
-                    "Authorization": `Bearer ${this.authToken}` ,
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
+                POSTLogout,
+                {},
+                {
+                    headers: {
+                        "Authorization": `Bearer ${this.authToken}`,
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    }
                 }
-            });
-            
+            );
+
             return response.data;
         } catch (error) {
             throw error;
         }
-    },
+    }
+    
 };
 
 export default PublicUserApiService;

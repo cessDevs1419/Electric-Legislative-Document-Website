@@ -22,6 +22,9 @@
                     email: '',
                     password: '',
                 },
+                forgotData: {
+                    email: '',
+                },
             }
         },
         methods: {
@@ -71,6 +74,20 @@
                     console.error('Sign-in failed:', error);
                 }
             },
+            async getResetLink(){
+                
+                try {
+                    await PublicUserApiService.forgotPassword(this.signinData).then(items => {
+                        toast(items.text, items.type);
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+
+                } catch (error) {
+                    console.error('Sign-in failed:', error);
+                }
+            }
         }
     }
 </script>
@@ -104,7 +121,7 @@
 
                         <div class="footer w-100 text-center mt-5 mb-5">
                             <button class="btn text-white w-100 py-3 px-4 primary-bg rounded-0" type="submit">SIGN IN</button>
-                            <p class="mt-3 mb-2"><router-link :to="'/reset-password/'+token+'/email=/'+email" class="secondary-font text-decoration-none" >Forgot your password?</router-link></p>
+                            <p class="mt-3 mb-2 secondary-font cursor-pointer" @click="getResetLink">Forgot your password?</p>
                             <p class="m-0">Don't have an account? <router-link to="/sign-up" class="secondary-font text-decoration-none" href="">Sign Up</router-link> here.</p>
                         </div>
                     </form>

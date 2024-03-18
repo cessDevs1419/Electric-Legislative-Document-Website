@@ -309,7 +309,7 @@
     data() {
       return {
         isScrolled: false,
-        authToken: PublicUserApiService.authToken,
+        authToken: PublicUserApiService.getAuthToken(),
         OrderOfBusiness: [
               ],
         News: [

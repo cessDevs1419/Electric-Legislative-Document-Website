@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       tableHeader: ["No", "Name", "Attachment", "Action"],
+      inputNumber: "",
       category: [],
       fileType: [],
       bayan: [],
@@ -53,6 +54,12 @@ export default {
           console.error("Error fetching bayan:", error);
         });
     },
+    validateNumericInput(event) {
+      const charCode = event.which ? event.which : event.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        event.preventDefault();
+      }
+    },
   },
   created() {
     this.fetchData();
@@ -92,9 +99,10 @@ export default {
           <div class="mb-3">
             <label class="form-label">Number</label>
             <input
-              type="number"
+              type="text"
               class="form-control bg-transparent p-2 rounded-0"
-              placeholder=""
+              v-model="userInput"
+              @keypress="validateNumericInput"
             />
           </div>
         </div>

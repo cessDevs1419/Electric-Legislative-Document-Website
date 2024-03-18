@@ -42,8 +42,9 @@
 
         <!-- Action column with upload button -->
         <li class="py-3 m-auto w-25 text-center d-flex justify-content-center">
+          <!-- Upload Icon (Always Visible) -->
           <div
-            class="view-btn action-btns primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+            class="action-btns primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
             @click="triggerFileInput(index)"
           >
             <input
@@ -55,6 +56,28 @@
             />
             <i class="bi bi-cloud-arrow-up text-white"></i>
           </div>
+
+          <!-- Other Icons (Conditionally Displayed) -->
+          <template v-if="req.attachments && req.attachments.length > 0">
+            <div
+              class="action-btns secondary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              @click="viewAttachments(req.attachments)"
+            >
+              <i class="bi bi-eye text-white"></i>
+            </div>
+            <div
+              class="action-btns primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              @click="downloadAttachments(req.attachments)"
+            >
+              <i class="bi bi-download text-white"></i>
+            </div>
+            <div
+              class="action-btns red-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              @click="removeAttachments(req.id)"
+            >
+              <i class="bi bi-x-lg text-white"></i>
+            </div>
+          </template>
         </li>
       </ul>
 
@@ -62,6 +85,7 @@
       <p v-if="requirements.length === 0" class="text-center mt-3">
         No requirements to display.
       </p>
+      <!-- <p>{{ this.requirements }}</p> -->
     </div>
   </div>
 </template>

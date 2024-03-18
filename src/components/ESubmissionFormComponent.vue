@@ -1,6 +1,42 @@
-<script>
+<script setup>
     import TemplateContainer from './TemplateContainer.vue';
+    import OnlineTrackingTableComponent from './OnlineTrackingTableComponent.vue';
+    import DocumentTypeApiService from '@/services/DocumentTypeApiService';
+    import CategoryApiService from '@/services/CategoryApiService';
 </script>
+
+<script>
+export default {
+    data() {
+        return{
+            tableHeader: [
+                'No',
+                'Name', 
+                'Attachment', 
+                'Action',
+            ],
+            category: [],
+            fileType: [],
+        }
+    },
+    methods: {
+            fetchData(){
+                CategoryApiService.fetch()
+                .then(data => {
+                    this.category = []
+                    this.category.push(...data);
+                })
+                .catch(error => {
+                    console.error('Error fetching categories:', error);
+                });    
+            }, 
+        },
+        created() {
+            this.fetchData(); 
+        }
+}
+</script>
+
 <template>
     <TemplateContainer>
         <div class="form p-4">
@@ -12,11 +48,9 @@
                 <div class="col-lg-4">
                     <div class="mb-3">
                         <label class="form-label">Type</label>
-                        <select class="form-select p-2 bg-transparent rounded-0" aria-label="Default select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select p-2 bg-transparent rounded-0" aria-label="Default select example" v-model="selectedCategory">
+                            <option disabled value="">Select a Category</option>
+                            <option v-for="(cat, index) in category" :key="index" :value="cat.id">{{ cat.name }}</option>
                         </select>
                     </div>
                 </div>

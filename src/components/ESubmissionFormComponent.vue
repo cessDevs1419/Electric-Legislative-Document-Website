@@ -6,7 +6,7 @@ import CategoryApiService from "@/services/CategoryApiService";
 import PublicUserApiService from "@/services/PublicUserApiService";
 import OfficeApiService from "@/services/OfficeApiService";
 import DocumentRequirementApiService from "@/services/DocumentRequirementApiService";
-import ESubmissionTableComponentVue from './ESubmissionTableComponent.vue';
+import ESubmissionTableComponentVue from "./ESubmissionTableComponent.vue";
 </script>
 
 <script>
@@ -30,17 +30,17 @@ export default {
       handler(newValue) {
         this.displayRequirements(newValue);
       },
-      immediate: true // Call the handler immediately on component load
-    }
+      immediate: true, // Call the handler immediately on component load
+    },
   },
   methods: {
     displayRequirements(typeId) {
-      const selectedItem = this.fileType.find(type => type.id === typeId);
+      const selectedItem = this.fileType.find((type) => type.id === typeId);
       if (selectedItem) {
         // Map each requirement to an object with id and name
-        this.selectedRequirements = selectedItem.requirements.map(req => ({
+        this.selectedRequirements = selectedItem.requirements.map((req) => ({
           id: req.id,
-          name: req.requirement_name
+          name: req.requirement_name,
         }));
       } else {
         this.selectedRequirements = [];
@@ -102,7 +102,7 @@ export default {
 
 <template>
   <TemplateContainer>
-    <div class="form p-4">
+    <div class="">
       <div class="title">
         <h3 class="fw-bold m-0">E-Submission Form</h3>
         <p class="text-danger m-0">
@@ -218,7 +218,7 @@ export default {
           ( Only files with the following extensions are allowed : PDV, Excel,
           Docs, JPG, JPEG and PNG. Must be less than 10MB )
         </p>
-        <div>
+        <!-- <div>
       <p v-if="selectedRequirements.length > 0">
         Selected Requirements:
         <ul>
@@ -228,8 +228,10 @@ export default {
       <p v-else>
         No requirements selected.
       </p>
-      <ESubmissionTableComponentVue :requirements="this.selectedRequirements"></ESubmissionTableComponentVue>
-    </div>
+        </div> -->
+        <ESubmissionTableComponentVue
+          :requirements="this.selectedRequirements"
+        ></ESubmissionTableComponentVue>
       </div>
     </div>
   </TemplateContainer>

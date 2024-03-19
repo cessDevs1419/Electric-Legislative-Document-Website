@@ -127,7 +127,6 @@
                         </div>
                         <div class="footer w-100 text-center mt-5 mb-5">
                             <button class="btn text-white w-100 py-3 px-4 primary-bg rounded-0 mb-3" type="submit">SUBMIT</button>
-                            <p class="m-0">Don't have an account? <router-link to="/sign-up" class="secondary-font text-decoration-none" href="">Sign Up</router-link> here.</p>
                         </div>
                     </form>
                 </div>

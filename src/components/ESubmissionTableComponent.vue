@@ -44,7 +44,7 @@
         <li class="py-3 m-auto w-25 text-center d-flex justify-content-center">
           <!-- Upload Icon (Always Visible) -->
           <div
-            class="action-btns primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+            class="action-btns cursor-pointer primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
             @click="triggerFileInput(index)"
           >
             <input
@@ -60,19 +60,19 @@
           <!-- Other Icons (Conditionally Displayed) -->
           <template v-if="req.files && req.files.length > 0">
             <div
-              class="action-btns secondary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              class="action-btns cursor-pointer secondary-bg w-100 d-flex justify-content-center align-items-center mx-1"
               @click="viewAttachments(req.attachments)"
             >
               <i class="bi bi-eye text-white"></i>
             </div>
             <div
-              class="action-btns primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              class="action-btns cursor-pointer primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
               @click="downloadAttachments(req.files)"
             >
               <i class="bi bi-download text-white"></i>
             </div>
             <div
-              class="action-btns red-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              class="action-btns cursor-pointer red-bg w-100 d-flex justify-content-center align-items-center mx-1"
               @click="removeAttachments(req.id)"
             >
               <i class="bi bi-x-lg text-white"></i>
@@ -87,6 +87,44 @@
       </p>
       <p>{{ this.requirements }}</p>
       <p id="fileList"></p>
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target=".bd-example-modal-lg"
+      >
+        Large modal
+      </button>
+
+      <div
+        class="modal fade bd-example-modal-lg"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="myLargeModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                Attachments
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div
+              class="modalItems d-flex display-row justify-content-center align-items-center pt-5"
+            >
+              <div id="imageContainer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -159,7 +197,32 @@ export default {
 
       console.log("Uploaded files:", uploadedFiles);
       console.log("Requirements with files:", this.requirements);
+
+      this.displayImages(uploadedFiles);
     },
+    displayImages(uploadedFiles) {
+      const imageContainer = document.getElementById("imageContainer");
+      if (imageContainer) {
+        // Clear previous images
+        imageContainer.innerHTML = "";
+
+        // Iterate through uploaded files
+        uploadedFiles.forEach((file) => {
+          if (file.fileType === "image") {
+            // Create an img element
+            const imgElement = document.createElement("img");
+            imgElement.src = URL.createObjectURL(file.file);
+            imgElement.alt = file.fileName;
+            imgElement.classList.add("uploaded-image");
+
+            // Append the img element to the image container
+            imageContainer.appendChild(imgElement);
+          }
+        });
+      }
+    },
+
+    viewAttachments() {},
 
     downloadAttachments(files) {
       const zip = new JSZip();
@@ -175,8 +238,17 @@ export default {
       zip.generateAsync({ type: "blob" }).then(function (content) {
         // Create a temporary link element
         const link = document.createElement("a");
+
+        // Get current date and time
+        const currentDate = new Date();
+        const formattedDate = currentDate
+          .toISOString()
+          .replace(/[-T:.]/g, "")
+          .slice(0, -5);
+
         link.href = URL.createObjectURL(content);
-        link.download = "all_files.zip";
+        link.download =
+          "files" + formattedDate + currentDate.getMilliseconds() + ".zip";
 
         // Append the link to the body
         document.body.appendChild(link);
@@ -230,5 +302,15 @@ export default {
   height: 36px;
   max-width: 36px;
   max-height: 36px;
+}
+
+.uploaded-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 </style>

@@ -128,11 +128,9 @@ export default {
         } else if (["doc", "docx"].includes(extension)) {
           attachmentType = "docx";
         } else {
-          // Handle other file types if needed
           attachmentType = "other";
         }
 
-        // Create a new attachment object for this file
         const newAttachment = {
           attachmentType: attachmentType,
           attachmentName: file.name,
@@ -153,6 +151,21 @@ export default {
       console.log("Uploaded files:", files);
       console.log("Requirements with attachments:", this.requirements);
       // Do something with the requirement object, such as sending it to a server, etc.
+    },
+    removeAttachments(requirementId) {
+      // Find the specific requirement by its ID
+      const requirement = this.requirements.find(
+        (req) => req.id === requirementId
+      );
+
+      if (requirement && requirement.attachments) {
+        // Remove all attachments for this requirement
+        requirement.attachments = [];
+        console.log("Attachments removed from requirement:", requirementId);
+        console.log("Updated requirements:", this.requirements);
+      } else {
+        console.error("Unable to remove attachments.");
+      }
     },
     iconClass(attachmentType) {
       // Return the appropriate icon class based on attachmentType

@@ -7,6 +7,7 @@ import PublicUserApiService from "@/services/PublicUserApiService";
 import OfficeApiService from "@/services/OfficeApiService";
 import DocumentRequirementApiService from "@/services/DocumentRequirementApiService";
 import ESubmissionTableComponentVue from "./ESubmissionTableComponent.vue";
+import DocumentApiService from "@/services/DocumentApiService";
 </script>
 
 <script>
@@ -22,15 +23,30 @@ export default {
       requirements: [],
       selectedType: null,
       selectedRequirements: [],
+      formValue: {
+        type_id: 0,
+        category_id: 0,
+        bayan_id: 0,
+        office_id: 0,
+        no: 0,
+        year: new Date().getFullYear(),
+        pages: 0,
+        title: "",
+      },
       currentYear: new Date().getFullYear().toString(),
     };
   },
   watch: {
-    selectedType: {
+    "formValue.type_id": {
       handler(newValue) {
         this.displayRequirements(newValue);
       },
       immediate: true, // Call the handler immediately on component load
+    },
+    "formValue.category_id": function (newCategoryId, oldCategoryId) {
+      // Do something when the category ID changes
+      console.log("New Category ID:", newCategoryId);
+      console.log("Old Category ID:", oldCategoryId);
     },
   },
   methods: {
@@ -71,6 +87,14 @@ export default {
         .catch((error) => {
           console.error("Error fetching Requirements :", error);
         });
+      DocumentApiService.fetch()
+        .then((data) => {
+          this.requirements = [];
+          this.requirements.push(...data);
+        })
+        .catch((error) => {
+          console.error("Error submitting :", error);
+        });
       DocumentTypeApiService.fetch()
         .then((data) => {
           this.fileType = [];
@@ -82,6 +106,7 @@ export default {
       PublicUserApiService.getAuthUser()
         .then((data) => {
           this.bayan = data;
+          this.formValue.bayan_id = this.bayan.municipality_id;
         })
         .catch((error) => {
           console.error("Error fetching bayan:", error);
@@ -97,6 +122,7 @@ export default {
   created() {
     this.fetchData();
   },
+  mounted() {},
 };
 </script>
 
@@ -110,12 +136,12 @@ export default {
         </p>
       </div>
       <div class="row w-100 m-auto mt-4">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <div class="mb-3">
             <label class="form-label">Type</label>
             <select
               class="form-select p-2 bg-transparent rounded-0"
-              v-model="selectedType"
+              v-model="formValue.type_id"
               @change="displayRequirements"
             >
               <option disabled value="">Select Document Type</option>
@@ -129,18 +155,18 @@ export default {
             </select>
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <div class="mb-3">
             <label class="form-label">Number</label>
             <input
               type="text"
               class="form-control bg-transparent p-2 rounded-0"
-              v-model="userInput"
+              v-model="formValue.no"
               @keypress="validateNumericInput"
             />
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <div class="mb-3">
             <label class="form-label">Year</label>
             <input
@@ -151,6 +177,17 @@ export default {
             />
           </div>
         </div>
+        <div class="col-lg-3">
+          <div class="mb-3">
+            <label class="form-label">Pages</label>
+            <input
+              type="text"
+              class="form-control bg-transparent p-2 rounded-0"
+              v-model="formValue.pages"
+              @keypress="validateNumericInput"
+            />
+          </div>
+        </div>
       </div>
       <div class="row w-100 m-auto">
         <div class="col">
@@ -158,6 +195,7 @@ export default {
             <label class="form-label">Title</label>
             <textarea
               class="form-control bg-transparent p-2 rounded-0"
+              v-model="formValue.title"
               rows="3"
             ></textarea>
           </div>
@@ -169,6 +207,7 @@ export default {
             <label class="form-label">Category</label>
             <select
               class="form-select p-2 bg-transparent rounded-0"
+              v-model="formValue.category_id"
               aria-label="Default select example"
             >
               <option disabled value="">Select a Category</option>
@@ -184,7 +223,7 @@ export default {
         </div>
         <div class="col-lg-4">
           <div class="mb-3">
-            <label class="form-label">Bayan</label>
+            <label class="form-label">Municipality</label>
             <input
               type="text"
               class="form-control disabled-bg grey-font p-2 rounded-0"
@@ -198,6 +237,7 @@ export default {
             <label class="form-label">Office</label>
             <select
               class="form-select p-2 bg-transparent rounded-0"
+              v-model="formValue.office_id"
               aria-label="Default select example"
             >
               <option disabled value="">Select a Office</option>
@@ -218,26 +258,34 @@ export default {
           ( Only files with the following extensions are allowed : PDV, Excel,
           Docs, JPG, JPEG and PNG. Must be less than 10MB )
         </p>
-        <!-- <div>
-            <p v-if="selectedRequirements.length > 0">
-                Selected Requirements:
-                <ul>
-                <li v-for="(req, index) in selectedRequirements" :key="index">{{ req }}</li>
-                </ul>
-            </p>
-            <p v-else>
-                No requirements selected.
-            </p>
-        </div> -->
+
         <ESubmissionTableComponentVue
           :requirements="this.selectedRequirements"
         ></ESubmissionTableComponentVue>
+        <div class="btn-group">
+          <div
+            class="btn-cancel cursor-pointer primary-bg text-white px-3 py-2 me-2"
+          >
+            <p class="mb-0">Cancel</p>
+          </div>
+          <div
+            class="btn-submit cursor-pointer primary-bg text-white px-3 py-2"
+          >
+            <p class="mb-0">Submit</p>
+          </div>
+        </div>
+        <p>{{ this.formValue }} {{ this.bayan }}</p>
+        <p>{{ this.selectedRequirements }}</p>
       </div>
     </div>
   </TemplateContainer>
 </template>
 
 <style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .form {
   background: #f2f3f9;
 }

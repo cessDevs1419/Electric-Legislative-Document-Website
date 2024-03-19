@@ -19,6 +19,8 @@
     "bootstrap-icons": "^1.11.3",
     "bootstrap-vue": "^2.23.1",
     "dompurify": "^3.0.9",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.1",
     "mosha-vue-toastify": "^1.0.23",
     "pinia": "^2.1.7",
     "vue": "^3.4.15",

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GETCurrentAuthUser, POSTLogin, POSTRegister, POSTForgotPassword, POSTResetPassword, POSTLogout } from "./Endpoint";
+import { GETCurrentAuthUser, POSTLogin, POSTRegister, POSTForgotPassword, POSTResetPassword, POSTLogout, POSTProfileUpdate, POSTPasswordUpdate } from "./Endpoint";
 const PublicUserApiService = {
     getAuthToken() {
         return localStorage.getItem('authToken');
@@ -83,6 +83,42 @@ const PublicUserApiService = {
                 POSTResetPassword, 
                 data, {
                 headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            });
+            
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    async updateProfile(data) {
+        try {
+            
+            const response = await axios.post(
+                POSTProfileUpdate, 
+                data, {
+                headers: {
+                    "Authorization": `Bearer ${this.getAuthToken()}`,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            });
+            
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    async updatePassword(data) {
+        try {
+            
+            const response = await axios.post(
+                POSTPasswordUpdate, 
+                data, {
+                headers: {
+                    "Authorization": `Bearer ${this.getAuthToken()}`,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 }

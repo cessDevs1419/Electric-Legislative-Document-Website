@@ -21,7 +21,8 @@ import SpecifiedNewsView from '@/views/SpecifiedNewsView.vue'
 import OrdersByCategoryViews from '@/views/OrdersByCategoryViews.vue'
 import ResolutionOrdinanceSubmissionViews from '@/views/ResolutionOrdinanceSubmissionViews.vue'
 import ResolutionOrdinanceResetPassword from '@/views/ResolutionOrdinanceResetPassword.vue'
-
+import ResolutionOrdinanceChangePassword from '@/views/ResolutionOrdinanceChangePassword.vue'
+import ProfileSetupViews from '@/views/ProfileSetupViews.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -173,7 +174,20 @@ const router = createRouter({
       component: ResolutionOrdinanceResetPassword,
       props: true
     },
-
+    {
+      path: '/setup',
+      name: 'setup',
+      children: [
+        {
+          path: 'profile-setup',
+          component: ProfileSetupViews,
+        },
+        {
+          path: 'change-password',
+          component: ResolutionOrdinanceChangePassword,
+        },
+      ],
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     

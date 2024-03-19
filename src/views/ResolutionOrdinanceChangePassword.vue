@@ -3,7 +3,6 @@
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import { RouterLink } from 'vue-router';
     import PublicUserApiService from '@/services/PublicUserApiService';
-    import ValidationService from '@/services/ValidationService';
     import {toast} from '@/toast'
     import router from '@/router';
 
@@ -15,10 +14,9 @@
             return{
                 showInput: false,
                 resetData: {
-                    token: this.$route.params.token,
-                    email: this.$route.query.email,
-                    password: '',
-                    password_confirmation: '',
+                    current_password: '',
+                    new_password: '',
+                    new_password_confirmation: '',
                 },
                 showValidation: {},
                 border: {}
@@ -38,9 +36,6 @@
                             this.showValidation[key] = true;
                             this.border[key] = true;
                             toast(key+' is required', 'warning');
-                        } else if (key === 'email' && !ValidationService.emailValidator(this.resetData[key])) {
-                            this.showValidation[key] = true; 
-                            this.border[key] = true; 
                         }
                     });
 
@@ -48,7 +43,7 @@
                         return;
                     }
 
-                    await PublicUserApiService.resetPassword(this.resetData).then(items => {
+                    await PublicUserApiService.updatePassword(this.resetData).then(items => {
                         if(items.type === 'error'){
                             toast(items.text, items.type);
                         }else{   
@@ -87,26 +82,31 @@
                     </div>
                     <form class="px-2 px-md-5  " @submit.prevent="resetSubmit">
                         <div class="mb-4">
-                            <label class="form-label">Email address</label> 
-                            <span class="text-danger" v-if="showValidation.email"> *</span>
-                            <input type="email" :class="{ 'border-danger': border.email, 'bg-dark-subtle': resetData.email }" disabled class="form-control p-3 bg-transparent" v-model="resetData.email" placeholder="">
+                            <label class="form-label">Current Password</label>
+                            <span class="text-danger"  v-if="showValidation.current_password"> *</span>
+                            <div class="input-group mb-3">
+                                <input :type="showInput ? 'text' : 'password'" :class="{ 'border-danger': border.current_password }" class="form-control p-3 bg-transparent border border-end-0" v-model="resetData.current_password" placeholder="">
+                                <button type="button" :class="{ 'border-danger': border.new_password }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
+                                    <i class="bi bi-eye px-3 tertiary-font fs-4"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="mb-4">
                             <label class="form-label">New Password</label>
-                            <span class="text-danger" v-if="showValidation.password"> *</span>
+                            <span class="text-danger" v-if="showValidation.new_password"> *</span>
                             <div class="input-group mb-3">
-                                <input :type="showInput ? 'text' : 'password'" :class="{ 'border-danger': border.password }" class="form-control p-3 bg-transparent border border-end-0" v-model="resetData.password" placeholder="">
-                                <button type="button" :class="{ 'border-danger': border.password }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
+                                <input :type="showInput ? 'text' : 'password'" :class="{ 'border-danger': border.new_password }" class="form-control p-3 bg-transparent border border-end-0" v-model="resetData.new_password" placeholder="">
+                                <button type="button" :class="{ 'border-danger': border.new_password }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
                                     <i class="bi bi-eye px-3 tertiary-font fs-4"></i>
                                 </button>
                             </div>
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Confirm Password</label>
-                            <span class="text-danger" v-if="showValidation.password_confirmation "> *</span>
+                            <span class="text-danger" v-if="showValidation.new_password_confirmation "> *</span>
                             <div class="input-group mb-3">
-                                <input :type="showInput ? 'text' : 'password'" :class="{ 'border-danger': border.password_confirmation }" class="form-control p-3 bg-transparent border border-end-0" v-model="resetData.password_confirmation" placeholder="">
-                                <button type="button" :class="{ 'border-danger': border.password_confirmation }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
+                                <input :type="showInput ? 'text' : 'password'" :class="{ 'border-danger': border.new_password_confirmation }" class="form-control p-3 bg-transparent border border-end-0" v-model="resetData.new_password_confirmation" placeholder="">
+                                <button type="button" :class="{ 'border-danger': border.new_password_confirmation }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
                                     <i class="bi bi-eye px-3 tertiary-font fs-4"></i>
                                 </button>
                             </div>

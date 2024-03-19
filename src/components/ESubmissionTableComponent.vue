@@ -201,22 +201,27 @@ export default {
       this.displayImages(uploadedFiles);
     },
     displayImages(uploadedFiles) {
+      console.log("Uploaded Files:", uploadedFiles); // Check if files are correct
       const imageContainer = document.getElementById("imageContainer");
       if (imageContainer) {
         // Clear previous images
         imageContainer.innerHTML = "";
 
-        // Iterate through uploaded files
         uploadedFiles.forEach((file) => {
           if (file.fileType === "image") {
-            // Create an img element
-            const imgElement = document.createElement("img");
-            imgElement.src = URL.createObjectURL(file.file);
-            imgElement.alt = file.fileName;
-            imgElement.classList.add("uploaded-image");
-
-            // Append the img element to the image container
-            imageContainer.appendChild(imgElement);
+            const div = document.createElement("div");
+            div.classList.add("uploaded-image");
+            div.style.width = "400px"; // Set a fixed width for the container
+            div.style.height = "0";
+            div.style.paddingBottom = "100%"; // 1:1 aspect ratio (adjust as needed)
+            div.style.backgroundSize = "contain";
+            div.style.backgroundRepeat = "no-repeat";
+            div.style.backgroundPosition = "center";
+            div.style.marginBottom = "1rem";
+            div.style.backgroundImage = `url(${URL.createObjectURL(
+              file.file
+            )})`;
+            imageContainer.appendChild(div);
           }
         });
       }
@@ -298,16 +303,22 @@ export default {
 </script>
 
 <style scoped>
+#imageContainer .uploaded-image {
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 10px;
+}
+
+.modal {
+  max-height: 800px;
+}
+
 .action-btns {
   height: 36px;
   max-width: 36px;
   max-height: 36px;
-}
-
-.uploaded-image {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 10px;
 }
 
 .cursor-pointer {

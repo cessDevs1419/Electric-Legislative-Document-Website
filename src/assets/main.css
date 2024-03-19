@@ -108,6 +108,9 @@
   cursor: pointer;
 }
 
+.offcanvas-sm-wd{
+  max-width: 270px !important;
+}
 
 @media screen and (max-width: 768px) {
   .spacer{

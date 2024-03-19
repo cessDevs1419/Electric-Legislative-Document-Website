@@ -95,7 +95,8 @@ const PublicUserApiService = {
     },
     async updateProfile(data) {
         try {
-            
+
+
             const response = await axios.post(
                 POSTProfileUpdate, 
                 data, {

@@ -3,6 +3,7 @@
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import { RouterLink } from 'vue-router';
     import PublicUserApiService from '@/services/PublicUserApiService';
+    import ValidationService from '@/services/ValidationService';
     import {toast} from '@/toast'
     import router from '@/router';
 
@@ -56,7 +57,20 @@
                         }
                     })
                     .catch(error => {
-                        console.log(error)
+                        const errorMessages = error.response.data.errors;
+
+                        const hasValidationErrors = ValidationService.validateFormWithApiErrors(this.resetData, error.response.data);
+
+                        if (hasValidationErrors) {
+                            toast(error.response.data.message, 'warning', 3500);
+                            for (const field in errorMessages) {
+                                if (errorMessages.hasOwnProperty(field)) {
+                                    // const errorMessage = errorMessages[field][0];                                 
+                                    this.showValidation[field] = true;
+                                    this.border[field] = true;
+                                }
+                            }
+                        }
                     });
 
                 } catch (error) {
@@ -86,7 +100,7 @@
                             <span class="text-danger"  v-if="showValidation.current_password"> *</span>
                             <div class="input-group mb-3">
                                 <input :type="showInput ? 'text' : 'password'" :class="{ 'border-danger': border.current_password }" class="form-control p-3 bg-transparent border border-end-0" v-model="resetData.current_password" placeholder="">
-                                <button type="button" :class="{ 'border-danger': border.new_password }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
+                                <button type="button" :class="{ 'border-danger': border.current_password }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
                                     <i class="bi bi-eye px-3 tertiary-font fs-4"></i>
                                 </button>
                             </div>

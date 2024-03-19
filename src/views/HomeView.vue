@@ -368,12 +368,15 @@
         .catch(error => {
           console.error('', error);
         });
-        PublicUserApiService.getAuthUser().then(items => {
-						this.user = items
-            this.name = this.capitalizeFirstLetter(items.full_name)
-					}).catch(error => {
-						console.log(error)
-				})
+
+					if(PublicUserApiService.getAuthToken()){
+						PublicUserApiService.getAuthUser().then(items => {
+							this.user = items
+							this.name = this.capitalizeFirstLetter(items.full_name)
+						}).catch(error => {
+							console.log(error)
+						})
+					}
       }, 
 
       async logout() {

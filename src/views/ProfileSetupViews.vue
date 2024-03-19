@@ -20,7 +20,6 @@
                     contact_number: '',
                     office_id: '',
                     secretary_name: '',
-                    images: [],
                 },
                 image: '',
                 showValidation: {},
@@ -40,6 +39,7 @@
                     this.showValidation = {};
                     this.border = {};
                     
+
                     await PublicUserApiService.updateProfile(this.updateData).then(items => {
                         if(items.type === 'error'){
                             toast(items.text, items.type);
@@ -50,9 +50,7 @@
                     })
                     .catch(error => {
                         const errorMessages = error.response.data.errors;
-
                         const hasValidationErrors = ValidationService.validateFormWithApiErrors(this.updateData, error.response.data);
-
                         if (hasValidationErrors) {
                             toast(error.response.data.message, 'warning', 3500);
                             for (const field in errorMessages) {
@@ -121,15 +119,17 @@
                 document.getElementById("inputField").click()
             },
             getFile(event) {
-                this.updateData.images.push(event.target.files)
+                this.updateData.image.push(event.target.files[0])
             },
+            remove(){
+                this.updateData.image.pop();
+            }
         },
         computed: {
             backgroundStyle() {
-                if (this.updateData.images.length > 0) {
-                    const file = this.updateData.images[0];
-
-                    return 'url(' + image + ')';
+                if (this.updateData.image.length > 0) {
+                    const file = this.updateData.image[0];
+                    return 'url(' + URL.createObjectURL(file) + ')';
                 } else {
                     return 'url(' + this.image + ')';
                 }
@@ -147,24 +147,28 @@
     <TemplateContainer class="d-flex align-item-center jutify-content-center mb-5 pb-5">
         <div class="signin-container w-100 box-shadow my-5 m-auto">
             <div class="row w-100 h-100 m-auto ">
-                <div class="col-lg-5 p-2 linear-primary-bg text-white position-relative overflow-hidden">
+                <div class="col-lg-5 d-lg-flex d-none p-2 linear-primary-bg text-white position-relative overflow-hidden">
                     <div class="blob w-100 h-100 position-absolute top-0 start-0">
                     </div>
                 </div>
                 <div class="col-lg-7 dirty-white-bg py-5 ">
                     <form class="px-2 px-md-5  " @submit.prevent="updateSubmit">
-                        <div class="row mb-2">
+                        <div class="row mb-3">
                             <div class="col-lg-6 d-flex align-items-center">
                                 <h3 class="m-0 fw-bold primary-font">Edit Profile</h3>
                             </div>
-                            <div class="col-lg-6 d-flex justify-content-end position-relative">
+                            <!-- <div class="col-lg-6 d-flex justify-content-end position-relative">
                                 <div class="img-container  border rounded-circle overflow-hidden" :style="{ backgroundImage: backgroundStyle }" >
-                                    <button @click="openFileInput" type="button" class="avatar border-0 me-2 position-absolute rounded-circle bottom-0 end-0 primary-bg ">
+                                    <button v-if="updateData.image.length === 0" @click="openFileInput" type="button" class="avatar border-0 me-2 position-absolute rounded-circle bottom-0 end-0 primary-bg ">
                                         <input hidden type="file" @change="getFile" id="inputField">
                                         <i class="bi bi-pencil text-white fs-6"></i>
                                     </button>
+                                    <button v-else  @click="remove" type="button" class="avatar border-0 me-2 position-absolute rounded-circle bottom-0 end-0 primary-bg ">
+                                        <input hidden type="file" @change="getFile" id="inputField">
+                                        <i class="bi bi-x-lg text-white fs-6" ></i>
+                                    </button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Full name</label>
@@ -247,6 +251,11 @@
         min-width: 2.5rem;
         max-width: 2.5rem;
         height: 2.5rem;
+        transition: .2s ease-out;
+    }
+    .avatar:hover{
+        transition: .2s ease-in;
+        transform: scale(110%)
     }
     .img-container{
         max-width: 120px;

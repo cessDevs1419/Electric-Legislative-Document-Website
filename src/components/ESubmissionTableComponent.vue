@@ -32,9 +32,9 @@
         <div class="py-3 m-auto w-25 text-center d-flex justify-content-center">
           <div>
             <i
-              v-for="(attachment, index) in req.attachments"
+              v-for="(attachment, index) in req.files"
               :key="index"
-              :class="iconClass(attachment.attachmentType)"
+              :class="iconClass(attachment.fileType)"
               style="font-size: 24px"
             ></i>
           </div>
@@ -58,7 +58,7 @@
           </div>
 
           <!-- Other Icons (Conditionally Displayed) -->
-          <template v-if="req.attachments && req.attachments.length > 0">
+          <template v-if="req.files && req.files.length > 0">
             <div
               class="action-btns secondary-bg w-100 d-flex justify-content-center align-items-center mx-1"
               @click="viewAttachments(req.attachments)"
@@ -85,7 +85,8 @@
       <p v-if="requirements.length === 0" class="text-center mt-3">
         No requirements to display.
       </p>
-      <!-- <p>{{ this.requirements }}</p> -->
+      <p>{{ this.requirements }}</p>
+      <p id="fileList"></p>
     </div>
   </div>
 </template>
@@ -93,6 +94,9 @@
 <script setup></script>
 
 <script>
+import JSZip from "jszip";
+import FileSaver from "file-saver";
+
 export default {
   data() {
     return {
@@ -112,55 +116,61 @@ export default {
     },
     handleFileUpload(event, requirementId) {
       const files = event.target.files;
+      let uploadedFiles = []; // Array to hold uploaded files
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const extension = file.name.split(".").pop().toLowerCase();
-        let attachmentType = "";
+        let fileType = "";
 
-        // Determine attachment type based on file extension
+        // Determine file type based on file extension
         if (["jpg", "jpeg", "png"].includes(extension)) {
-          attachmentType = "image";
+          fileType = "image";
         } else if (["pdf"].includes(extension)) {
-          attachmentType = "PDF";
+          fileType = "PDF";
         } else if (["xlsx", "xlsm", "xlsb"].includes(extension)) {
-          attachmentType = "excel";
+          fileType = "excel";
         } else if (["doc", "docx"].includes(extension)) {
-          attachmentType = "docx";
+          fileType = "docx";
         } else {
-          attachmentType = "other";
+          fileType = "other";
         }
 
-        const newAttachment = {
-          attachmentType: attachmentType,
-          attachmentName: file.name,
+        // Create file object
+        const uploadedFile = {
+          fileType: fileType,
+          fileName: file.name, // Add fileName property
+          file: file, // Add the file itself
         };
 
-        // Find the specific requirement by its ID
-        const requirement = this.requirements.find(
-          (req) => req.id === requirementId
-        );
-        if (requirement) {
-          if (!requirement.attachments) {
-            requirement.attachments = []; // Create attachments array if it doesn't exist
-          }
-          requirement.attachments.push(newAttachment);
-        }
+        uploadedFiles.push(uploadedFile); // Add file to the uploaded files array
       }
 
-      console.log("Uploaded files:", files);
-      console.log("Requirements with attachments:", this.requirements);
-      // Do something with the requirement object, such as sending it to a server, etc.
+      // Update the requirements with the uploaded files
+      const requirement = this.requirements.find(
+        (req) => req.id === requirementId
+      );
+      if (requirement) {
+        if (!requirement.files) {
+          requirement.files = [];
+        }
+        requirement.files.push(...uploadedFiles);
+      }
+
+      console.log("Uploaded files:", uploadedFiles);
+      console.log("Requirements with files:", this.requirements);
     },
+
+    downloadAttachments(requirementId) {},
     removeAttachments(requirementId) {
       // Find the specific requirement by its ID
       const requirement = this.requirements.find(
         (req) => req.id === requirementId
       );
 
-      if (requirement && requirement.attachments) {
+      if (requirement && requirement.files) {
         // Remove all attachments for this requirement
-        requirement.attachments = [];
+        requirement.files = [];
         console.log("Attachments removed from requirement:", requirementId);
         console.log("Updated requirements:", this.requirements);
       } else {

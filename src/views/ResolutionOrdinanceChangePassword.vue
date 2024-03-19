@@ -53,7 +53,7 @@
                             }
 
                             toast(items.text, items.type);
-                            router.push('/login');
+                            window.history.back()
                         }
                     })
                     .catch(error => {

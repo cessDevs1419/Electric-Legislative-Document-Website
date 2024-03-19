@@ -113,6 +113,28 @@
   height: 100vh;
 }
 
+.btn-bg{
+  transform: translateX(-100%);
+  transition: .2s ease-in;
+}
+.btn-cancel:hover .btn-bg {
+  animation: moveleft .2s ease-out forwards ;
+}
+.btn-cancel:hover p{
+  border: none !important;
+  color: #F2F3F9;
+}
+.btn-cancel:hover {
+  border: none !important;
+  color: #F2F3F9;
+}
+
+@keyframes moveleft {
+  to{
+      transform: translateX(0%);
+  }
+}
+
 @media screen and (max-height: 300px) {
   .log-out{
     position: relative !important;

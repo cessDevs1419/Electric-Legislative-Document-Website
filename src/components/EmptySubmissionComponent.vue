@@ -1,16 +1,26 @@
 <script setup>
     import TemplateContainer from './TemplateContainer.vue';
+    import router from '@/router';
 </script>
+<script>
+    export default {
+        methods: {
+            newSubmission(){
+                router.push('/legislative/resolution/new-submission')
+            }
+        },
 
+    }
+</script>
 <template>
     <TemplateContainer>
         <div class="card-404 text-center tertiary-bg my-3 position-relative">
             <h1>404</h1>
             <h2>There's NOTHING here...</h2>
             <p class="mb-3">There are currently no E-Submission records from your account<br>Please make a E-Submission first.</p>
-            <div class="create-btn cursor-pointer mx-auto rounded-0 mt-4 ">
-                <router-link class="text-white text-decoration-none" to="/legislative/resolution/new-submission">Make my first E-Submission</router-link>
-            </div>
+            <button @click="newSubmission" class="create-btn cursor-pointer mx-auto rounded-0 mt-4 ">
+                Make my first E-Submission
+            </button>
 
         </div>
     </TemplateContainer>

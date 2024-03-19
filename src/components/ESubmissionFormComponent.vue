@@ -32,6 +32,7 @@ export default {
         year: new Date().getFullYear(),
         pages: 0,
         title: "",
+        requirements: [],
       },
       currentYear: new Date().getFullYear().toString(),
     };
@@ -41,12 +42,17 @@ export default {
       handler(newValue) {
         this.displayRequirements(newValue);
       },
-      immediate: true, // Call the handler immediately on component load
+      immediate: true,
     },
     "formValue.category_id": function (newCategoryId, oldCategoryId) {
-      // Do something when the category ID changes
       console.log("New Category ID:", newCategoryId);
       console.log("Old Category ID:", oldCategoryId);
+    },
+    selectedRequirements: {
+      handler(newRequirements) {
+        this.formValue.requirements = newRequirements;
+      },
+      deep: true,
     },
   },
   methods: {
@@ -111,6 +117,12 @@ export default {
         .catch((error) => {
           console.error("Error fetching bayan:", error);
         });
+    },
+    submissionEvent() {
+      console.log(
+        "Submitted Values : ",
+        JSON.stringify(this.formValue, null, 2)
+      );
     },
     validateNumericInput(event) {
       const charCode = event.which ? event.which : event.keyCode;
@@ -270,6 +282,7 @@ export default {
           </div>
           <div
             class="btn-submit cursor-pointer primary-bg text-white px-3 py-2"
+            @click="submissionEvent"
           >
             <p class="mb-0">Submit</p>
           </div>

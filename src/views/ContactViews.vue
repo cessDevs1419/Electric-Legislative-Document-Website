@@ -47,7 +47,6 @@
                         return;
                     }
 
-                    // await AuthApiService.login(this.signinData);
                     console.log('Contact successful');
                 } catch (error) {
                     console.error('Contact failed:', error);

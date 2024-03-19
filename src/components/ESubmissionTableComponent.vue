@@ -67,7 +67,7 @@
             </div>
             <div
               class="action-btns primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
-              @click="downloadAttachments(req.attachments)"
+              @click="downloadAttachments(req.files)"
             >
               <i class="bi bi-download text-white"></i>
             </div>
@@ -161,7 +161,36 @@ export default {
       console.log("Requirements with files:", this.requirements);
     },
 
-    downloadAttachments(requirementId) {},
+    downloadAttachments(files) {
+      const zip = new JSZip();
+
+      // Add each file to the zip
+      files.forEach((file) => {
+        const fileName = file.fileName;
+        const fileBlob = file.file;
+        zip.file(fileName, fileBlob);
+      });
+
+      // Generate the zip file
+      zip.generateAsync({ type: "blob" }).then(function (content) {
+        // Create a temporary link element
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(content);
+        link.download = "all_files.zip";
+
+        // Append the link to the body
+        document.body.appendChild(link);
+
+        // Trigger the download
+        link.click();
+
+        // Clean up
+        setTimeout(() => {
+          URL.revokeObjectURL(link.href);
+          document.body.removeChild(link);
+        }, 200);
+      });
+    },
     removeAttachments(requirementId) {
       // Find the specific requirement by its ID
       const requirement = this.requirements.find(

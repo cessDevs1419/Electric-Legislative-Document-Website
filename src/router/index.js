@@ -194,8 +194,10 @@ const router = createRouter({
     return { 
       el: '#app',
       top: 0 
-  }
+    }
   },
+
+  
 })
 
 router.beforeEach((to, from, next) => {

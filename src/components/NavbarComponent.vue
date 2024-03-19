@@ -83,6 +83,7 @@
     </nav>
 
 
+
 	<div class="offcanvas-sm-wd offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 		<div class="offcanvas-header text-center mx-auto mt-3 mb-0 pb-0 pt-5 ">
 			<h5 class="text-center" >{{ name }}</h5>
@@ -90,7 +91,7 @@
 		<div class="position-relative offcanvas-body h-100 mt-0 py-0 px-4 mx-2">
 			<hr class="divider">
 			<ul class="w-100 rounded-0 px-0"> 
-				<li class="d-flex align-items-center cursor-pointer">
+				<li class="d-flex align-items-center cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
 					<router-link class="dropdown-item my-2 d-flex align-items-center " to="/setup/profile-setup">
 						<i class="bi bi-gear me-3"></i>
 						<p class="m-0">
@@ -98,7 +99,7 @@
 						</p>
 					</router-link>
 				</li>
-				<li class="d-flex align-items-center cursor-pointer">
+				<li class="d-flex align-items-center cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
 					<router-link  class="dropdown-item my-2 d-flex align-items-center " to="/setup/change-password">
 						<i class="bi bi-lock me-3"></i>
 							<p class="m-0">
@@ -107,7 +108,7 @@
 					</router-link>
 				</li>
 			</ul>
-      <div class="position-absolute mb-3 bottom-0 d-flex align-items-center cursor-pointer" @click="logout">
+      		<div class="position-absolute log-out mb-3 bottom-0 d-flex align-items-center cursor-pointer" @click="logout" data-bs-dismiss="offcanvas" aria-label="Close">
 					<p  class="dropdown-item my-2 d-flex align-items-center " >
 						<i class="bi bi-box-arrow-left me-3"></i>
 						<p class="m-0">
@@ -116,7 +117,9 @@
 					</p>
 			</div>
 		</div>
-	</div>
+	</div> 
+
+
 </template>
 
 <script>

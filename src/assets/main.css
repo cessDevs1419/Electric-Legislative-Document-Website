@@ -110,6 +110,13 @@
 
 .offcanvas-sm-wd{
   max-width: 270px !important;
+  height: 100vh;
+}
+
+@media screen and (max-height: 300px) {
+  .log-out{
+    position: relative !important;
+  }
 }
 
 @media screen and (max-width: 768px) {

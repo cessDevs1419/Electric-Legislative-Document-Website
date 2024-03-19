@@ -62,6 +62,7 @@
             fetchData(){
                 DocumentApiService.fetchMyDocument()
                 .then(data => {
+                    console.log(data)
                     this.tableData = []
                     this.tableData.push(...data);
                 })

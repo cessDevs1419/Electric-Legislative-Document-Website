@@ -1,6 +1,6 @@
 <template>
   <div class="table-container w-100 overflow-auto pt-4">
-    <div class="table-body w-100 pt-0">
+    <div class="table-body border w-100 pt-0">
       <ul class="w-100 border list-unstyled d-flex">
         <!-- Table header -->
         <li
@@ -91,6 +91,7 @@
       <p>{{ this.requirements }}</p>
       <p id="fileList"></p>
 
+      <!-- Modal for viewing the attachments -->
       <div
         class="modal fade bd-example-modal-lg"
         tabindex="-1"

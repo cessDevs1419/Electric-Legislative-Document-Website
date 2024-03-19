@@ -60,6 +60,9 @@
           <!-- Other Icons (Conditionally Displayed) -->
           <template v-if="req.files && req.files.length > 0">
             <div
+              type="button"
+              data-toggle="modal"
+              data-target=".bd-example-modal-lg"
               class="action-btns cursor-pointer secondary-bg w-100 d-flex justify-content-center align-items-center mx-1"
               @click="viewAttachments(req.attachments)"
             >
@@ -88,15 +91,6 @@
       <p>{{ this.requirements }}</p>
       <p id="fileList"></p>
 
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target=".bd-example-modal-lg"
-      >
-        Large modal
-      </button>
-
       <div
         class="modal fade bd-example-modal-lg"
         tabindex="-1"
@@ -104,7 +98,7 @@
         aria-labelledby="myLargeModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
@@ -112,8 +106,8 @@
               </h5>
               <button
                 type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
+                class="close btn-close"
+                data-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
@@ -303,18 +297,6 @@ export default {
 </script>
 
 <style scoped>
-#imageContainer .uploaded-image {
-  width: 200px;
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 10px;
-}
-
-.modal {
-  max-height: 800px;
-}
-
 .action-btns {
   height: 36px;
   max-width: 36px;

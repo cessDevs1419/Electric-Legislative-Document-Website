@@ -83,34 +83,52 @@
             <li class="nav-item mx-1">
               <router-link  class="nav-link text-white" to="/contact-us">Contact Us</router-link>
             </li>
-            <li class="nav-item dropdown-center mx-1" data-bs-theme="light" v-if="authToken">
-              <a class="nav-link dropdown-toggle text-white" class-active="active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Settings
-              </a>
-              <ul class="dropdown-menu rounded-0">
-                <!-- <li class="">
-                  <router-link  class="dropdown-item my-2 d-flex align-items-center " to="/reset-password">
-                     <i class="bi bi-arrow-repeat me-3"></i> 
-                     <p class="m-0">
-                      Change Password
-                     </p>
-                  </router-link>
-                </li> -->
-                <li class="d-flex align-items-center cursor-pointer" @click="logout">
-                  <p  class="dropdown-item my-2 d-flex align-items-center " to="/reset-password">
-                    <i class="bi bi-box-arrow-left me-3"></i>
-                    <p class="m-0">
-                       Logout
-                    </p>
-                   </p>
-                </li>
-              </ul>	
+            <li class="nav-item mx-1"   v-if="authToken" >
+              <button class="border-0 btn btn-sidebar secondary-bg d-flex justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <i class="bi bi-person-fill me-2"></i>
+                <p class="text-truncate m-0">
+                  {{ name }}
+                </p>
+              </button>
             </li>
           </ul>
         </div>
     </div>
   </nav>
-
+	<div class="offcanvas-sm-wd offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+		<div class="offcanvas-header text-center mx-auto mt-3 mb-0 pb-0 pt-5 ">
+			<h5 class="text-center" >{{ name }}</h5>
+		</div>
+		<div class="position-relative offcanvas-body h-100 mt-0 py-0 px-4 mx-2">
+			<hr class="divider">
+			<ul class="w-100 rounded-0 px-0"> 
+				<li class="d-flex align-items-center cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
+					<router-link class="dropdown-item my-2 d-flex align-items-center " to="/setup/profile-setup">
+						<i class="bi bi-gear me-3"></i>
+						<p class="m-0">
+							Profile Setup
+						</p>
+					</router-link>
+				</li>
+				<li class="d-flex align-items-center cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
+					<router-link  class="dropdown-item my-2 d-flex align-items-center " to="/setup/change-password">
+						<i class="bi bi-lock me-3"></i>
+							<p class="m-0">
+								Password Reset
+							</p>
+					</router-link>
+				</li>
+			</ul>
+      <div class="position-absolute log-out mb-3 bottom-0 d-flex align-items-center cursor-pointer" @click="logout" data-bs-dismiss="offcanvas" aria-label="Close">
+					<p  class="dropdown-item my-2 d-flex align-items-center " >
+						<i class="bi bi-box-arrow-left me-3"></i>
+						<p class="m-0">
+							Logout
+						</p>
+					</p>
+			</div>
+		</div>
+	</div>
   <!-- Hero Section -->
   <div class="hero w-100 ">
         <div class="nav-container container-fluid d-flex align-items-center text-center justify-content-center">
@@ -322,6 +340,8 @@
                   description: '<p><strong>ORDER OF BUSINESS OF THE 75TH REGULAR SESSION OF THE 20TH SANGGUNIANG PANLUNGSOD OF GENERAL SANTOS CITY</strong>, TO BE HELD AT THE SESSION HALL, LEGISLATIVE BUILDING, GENERAL SANTOS CITY ON WEDNESDAY, FEBRUARY 28, 2024 AT 9:00 A.M.</p>'
                 }
               ],
+        user: {},
+        name: ''
       };
     },
     mounted() {
@@ -348,7 +368,14 @@
         .catch(error => {
           console.error('', error);
         });
+        PublicUserApiService.getAuthUser().then(items => {
+						this.user = items
+            this.name = this.capitalizeFirstLetter(items.full_name)
+					}).catch(error => {
+						console.log(error)
+				})
       }, 
+
       async logout() {
         try {
 
@@ -361,7 +388,13 @@
           } catch (error) {
           console.error('logout failed:', error);
           }
-        },
+      },
+
+			capitalizeFirstLetter(string) {
+				return string.replace(/\b\w/g, function(char) {
+					return char.toUpperCase();
+				});
+			}
 
     },
     created() {
@@ -371,7 +404,9 @@
 </script>
 
 <style scoped>
-
+	.secondary-bg{
+		background-color: var(--secondary-color) !important;;
+	}
 .navbar-container {
   transition: .3s ease-in-out;
 }
@@ -468,7 +503,7 @@
     }
 }
 
-@media screen and (max-height: 840px) {
+@media screen and (max-height: 812px) {
   .hero {
     height: 100%;
   }

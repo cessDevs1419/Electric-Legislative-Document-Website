@@ -95,6 +95,7 @@
                     :data="tableData"
                     :rows="tableRows"
                     :standalone="true"
+                    :itemsPerPage="10"
                     @row-click-data="getRowData"
                 ></TableComponent>
             </OnlineTrackingTableComponent >

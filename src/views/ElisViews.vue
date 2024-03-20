@@ -79,6 +79,7 @@
             :header="tableHeader"
             :data="tableData"
             :rows="tableRows"
+            :itemsPerPage="10"
             @row-click-data="getRowData"
         ></TableComponent>
     </TemplateContainer>

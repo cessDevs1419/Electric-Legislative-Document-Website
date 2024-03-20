@@ -128,6 +128,7 @@
 <script>
 import JSZip from "jszip";
 import FileSaver from "file-saver";
+import { toast } from "@/toast";
 
 export default {
   data() {
@@ -148,20 +149,22 @@ export default {
     },
     handleFileUpload(event, requirementId) {
       const files = event.target.files;
-      let uploadedFiles = []; // Array to hold uploaded files
+      const uploadedFiles = [];
+      let uploadFailed = false;
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
+      for (const file of files) {
         const extension = file.name.split(".").pop().toLowerCase();
-        let fileType = "";
+        const fileSizeInBytes = file.size;
+        const maxSizeInBytes = 10 * 1024 * 1024; // 10MB in bytes
 
-        // Determine file type based on file extension
-        if (["jpg", "jpeg", "png", "gif"].includes(extension)) {
-          fileType = "image";
-        } else if (["pdf"].includes(extension)) {
-          fileType = "PDF";
-        } else if (
-          [
+        if (
+          fileSizeInBytes > maxSizeInBytes ||
+          ![
+            "jpg",
+            "jpeg",
+            "png",
+            "gif",
+            "pdf",
             "xlsx",
             "xlsm",
             "xlsb",
@@ -171,41 +174,59 @@ export default {
             "xlc",
             "xlt",
             "xlw",
+            "doc",
+            "docx",
+            "docs",
           ].includes(extension)
         ) {
-          fileType = "excel";
-        } else if (["doc", "docx", "docs"].includes(extension)) {
-          fileType = "docx";
-        } else {
-          fileType = "other";
+          uploadFailed = true;
+          break;
         }
 
-        // Create file object
-        const uploadedFile = {
-          fileType: fileType,
-          fileName: file.name, // Add fileName property
-          file: file, // Add the file itself
-        };
+        const fileType = ["jpg", "jpeg", "png", "gif"].includes(extension)
+          ? "image"
+          : ["pdf"].includes(extension)
+          ? "PDF"
+          : [
+              "xlsx",
+              "xlsm",
+              "xlsb",
+              "xls",
+              "xlm",
+              "xla",
+              "xlc",
+              "xlt",
+              "xlw",
+            ].includes(extension)
+          ? "excel"
+          : ["doc", "docx", "docs"].includes(extension)
+          ? "docx"
+          : "other";
 
-        uploadedFiles.push(uploadedFile); // Add file to the uploaded files array
+        uploadedFiles.push({
+          fileType: fileType,
+          fileName: file.name,
+          file: file,
+        });
       }
 
-      // Update the requirements with the uploaded files
+      if (uploadFailed) {
+        toast(
+          "Some files were not uploaded due to size or type restrictions.",
+          "warning"
+        );
+        return;
+      }
+
       const requirement = this.requirements.find(
         (req) => req.id === requirementId
       );
       if (requirement) {
-        if (!requirement.files) {
-          requirement.files = [];
-        }
-        requirement.files.push(...uploadedFiles);
+        requirement.files = (requirement.files || []).concat(uploadedFiles);
       }
-
-      console.log("Uploaded files:", uploadedFiles);
-      console.log("Requirements with files:", this.requirements);
-
       this.displayImages(uploadedFiles);
     },
+
     displayImages(uploadedFiles) {
       console.log("Uploaded Files:", uploadedFiles); // Check if files are correct
       const imageContainer = document.getElementById("imageContainer");

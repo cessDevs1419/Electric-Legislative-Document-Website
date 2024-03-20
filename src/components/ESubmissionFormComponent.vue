@@ -134,19 +134,28 @@ export default {
       body.append("pages", this.formValue.pages);
       body.append("title", this.formValue.title);
 
-      for (let rIndex = 0; rIndex < this.formValue.requirements.length; rIndex++) {
+      for (
+        let rIndex = 0;
+        rIndex < this.formValue.requirements.length;
+        rIndex++
+      ) {
         let id = this.formValue.requirements[rIndex].id;
-        for (let fIndex = 0; fIndex < this.formValue.requirements[rIndex].files.length; fIndex++) {
+        for (
+          let fIndex = 0;
+          fIndex < this.formValue.requirements[rIndex].files.length;
+          fIndex++
+        ) {
           let file = this.formValue.requirements[rIndex].files[fIndex];
-          console.log('file', file);
+          console.log("file", file);
           body.append(`requirements[${rIndex}][requirement_id]`, id);
-          body.append(`requirements[${rIndex}][files][${fIndex}]`, this.formValue.requirements[rIndex].files[fIndex].file);
+          body.append(
+            `requirements[${rIndex}][files][${fIndex}]`,
+            this.formValue.requirements[rIndex].files[fIndex].file
+          );
         }
       }
 
-
       console.log(body);
-
 
       DocumentApiService.submitDocument(body)
         .then((data) => {
@@ -172,7 +181,7 @@ export default {
 
 <template>
   <TemplateContainer>
-    <form class="border">
+    <form class="border" enctype="multipart/form-data">
       <div class="tertiary-bg p-4">
         <div class="title">
           <h3 class="fw-bold m-0">E-Submission Form</h3>
@@ -268,7 +277,7 @@ export default {
           </div>
           <div class="col-lg-4">
             <div class="mb-3">
-              <label class="form-label">Municipality</label>
+              <label class="form-label">Bayan</label>
               <input
                 type="text"
                 class="form-control disabled-bg grey-font p-2 rounded-0"

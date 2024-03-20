@@ -133,17 +133,32 @@ export default {
       body.append("year", this.formValue.year);
       body.append("pages", this.formValue.pages);
       body.append("title", this.formValue.title);
+
       for (let rIndex in this.formValue.requirements) {
         let id = this.formValue.requirements[rIndex].id;
         body.append(`requirements[${rIndex}][requirement_id]`, id);
       }
+
       for (let aIndex in this.formValue.requirements) {
-        let fIndex = this.formValue.requirements.files;
-        body.append(`requirements[${aIndex}][files][]`, fIndex);
-        console.log(aIndex);
-        console.log(aIndex.name);
-        console.log(aIndex.file);
+        let files = this.formValue.requirements[aIndex].files;
+        console.log("Files:", files);
+
+        for (let fIndex in files) {
+          let file = files[fIndex].file;
+          console.log("File:", file);
+
+          if (file instanceof File) {
+            body.append(`requirements[${aIndex}][files][]`, file);
+            console.log("Success Appending this :", file);
+          } else {
+            console.log("Not a File object:", file);
+          }
+
+          console.log("aIndex:", aIndex);
+          console.log("fIndex:", fIndex);
+        }
       }
+
       console.log(body);
       console.log(this.formValue.requirements);
       console.log("requirements: " + this.requirements);
@@ -172,7 +187,7 @@ export default {
 
 <template>
   <TemplateContainer>
-    <form class="border">
+    <form class="border" enctype="multipart/form-data">
       <div class="tertiary-bg p-4">
         <div class="title">
           <h3 class="fw-bold m-0">E-Submission Form</h3>
@@ -268,7 +283,7 @@ export default {
           </div>
           <div class="col-lg-4">
             <div class="mb-3">
-              <label class="form-label">Municipality</label>
+              <label class="form-label">Bayan</label>
               <input
                 type="text"
                 class="form-control disabled-bg grey-font p-2 rounded-0"

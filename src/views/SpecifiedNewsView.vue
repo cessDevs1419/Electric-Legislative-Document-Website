@@ -10,31 +10,39 @@
     data() {
         return {
             newsDetails: {},
+            images: [],
+            load: false,
         };
     },
     watch: {
         '$route.params.uuid': function(newUUID) {
-            this.fetchData(newUUID);
+            if (newUUID) {
+                this.newsDetails  = {};
+                this.fetchData(newUUID);
+                // window.location.reload()
+            }
         },
     },
-
     created() {
         const uuid = this.$route.params.uuid;
-        this.fetchData(uuid);
+        if (uuid) {
+            this.fetchData(uuid);
+        }
     },
-    
     methods: {
-        async fetchData(uuid) {
+        fetchData(uuid) {
             try {
-                const data = await NewsApiService.fetch();
+                NewsApiService.fetch().then(items => {
+                    const foundOrderData = items.find(order => order.uuid === uuid);
+
+
+                    if (foundOrderData) {
+                        this.newsDetails  = { ...foundOrderData };
+                    } 
+                }).catch(error => {
+
+                })
                 
-                const foundOrderData = data.find(order => order.uuid === uuid);
-                
-                if (foundOrderData) {
-                    this.newsDetails  = { ...foundOrderData };
-                } 
-                
-                console.log(this.newsDetails)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -54,8 +62,8 @@
                 </div>
                 <div id="carousel" class="carousel slide mb-3">
                     <div class="carousel-inner">
-                        <div v-for="(items, index) in newsDetails.images" :key="index" class="carousel-item " :class="{'active':index === 0}">
-                            <img :src="items" class="d-block w-100" alt="...">
+                        <div v-for="(items, index) in newsDetails.images" :key="index" class="carousel-item" :class="{ 'active':  items === newsDetails.images[0] }" >
+                            <img :src="items" class="d-block w-100" alt="refresh page">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">

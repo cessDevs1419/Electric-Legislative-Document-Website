@@ -63,7 +63,6 @@
         NewsApiService.fetch().then(item => {
           this.News = []
           this.News.push(...item);
-          console.log(item)
         })
         .catch(error => {
           console.error('', error);

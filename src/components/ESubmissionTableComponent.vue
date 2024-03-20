@@ -88,7 +88,6 @@
       <p v-if="requirements.length === 0" class="text-center mt-3">
         No requirements to display.
       </p>
-      <p>{{ this.requirements }}</p>
       <p id="fileList"></p>
 
       <!-- Modal for viewing the attachments -->

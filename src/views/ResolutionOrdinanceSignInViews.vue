@@ -137,8 +137,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-lg-5 linear-primary-bg py-5 text-white">
-
+                <div class="col-lg-5 position-relative linear-primary-bg py-5 text-white">
+                    <div class="blob w-100 h-100 position-absolute top-0 start-0">
+                    </div>
                 </div>
             </div>
         </div>
@@ -150,7 +151,10 @@
     .spacer {
         padding-top: 15rem;
     }
-
+    .blob{
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
     .dirty-white-bg{
         background: #F2F3F9;
     }

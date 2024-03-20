@@ -6,11 +6,9 @@
   import MiniCalendarTemplateComponent from './MiniCalendarTemplateComponent.vue'
   import MunicipalitiesTemplateComponent from './MunicipalitiesTemplateComponent.vue';
   import EventsTemplateComponent from './EventsTemplateComponent.vue';
-  import NewsListTemplateComponent from './NewsListTemplateComponent.vue';
-  import OrderListTemplateComponent from './OrderListTemplateComponent.vue';
   import PaginationListComponent from './PaginationListComponent.vue';
   import OrderofBusinessApiService from '@/services/OrderofBusinessApiService';
-
+  import NewsApiService from '@/services/NewsApiService';
 </script>
 
 <script>
@@ -18,6 +16,7 @@ export default {
   data() {
     return {
       OrderOfBusiness: [],
+      News: [],
     }
   },
   props: {
@@ -35,6 +34,15 @@ export default {
         })
         .catch(error => {
           console.error('Error fetching data:', error);
+        });
+
+      NewsApiService.fetch().then(item => {
+          this.News = []
+          this.News.push(...item);
+          console.log(item)
+        })
+        .catch(error => {
+          console.error('', error);
         });
     }, 
   },
@@ -69,8 +77,8 @@ export default {
       <EventsTemplateComponent v-if="listType === 'eventList'">
       </EventsTemplateComponent>
 
-      <NewsListTemplateComponent v-if="listType === 'newsList'">
-      </NewsListTemplateComponent>
+      <!-- <NewsListTemplateComponent v-if="listType === 'newsList'">
+      </NewsListTemplateComponent> -->
 
       <!-- <OrderListTemplateComponent v-if="listType === 'orderList'">
       </OrderListTemplateComponent> -->
@@ -81,6 +89,14 @@ export default {
       :itemsPerPage="4"
       :listType="'orderList'"
       >
+      </PaginationListComponent>
+
+      <PaginationListComponent
+        v-if="listType === 'newsList' && News.length > 0"
+        :items="News" 
+        :itemsPerPage="4"
+        :listType="'newsList'"
+        >
       </PaginationListComponent>
     </li>
   </ul>

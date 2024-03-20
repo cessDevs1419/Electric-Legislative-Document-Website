@@ -285,9 +285,7 @@
     .primary-divider{
         border-color: var(--primary-color) !important;
     }
-    .blob{
-        background-image: url(../assets/images/blob.png);
-    }
+
 
 
     

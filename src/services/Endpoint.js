@@ -16,7 +16,7 @@ export const GETOrderOfBusiness = url + 'api/order-of-the-business'
 export const GETOrderOfBusinessCategory = url + 'api/order-of-the-business/category'
 export const GET20thSPMembers = url + 'api/order-of-the-business/20th-sp-member'
 export const GETHotlines = url + 'api/order-of-the-business/hotline'
-
+export const GETNews = url + 'api/news';
 export const GETCurrentAuthUser = url + 'api/me'
 export const GETMyDocument = url + 'api/document/my-submission'
 export const POSTRegister = url + 'api/register'

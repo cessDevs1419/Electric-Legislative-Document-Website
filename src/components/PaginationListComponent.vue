@@ -79,7 +79,7 @@
                 <template #date>{{item.published_date2}}</template>
                 <template #description>{{item.description_preview}}</template>
             </OrderListTemplateComponent>
-            <NewsListTemplateComponent v-if="this.listType === 'newsList'" :id="item.uuid" :link="item.link" :imgLink="item.imgLink" :description="item.description">
+            <NewsListTemplateComponent v-if="this.listType === 'newsList'" :id="item.uuid" :imgLink="item.thumbnail" :description="item.description_preview">
                 <template #title>{{item.title}}</template>
                 <template #date>{{item.published_date2}}</template>
             </NewsListTemplateComponent>

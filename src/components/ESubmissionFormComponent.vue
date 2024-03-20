@@ -25,13 +25,13 @@ export default {
       selectedType: null,
       selectedRequirements: [],
       formValue: {
-        type_id: 0,
-        category_id: 0,
-        bayan_id: 0,
-        office_id: 0,
-        no: 0,
+        type_id: "",
+        category_id: "",
+        bayan_id: "",
+        office_id: "",
+        no: "",
         year: new Date().getFullYear(),
-        pages: 0,
+        pages: "",
         title: "",
         requirements: [
           {
@@ -123,8 +123,7 @@ export default {
         });
     },
     async submissionEvent() {
-      if (this.formValue.no === "" || this.formValue.no === 0) {
-        this.emptyField();
+      if (!this.validateForm()) {
         return;
       }
 
@@ -183,6 +182,39 @@ export default {
       this.formValue.title = "";
       this.formValue.office_id = "";
     },
+    validateForm() {
+      const {
+        type_id,
+        category_id,
+        bayan_id,
+        office_id,
+        no,
+        year,
+        pages,
+        title,
+        requirements,
+      } = this.formValue;
+
+      if (
+        !type_id ||
+        !category_id ||
+        !bayan_id ||
+        !office_id ||
+        !no ||
+        !year ||
+        !pages ||
+        !title ||
+        !requirements ||
+        no === 0 ||
+        pages === 0
+      ) {
+        this.emptyField();
+        return false;
+      }
+
+      return true;
+    },
+
     emptyField() {
       toast("One of the required fields are empty", "error");
     },

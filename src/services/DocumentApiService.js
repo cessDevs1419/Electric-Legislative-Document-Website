@@ -53,7 +53,7 @@ const DocumentApiService = {
                 data, {
                 headers: {
                     "Authorization": `Bearer ${PublicUserApiService.getAuthToken()}` ,
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                     "Accept": "application/json",
                 }
             });

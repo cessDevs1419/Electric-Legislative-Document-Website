@@ -133,20 +133,20 @@ export default {
       body.append("year", this.formValue.year);
       body.append("pages", this.formValue.pages);
       body.append("title", this.formValue.title);
-      for (let rIndex in this.formValue.requirements) {
+
+      for (let rIndex = 0; rIndex < this.formValue.requirements.length; rIndex++) {
         let id = this.formValue.requirements[rIndex].id;
-        body.append(`requirements[${rIndex}][requirement_id]`, id);
+        for (let fIndex = 0; fIndex < this.formValue.requirements[rIndex].files.length; fIndex++) {
+          let file = this.formValue.requirements[rIndex].files[fIndex];
+          console.log('file', file);
+          body.append(`requirements[${rIndex}][requirement_id]`, id);
+          body.append(`requirements[${rIndex}][files][${fIndex}]`, this.formValue.requirements[rIndex].files[fIndex].file);
+        }
       }
-      for (let aIndex in this.formValue.requirements) {
-        let fIndex = this.formValue.requirements.files;
-        body.append(`requirements[${aIndex}][files][]`, fIndex);
-        console.log(aIndex);
-        console.log(aIndex.name);
-        console.log(aIndex.file);
-      }
+
+
       console.log(body);
-      console.log(this.formValue.requirements);
-      console.log("requirements: " + this.requirements);
+
 
       DocumentApiService.submitDocument(body)
         .then((data) => {

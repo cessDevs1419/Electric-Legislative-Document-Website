@@ -134,34 +134,28 @@ export default {
       body.append("pages", this.formValue.pages);
       body.append("title", this.formValue.title);
 
-      for (let rIndex in this.formValue.requirements) {
+      for (
+        let rIndex = 0;
+        rIndex < this.formValue.requirements.length;
+        rIndex++
+      ) {
         let id = this.formValue.requirements[rIndex].id;
-        body.append(`requirements[${rIndex}][requirement_id]`, id);
-      }
-
-      for (let aIndex in this.formValue.requirements) {
-        let files = this.formValue.requirements[aIndex].files;
-        console.log("Files:", files);
-
-        for (let fIndex in files) {
-          let file = files[fIndex].file;
-          console.log("File:", file);
-
-          if (file instanceof File) {
-            body.append(`requirements[${aIndex}][files][]`, file);
-            console.log("Success Appending this :", file);
-          } else {
-            console.log("Not a File object:", file);
-          }
-
-          console.log("aIndex:", aIndex);
-          console.log("fIndex:", fIndex);
+        for (
+          let fIndex = 0;
+          fIndex < this.formValue.requirements[rIndex].files.length;
+          fIndex++
+        ) {
+          let file = this.formValue.requirements[rIndex].files[fIndex];
+          console.log("file", file);
+          body.append(`requirements[${rIndex}][requirement_id]`, id);
+          body.append(
+            `requirements[${rIndex}][files][${fIndex}]`,
+            this.formValue.requirements[rIndex].files[fIndex].file
+          );
         }
       }
 
       console.log(body);
-      console.log(this.formValue.requirements);
-      console.log("requirements: " + this.requirements);
 
       DocumentApiService.submitDocument(body)
         .then((data) => {

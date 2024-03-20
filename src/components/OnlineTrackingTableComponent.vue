@@ -2,7 +2,7 @@
 <script>
     import SectionHeaderComponent from './SectionHeaderComponent.vue';
     import StatusTemplateComponent from './StatusTemplateComponent.vue';
-
+    import router from '@/router';
     export default{
     data() {
         return {
@@ -44,6 +44,9 @@
                 const options = { hour: 'numeric', minute: 'numeric', hour12: true };
                 return date.toLocaleTimeString('en-US', options);
             },
+        submitNew(){
+            router.push('/legislative/resolution/new-submission')
+        }
     },
     computed: {
         filteredData() {
@@ -59,14 +62,14 @@
 <template>
     <div class="table-container w-100 box-shadow overflow-auto px-4" >
         <div class="table-header p-4">
-            <div class="row">
-                <div class="col-lg-6">
+            <div class="row w-100 m-auto">
+                <div class="col-lg-6 ">
                     <h4 class="d-flex align-items-center fw-bold"><span class="vertical-line"></span>Your E Submission</h4>
                 </div>
                 <div class="col-lg-6 d-flex justify-content-start justify-content-lg-end">
-                    <div class="btn-bg primary-bg px-3 d-flex align-items-center">
-                        <router-link to="/legislative/resolution/new-submission" class="h-0 text-white text-decoration-none rounded-0 p-0 m-0 ">Submit New</router-link>
-                    </div>
+                    <button type="button" @click='submitNew' class="position-relative border-0 btn  primary-bg px-3 mx-0 text-white rounded-0">
+                        Submit New
+                    </button>
                 </div>
             </div>
         </div>

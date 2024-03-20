@@ -3,6 +3,7 @@
     import TemplateContainer from '@/components/TemplateContainer.vue';
     import { RouterLink } from 'vue-router';
     import PublicUserApiService from '@/services/PublicUserApiService';
+    import ValidationService from '@/services/ValidationService';
     import {toast} from '@/toast'
     import router from '@/router';
 
@@ -52,16 +53,32 @@
                             }
 
                             toast(items.text, items.type);
-                            router.push('/login');
+                            window.history.back()
                         }
                     })
                     .catch(error => {
-                        console.log(error)
+                        const errorMessages = error.response.data.errors;
+
+                        const hasValidationErrors = ValidationService.validateFormWithApiErrors(this.resetData, error.response.data);
+
+                        if (hasValidationErrors) {
+                            toast(error.response.data.message, 'warning', 3500);
+                            for (const field in errorMessages) {
+                                if (errorMessages.hasOwnProperty(field)) {
+                                    // const errorMessage = errorMessages[field][0];                                 
+                                    this.showValidation[field] = true;
+                                    this.border[field] = true;
+                                }
+                            }
+                        }
                     });
 
                 } catch (error) {
                     console.error('Sign-in failed:', error);
                 }
+            },
+            back(){
+                window.history.back()
             },
         },
         created() {
@@ -86,7 +103,7 @@
                             <span class="text-danger"  v-if="showValidation.current_password"> *</span>
                             <div class="input-group mb-3">
                                 <input :type="showInput ? 'text' : 'password'" :class="{ 'border-danger': border.current_password }" class="form-control p-3 bg-transparent border border-end-0" v-model="resetData.current_password" placeholder="">
-                                <button type="button" :class="{ 'border-danger': border.new_password }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
+                                <button type="button" :class="{ 'border-danger': border.current_password }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
                                     <i class="bi bi-eye px-3 tertiary-font fs-4"></i>
                                 </button>
                             </div>
@@ -111,9 +128,14 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="footer w-100 text-center mt-5 mb-5">
-                            <button class="btn text-white w-100 py-3 px-4 primary-bg rounded-0 mb-3" type="submit">SUBMIT</button>
-                            <p class="m-0">Don't have an account? <router-link to="/sign-up" class="secondary-font text-decoration-none" href="">Sign Up</router-link> here.</p>
+                        <div class="footer w-100 text-center d-flex justify-content-end mt-5 mb-5">
+                            <button class="btn-cancel z-0 overflow-hidden position-relative text-dark py-3 px-4 bg-transparent border primary-divider me-2 rounded-0" type="button" @click="back">
+                                <p class="z-3 m-0">CANCEL</p>
+                                <div class="btn-bg z-n1 border top-0 start-0 position-absolute secondary-bg w-100 h-100">
+
+                                </div>
+                            </button>
+                            <button class="btn text-white py-3 px-4 primary-bg rounded-0" type="submit">SUBMIT</button>
                         </div>
                     </form>
                 </div>
@@ -144,5 +166,8 @@
     .signin-container{
         min-height: 35rem;
         max-width: 100%;
+    }
+    .primary-divider{
+        border-color: var(--primary-color) !important;
     }
 </style>

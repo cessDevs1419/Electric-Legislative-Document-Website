@@ -60,6 +60,9 @@ export default {
     },
   },
   methods: {
+    back() {
+      window.history.back();
+    },
     displayRequirements(typeId) {
       const selectedItem = this.fileType.find((type) => type.id === typeId);
       if (selectedItem) {
@@ -181,7 +184,7 @@ export default {
 
 <template>
   <TemplateContainer>
-    <form class="border" enctype="multipart/form-data">
+    <form class="border" @submit.prevent="submissionEvent">
       <div class="tertiary-bg p-4">
         <div class="title">
           <h3 class="fw-bold m-0">E-Submission Form</h3>
@@ -316,7 +319,7 @@ export default {
           <ESubmissionTableComponentVue
             :requirements="this.selectedRequirements"
           ></ESubmissionTableComponentVue>
-          <div class="btn-group">
+          <!-- <div class="btn-group">
             <div
               class="btn-cancel cursor-pointer primary-bg text-white px-3 py-2 me-2"
             >
@@ -328,9 +331,28 @@ export default {
             >
               <p class="mb-0">Submit</p>
             </div>
+          </div> -->
+
+          <div
+            class="footer w-100 text-center d-flex justify-content-end mt-5 mb-5"
+          >
+            <button
+              class="btn-cancel z-0 overflow-hidden position-relative text-dark py-3 px-4 bg-transparent border primary-divider me-2 rounded-0"
+              type="button"
+              @click="back"
+            >
+              <p class="z-3 m-0">CANCEL</p>
+              <div
+                class="btn-bg z-n1 border top-0 start-0 position-absolute secondary-bg w-100 h-100"
+              ></div>
+            </button>
+            <button
+              class="btn text-white py-3 px-4 primary-bg rounded-0"
+              type="submit"
+            >
+              SUBMIT
+            </button>
           </div>
-          <p>{{ this.formValue }} {{ this.bayan }}</p>
-          <p>{{ this.selectedRequirements }}</p>
         </div>
       </div>
     </form>
@@ -338,6 +360,10 @@ export default {
 </template>
 
 <style scoped>
+.primary-bg {
+  background: var(--primary-color);
+}
+
 .cursor-pointer {
   cursor: pointer;
 }

@@ -1,123 +1,138 @@
 <script>
-import BayanApiService from '@/services/BayanApiService';
-import CategoryApiService from '@/services/CategoryApiService';
-import DocumentTypeApiService from '@/services/DocumentTypeApiService';
+    import BayanApiService from '@/services/BayanApiService';
+    import CategoryApiService from '@/services/CategoryApiService';
+    import DocumentTypeApiService from '@/services/DocumentTypeApiService';
+    import PaginationNavComponentVue from './PaginationNavComponent.vue';
 
-export default {
-    data() {
-        return {
-            searchQuery: '',
-            typeQuery: '',
-            categoryQuery: '',
-            bayanQuery: '',
-            bayan: [],
-            category: [],
-            type: [],
-            typedropdownOpen: false,
-        };
-    },
-    props: {
-        header: {
-            type: Array,
-            required: true
+    export default {
+        components: {
+            PaginationNavComponentVue,
         },
-        data: {
-            type: Array,
-            required: true
+        data() {
+            return {
+                searchQuery: '',
+                typeQuery: '',
+                categoryQuery: '',
+                bayanQuery: '',
+                bayan: [],
+                category: [],
+                type: [],
+                typedropdownOpen: false,
+                currentPage: 1
+            };
         },
-        rows: {
-            type: Array,
-            required: true
+        props: {
+            header: {
+                type: Array,
+                required: true
+            },
+            data: {
+                type: Array,
+                required: true
+            },
+            rows: {
+                type: Array,
+                required: true
+            },
+            standalone: {
+                type: Boolean,
+            },
+            itemsPerPage: {
+                    type: Number,
+                    required: true
+                },
         },
-        standalone: {
-            type: Boolean,
-        }
-    },
-    methods: {
-        getData(data) {
-            this.$emit('row-click-data', data);
+        methods: {
+            getData(data) {
+                this.$emit('row-click-data', data);
+            },
+            fetchData() { 
+                BayanApiService.fetch()
+                    .then(data => {
+                        this.bayan = []
+                        this.bayan.push(...data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching bayan:', error);
+                    });
+                
+                CategoryApiService.fetch()
+                    .then(data => {
+                        this.category = []
+                        this.category.push(...data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching categories:', error);
+                    });    
+
+                DocumentTypeApiService.fetch()
+                    .then(data => {
+                        this.type = []
+                        this.type.push(...data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching categories:', error);
+                    });  
+            }, 
+            getCategory(name){
+                this.categoryQuery = name;
+            },
+            reset() {
+                this.searchQuery = '';
+                this.typeQuery = '';
+                this.categoryQuery = '';
+                this.bayanQuery = '';
+            },
+            openPdf(file) {
+                window.open(file, '_blank');
+            },
+            getType(name){
+                this.typeQuery = name;
+            },
+            getCategory(name){
+                this.categoryQuery = name;
+            },
+            getBayan(name){
+                this.bayanQuery = name;
+            },
+            toggleTypeQuery() {
+                this.typeQuery = this.typeQuery ? '' : this.typeQuery;
+            },
+            toggleCategoryQuery() {
+                this.categoryQuery = this.categoryQuery ? '' : this.categoryQuery;
+            },
+            toggleBayanQuery() {
+                this.bayanQuery = this.bayanQuery ? '' : this.bayanQuery;
+            },
+            handlePageChange(page) {
+                this.currentPage = page;
+            }
+            
+                
         },
-        fetchData() { 
-            BayanApiService.fetch()
-                .then(data => {
-                    this.bayan = []
-                    this.bayan.push(...data);
-                })
-                .catch(error => {
-                    console.error('Error fetching bayan:', error);
+        computed: {
+            filteredData() {
+                const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+                const endIndex = startIndex + this.itemsPerPage;
+                let filteredItems = this.data;
+
+                filteredItems = filteredItems.filter(item => {
+                    const matchesSearch = this.searchQuery === '' || item.title.toLowerCase().includes(this.searchQuery.toLowerCase());
+                    const matchesType = this.typeQuery === '' || item.type_name.toLowerCase().includes(this.typeQuery.toLowerCase());
+                    const matchesCategory = this.categoryQuery === '' || item.category_name.toLowerCase().includes(this.categoryQuery.toLowerCase());
+                    const matchesBayan = this.bayanQuery === '' || item.bayan_name.toLowerCase().includes(this.bayanQuery.toLowerCase());
+
+                    return matchesSearch && matchesType && matchesCategory && matchesBayan;
                 });
-            
-            CategoryApiService.fetch()
-                .then(data => {
-                    this.category = []
-                    this.category.push(...data);
-                })
-                .catch(error => {
-                    console.error('Error fetching categories:', error);
-                });    
 
-            DocumentTypeApiService.fetch()
-                .then(data => {
-                    this.type = []
-                    this.type.push(...data);
-                })
-                .catch(error => {
-                    console.error('Error fetching categories:', error);
-                });  
-        }, 
-        getCategory(name){
-            this.categoryQuery = name;
+                return filteredItems.slice(startIndex, endIndex);
+            }
+
         },
-        reset() {
-            this.searchQuery = '';
-            this.typeQuery = '';
-            this.categoryQuery = '';
-            this.bayanQuery = '';
-        },
-        openPdf(file) {
-            window.open(file, '_blank');
-        },
-        getType(name){
-            this.typeQuery = name;
-        },
-        getCategory(name){
-            this.categoryQuery = name;
-        },
-        getBayan(name){
-            this.bayanQuery = name;
-        },
-        toggleTypeQuery() {
-            this.typeQuery = this.typeQuery ? '' : this.typeQuery;
-        },
-        toggleCategoryQuery() {
-            this.categoryQuery = this.categoryQuery ? '' : this.categoryQuery;
-        },
-        toggleBayanQuery() {
-            this.bayanQuery = this.bayanQuery ? '' : this.bayanQuery;
+        created() {
+            this.fetchData(); 
         }
-        
-            
-    },
-    computed: {
-        filteredData() {
-            return this.data.filter(item => {
-                const matchesSearch = this.searchQuery === '' || Object.values(item).some(value =>
-                    String(value).toLowerCase().includes(this.searchQuery.toLowerCase())
-                );
-                const matchesType = this.typeQuery === '' || item.type_name.toLowerCase().includes(this.typeQuery.toLowerCase());
-                const matchesCategory = this.categoryQuery === '' || item.category_name.toLowerCase().includes(this.categoryQuery.toLowerCase());
-                const matchesBayan = this.bayanQuery === '' || item.bayan_name.toLowerCase().includes(this.bayanQuery.toLowerCase());
-
-                return matchesSearch && matchesType && matchesCategory && matchesBayan;
-            });
-        }
-    },
-
-
-    created() {
-        this.fetchData(); 
-    }
-};
+    };
 </script>
 
 
@@ -143,7 +158,7 @@ export default {
                     <label class="col-form-label">Filter By</label>
                         <div class="dropdown rounded-0">
                             <button @click="toggleTypeQuery" data-bs-toggle="dropdown" aria-expanded="false"  class="text-nowrap text-truncate dropdown-btn btn text-dark border d-flex align-items-center justify-content-between  rounded-0 " type="button" >
-                               <p class="text-nowrap text-truncate m-0">{{ typeQuery ? typeQuery : 'Type' }}</p>  <i v-if="typeQuery" class="bi bi-x"></i> <i v-if="!typeQuery" class="bi bi-caret-down"></i>
+                                <p class="text-nowrap text-truncate m-0">{{ typeQuery ? typeQuery : 'Type' }}</p>  <i v-if="typeQuery" class="bi bi-x"></i> <i v-if="!typeQuery" class="bi bi-caret-down"></i>
                             </button>
                             <ul class="dropdown-menu">
                                 <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in type" :key="index"  @click="getType(items.name)">
@@ -215,6 +230,9 @@ export default {
 
             </tbody>
         </table>
+        <div class="d-flex justify-content-end">
+            <PaginationNavComponentVue :total-items="data.length" :items-per-page="itemsPerPage" :current-page="currentPage" @page-changed="handlePageChange" />
+        </div>
     </div>
 
 </div>

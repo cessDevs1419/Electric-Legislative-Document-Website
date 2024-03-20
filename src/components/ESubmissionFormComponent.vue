@@ -8,6 +8,7 @@ import OfficeApiService from "@/services/OfficeApiService";
 import DocumentRequirementApiService from "@/services/DocumentRequirementApiService";
 import ESubmissionTableComponentVue from "./ESubmissionTableComponent.vue";
 import DocumentApiService from "@/services/DocumentApiService";
+import { toast } from "@/toast";
 </script>
 
 <script>
@@ -162,7 +163,9 @@ export default {
 
       DocumentApiService.submitDocument(body)
         .then((data) => {
-          console.log(data);
+          if (data.status) {
+            toast(data.text, data.type);
+          }
         })
         .catch((error) => {
           console.error("Error submitting :", error);

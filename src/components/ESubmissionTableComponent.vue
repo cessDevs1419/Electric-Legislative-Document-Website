@@ -228,7 +228,6 @@ export default {
     },
 
     displayImages(uploadedFiles) {
-      console.log("Uploaded Files:", uploadedFiles); // Check if files are correct
       const imageContainer = document.getElementById("imageContainer");
       if (imageContainer) {
         // Clear previous images
@@ -238,9 +237,9 @@ export default {
           if (file.fileType === "image") {
             const div = document.createElement("div");
             div.classList.add("uploaded-image");
-            div.style.width = "400px"; // Set a fixed width for the container
+            div.style.width = "400px";
             div.style.height = "0";
-            div.style.paddingBottom = "100%"; // 1:1 aspect ratio (adjust as needed)
+            div.style.paddingBottom = "100%";
             div.style.backgroundSize = "contain";
             div.style.backgroundRepeat = "no-repeat";
             div.style.backgroundPosition = "center";
@@ -259,16 +258,13 @@ export default {
     downloadAttachments(files) {
       const zip = new JSZip();
 
-      // Add each file to the zip
       files.forEach((file) => {
         const fileName = file.fileName;
         const fileBlob = file.file;
         zip.file(fileName, fileBlob);
       });
 
-      // Generate the zip file
       zip.generateAsync({ type: "blob" }).then(function (content) {
-        // Create a temporary link element
         const link = document.createElement("a");
 
         // Get current date and time
@@ -282,13 +278,10 @@ export default {
         link.download =
           "files" + formattedDate + currentDate.getMilliseconds() + ".zip";
 
-        // Append the link to the body
         document.body.appendChild(link);
 
-        // Trigger the download
         link.click();
 
-        // Clean up
         setTimeout(() => {
           URL.revokeObjectURL(link.href);
           document.body.removeChild(link);
@@ -302,7 +295,6 @@ export default {
       );
 
       if (requirement && requirement.files) {
-        // Remove all attachments for this requirement
         requirement.files = [];
         console.log("Attachments removed from requirement:", requirementId);
         console.log("Updated requirements:", this.requirements);
@@ -311,7 +303,6 @@ export default {
       }
     },
     iconClass(attachmentType) {
-      // Return the appropriate icon class based on attachmentType
       switch (attachmentType) {
         case "image":
           return "bi bi-image me-2";
@@ -322,7 +313,7 @@ export default {
         case "docx":
           return "bi bi-filetype-docx me-2";
         default:
-          return ""; // Handle other types or return a default icon
+          return "";
       }
     },
   },

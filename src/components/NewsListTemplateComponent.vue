@@ -7,10 +7,6 @@
                 type: String,
                 required: true
             },
-            link: {
-                type: String,
-                required: true
-            },
             imgLink: {
                 type: String,
                 required: true
@@ -30,7 +26,6 @@
 </script>
 
 <template>
-    <router-link class="border py-2 text-decoration-none text-dark" :to="'/view-news/'+ id">
         <div class="row p-0 w-100 m-auto">
             <div class="col-lg-5 p-0">
                 <div class="image-container w-100 h-100 bg-dark-subtle">
@@ -38,20 +33,26 @@
                 </div>
             </div>
             <div class="col-lg-7 position-relative">
-                <h5 class="fw-semibold mb-3">
-                    <slot name="title" ></slot>
-                </h5>
-                <div v-html="sanitizeRTFData()" ></div>
-                <div class="footer ">
-                    <a class="tertiary-font fw-semibold m-0 text-decoration-none mb" :href="link">Read More</a>
+                <div class="container-fluid mx-0 px-0 overflow-hidden">
+                    <h5 class="fw-semibold mb-3">
+                        <slot name="title" ></slot>
+                    </h5>
+                    <div class="description text-wrap text-break text-truncate w-100 h-100"  >{{ description }}</div>
+                </div>
+                <div class="footer bottom-0">
+                    <router-link class=" fw-semibold py-2 text-decoration-none tertiary-font" :to="'/view-news/'+ id">Read More</router-link>
                     <div class="underline"></div>
                 </div> 
             </div>
         </div>
-    </router-link>
+    
 </template>
 
 <style scoped>
+    .description{
+        min-height: 150px;
+        max-height: 150px;
+    }
     .vertical-border-line{
         width: 1px;
         height: 20px;

@@ -52,6 +52,9 @@
                     console.error('Contact failed:', error);
                 }
             },
+            back(){
+                window.history.back()
+            },
         }
     }
 </script>
@@ -91,8 +94,14 @@
                         </div>
 
 
-                        <div class="footer w-100 d-flex justify-content-end">
-                            <button class="btn text-white px-4 primary-bg rounded-0" type="submit">Submit</button>
+                        <div class="footer w-100 text-center d-flex justify-content-end mt-5 mb-5">
+                            <button class="btn-cancel z-0 overflow-hidden position-relative text-dark py-3 px-4 bg-transparent border primary-divider me-2 rounded-0" type="button" @click="back">
+                                <p class="z-3 m-0">CANCEL</p>
+                                <div class="btn-bg z-n1 border top-0 start-0 position-absolute secondary-bg w-100 h-100">
+
+                                </div>
+                            </button>
+                            <button class="btn text-white py-3 px-4 primary-bg rounded-0" type="submit">SUBMIT</button>
                         </div>
                     </form>
                 </div>
@@ -148,5 +157,8 @@
     .contact-container{
         min-height: 45rem;
         max-width: 100%;
+    }
+    .primary-divider{
+        border-color: var(--primary-color) !important;
     }
 </style>

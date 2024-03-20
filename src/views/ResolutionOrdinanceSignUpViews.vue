@@ -1,11 +1,13 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
+    import BayanApiService from '@/services/BayanApiService';
     import MunicipalitiesApiService from '@/services/MunicipalitiesApiService';
     import OfficeApiService from '@/services/OfficeApiService';
     import PublicUserApiService from '@/services/PublicUserApiService';
     import ValidationService from '@/services/ValidationService';
     import {toast} from '@/toast'
+    import router from '@/router';
 </script>
 <script>
     export default {
@@ -15,6 +17,7 @@
                 signupData: {
                     full_name: '',
                     email: '',
+                    bayan_id: '',
                     municipality_id: '',
                     contact_number: '',
                     office_id: '',
@@ -23,7 +26,9 @@
                 showValidation: {},
                 border: {},
                 office: [],
+                bayan: [],
                 municipality: [],
+                bayanQuery: '',
                 officeQuery: '',
                 municipalityQuery: ''
             }
@@ -40,18 +45,15 @@
                     await PublicUserApiService.register(this.signupData).then(items => {
                         if(items.type === 'error'){
                             toast(items.text, items.type);
-                            console.log(items.data.errors)
-                            // Object.keys(items.data)
-                            // this.showValidation[field] = true;
-                            // this.border[field] = true;
                         }else{
                             for (let key in this.signupData) {
                                 this.signupData[key] = '';
                             }
                             this.municipalityQuery = ''
                             this.officeQuery = ''
-
+                            this.bayanQuery = ''
                             toast(items.text, items.type);
+                            router.push('/login')
                         }
 
                     })
@@ -63,8 +65,7 @@
                         if (hasValidationErrors) {
                             toast(error.response.data.message, 'warning', 3500);
                             for (const field in errorMessages) {
-                                if (errorMessages.hasOwnProperty(field)) {
-                                    // const errorMessage = errorMessages[field][0];                                 
+                                if (errorMessages.hasOwnProperty(field)) {                            
                                     this.showValidation[field] = true;
                                     this.border[field] = true;
                                 }
@@ -92,6 +93,14 @@
                 .catch(error => {
                     console.error('', error);
                 });
+
+                BayanApiService.fetch().then(item => {
+                    this.bayan = []
+                    this.bayan.push(...item);
+                })
+                .catch(error => {
+                    console.error('', error);
+                });
             }, 
             getMunicipality(id, name){
                 this.signupData.municipality_id = id
@@ -101,11 +110,18 @@
                 this.signupData.office_id = id
                 this.officeQuery = name
             },
+            getBayan(id, name){
+                this.signupData.bayan_id = id
+                this.bayanQuery = name
+            },
             toggleMunicipalityQuery() {
                 this.municipalityQuery = this.municipalityQuery ? '' : this.municipalityQuery;
             },
             toggleOfficeQuery() {
                 this.officeQuery = this.officeQuery ? '' : this.officeQuery;
+            },
+            toggleBayanQuery() {
+                this.bayanQuery = this.bayanQuery ? '' : this.bayanQuery;
             },
         },
         created() {
@@ -159,11 +175,25 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-4">
+                                    <label class="form-label">Contact Number</label> 
+                                    <span class="text-danger" v-if="showValidation.contact_number"> *</span>
+                                    <input type="text" :class="{ 'border-danger': border.contact_number }" class="form-control p-3 bg-transparent" v-model="signupData.contact_number" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Name of Secretary</label>
+                            <span class="text-danger" v-if="showValidation.secretary_name"> *</span>
+                            <input type="text" :class="{ 'border-danger': border.secretary_name }" class="form-control p-3 bg-transparent" v-model="signupData.secretary_name" placeholder="">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-4">
                                     <label class="form-label">City/Municipality</label>
                                     <span class="text-danger" v-if="showValidation.municipality_id"> *</span>
                                     <div class="dropdown rounded-0 w-100">
                                         <button @click="toggleMunicipalityQuery" data-bs-toggle="dropdown" aria-expanded="false" :class="{ 'border-danger': border.municipality_id }"  class="w-100 dropdown-btn btn text-dark border d-flex align-items-center justify-content-between p-3 rounded-2 " type="button" >
-                                           <p class="text-nowrap text-truncate m-0">{{ municipalityQuery ? municipalityQuery : 'Select Municipality' }}</p> <i v-if="municipalityQuery" class="bi bi-x"></i> <i v-if="!municipalityQuery" class="bi bi-caret-down"></i>
+                                            <p class="text-nowrap text-truncate m-0">{{ municipalityQuery ? municipalityQuery : 'Select Municipality' }}</p> <i v-if="municipalityQuery" class="bi bi-x"></i> <i v-if="!municipalityQuery" class="bi bi-caret-down"></i>
                                         </button>
                                         <ul class="dropdown-menu w-100">
                                             <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in municipality" :key="index"  @click="getMunicipality(items.id, items.name)">
@@ -171,15 +201,6 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="mb-4">
-                                    <label class="form-label">Contact Number</label> 
-                                    <span class="text-danger" v-if="showValidation.contact_number"> *</span>
-                                    <input type="text" :class="{ 'border-danger': border.contact_number }" class="form-control p-3 bg-transparent" v-model="signupData.contact_number" placeholder="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -199,10 +220,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-4">
-                            <label class="form-label">Name of Secretary</label>
-                            <span class="text-danger" v-if="showValidation.secretary_name"> *</span>
-                            <input type="text" :class="{ 'border-danger': border.secretary_name }" class="form-control p-3 bg-transparent" v-model="signupData.secretary_name" placeholder="">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-4">
+                                    <label class="form-label">Bayan</label>
+                                    <span class="text-danger" v-if="showValidation.bayan_id"> *</span>
+                                    <div class="dropdown rounded-0 w-100">
+                                        <button @click="toggleBayanQuery" data-bs-toggle="dropdown" aria-expanded="false" :class="{ 'border-danger': border.bayan_id}"  class="w-100 dropdown-btn btn text-dark border d-flex align-items-center justify-content-between p-3 rounded-2 " type="button" >
+                                            <p class="text-nowrap text-truncate m-0">{{ bayanQuery ? bayanQuery : 'Select Bayan' }}</p> <i v-if="bayanQuery" class="bi bi-x"></i> <i v-if="!bayanQuery" class="bi bi-caret-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu w-100">
+                                            <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in bayan" :key="index"  @click="getBayan(items.id, items.name)">
+                                                {{ items.name }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="footer w-100 text-center d-flex justify-content-end mt-5">

@@ -42,6 +42,12 @@
                     'date',
                     'time',
                 ],
+                logsRows: [
+                    'name',
+                    'old_value',
+                    'new_value',
+                    'remarks',
+                ],
                 tableData: [
 
                 ],
@@ -62,7 +68,6 @@
             fetchData(){
                 DocumentApiService.fetchMyDocument()
                 .then(data => {
-                    console.log(data)
                     this.tableData = []
                     this.tableData.push(...data);
                 })
@@ -96,6 +101,7 @@
                     :data="tableData"
                     :rows="tableRows"
                     :standalone="true"
+                    :itemsPerPage="10"
                     @row-click-data="getRowData"
                 ></TableComponent>
             </OnlineTrackingTableComponent >
@@ -119,6 +125,7 @@
                             :header="detailsHeader"
                             :data="rowData"
                             :rows="detailsRows"
+                            :detailsrows="logsRows"
                             :standalone="false"
                         >
                 

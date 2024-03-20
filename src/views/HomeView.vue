@@ -8,7 +8,92 @@
   import OrderofBusinessApiService from '@/services/OrderofBusinessApiService';
   import PublicUserApiService from '@/services/PublicUserApiService';
   import router from '@/router';
+  import NewsApiService from '@/services/NewsApiService';
+</script>
+<script>
 
+  export default {
+    components: {
+      PaginationListComponentVue
+    },
+    data() {
+      return {
+        isScrolled: false,
+        authToken: PublicUserApiService.getAuthToken(),
+        OrderOfBusiness: [],
+        News: [],
+        user: {},
+        name: ''
+      };
+    },
+    mounted() {
+      window.addEventListener('scroll', this.handleScroll);
+    },
+    destroyed() {
+      window.removeEventListener('scroll', this.handleScroll);
+    },
+    methods: {
+      handleScroll() {
+        this.isScrolled = window.scrollY > 10; 
+      },
+      viewMore() {
+        const carouselSection = document.getElementById('carousel');
+        if (carouselSection) {
+          carouselSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      },
+      fetchData(){
+        OrderofBusinessApiService.fetchOrderOfBusiness().then(item => {
+          this.OrderOfBusiness = []
+          this.OrderOfBusiness.push(...item);
+        })
+        .catch(error => {
+          console.error('', error);
+        });
+
+				if(PublicUserApiService.getAuthToken()){
+						PublicUserApiService.getAuthUser().then(items => {
+							this.user = items
+							this.name = this.capitalizeFirstLetter(items.full_name)
+						}).catch(error => {
+							console.log(error)
+						})
+				}
+
+        NewsApiService.fetch().then(item => {
+          this.News = []
+          this.News.push(...item);
+        })
+        .catch(error => {
+          console.error('', error);
+        });
+      }, 
+
+      async logout() {
+        try {
+
+          await PublicUserApiService.logout();
+					
+					localStorage.removeItem('authToken');
+        	localStorage.removeItem('authTime');
+					router.push('/login');
+
+          } catch (error) {
+          console.error('logout failed:', error);
+          }
+      },
+
+			capitalizeFirstLetter(string) {
+				return string.replace(/\b\w/g, function(char) {
+					return char.toUpperCase();
+				});
+			}
+
+    },
+    created() {
+      this.fetchData(); 
+    }
+  };
 </script>
 
 <template >
@@ -152,7 +237,7 @@
         <div class="overlay"></div>
   </div>
 
-  <div class="nav-spacer w-100 border" id="carousel" :class="{ 'd-block': isViewed }">
+  <div class="nav-spacer w-100 border" id="carousel" >
       <!-- Content goes here -->
   </div>
 
@@ -318,93 +403,7 @@
 
 </template>
 
-<script>
 
-  export default {
-    components: {
-      PaginationListComponentVue
-    },
-    data() {
-      return {
-        isScrolled: false,
-        authToken: PublicUserApiService.getAuthToken(),
-        OrderOfBusiness: [
-              ],
-        News: [
-                {
-                  uuid: 'awB2I-dwwas2',
-                  title: 'Sample News',
-                  imgLink: sample_news_img,
-                  link: 'aaa',
-                  published_date2: 'March 10, 2024',
-                  description: '<p><strong>ORDER OF BUSINESS OF THE 75TH REGULAR SESSION OF THE 20TH SANGGUNIANG PANLUNGSOD OF GENERAL SANTOS CITY</strong>, TO BE HELD AT THE SESSION HALL, LEGISLATIVE BUILDING, GENERAL SANTOS CITY ON WEDNESDAY, FEBRUARY 28, 2024 AT 9:00 A.M.</p>'
-                }
-              ],
-        user: {},
-        name: ''
-      };
-    },
-    mounted() {
-      window.addEventListener('scroll', this.handleScroll);
-    },
-    destroyed() {
-      window.removeEventListener('scroll', this.handleScroll);
-    },
-    methods: {
-      handleScroll() {
-        this.isScrolled = window.scrollY > 10; 
-      },
-      viewMore() {
-        const carouselSection = document.getElementById('carousel');
-        if (carouselSection) {
-          carouselSection.scrollIntoView({ behavior: 'smooth' });
-        }
-      },
-      fetchData(){
-        OrderofBusinessApiService.fetchOrderOfBusiness().then(item => {
-          this.OrderOfBusiness = []
-          this.OrderOfBusiness.push(...item);
-        })
-        .catch(error => {
-          console.error('', error);
-        });
-
-					if(PublicUserApiService.getAuthToken()){
-						PublicUserApiService.getAuthUser().then(items => {
-							this.user = items
-							this.name = this.capitalizeFirstLetter(items.full_name)
-						}).catch(error => {
-							console.log(error)
-						})
-					}
-      }, 
-
-      async logout() {
-        try {
-
-          await PublicUserApiService.logout();
-					
-					localStorage.removeItem('authToken');
-        	localStorage.removeItem('authTime');
-					router.push('/login');
-
-          } catch (error) {
-          console.error('logout failed:', error);
-          }
-      },
-
-			capitalizeFirstLetter(string) {
-				return string.replace(/\b\w/g, function(char) {
-					return char.toUpperCase();
-				});
-			}
-
-    },
-    created() {
-      this.fetchData(); 
-    }
-  };
-</script>
 
 <style scoped>
 	.secondary-bg{

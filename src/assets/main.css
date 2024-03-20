@@ -113,26 +113,8 @@
   height: 100vh;
 }
 
-.btn-bg{
-  transform: translateX(-100%);
-  transition: .2s ease-in;
-}
-.btn-cancel:hover .btn-bg {
-  animation: moveleft .2s ease-out forwards ;
-}
-.btn-cancel:hover p{
-  border: none !important;
-  color: #F2F3F9;
-}
-.btn-cancel:hover {
-  border: none !important;
-  color: #F2F3F9;
-}
-
-@keyframes moveleft {
-  to{
-      transform: translateX(0%);
-  }
+.blob{
+  background-image: url(../assets/images/blob.png);
 }
 
 @media screen and (max-height: 300px) {
@@ -153,7 +135,7 @@
  * For more information, check out https://ckeditor.com/docs/ckeditor5/latest/installation/advanced/content-styles.html
  */
 
- :root {
+:root {
   --ck-color-image-caption-background: hsl(0, 0%, 97%);
   --ck-color-image-caption-text: hsl(0, 0%, 20%);
   --ck-color-mention-background: hsla(341, 100%, 30%, 0.1);
@@ -690,5 +672,27 @@ margin-left: -15px;
   /* @ckeditor/ckeditor5-page-break/theme/pagebreak.css */
   .ck-content .page-break::after {
       display: none;
+  }
+}
+
+.btn-bg{
+  transform: translateX(-100%);
+  transition: .2s ease-in;
+}
+.btn-cancel:hover .btn-bg {
+  animation: moveleft .2s ease-out forwards ;
+}
+.btn-cancel:hover p{
+  border: none !important;
+  color: #F2F3F9;
+}
+.btn-cancel:hover {
+  border: none !important;
+  color: #F2F3F9;
+}
+
+@keyframes moveleft {
+  to{
+      transform: translateX(0%);
   }
 }

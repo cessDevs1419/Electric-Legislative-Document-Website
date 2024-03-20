@@ -1,12 +1,13 @@
 <script setup>
     import HeaderContainerComponent from '@/components/HeaderContainerComponent.vue';
     import TemplateContainer from '@/components/TemplateContainer.vue';
-import BayanApiService from '@/services/BayanApiService';
+    import BayanApiService from '@/services/BayanApiService';
     import MunicipalitiesApiService from '@/services/MunicipalitiesApiService';
     import OfficeApiService from '@/services/OfficeApiService';
     import PublicUserApiService from '@/services/PublicUserApiService';
     import ValidationService from '@/services/ValidationService';
     import {toast} from '@/toast'
+    import router from '@/router';
 </script>
 <script>
     export default {
@@ -52,6 +53,7 @@ import BayanApiService from '@/services/BayanApiService';
                             this.officeQuery = ''
                             this.bayanQuery = ''
                             toast(items.text, items.type);
+                            router.push('/login')
                         }
 
                     })
@@ -63,8 +65,7 @@ import BayanApiService from '@/services/BayanApiService';
                         if (hasValidationErrors) {
                             toast(error.response.data.message, 'warning', 3500);
                             for (const field in errorMessages) {
-                                if (errorMessages.hasOwnProperty(field)) {
-                                    // const errorMessage = errorMessages[field][0];                                 
+                                if (errorMessages.hasOwnProperty(field)) {                            
                                     this.showValidation[field] = true;
                                     this.border[field] = true;
                                 }
@@ -192,7 +193,7 @@ import BayanApiService from '@/services/BayanApiService';
                                     <span class="text-danger" v-if="showValidation.municipality_id"> *</span>
                                     <div class="dropdown rounded-0 w-100">
                                         <button @click="toggleMunicipalityQuery" data-bs-toggle="dropdown" aria-expanded="false" :class="{ 'border-danger': border.municipality_id }"  class="w-100 dropdown-btn btn text-dark border d-flex align-items-center justify-content-between p-3 rounded-2 " type="button" >
-                                           <p class="text-nowrap text-truncate m-0">{{ municipalityQuery ? municipalityQuery : 'Select Municipality' }}</p> <i v-if="municipalityQuery" class="bi bi-x"></i> <i v-if="!municipalityQuery" class="bi bi-caret-down"></i>
+                                            <p class="text-nowrap text-truncate m-0">{{ municipalityQuery ? municipalityQuery : 'Select Municipality' }}</p> <i v-if="municipalityQuery" class="bi bi-x"></i> <i v-if="!municipalityQuery" class="bi bi-caret-down"></i>
                                         </button>
                                         <ul class="dropdown-menu w-100">
                                             <li class="px-3 cursor-pointer mb-2" v-for="(items, index) in municipality" :key="index"  @click="getMunicipality(items.id, items.name)">

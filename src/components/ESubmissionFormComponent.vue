@@ -8,6 +8,7 @@ import OfficeApiService from "@/services/OfficeApiService";
 import DocumentRequirementApiService from "@/services/DocumentRequirementApiService";
 import ESubmissionTableComponentVue from "./ESubmissionTableComponent.vue";
 import DocumentApiService from "@/services/DocumentApiService";
+import { toast } from "@/toast";
 </script>
 
 <script>
@@ -24,13 +25,13 @@ export default {
       selectedType: null,
       selectedRequirements: [],
       formValue: {
-        type_id: 0,
-        category_id: 0,
-        bayan_id: 0,
-        office_id: 0,
-        no: 0,
+        type_id: "",
+        category_id: "",
+        bayan_id: "",
+        office_id: "",
+        no: "",
         year: new Date().getFullYear(),
-        pages: 0,
+        pages: "",
         title: "",
         requirements: [
           {
@@ -47,10 +48,6 @@ export default {
         this.displayRequirements(newValue);
       },
       immediate: true,
-    },
-    "formValue.category_id": function (newCategoryId, oldCategoryId) {
-      console.log("New Category ID:", newCategoryId);
-      console.log("Old Category ID:", oldCategoryId);
     },
     selectedRequirements: {
       handler(newRequirements) {
@@ -125,7 +122,11 @@ export default {
           console.error("Error fetching bayan:", error);
         });
     },
-    submissionEvent() {
+    async submissionEvent() {
+      if (!this.validateForm()) {
+        return;
+      }
+
       const body = new FormData();
 
       body.append("type_id", this.formValue.type_id);
@@ -148,8 +149,6 @@ export default {
           fIndex < this.formValue.requirements[rIndex].files.length;
           fIndex++
         ) {
-          let file = this.formValue.requirements[rIndex].files[fIndex];
-          console.log("file", file);
           body.append(`requirements[${rIndex}][requirement_id]`, id);
           body.append(
             `requirements[${rIndex}][files][${fIndex}]`,
@@ -158,11 +157,12 @@ export default {
         }
       }
 
-      console.log(body);
-
       DocumentApiService.submitDocument(body)
         .then((data) => {
-          console.log(data);
+          if (data.status) {
+            toast(data.text, data.type);
+            this.resetForm();
+          }
         })
         .catch((error) => {
           console.error("Error submitting :", error);
@@ -173,6 +173,50 @@ export default {
       if (charCode > 31 && (charCode < 48 || charCode > 57)) {
         event.preventDefault();
       }
+    },
+    resetForm() {
+      this.formValue.type_id = "";
+      this.formValue.category_id = "";
+      this.formValue.no = "";
+      this.formValue.pages = "";
+      this.formValue.title = "";
+      this.formValue.office_id = "";
+    },
+    validateForm() {
+      const {
+        type_id,
+        category_id,
+        bayan_id,
+        office_id,
+        no,
+        year,
+        pages,
+        title,
+        requirements,
+      } = this.formValue;
+
+      if (
+        !type_id ||
+        !category_id ||
+        !bayan_id ||
+        !office_id ||
+        !no ||
+        !year ||
+        !pages ||
+        !title ||
+        !requirements ||
+        no === 0 ||
+        pages === 0
+      ) {
+        this.emptyField();
+        return false;
+      }
+
+      return true;
+    },
+
+    emptyField() {
+      toast("One of the required fields are empty", "error");
     },
   },
   created() {
@@ -196,6 +240,7 @@ export default {
           <div class="col-lg-3">
             <div class="mb-3">
               <label class="form-label">Type</label>
+              <span class="text-danger"> *</span>
               <select
                 class="form-select p-2 bg-transparent rounded-0"
                 v-model="formValue.type_id"
@@ -215,6 +260,7 @@ export default {
           <div class="col-lg-3">
             <div class="mb-3">
               <label class="form-label">Number</label>
+              <span class="text-danger"> *</span>
               <input
                 type="text"
                 class="form-control bg-transparent p-2 rounded-0"
@@ -237,6 +283,7 @@ export default {
           <div class="col-lg-3">
             <div class="mb-3">
               <label class="form-label">Pages</label>
+              <span class="text-danger"> *</span>
               <input
                 type="text"
                 class="form-control bg-transparent p-2 rounded-0"
@@ -250,11 +297,13 @@ export default {
           <div class="col">
             <div class="mb-3 w-100">
               <label class="form-label">Title</label>
-              <textarea
+              <span class="text-danger"> *</span>
+              <input
+                type="text"
                 class="form-control bg-transparent p-2 rounded-0"
+                placeholder="Enter title..."
                 v-model="formValue.title"
-                rows="3"
-              ></textarea>
+              />
             </div>
           </div>
         </div>
@@ -262,6 +311,7 @@ export default {
           <div class="col-lg-4">
             <div class="mb-3">
               <label class="form-label">Category</label>
+              <span class="text-danger"> *</span>
               <select
                 class="form-select p-2 bg-transparent rounded-0"
                 v-model="formValue.category_id"
@@ -292,6 +342,7 @@ export default {
           <div class="col-lg-4">
             <div class="mb-3">
               <label class="form-label">Office</label>
+              <span class="text-danger"> *</span>
               <select
                 class="form-select p-2 bg-transparent rounded-0"
                 v-model="formValue.office_id"
@@ -317,21 +368,8 @@ export default {
           </p>
 
           <ESubmissionTableComponentVue
-            :requirements="this.selectedRequirements"
+            :requirements="selectedRequirements"
           ></ESubmissionTableComponentVue>
-          <!-- <div class="btn-group">
-            <div
-              class="btn-cancel cursor-pointer primary-bg text-white px-3 py-2 me-2"
-            >
-              <p class="mb-0">Cancel</p>
-            </div>
-            <div
-              class="btn-submit cursor-pointer primary-bg text-white px-3 py-2"
-              @click="submissionEvent"
-            >
-              <p class="mb-0">Submit</p>
-            </div>
-          </div> -->
 
           <div
             class="footer w-100 text-center d-flex justify-content-end mt-5 mb-5"
@@ -360,6 +398,10 @@ export default {
 </template>
 
 <style scoped>
+.form-control {
+  color: var(--primary-font) !important;
+}
+
 .primary-bg {
   background: var(--primary-color);
 }

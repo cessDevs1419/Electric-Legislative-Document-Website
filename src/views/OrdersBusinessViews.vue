@@ -43,8 +43,8 @@
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
     <TemplateContainer>
-        <div class="row g-5 w-100 m-auto mb-5">
-            <div class="col-lg-7 px-md-5 ">
+        <div class="row g-5 w-100 m-auto mb-5 px-2 px-md-0">
+            <div class="col-lg-7 px-md-5 px-0 ">
                 <SectionHeaderComponent type="outside" class="mb-5" >
                     <template #firstWord >Order of</template>
                     <template #secondWord >Business</template>

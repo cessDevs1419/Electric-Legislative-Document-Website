@@ -60,8 +60,8 @@
 </script>
 
 <template>
-    <div class="table-container w-100 box-shadow overflow-auto px-4" >
-        <div class="table-header p-4">
+    <div class="table-container w-100 box-shadow overflow-auto px-2 py-4 px-md-4" >
+        <div class="table-header px-0  px-md-4">
             <div class="row w-100 m-auto">
                 <div class="col-lg-6 ">
                     <h4 class="d-flex align-items-center fw-bold"><span class="vertical-line"></span>Your E Submission</h4>
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-        <div class="table-body w-100 p-4 pt-0">
+        <div class="table-body w-100 px-0 px-md-4 pt-0">
             <slot></slot>
         </div>
     </div>

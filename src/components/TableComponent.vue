@@ -137,8 +137,8 @@
 
 
 <template>
-<div class="table-container " :class="{'box-shadow  px-4': !standalone}">
-    <div class="table-header py-4 px-2">
+<div class="table-container " :class="{'box-shadow px-2 px-md-4': !standalone}">
+    <div class="table-header py-4 px-0">
         <div class="row w-100 m-auto mb-3 mb-xl-0">
             <div class="col-md-6 ">
                 <div class="input-group mb-3">
@@ -201,7 +201,7 @@
             </div>
         </div>
     </div>
-    <div class="table-body pb-4 overflow-auto mx-3 pt-0">
+    <div class="table-body px-0 pb-4 overflow-auto mx-3 pt-0">
         <table class="table w-100">
             <thead>
                 <tr >

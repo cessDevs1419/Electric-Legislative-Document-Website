@@ -243,19 +243,17 @@
 
   <!-- Carousel -->
   <TemplateContainer>
-  <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="slide-indicator">
-      <ol class="carousel-indicators">
-        <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active"></li>
-        <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
-        <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
-      </ol>
-    </div>
 
-    <div class="carousel-inner">
+  <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators px-2 px-md-0 w-100 position-relative mb-4 justify-content-start m-auto">
+          <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active ms-0"></li>
+          <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
+          <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner px-2 px-md-0">
       <div class="carousel-item active">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6 ">
             <h6>
               What's Happening
             </h6>
@@ -467,11 +465,10 @@
   }
 
   .carousel-indicators {
-    position: absolute;
-    left: 40%;
+    /* left: 40%;
     transform: translateX(-50%);
     display: flex;
-    justify-content: center;
+    justify-content: center; */
     list-style: none;
   }
 

@@ -62,7 +62,7 @@ export default {
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
     <TemplateContainer v-if="municipalityDetails" :key="municipalityDetails.id">
-        <div class="row g-3 my-3">
+        <div class="row g-3 my-3 px-2 px-md-0">
           <div class="col-lg-7">
             <SectionHeaderComponent class="" type="outside">
               <template #firstWord>Municipality of</template>

@@ -81,9 +81,6 @@
                 window.history.back()
             },
         },
-        created() {
-            console.log(this.resetData);
-        }
     }
 </script>
 

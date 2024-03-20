@@ -31,7 +31,7 @@ export default {
       OrderofBusinessApiService.fetchOrderOfBusiness()
         .then(items => {
           this.OrderOfBusiness = [...items];
-          console.log("Fetched order data: "+this.OrderOfBusiness)
+          
         })
         .catch(error => {
           console.error('Error fetching data:', error);
@@ -40,7 +40,7 @@ export default {
   },
   created() {
     this.fetchData();
-    console.log("Fetched order data created: "+this.OrderOfBusiness)
+    
   },
 }
 </script>

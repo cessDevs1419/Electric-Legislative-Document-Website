@@ -152,7 +152,7 @@
         <div class="overlay"></div>
   </div>
 
-  <div class="nav-spacer w-100 border" id="carousel" :class="{ 'd-block': isViewed }">
+  <div class="nav-spacer w-100 border" id="carousel" >
       <!-- Content goes here -->
   </div>
 

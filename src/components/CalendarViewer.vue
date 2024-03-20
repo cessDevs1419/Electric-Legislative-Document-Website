@@ -228,13 +228,13 @@ export default defineComponent({
 
           <!-- Filter Button Group -->
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label :class="{'btn': true, 'filter-btn': true, 'active': currentDateActive}">
+            <label :class="{'btn': true, 'filter-btn': true, }">
               <input @click="handleFilterByCurrentDate" type="radio" name="options" id="option1" autocomplete="off" checked> Today
             </label>
-            <label :class="{'btn': true, 'filter-btn': true, 'active': monthYearActive}">
+            <label :class="{'btn': true, 'filter-btn': true, }">
               <input @click="handleFilterByMonthAndYear" type="radio" name="options" id="option2" autocomplete="off"> Month
             </label>
-            <label :class="{'btn': true, 'filter-btn': true, 'active': yearActive}">
+            <label :class="{'btn': true, 'filter-btn': true, }">
               <input @click="handleFilterByYear" type="radio" name="options" id="option3" autocomplete="off"> Year
             </label>
           </div>

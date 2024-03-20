@@ -42,6 +42,12 @@
                     'date',
                     'time',
                 ],
+                logsRows: [
+                    'name',
+                    'old_value',
+                    'new_value',
+                    'remarks',
+                ],
                 tableData: [
 
                 ],
@@ -119,6 +125,7 @@
                             :header="detailsHeader"
                             :data="rowData"
                             :rows="detailsRows"
+                            :detailsrows="logsRows"
                             :standalone="false"
                         >
                 

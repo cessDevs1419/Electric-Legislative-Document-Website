@@ -37,7 +37,6 @@
                 this.$emit('search-data', this.searchQuery);
             },
             checkIfNotNull(attachments) {
-                console.log(attachments);
                 return attachments && attachments.length > 0; 
             },
             getDate(dateTime) {

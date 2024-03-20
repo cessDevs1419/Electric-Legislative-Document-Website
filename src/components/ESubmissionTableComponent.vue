@@ -156,13 +156,25 @@ export default {
         let fileType = "";
 
         // Determine file type based on file extension
-        if (["jpg", "jpeg", "png"].includes(extension)) {
+        if (["jpg", "jpeg", "png", "gif"].includes(extension)) {
           fileType = "image";
         } else if (["pdf"].includes(extension)) {
           fileType = "PDF";
-        } else if (["xlsx", "xlsm", "xlsb"].includes(extension)) {
+        } else if (
+          [
+            "xlsx",
+            "xlsm",
+            "xlsb",
+            "xls",
+            "xlm",
+            "xla",
+            "xlc",
+            "xlt",
+            "xlw",
+          ].includes(extension)
+        ) {
           fileType = "excel";
-        } else if (["doc", "docx"].includes(extension)) {
+        } else if (["doc", "docx", "docs"].includes(extension)) {
           fileType = "docx";
         } else {
           fileType = "other";

@@ -9,6 +9,8 @@
   import PublicUserApiService from '@/services/PublicUserApiService';
   import router from '@/router';
   import NewsApiService from '@/services/NewsApiService';
+  import AnnouncementApiService from '@/services/AnnouncementApiService';
+
 </script>
 <script>
 
@@ -172,6 +174,15 @@
         NewsApiService.fetch().then(item => {
           this.News = []
           this.News.push(...item);
+        })
+        .catch(error => {
+          console.error('', error);
+        });
+
+        
+        AnnouncementApiService.fetch().then(item => {
+          this.Announcement = []
+          this.Announcement.push(...item.slice(0, 5));
         })
         .catch(error => {
           console.error('', error);
@@ -570,4 +581,4 @@
   }
 }
 
-</style>
+</style>@/services/AnnouncementApiService

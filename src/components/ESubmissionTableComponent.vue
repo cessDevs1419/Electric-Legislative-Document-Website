@@ -131,10 +131,10 @@
                       {{ file.fileName }}
                     </span>
                   </h1>
-                  <attachmentReviewerComponentVue
+                  <!-- <attachmentReviewerComponentVue
                     class="pdf-reviewer my-4"
                     :src="file.fileUrl"
-                  ></attachmentReviewerComponentVue>
+                  ></attachmentReviewerComponentVue> -->
 
                   <hr />
                 </div>
@@ -245,10 +245,10 @@ export default {
           ].includes(extension)
         ) {
           fileType = "excel";
-          fileUrl = URL.createObjectURL(file);
+          // fileUrl = URL.createObjectURL(file);
         } else if (["doc", "docx", "docs"].includes(extension)) {
           fileType = "docx";
-          fileUrl = URL.createObjectURL(file);
+          // fileUrl = URL.createObjectURL(file);
         } else {
           fileType = "other";
         }

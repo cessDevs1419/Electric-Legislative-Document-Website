@@ -46,12 +46,12 @@ export default {
 </script>
 
 <template>
-  <div class="card-body tertiary-bg my-3 px-2 pb-5 position-relative">
+  <div class="card-body tertiary-bg my-3 px-2 pt-3 pb-3 position-relative">
     <ul class="list-unstyled">
       <template v-for="(event, index) in events" :key="index">
         <li v-if="index < 5" class="py-0 px-2">
           <p
-            class="pt-3 fw-semibold tertiary-font fs-5"
+            class="pt-2 fw-semibold tertiary-font fs-5"
             @click="selectEvent(event)"
             data-toggle="modal"
             data-target="#exampleModal"

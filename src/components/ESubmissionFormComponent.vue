@@ -116,7 +116,7 @@ export default {
       PublicUserApiService.getAuthUser()
         .then((data) => {
           this.bayan = data;
-          this.formValue.bayan_id = this.bayan.municipality_id;
+          this.formValue.bayan_id = this.bayan.bayan_id;
         })
         .catch((error) => {
           console.error("Error fetching bayan:", error);

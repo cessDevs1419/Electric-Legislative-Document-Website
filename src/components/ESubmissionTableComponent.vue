@@ -131,10 +131,12 @@
                       {{ file.fileName }}
                     </span>
                   </h1>
-                  <PDFReviewerComponent
+                  <attachmentReviewerComponentVue
                     class="pdf-reviewer my-4"
                     :src="file.fileUrl"
-                  ></PDFReviewerComponent>
+                  ></attachmentReviewerComponentVue>
+
+                  <p>{{ file.fileUrl }}</p>
                   <hr />
                 </div>
               </div>
@@ -151,7 +153,7 @@
 <script setup>
 import PDFReviewerComponent from "./PDFReviewerComponent.vue";
 import DocumentApiService from "@/services/DocumentApiService";
-import SectionHeaderComponent from "./SectionHeaderComponent.vue";
+import attachmentReviewerComponentVue from "./attachmentReviewerComponent.vue";
 </script>
 
 <script>
@@ -246,8 +248,10 @@ export default {
           ].includes(extension)
         ) {
           fileType = "excel";
+          fileUrl = URL.createObjectURL(file);
         } else if (["doc", "docx", "docs"].includes(extension)) {
           fileType = "docx";
+          fileUrl = URL.createObjectURL(file);
         } else {
           fileType = "other";
         }

@@ -110,7 +110,7 @@
                             <div class="input-group mb-3">
                                 <input :type="showInput ? 'text' : 'password'" :class="{ 'border-danger': border.password }" class="form-control p-3 bg-transparent border border-end-0" v-model="resetData.password" placeholder="">
                                 <button type="button" :class="{ 'border-danger': border.password }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
-                                    <i class="bi bi-eye px-3 tertiary-font fs-4" v-if="!this.showInput"></i>
+                                    <i class="bi bi-eye px-3 tertiary-font fs-4" v-if="!showInput"></i>
                                     <i class="bi bi-eye-slash px-3 tertiary-font fs-4" v-else></i>
                                 </button>
                             </div>
@@ -121,7 +121,7 @@
                             <div class="input-group mb-3">
                                 <input :type="showInput ? 'text' : 'password'" :class="{ 'border-danger': border.password_confirmation }" class="form-control p-3 bg-transparent border border-end-0" v-model="resetData.password_confirmation" placeholder="">
                                 <button type="button" :class="{ 'border-danger': border.password_confirmation }" class="input-group-text bg-transparent border border-start-0" @click="toggleInput" >
-                                    <i class="bi bi-eye px-3 tertiary-font fs-4" v-if="!this.showInput"></i>
+                                    <i class="bi bi-eye px-3 tertiary-font fs-4" v-if="!showInput"></i>
                                     <i class="bi bi-eye-slash px-3 tertiary-font fs-4" v-else></i>
                                 </button>
                             </div>

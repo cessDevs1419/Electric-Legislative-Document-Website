@@ -115,15 +115,36 @@
               class="modalItems d-flex display-row justify-content-center align-items-center pt-5"
             >
               <div id="imageContainer"></div>
+              <div
+                v-for="(requirement, index) in requirements"
+                :key="index"
+                class="pdfContainer"
+              >
+                <div
+                  v-for="(file, fileIndex) in requirement.files"
+                  :key="fileIndex"
+                >
+                  <h5>{{ file.fileName }}</h5>
+                  <PDFReviewerComponent
+                    class="pdf-reviewer my-4"
+                    :src="file.fileUrl"
+                  ></PDFReviewerComponent>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <p>{{ this.requirements }}</p>
+    <p>{{ this.documentData }}</p>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import PDFReviewerComponent from "./PDFReviewerComponent.vue";
+import DocumentApiService from "@/services/DocumentApiService";
+</script>
 
 <script>
 import JSZip from "jszip";
@@ -134,6 +155,7 @@ export default {
   data() {
     return {
       tableHeader: ["No", "Name", "Attachment", "Action"],
+      documentData: [],
     };
   },
   props: {
@@ -143,6 +165,17 @@ export default {
     },
   },
   methods: {
+    fetchData() {
+      DocumentApiService.fetchMyDocument()
+        .then((data) => {
+          this.documentData = [];
+          this.documentData.push(...data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data :", error);
+        });
+    },
+
     triggerFileInput(index) {
       const input = this.$refs.fileInput[index];
       input.click();
@@ -183,30 +216,39 @@ export default {
           break;
         }
 
-        const fileType = ["jpg", "jpeg", "png", "gif"].includes(extension)
-          ? "image"
-          : ["pdf"].includes(extension)
-          ? "PDF"
-          : [
-              "xlsx",
-              "xlsm",
-              "xlsb",
-              "xls",
-              "xlm",
-              "xla",
-              "xlc",
-              "xlt",
-              "xlw",
-            ].includes(extension)
-          ? "excel"
-          : ["doc", "docx", "docs"].includes(extension)
-          ? "docx"
-          : "other";
+        let fileType;
+        let fileUrl;
+
+        if (["jpg", "jpeg", "png", "gif"].includes(extension)) {
+          fileType = "image";
+        } else if (["pdf"].includes(extension)) {
+          fileType = "PDF";
+          fileUrl = URL.createObjectURL(file);
+        } else if (
+          [
+            "xlsx",
+            "xlsm",
+            "xlsb",
+            "xls",
+            "xlm",
+            "xla",
+            "xlc",
+            "xlt",
+            "xlw",
+          ].includes(extension)
+        ) {
+          fileType = "excel";
+        } else if (["doc", "docx", "docs"].includes(extension)) {
+          fileType = "docx";
+        } else {
+          fileType = "other";
+        }
 
         uploadedFiles.push({
           fileType: fileType,
           fileName: file.name,
           file: file,
+          fileUrl: fileUrl,
         });
       }
 
@@ -329,5 +371,13 @@ export default {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.pdfContainer {
+  width: 60rem;
+}
+
+.pdf-reviewer {
+  height: 40rem;
 }
 </style>

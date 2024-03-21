@@ -110,9 +110,8 @@
 
 .offcanvas-sm-wd{
   max-width: 270px !important;
-  height: 100vh;
+  height: 100%;
 }
-
 .blob{
   background-image: url(../assets/images/blob.png);
 }

@@ -19,6 +19,7 @@ export const GETHotlines = url + 'api/order-of-the-business/hotline'
 export const GETNews = url + 'api/news';
 export const GETCurrentAuthUser = url + 'api/me'
 export const GETMyDocument = url + 'api/document/my-submission'
+export const GETAnnouncement = url + 'api/announcement'
 export const POSTRegister = url + 'api/register'
 export const POSTLogin = url + 'api/login'
 export const POSTForgotPassword = url + 'api/forgot-password'

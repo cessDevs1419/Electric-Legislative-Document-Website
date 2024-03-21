@@ -30,22 +30,24 @@
         </h4>
     </router-link>
     <p><slot name="description" ></slot></p>
-    <div class="details d-flex align-items-center mb-5">
+    <div class="details d-flex flex-column flex-md-row align-items-md-center mb-5">
             <p class="m-0 grey-font text-nowrap" >
                 <slot name="date" ></slot>
             </p>
-            <div class="vertical-border-line mx-4"></div>
+            <div class="vertical-border-line d-none d-md-flex mx-4"></div>
             <div  class="d-flex justify-content-start align-items-start align-items-sm-center flex-sm-row flex-column">
-                <template v-for="(items, index) in categories" :key="index">
-                    <template v-if="index > 1">
-                        <p class="m-0 text-start tertiary-font">Etc</p>
+                <p class="m-0 routes text-wrap text-truncate " v-for="(items, index) in categories" :key="index">
+                    <template v-if="index > 0" >
+                        <router-link  :title="items.category_name" :class="{'d-none': index > 1}" class="link m-0 text-start tertiary-font" :to="'/order-of-business/category/'+ items.category_id">
+                            Etc
+                        </router-link>&nbsp
                     </template>
                     <template v-else>
-                        <router-link  title="category" class="link m-0 text-start tertiary-font" :to="'/order-of-business/category/'+ items.category_id">
+                        <router-link  :title="items.category_name" class="link m-0 text-start tertiary-font" :to="'/order-of-business/category/'+ items.category_id">
                             {{ items.category_name}},
                         </router-link>&nbsp
                     </template>
-                </template>
+                </p>
             </div>
     </div>  
     <hr class="divider">
@@ -60,6 +62,10 @@
     }
     .link:hover{
         color: var(--secondary-color) !important;
+    }
+
+    .routes{
+        max-width: 500px;
     }
 
 </style>

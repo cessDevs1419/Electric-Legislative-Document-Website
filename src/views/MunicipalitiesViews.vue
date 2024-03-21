@@ -37,7 +37,7 @@
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
     <TemplateContainer>
-        <div class="row g-3 ">
+        <div class="row g-3 px-2 px-md-0">
             <div class="col-lg-7">
                 <SectionHeaderComponent class="" type="inside">
                     <template #firstWord >Municipalities</template>

@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-xl bg-body-tertiary  p-0 " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-xxl bg-body-tertiary  p-0 " data-bs-theme="dark">
         <div class="nav-container container-fluid primary-bg py-4">
           	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navItems" aria-controls="navItems" aria-expanded="false" aria-label="Toggle navigation">
             	<span class="navbar-toggler-icon"></span>
@@ -194,6 +194,5 @@
 		width: 100%;
 		max-width: 200px;
 	}
-
 
 </style>

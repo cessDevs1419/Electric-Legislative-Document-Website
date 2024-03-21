@@ -22,12 +22,121 @@
         authToken: PublicUserApiService.getAuthToken(),
         OrderOfBusiness: [],
         News: [],
+        Announcement: [
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+          {
+            uuid: 'uuidsample1',
+            title: 'Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa. ',
+            description_preview: 'Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.                 Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.',
+            image: sample_news_img,
+          },
+        ],
         user: {},
-        name: ''
+        name: '',
+        activeIndex: 0
       };
     },
     mounted() {
       window.addEventListener('scroll', this.handleScroll);
+      $('#CardCarousel').on('slid.bs.carousel', (event) => {
+        const activeIndex = $(event.target).find('.carousel-item.active').index();
+        this.updateActiveIndex(activeIndex);
+      });
     },
     destroyed() {
       window.removeEventListener('scroll', this.handleScroll);
@@ -68,7 +177,6 @@
           console.error('', error);
         });
       }, 
-
       async logout() {
         try {
 
@@ -82,23 +190,27 @@
           console.error('logout failed:', error);
           }
       },
-
 			capitalizeFirstLetter(string) {
 				return string.replace(/\b\w/g, function(char) {
 					return char.toUpperCase();
 				});
-			}
-
+			},
+      updateActiveIndex(index) {
+        this.activeIndex = index
+      },
     },
     created() {
       this.fetchData(); 
+    },
+    beforeDestroy() {
+      $('#CardCarousel').off('slid.bs.carousel');
     }
   };
 </script>
 
 <template >
   <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-xl position-fixed  w-100  p-0 " data-bs-theme="dark">
+  <nav class="navbar navbar-expand-xxl position-fixed  w-100  p-0 " data-bs-theme="dark">
     <div class="navbar-container container-fluid py-4 " :class="{ 'primary-bg': isScrolled }">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navItems" aria-controls="navItems" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -243,94 +355,40 @@
 
   <!-- Carousel -->
   <TemplateContainer>
-
-  <div id="CardCarousel" class="carousel slide" data-bs-ride="carousel">
-    <ol class="carousel-indicators px-2 px-md-0 w-100 position-relative mb-4 justify-content-start m-auto">
-          <li data-bs-target="#CardCarousel" data-bs-slide-to="0" class="active ms-0"></li>
-          <li data-bs-target="#CardCarousel" data-bs-slide-to="1"></li>
-          <li data-bs-target="#CardCarousel" data-bs-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner px-2 px-md-0">
-      <div class="carousel-item active">
-        <div class="row">
-          <div class="col-lg-6 ">
-            <h6>
-              What's Happening
-            </h6>
-            <h4>
-              Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
-            </h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
-            </p>
-
-            <div class="card-footer px-0 bg-transparent">
-              <router-link class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
-              <div class="underline"></div>
+    <div id="CardCarousel" class="carousel slide " data-bs-ride="carousel">
+      <ol class="carousel-indicators px-2 px-md-0 w-100 position-relative mb-4 justify-content-start m-auto">
+            <li v-for="(items, index) in Announcement" :key="index" data-bs-target="#CardCarousel" :data-bs-slide-to="index" :class="{'active' : index === activeIndex}"></li>
+      </ol>
+      <div class="carousel-inner px-2 px-md-0">
+        <div v-for="(items, index) in Announcement" :key="index" class="carousel-item " :class="{ 'active': index === activeIndex}">
+          <div class="row">
+            <div class="col-lg-6 position-relative ">
+              <div class="header">
+                <h6>
+                  What's Happening
+                </h6>
+                <h4>
+                  {{ items.title }}
+                </h4>
+              </div>
+              <p class="description overflow-hidden text-truncate text-wrap">
+                {{ items.description_preview}}
+              </p>
             </div>
-          </div>
-          <div class="col-lg-6">
-            <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 1">
+            <div class="col-lg-6">
+              <img :src="items.image" class="d-block w-100" alt="Slide 1">
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="carousel-item">
-        <div class="row">
-          <div class="col-lg-6">
-            <h6>
-              What's Happening
-            </h6>
-            <h4>
-              Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
-            </h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
-            </p>
-
-            <div class="card-footer px-0 bg-transparent">
-              <router-link class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
-              <div class="underline"></div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 2">
-          </div>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <div class="row">
-          <div class="col-lg-6">
-            <h6>
-              What's Happening
-            </h6>
-            <h4>
-              Lorem ipsum dolor sit amet consectetur. Rhoncus velit imperdiet ut congue commodo a dui sit massa.
-            </h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur. A vitae iaculis sit pharetra diam risus elementum. Sit ut mi malesuada blandit eu. Arcu leo ac felis tellus consequat at ut euismod. At quis tellus commodo eu vehicula augue.
-            </p>
-
-            <div class="card-footer px-0 bg-transparent">
-              <router-link class="nav-link tertiary-font text-primary fw-semibold m-0 text-decoration-none mb" to="/order-of-business">Learn More</router-link>
-              <div class="underline"></div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <img src="../assets/images/hero.png" class="d-block w-100" alt="Slide 3">
-          </div>
-        </div>
-      </div>
     </div>
-
-  </div>
-</TemplateContainer>
+  </TemplateContainer>
 
   
   <!-- Videos / Link -->
   <TemplateContainer>
-    <div class="row w-100 m-auto g-3 my-3">
+    <div class="row w-100 m-auto g-3 mb-3">
       <div class="col-lg-6">
         <LiveVideoComponent
           :pageLink="'https://www.facebook.com/QuezonGovPh'"
@@ -407,13 +465,17 @@
 	.secondary-bg{
 		background-color: var(--secondary-color) !important;;
 	}
-.navbar-container {
-  transition: .3s ease-in-out;
-}
-.glow{
-    background-color: rgb(40, 107, 174, 50);
-    backdrop-filter: blur(40px);
+  .description{
+        min-height: 210px;
+        max-height: 210px;
+    }
+  .navbar-container {
+    transition: .3s ease-in-out;
   }
+  .glow{
+      background-color: rgb(40, 107, 174, 50);
+      backdrop-filter: blur(40px);
+    }
 
   .hero {
     position: relative;
@@ -490,7 +552,7 @@
         border-bottom: 2px solid var(--primary-color);
 }
 
-@media screen and (max-width: 1199px){
+@media screen and (max-width: 1400px){
   .navbar-container{
     background-color: var(--primary-color);
   }

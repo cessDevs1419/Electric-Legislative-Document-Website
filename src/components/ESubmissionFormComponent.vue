@@ -334,7 +334,7 @@ export default {
               <input
                 type="text"
                 class="form-control disabled-bg grey-font p-2 rounded-0"
-                :placeholder="bayan.municipality_name"
+                :placeholder="bayan.bayan_name"
                 disabled
               />
             </div>

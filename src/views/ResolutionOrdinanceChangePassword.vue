@@ -87,8 +87,8 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="d-flex align-item-center jutify-content-center mt-5 mb-5 mt-xl-0">
-        <div class="signin-container w-100 box-shadow my-5 m-auto">
+    <TemplateContainer class="d-flex align-item-center jutify-content-center mb-5 mt-xl-0">
+        <div class="signin-container w-100 box-shadow m-auto">
             <div class="row w-100 h-100 m-auto ">
                 <div class="col-lg-7 p-2 dirty-white-bg">
                     <div class="title m-auto text-center mb-5 mt-5">

@@ -123,12 +123,19 @@
                 <div
                   v-for="(file, fileIndex) in requirement.files"
                   :key="fileIndex"
+                  class="pt-5"
                 >
-                  <h5>{{ file.fileName }}</h5>
+                  <h1 class="fw-bold attachmentHeader">
+                    Uploaded File -
+                    <span class="secondary-bg px-2 ms-1 fw-bold text-white">
+                      {{ file.fileName }}
+                    </span>
+                  </h1>
                   <PDFReviewerComponent
                     class="pdf-reviewer my-4"
                     :src="file.fileUrl"
                   ></PDFReviewerComponent>
+                  <hr />
                 </div>
               </div>
             </div>
@@ -144,6 +151,7 @@
 <script setup>
 import PDFReviewerComponent from "./PDFReviewerComponent.vue";
 import DocumentApiService from "@/services/DocumentApiService";
+import SectionHeaderComponent from "./SectionHeaderComponent.vue";
 </script>
 
 <script>
@@ -363,6 +371,10 @@ export default {
 </script>
 
 <style scoped>
+.attachmentHeader {
+  font-size: 22px;
+}
+
 .action-btns {
   height: 36px;
   max-width: 36px;

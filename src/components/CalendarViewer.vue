@@ -262,7 +262,7 @@ export default defineComponent({
 
 
         <!-- Calendar -->
-        <div class="d-flex ">
+        <div class="d-flex flex-column flex-md-row">
           <div class="w-100 ">
             <FullCalendar
               class='demo-app-calendar'
@@ -279,8 +279,8 @@ export default defineComponent({
 
             </FullCalendar>
           </div>
-          <div class="w-auto pt-5 ps-2 px-0 ">
-            <button @click="handleFilterByCurrentDate" class="drawer-btn btn btn-primary px-2 mt-3 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <div class="w-auto d-flex justify-content-end justify-content-start pt-md-5 pt-0 ps-md-2 px-0 ">
+            <button @click="handleFilterByCurrentDate" class="drawer-btn btn btn-primary px-2 mt-1 mt-md-3 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
               <p class="btn-text w-100 text-nowrap ">View Activities</p>
             </button>
           </div>
@@ -439,8 +439,7 @@ export default defineComponent({
   .drawer-btn{
     border-radius: 0 0.7rem 0.7rem 0;
     background-color: var(--primary-color);
-    height: auto;
-    min-height: 9rem;
+    max-height: 9rem;
     width: 2rem;
     padding: 0 , 1rem;
     display: flex;
@@ -538,5 +537,15 @@ export default defineComponent({
     font-weight: bold;
   }
   
+  @media screen and (max-width: 768px) {
+    .drawer-btn{
+      border-radius: 0 0 0.7rem 0.7rem ;
+      min-height: fit-content;
+      width: fit-content;
+    }
+    .btn-text{
+      transform: rotate(0deg);
+    }
+  }
   </style>
   

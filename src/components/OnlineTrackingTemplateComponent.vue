@@ -71,7 +71,7 @@
 </script>
 
 <template>
-    <div class="table-container overflow-auto "  :class="{'box-shadow px-4':this.standalone}">
+    <div class="table-container overflow-auto "  :class="{'box-shadow px-lg-4 px-0':this.standalone}">
         <div class="table-header p-4 px-0" :class="{'px-3': this.standalone}">
             <div class="row w-100 m-auto align-items-end">
                 <div class="col-lg-6">
@@ -97,7 +97,7 @@
                         </span>                       
                     </h6>
                 </div>
-                <div class="col-lg-6 d-flex align-item-end p-0 justify-content-end form-contol-sm " v-if="searchbar">
+                <div class="col-lg-6 d-flex align-item-end px-2 justify-content-end form-contol-sm " v-if="searchbar">
                     <div class="input-group mb-3">
                         <input type="search" v-model="searchQuery" class=" form-control p-2 rounded-0 border border-end-0" placeholder="Search Documents . . ." >
                         <span class="input-group-text rounded-0 border border-start-0 bg-transparent px-2" >

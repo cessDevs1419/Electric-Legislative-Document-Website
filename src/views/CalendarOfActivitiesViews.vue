@@ -35,30 +35,43 @@ export default {
 </script>
 
 <template>
-  <HeaderContainerComponent></HeaderContainerComponent>
-  <div class="spacer"></div>
-  <TemplateContainer>
-    <div class="row w-100 m-auto">
-      <CalendarViewer :calendarType="'fullview'"></CalendarViewer>
-      <div class="calendar-legend d-flex justify-content-center py-4">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="d-flex flex-wrap">
-              <div
-                class="d-flex justify-content-start align-items-center me-3 mb-2"
-                v-for="(calendarCategory, index) in calendarCategory"
-                :key="index"
-              >
-                <div
-                  class="mx-2"
-                  :style="{
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: calendarCategory.color,
-                  }"
-                ></div>
-                <div class="text-nowrap">{{ calendarCategory.name }}</div>
-              </div>
+    <HeaderContainerComponent></HeaderContainerComponent>
+    <div class="spacer"></div>
+    <TemplateContainer>
+        <div class="row w-100 m-auto">
+            <CalendarViewer
+                :calendarType="'fullview'"
+            ></CalendarViewer>
+            <div class="calendar-legend d-flex justify-content-center py-4">
+                 
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div class="d-flex flex-wrap">
+                            <div class="d-flex justify-content-start align-items-center me-3 mb-2" v-for="(calendarCategory, index) in calendarCategory" :key="index">
+                                <div class="mx-2" :style="{ width: '20px', height: '20px', backgroundColor: calendarCategory.color }"></div>
+                                <div class="text-nowrap">{{  calendarCategory.name  }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+        <div class="row w-100 m-auto">
+            <div class="col-lg-6 pb-5">
+                <LiveVideoComponent
+                    :pageLink="'https://www.facebook.com/QuezonGovPh'"
+                    :videoSrc="'src/assets/images/sample_vid.mp4'"
+                    >
+                    <template #heading>Facebook Livestream Link</template>
+                </LiveVideoComponent>
+            </div>
+            <div class="col-lg-6">
+                <SidebarListComponent
+                    :listType="'eventList'">
+                    <template #heading>Upcoming Events</template>
+                </SidebarListComponent>
             </div>
           </div>
         </div>

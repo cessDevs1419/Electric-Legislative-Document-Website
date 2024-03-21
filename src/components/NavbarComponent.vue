@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-xl bg-body-tertiary  p-0 " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-xxl bg-body-tertiary  p-0 " data-bs-theme="dark">
         <div class="nav-container container-fluid primary-bg py-4">
           	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navItems" aria-controls="navItems" aria-expanded="false" aria-label="Toggle navigation">
             	<span class="navbar-toggler-icon"></span>
@@ -92,7 +92,7 @@
 			<div class=" offcanvas-body h-auto mt-0 ">
 				<hr class="divider">
 				<ul class="w-100 rounded-0 px-0"> 
-					<li class="d-flex align-items-center cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
+					<li class="d-flex align-items-center cursor-pointer mb-2" data-bs-dismiss="offcanvas" aria-label="Close">
 						<router-link class="dropdown-item my-2 d-flex align-items-center " to="/setup/profile-setup">
 							<i class="bi bi-gear me-3"></i>
 							<p class="m-0">
@@ -100,7 +100,7 @@
 							</p>
 						</router-link>
 					</li>
-					<li class="d-flex align-items-center cursor-pointer" data-bs-dismiss="offcanvas" aria-label="Close">
+					<li class="d-flex align-items-center cursor-pointer mb-2" data-bs-dismiss="offcanvas" aria-label="Close">
 						<router-link  class="dropdown-item my-2 d-flex align-items-center " to="/setup/change-password">
 							<i class="bi bi-lock me-3"></i>
 								<p class="m-0">
@@ -194,6 +194,5 @@
 		width: 100%;
 		max-width: 200px;
 	}
-
 
 </style>

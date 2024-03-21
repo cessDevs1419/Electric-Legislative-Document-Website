@@ -144,8 +144,8 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="d-flex align-item-center jutify-content-center mb-5 pb-5">
-        <div class="signin-container w-100 box-shadow my-5 m-auto">
+    <TemplateContainer class="d-flex align-item-center jutify-content-center mb-5">
+        <div class="signin-container w-100 box-shadow  m-auto">
             <div class="row w-100 h-100 m-auto ">
                 <div class="col-lg-5 d-lg-flex d-none p-2 linear-primary-bg text-white position-relative overflow-hidden">
                     <div class="blob w-100 h-100 position-absolute top-0 start-0">

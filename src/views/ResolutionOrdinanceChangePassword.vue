@@ -139,7 +139,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-lg-5 position-relative linear-primary-bg py-5 text-white">
+                <div class="col-lg-5 d-none d-lg-flex position-relative linear-primary-bg py-5 text-white">
                     <div class="blob w-100 h-100 position-absolute top-0 start-0">
                     </div>
                 </div>

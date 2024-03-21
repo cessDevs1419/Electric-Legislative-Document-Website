@@ -9,12 +9,12 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="mt-5 mb-5">
-        <SectionHeaderComponent class="mt-5" type="inside">
+    <TemplateContainer class=" mb-5">
+        <SectionHeaderComponent type="inside">
             <template #firstWord >Vice Governor's</template>
             <template #secondWord >Wall</template>
         </SectionHeaderComponent>
-        <div class="row mb-5 mt-5">
+        <div class="row w-100 m-auto mb-5 mt-5">
             <div class="col-xl-3 col-lg-4 col-md-6 m-auto d-flex justify-content-center mb-3">
                 <CardsComponent
                     :images="sampleIcon"

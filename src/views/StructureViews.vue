@@ -9,11 +9,11 @@
     <HeaderContainerComponent ></HeaderContainerComponent>
     <div class="spacer"></div>
     <TemplateContainer>
-        <SectionHeaderComponent class="mt-5 mb-5 mt-lg-0" type="inside">
+        <SectionHeaderComponent type="inside">
                 <template #firstWord>Organizational</template>
                 <template #secondWord>Structure</template>
         </SectionHeaderComponent>
-        <PDFReviewerComponent class="pdf-reviewer mb-5 "
+        <PDFReviewerComponent class="pdf-reviewer my-4 px-2"
             src="https://ws-platform.s3.ap-southeast-1.amazonaws.com/328/file-example_PDF_500_kB.pdf" 
         ></PDFReviewerComponent>
     </TemplateContainer>

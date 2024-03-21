@@ -59,7 +59,7 @@ export default {
 
             </div>
         </div>
-        <div class="row">
+        <div class="row w-100 m-auto">
             <div class="col-lg-6 pb-5">
                 <LiveVideoComponent
                     :pageLink="'https://www.facebook.com/QuezonGovPh'"

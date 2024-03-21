@@ -82,9 +82,6 @@
 </template>
 
 <style scoped>
-.spacer {
-    padding-top: 15rem;
-}
 
 .municipality-table a,.table-item{
     font-weight: 600;

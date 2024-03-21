@@ -7,9 +7,9 @@
 <template>
     <HeaderContainerComponent></HeaderContainerComponent>
     <div class="spacer"></div>
-    <TemplateContainer class="mb-5 mt-5">
+    <TemplateContainer class="mb-5 ">
         <div class="d-flex justify-content-center mb-5 text-center">
-            <SectionHeaderComponent class="m-auto  mt-5 mb-5" type="inside">
+            <SectionHeaderComponent class="m-auto mb-5" type="inside">
                 <template #firstWord >The 20th</template>
                 <template #secondWord >Sangguniang Panlungsod Members</template>
             </SectionHeaderComponent>

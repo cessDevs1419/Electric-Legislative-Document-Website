@@ -182,7 +182,7 @@
         
         AnnouncementApiService.fetch().then(item => {
           this.Announcement = []
-          this.Announcement.push(...item.slice(0, 5));
+          this.Announcement.push(...item.slice(0, 7));
         })
         .catch(error => {
           console.error('', error);

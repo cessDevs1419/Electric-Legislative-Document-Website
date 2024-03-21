@@ -228,7 +228,7 @@ export default {
 
 <template>
   <TemplateContainer>
-    <form class="border" @submit.prevent="submissionEvent">
+    <form @submit.prevent="submissionEvent">
       <div class="tertiary-bg p-4">
         <div class="title">
           <h3 class="fw-bold m-0">E-Submission Form</h3>

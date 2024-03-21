@@ -1,6 +1,6 @@
 <template>
   <div class="table-container w-100 overflow-auto pt-4">
-    <div class="table-body border w-100 pt-0">
+    <div class="table-body w-100 pt-0">
       <ul class="w-100 border list-unstyled d-flex">
         <!-- Table header -->
         <li
@@ -35,7 +35,7 @@
               v-for="(attachment, index) in req.files"
               :key="index"
               :class="iconClass(attachment.fileType)"
-              style="font-size: 24px"
+              style="font-size: 26px; color: var(--primary-color)"
             ></i>
           </div>
         </div>
@@ -59,7 +59,7 @@
 
           <!-- Other Icons (Conditionally Displayed) -->
           <template v-if="req.files && req.files.length > 0">
-            <div
+            <!-- <div
               type="button"
               data-toggle="modal"
               data-target=".bd-example-modal-lg"
@@ -67,9 +67,9 @@
               @click="viewAttachments(req.attachments)"
             >
               <i class="bi bi-eye text-white"></i>
-            </div>
+            </div> -->
             <div
-              class="action-btns cursor-pointer primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              class="action-btns cursor-pointer secondary-bg w-100 d-flex justify-content-center align-items-center mx-1"
               @click="downloadAttachments(req.files)"
             >
               <i class="bi bi-download text-white"></i>
@@ -136,7 +136,6 @@
                     :src="file.fileUrl"
                   ></attachmentReviewerComponentVue>
 
-                  <p>{{ file.fileUrl }}</p>
                   <hr />
                 </div>
               </div>
@@ -145,15 +144,13 @@
         </div>
       </div>
     </div>
-    <p>{{ this.requirements }}</p>
-    <p>{{ this.documentData }}</p>
   </div>
 </template>
 
 <script setup>
 import PDFReviewerComponent from "./PDFReviewerComponent.vue";
 import DocumentApiService from "@/services/DocumentApiService";
-import attachmentReviewerComponentVue from "./attachmentReviewerComponent.vue";
+import AttachmentReviewerComponentVue from "./AttachmentReviewerComponent.vue";
 </script>
 
 <script>
@@ -359,13 +356,13 @@ export default {
     iconClass(attachmentType) {
       switch (attachmentType) {
         case "image":
-          return "bi bi-image me-2";
+          return "fa-solid fa-image me-2";
         case "PDF":
-          return "bi bi-filetype-pdf me-2";
+          return "fa-solid fa-file-pdf me-2";
         case "excel":
-          return "bi bi-filetype-xls me-2";
+          return "fa-solid fa-file-excel me-2";
         case "docx":
-          return "bi bi-filetype-docx me-2";
+          return "fa-solid fa-file-word  me-2";
         default:
           return "";
       }

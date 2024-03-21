@@ -42,13 +42,19 @@ export default {
   created() {
     this.fetchData();
   },
+  computed: {
+    upcomingEvents() {
+      const currentDate = new Date().toISOString().slice(0, 10);
+      return this.events.filter((event) => event.start_date >= currentDate);
+    },
+  },
 };
 </script>
 
 <template>
   <div class="card-body tertiary-bg my-3 px-2 pt-3 pb-3 position-relative">
     <ul class="list-unstyled">
-      <template v-for="(event, index) in events" :key="index">
+      <template v-for="(event, index) in upcomingEvents" :key="index">
         <li v-if="index < 5" class="py-0 px-2">
           <p
             class="pt-2 fw-semibold tertiary-font fs-5"

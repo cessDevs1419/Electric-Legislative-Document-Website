@@ -116,7 +116,7 @@ export default {
       PublicUserApiService.getAuthUser()
         .then((data) => {
           this.bayan = data;
-          this.formValue.bayan_id = this.bayan.municipality_id;
+          this.formValue.bayan_id = this.bayan.bayan_id;
         })
         .catch((error) => {
           console.error("Error fetching bayan:", error);
@@ -228,7 +228,7 @@ export default {
 
 <template>
   <TemplateContainer>
-    <form class="border" @submit.prevent="submissionEvent">
+    <form @submit.prevent="submissionEvent">
       <div class="tertiary-bg p-4">
         <div class="title">
           <h3 class="fw-bold m-0">E-Submission Form</h3>
@@ -334,7 +334,7 @@ export default {
               <input
                 type="text"
                 class="form-control disabled-bg grey-font p-2 rounded-0"
-                :placeholder="bayan.municipality_name"
+                :placeholder="bayan.bayan_name"
                 disabled
               />
             </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="table-container w-100 overflow-auto pt-4">
-    <div class="table-body border w-100 pt-0">
+    <div class="table-body w-100 pt-0">
       <ul class="w-100 border list-unstyled d-flex">
         <!-- Table header -->
         <li
@@ -35,7 +35,7 @@
               v-for="(attachment, index) in req.files"
               :key="index"
               :class="iconClass(attachment.fileType)"
-              style="font-size: 24px"
+              style="font-size: 26px; color: var(--primary-color)"
             ></i>
           </div>
         </div>
@@ -59,7 +59,7 @@
 
           <!-- Other Icons (Conditionally Displayed) -->
           <template v-if="req.files && req.files.length > 0">
-            <div
+            <!-- <div
               type="button"
               data-toggle="modal"
               data-target=".bd-example-modal-lg"
@@ -67,9 +67,9 @@
               @click="viewAttachments(req.attachments)"
             >
               <i class="bi bi-eye text-white"></i>
-            </div>
+            </div> -->
             <div
-              class="action-btns cursor-pointer primary-bg w-100 d-flex justify-content-center align-items-center mx-1"
+              class="action-btns cursor-pointer secondary-bg w-100 d-flex justify-content-center align-items-center mx-1"
               @click="downloadAttachments(req.files)"
             >
               <i class="bi bi-download text-white"></i>
@@ -115,6 +115,30 @@
               class="modalItems d-flex display-row justify-content-center align-items-center pt-5"
             >
               <div id="imageContainer"></div>
+              <div
+                v-for="(requirement, index) in requirements"
+                :key="index"
+                class="pdfContainer"
+              >
+                <div
+                  v-for="(file, fileIndex) in requirement.files"
+                  :key="fileIndex"
+                  class="pt-5"
+                >
+                  <h1 class="fw-bold attachmentHeader">
+                    Uploaded File -
+                    <span class="secondary-bg px-2 ms-1 fw-bold text-white">
+                      {{ file.fileName }}
+                    </span>
+                  </h1>
+                  <!-- <attachmentReviewerComponentVue
+                    class="pdf-reviewer my-4"
+                    :src="file.fileUrl"
+                  ></attachmentReviewerComponentVue> -->
+
+                  <hr />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -123,7 +147,11 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import PDFReviewerComponent from "./PDFReviewerComponent.vue";
+import DocumentApiService from "@/services/DocumentApiService";
+import AttachmentReviewerComponentVue from "./AttachmentReviewerComponent.vue";
+</script>
 
 <script>
 import JSZip from "jszip";
@@ -134,6 +162,7 @@ export default {
   data() {
     return {
       tableHeader: ["No", "Name", "Attachment", "Action"],
+      documentData: [],
     };
   },
   props: {
@@ -143,6 +172,17 @@ export default {
     },
   },
   methods: {
+    fetchData() {
+      DocumentApiService.fetchMyDocument()
+        .then((data) => {
+          this.documentData = [];
+          this.documentData.push(...data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data :", error);
+        });
+    },
+
     triggerFileInput(index) {
       const input = this.$refs.fileInput[index];
       input.click();
@@ -183,30 +223,41 @@ export default {
           break;
         }
 
-        const fileType = ["jpg", "jpeg", "png", "gif"].includes(extension)
-          ? "image"
-          : ["pdf"].includes(extension)
-          ? "PDF"
-          : [
-              "xlsx",
-              "xlsm",
-              "xlsb",
-              "xls",
-              "xlm",
-              "xla",
-              "xlc",
-              "xlt",
-              "xlw",
-            ].includes(extension)
-          ? "excel"
-          : ["doc", "docx", "docs"].includes(extension)
-          ? "docx"
-          : "other";
+        let fileType;
+        let fileUrl;
+
+        if (["jpg", "jpeg", "png", "gif"].includes(extension)) {
+          fileType = "image";
+        } else if (["pdf"].includes(extension)) {
+          fileType = "PDF";
+          fileUrl = URL.createObjectURL(file);
+        } else if (
+          [
+            "xlsx",
+            "xlsm",
+            "xlsb",
+            "xls",
+            "xlm",
+            "xla",
+            "xlc",
+            "xlt",
+            "xlw",
+          ].includes(extension)
+        ) {
+          fileType = "excel";
+          // fileUrl = URL.createObjectURL(file);
+        } else if (["doc", "docx", "docs"].includes(extension)) {
+          fileType = "docx";
+          // fileUrl = URL.createObjectURL(file);
+        } else {
+          fileType = "other";
+        }
 
         uploadedFiles.push({
           fileType: fileType,
           fileName: file.name,
           file: file,
+          fileUrl: fileUrl,
         });
       }
 
@@ -305,13 +356,13 @@ export default {
     iconClass(attachmentType) {
       switch (attachmentType) {
         case "image":
-          return "bi bi-image me-2";
+          return "fa-solid fa-image me-2";
         case "PDF":
-          return "bi bi-filetype-pdf me-2";
+          return "fa-solid fa-file-pdf me-2";
         case "excel":
-          return "bi bi-filetype-xls me-2";
+          return "fa-solid fa-file-excel me-2";
         case "docx":
-          return "bi bi-filetype-docx me-2";
+          return "fa-solid fa-file-word  me-2";
         default:
           return "";
       }
@@ -321,6 +372,10 @@ export default {
 </script>
 
 <style scoped>
+.attachmentHeader {
+  font-size: 22px;
+}
+
 .action-btns {
   height: 36px;
   max-width: 36px;
@@ -329,5 +384,13 @@ export default {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.pdfContainer {
+  width: 60rem;
+}
+
+.pdf-reviewer {
+  height: 40rem;
 }
 </style>
